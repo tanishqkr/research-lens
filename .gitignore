@@ -74,3 +74,4 @@ logs/
 *.log
 *.tmp
 tmp/
+data/eval_results.json
