@@ -1,0 +1,133 @@
+{
+  "query": "Does intermittent fasting produce greater long-term weight loss than continuous daily calorie restriction when total calorie intake is comparable, and do the effects differ by fasting schedule?",
+  "executive_summary": {
+    "bottom_line": "No directly relevant empirical literature was identified testing this relationship.",
+    "overall_evidence_assessment": "inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does intermittent fasting produce greater long-term weight loss than continuous daily calorie restriction",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+        "evidence_paper_ids": []
+      },
+      {
+        "subclaim_text": "Subclaim: total calorie intake is comparable",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+        "evidence_paper_ids": []
+      },
+      {
+        "subclaim_text": "Subclaim: the effects differ by fasting schedule",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "None: no eligible empirical studies evaluated the queried relationship.",
+    "strongest_conflicting_evidence": "None: hypothesis remains unaddressed in retrieved empirical literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Confidence is zero for this claim because no directly relevant empirical trials were identified in retrieved scholarly literature. Absence of evidence in standard scientific databases indicates that the proposed causal relationship lacks empirical support or has not been demonstrated.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 0 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 0,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does intermittent fasting produce greater long-term weight loss than continuous daily calorie restriction",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+      "evidence_paper_ids": []
+    },
+    {
+      "subclaim_text": "Subclaim: total calorie intake is comparable",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+      "evidence_paper_ids": []
+    },
+    {
+      "subclaim_text": "Subclaim: the effects differ by fasting schedule",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W3016060685",
+      "title": "The Benefits of Intermittent Fasting For Weight Loss",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a clinical review (literature synthesis) rather than an original empirical study. While it discusses intermittent fasting for weight loss, it explicitly notes limited studies comparing IF methods to each other or to other strategies, and does not provide the specific head-to-head comparison with continuous calorie restriction or schedule-specific effects requested in the question.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W7117291511",
+      "title": "Is intermittent fasting good for weight loss?",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The abstract summarizes the general effectiveness of intermittent fasting compared to continuous energy restriction without reporting specific original empirical data, sample sizes, or statistical results. The phrasing 'aligning closely or sometimes surpassing' suggests a synthesis of existing literature or a review conclusion rather than a primary study result. Therefore, it is classified as a review/synthesis.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3107824382",
+      "title": "The Safety and Efficacy of Intermittent Fasting for Weight Loss",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a literature review that summarizes the safety and efficacy of various intermittent fasting regimens. It explicitly states that the long-term sustainability of effects has not been studied and does not present original empirical data comparing intermittent fasting to continuous daily calorie restriction with comparable total calorie intake. Therefore, it does not directly answer the specific comparative question regarding long-term weight loss and schedule differences.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3005999862",
+      "title": "Intermittent fasting and weight loss: Systematic review.",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a systematic review of 27 trials comparing intermittent fasting (IF) to calorie restriction. While it addresses the core comparison in the research question, it is a synthesis of existing literature rather than a primary empirical study. Furthermore, the abstract notes that most included studies were short-term (2-26 weeks), which limits its direct applicability to the 'long-term' aspect of the specific question, though it provides a summary of the current evidence base.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3151811918",
+      "title": "Effect of Various Types of Intermittent Fasting (IF) on Weight Loss and Improvement of Diabetic Parameters in Human",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a narrative review ('PURPOSE OF REVIEW', 'RECENT FINDINGS') summarizing existing literature on intermittent fasting (IF) versus calorie restriction (CR). While it addresses the core topic of the research question (IF vs CR for weight loss and metabolic parameters), it does not present original empirical data or a direct head-to-head comparison in a single study. It synthesizes findings from multiple studies (11 studies mentioned) rather than providing the primary evidence required for a direct comparison or empirical report.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2979922699",
+      "title": "Effectiveness of Intermittent Fasting and Time-Restricted Feeding Compared to Continuous Energy Restriction for Weight Loss",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a review of randomized trials comparing intermittent fasting (IMF) and time-restricted feeding (TRF) to continuous energy restriction (CER). It directly addresses the core comparison in the research question (IF vs. CER) and reports on the outcome (weight loss). However, it is a synthesis of existing evidence rather than a primary empirical study, and it does not provide specific data on whether effects differ by fasting schedule (IMF vs. TRF) in a granular way, nor does it explicitly confirm the 'comparable total calorie intake' constraint for every included study in the abstract, though it implies standard trial designs. It is a review, not a direct empirical comparison.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W7171813654",
+      "title": "A Review of the Effects of Intermittent Fasting on Obesity and Metabolic Health: Analyzing the Benefits and Limitations of Intermittent Fasting Regimens",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4224318250",
+      "title": "Intermittent Fasting versus Continuous Calorie Restriction: Which Is Better for Weight Loss?",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4223601687",
+      "title": "The Role of Intermittent Energy Restriction Diet on Metabolic Profile and Weight Loss among Obese Adults",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2942501865",
+      "title": "The role of intermittent fasting and meal timing in weight management and metabolic health",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is explicitly identified as a review ('This review will consider the state of current understanding'). It synthesizes existing evidence on intermittent fasting versus daily energy restriction, noting that efficacy appears broadly equivalent but highlighting nuances regarding fasting duration and physiological mechanisms. It does not report original empirical data.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [],
+  "disagreements": [],
+  "detailed_comparisons": [],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

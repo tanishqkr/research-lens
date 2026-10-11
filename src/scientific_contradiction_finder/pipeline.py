@@ -326,8 +326,8 @@ class ContradictionFinderPipeline:
             if is_selected:
                 deep_dive_papers.append(paper)
 
-        if not deep_dive_papers:
-            deep_dive_papers = candidates[:max_deep_dives]
+        # Do not force irrelevant candidate papers into deep-dive if all were rejected as irrelevant
+        # deep_dive_papers remains empty if no candidate met empirical relevance criteria
 
         # Stage D & E: Deep-dive into selected papers (resolve OA full-text where available)
         full_text_count = 0
@@ -414,7 +414,10 @@ class ContradictionFinderPipeline:
             sum(1 for f in findings if f.direction == DirectionLabel.NO_DIFFERENCE)
             mixed_count = sum(1 for f in findings if f.direction == DirectionLabel.MIXED)
 
-            if pos_count > 0 and neg_count == 0:
+            if len(evidence_ledger) == 0:
+                overall = "inconclusive"
+                bl = "No directly relevant empirical literature was identified testing this relationship."
+            elif pos_count > 0 and neg_count == 0:
                 overall = "broadly supports"
                 bl = f"The reviewed empirical evidence indicates consistent positive effects for {query.strip('?')}."
             elif neg_count > 0 and pos_count == 0:

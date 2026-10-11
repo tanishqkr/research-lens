@@ -1,5 +1,6 @@
 """Groq API client for scientific query structuring and optional candidate sentence interpretation."""
 
+import asyncio
 import json
 import logging
 import os
@@ -277,9 +278,17 @@ class GroqClient:
             f"Question: {query}\n"
             f"Paper Title: {paper_title}\n"
             f"Abstract: {abstract[:1500]}\n\n"
-            "Assess this candidate paper for the research question.\n"
-            "Classify category into exactly one of: 'DIRECT_EMPIRICAL', 'INDIRECT_EMPIRICAL', 'REVIEW_SYNTHESIS', 'BACKGROUND_THEORY', 'WEAK_OR_IRRELEVANT'.\n"
-            "Set selected_for_deep_dive (boolean, true if it reports original empirical data relevant to the question).\n"
+            "Assess this candidate paper for the specific research question.\n"
+            "Classify category into exactly one of:\n"
+            "- 'DIRECT_COMPARISON': Directly compares the specific interventions/conditions requested in the question.\n"
+            "- 'DIRECT_EMPIRICAL': Reports original empirical data directly on the target intervention and outcome.\n"
+            "- 'INDIRECT_EVIDENCE': Investigates related variables, single-arm trials, or distinct mechanisms.\n"
+            "- 'REVIEW_SYNTHESIS': Meta-analysis, systematic review, or literature synthesis.\n"
+            "- 'BACKGROUND': Theoretical framing or contextual background.\n"
+            "- 'IRRELEVANT': Studies an unrelated topic, different species, or incidental keyword match.\n"
+            "Rules for selected_for_deep_dive:\n"
+            "Set true ONLY if category is 'DIRECT_COMPARISON' or 'DIRECT_EMPIRICAL' or highly relevant 'INDIRECT_EVIDENCE'.\n"
+            "If the paper is 'IRRELEVANT' or 'BACKGROUND', set selected_for_deep_dive=false.\n"
             'Return JSON: {"category": "...", "relevance_rationale": "...", "selected_for_deep_dive": true/false}'
         )
 
@@ -288,7 +297,7 @@ class GroqClient:
             "messages": [
                 {
                     "role": "system",
-                    "content": "You are a scientific literature triage analyst. Return strict JSON.",
+                    "content": "You are a scientific literature triage analyst. Return strict JSON. Strictly reject papers that do not study the queried exposure and outcome.",
                 },
                 {"role": "user", "content": prompt},
             ],
@@ -297,20 +306,26 @@ class GroqClient:
         }
         headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
 
-        try:
-            async with httpx.AsyncClient(timeout=self.timeout_seconds) as client:
-                res = await client.post(self.base_url, headers=headers, json=payload)
-                if res.status_code == 200:
-                    data = json.loads(res.json()["choices"][0]["message"]["content"])
-                    self.cache.set(cache_key, "groq", "triage_paper", data)
-                    return data
-        except Exception as e:
-            logger.warning(f"Groq triage failed: {e}")
+        for attempt in range(self.max_retries):
+            try:
+                async with httpx.AsyncClient(timeout=self.timeout_seconds) as client:
+                    res = await client.post(self.base_url, headers=headers, json=payload)
+                    if res.status_code == 200:
+                        data = json.loads(res.json()["choices"][0]["message"]["content"])
+                        self.cache.set(cache_key, "groq", "triage_paper", data)
+                        return data
+                    elif res.status_code == 429:
+                        await asyncio.sleep(1.0 * (attempt + 1))
+            except Exception as e:
+                logger.warning(f"Groq triage attempt {attempt + 1} failed: {e}")
+                if attempt < self.max_retries - 1:
+                    await asyncio.sleep(0.5 * (attempt + 1))
 
+        # Safe fail-closed fallback: never classify as DIRECT_EMPIRICAL on failure
         return {
-            "category": "DIRECT_EMPIRICAL",
-            "relevance_rationale": "Fallback classification due to triage timeout.",
-            "selected_for_deep_dive": True,
+            "category": "IRRELEVANT",
+            "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+            "selected_for_deep_dive": False,
         }
 
     async def analyze_disagreements(self, query: str, claims_summary: str) -> List[Dict[str, Any]]:

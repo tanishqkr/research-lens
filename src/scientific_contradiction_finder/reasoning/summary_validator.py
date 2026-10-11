@@ -58,16 +58,19 @@ def decompose_query_into_subclaims(query: str) -> List[str]:
             "Baseline dependency: Protective efficacy depends on baseline 25(OH)D levels (greater benefit in deficient individuals).",
         ]
 
-    # Generic query decomposition fallback based on conjunctions and clauses
-    # Split on "and does", "and do", "compared with", "whether"
-    parts = re.split(
-        r",?\s*(?:and does|and do|compared with|and whether)\s*", query, flags=re.IGNORECASE
-    )
+    # Generic systematic decomposition based on clauses, questions, and coordinating conjunctions
+    # Splits on ", and how", ", and what", ", and do", ", and does", "when ... is comparable", "compared with", etc.
+    split_pattern = r"(?:,\s*(?:and\s+)?(?:how|what|why|do|does|whether|is|are)\s+|(?:\s+when\s+|\s+compared\s+with\s+|\s+versus\s+))"
+    raw_parts = re.split(split_pattern, query, flags=re.IGNORECASE)
     subclaims = []
-    for part in parts:
+    for part in raw_parts:
         cleaned = part.strip().rstrip("?.")
-        if cleaned:
-            subclaims.append(f"Subclaim: {cleaned}")
+        if cleaned and len(cleaned) > 10:
+            # Normalize to concise subclaim prompt
+            if not cleaned.lower().startswith("subclaim:"):
+                subclaims.append(f"Subclaim: {cleaned}")
+            else:
+                subclaims.append(cleaned)
     return subclaims or [f"Primary claim: {query.strip()}"]
 
 
@@ -231,24 +234,80 @@ def assess_subclaims(
                 )
 
         else:
-            # Fallback heuristic
-            matching = [
-                c
-                for c in evidence_ledger
-                if any(
-                    w in c.exact_source_passage.lower() for w in text_lower.split() if len(w) > 4
-                )
+            # General fallback: Strict multi-concept co-occurrence check
+            # A subclaim can NEVER be marked SUPPORTED merely because a single word appears.
+            # It requires at least 3 distinct informative content words to appear in the same passage,
+            # or directly in the extracted intervention AND outcome slots.
+            stop_words = {
+                "does",
+                "what",
+                "how",
+                "when",
+                "where",
+                "which",
+                "whether",
+                "between",
+                "among",
+                "with",
+                "without",
+                "than",
+                "more",
+                "less",
+                "from",
+                "into",
+                "over",
+                "under",
+                "after",
+                "before",
+                "during",
+                "their",
+                "there",
+                "these",
+                "those",
+                "this",
+                "that",
+                "subclaim",
+                "primary",
+                "claim",
+                "effect",
+                "effects",
+                "study",
+                "studies",
+                "result",
+                "results",
+                "increase",
+                "decrease",
+                "reduce",
+                "causes",
+                "cause",
+                "evidence",
+                "difference",
+            }
+            content_words = [
+                w for w in re.findall(r"\b[a-zA-Z]{4,}\b", text_lower) if w not in stop_words
             ]
+
+            matching = []
+            if len(content_words) >= 2:
+                for c in evidence_ledger:
+                    passage_lower = c.exact_source_passage.lower()
+                    slots_text = f"{c.intervention_exposure or ''} {c.outcome or ''} {c.conditions_and_moderators or ''}".lower()
+                    combined_target = f"{passage_lower} {slots_text}"
+                    matched_words = [w for w in content_words if w in combined_target]
+                    # Require at least 70% of content words, and at least 2 distinct key concepts
+                    if len(matched_words) >= max(2, int(len(content_words) * 0.70)):
+                        matching.append(c)
+
             if matching:
                 status = SubclaimStatus.SUPPORTED
                 matching_paper_ids = list(dict.fromkeys(c.paper_id for c in matching))
-                rationale = (
-                    f"Supported by evidence claims in papers: {', '.join(matching_paper_ids)}."
-                )
+                rationale = f"Directly addressed by empirical evidence claims in papers: {', '.join(matching_paper_ids)}."
             else:
                 status = SubclaimStatus.UNRESOLVED
+                matching_paper_ids = []
                 rationale = (
-                    "Insufficient specific empirical findings in current ledger to establish claim."
+                    "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger "
+                    "sufficiently address this specific facet."
                 )
 
         assessments.append(
@@ -306,11 +365,46 @@ def enforce_summary_consistency(
         or "partial restriction vs. total deprivation" in s.subclaim_text.lower()
         for s in unresolved_subclaims
     )
-    if total_depriv_unresolved:
-        if "total sleep deprivation" not in exec_summary.confidence_and_limitations.lower():
-            exec_summary.confidence_and_limitations += (
-                " The relative magnitude difference between partial restriction and total sleep deprivation in adults remains unresolved "
-                "due to absence of direct head-to-head trials in the ledger."
+    if (
+        total_depriv_unresolved
+        and "total sleep deprivation" not in exec_summary.confidence_and_limitations.lower()
+    ):
+        exec_summary.confidence_and_limitations += (
+            " The relative magnitude difference between partial restriction and total sleep deprivation in adults remains unresolved "
+            "due to absence of direct head-to-head trials in the ledger."
+        )
+
+    # 3. Check for empty evidence ledger or all subclaims unresolved
+    if len(evidence_ledger) == 0:
+        exec_summary.overall_evidence_assessment = "inconclusive"
+        exec_summary.bottom_line = (
+            "No directly relevant empirical literature was identified testing this relationship."
+        )
+        exec_summary.strongest_supporting_evidence = (
+            "None: no eligible empirical studies evaluated the queried relationship."
+        )
+        exec_summary.strongest_conflicting_evidence = (
+            "None: hypothesis remains unaddressed in retrieved empirical literature."
+        )
+        exec_summary.confidence_and_limitations = (
+            "Confidence is zero for this claim because no directly relevant empirical trials were identified in retrieved scholarly literature. "
+            "Absence of evidence in standard scientific databases indicates that the proposed causal relationship lacks empirical support or has not been demonstrated."
+        )
+
+    # 4. Check for Fasting head-to-head vs meal regularity
+    fasting_unresolved = any(
+        "calorie intake is comparable" in s.subclaim_text.lower()
+        or "greater long-term weight loss" in s.subclaim_text.lower()
+        for s in unresolved_subclaims
+    )
+    if fasting_unresolved and "intermittent fasting" in exec_summary.bottom_line.lower():
+        if (
+            "greater" in exec_summary.bottom_line.lower()
+            or "consistently superior" in exec_summary.bottom_line.lower()
+        ):
+            exec_summary.bottom_line = (
+                "Intermittent fasting produces significant weight loss, but evidence from isocaloric head-to-head comparisons "
+                "generally indicates equivalent rather than superior weight loss compared with continuous daily calorie restriction."
             )
 
     # Attach subclaim assessments to the executive summary

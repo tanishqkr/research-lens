@@ -9,6 +9,7 @@ from scientific_contradiction_finder.schemas import (
     DisagreementExplanation,
     ExecutiveSummary,
     ExplanationVerificationStatus,
+    SubclaimAssessment,
     SubclaimStatus,
     SupportedEvidenceClaim,
 )
@@ -214,3 +215,98 @@ def test_adversarial_abstract_only_vs_full_text_provenance():
         full_text_used=False,
     )
     assert claim.full_text_used is False
+
+
+def test_adversarial_irrelevant_keyword_match_rejected():
+    """Adversarial test: A single matching word (e.g. 'water') must NEVER mark an unrelated subclaim SUPPORTED."""
+    subclaims = [
+        "Subclaim: drinking cold water immediately after eating chocolate causes permanent intelligence reduction"
+    ]
+    # Irrelevant environmental chemistry paper about water
+    evidence_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c_irr",
+            paper_id="W_irr",
+            paper_title="Determination of trihalomethanes in tap water",
+            exact_source_passage="The concentration of THMs in potable water after chlorination showed decreasing trend.",
+            intervention_exposure="Water source type",
+            outcome="Concentration of THMs in potable water",
+            direction=DirectionLabel.NEGATIVE,
+        )
+    ]
+    assessments = assess_subclaims(subclaims, evidence_ledger)
+    assert len(assessments) == 1
+    # Must be UNRESOLVED, not SUPPORTED
+    assert assessments[0].status == SubclaimStatus.UNRESOLVED
+    assert len(assessments[0].evidence_paper_ids) == 0
+
+
+def test_adversarial_mismatched_intervention_unresolved():
+    """Adversarial test: A meal-regularity study without calorie restriction cannot resolve head-to-head isocaloric fasting."""
+    subclaims = [
+        "Subclaim: intermittent fasting produces greater long-term weight loss than continuous calorie restriction when intake is comparable"
+    ]
+    # Meal regularity study without calorie restriction
+    evidence_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c_reg",
+            paper_id="W_reg",
+            paper_title="Circadian eating schedule leads to weight loss without calorie restriction",
+            exact_source_passage="More regular meals led to 2.62 kg weight loss compared to 0.56 kg in controls.",
+            intervention_exposure="Meal regularity",
+            comparator="Irregular meals",
+            outcome="Weight loss",
+            direction=DirectionLabel.POSITIVE,
+        )
+    ]
+    assessments = assess_subclaims(subclaims, evidence_ledger)
+    assert len(assessments) == 1
+    # Since 'intermittent', 'fasting', and 'continuous calorie restriction' are absent from the trial, it must be UNRESOLVED
+    assert assessments[0].status == SubclaimStatus.UNRESOLVED
+
+
+def test_adversarial_empty_ledger_clean_abstention():
+    """Adversarial test: When ledger has 0 papers, summary must cleanly abstain without inventing facts."""
+    exec_summary = ExecutiveSummary(
+        bottom_line="Some generated claim.",
+        overall_evidence_assessment="broadly supports",
+        strongest_supporting_evidence="None",
+        strongest_conflicting_evidence="None",
+        why_studies_disagree="None",
+        confidence_and_limitations="High confidence",
+        research_coverage="0 papers",
+    )
+    assessments = [
+        SubclaimAssessment(
+            subclaim_text="Subclaim: effect exists",
+            status=SubclaimStatus.UNRESOLVED,
+            rationale="No papers found.",
+            evidence_paper_ids=[],
+        )
+    ]
+    validated = enforce_summary_consistency(exec_summary, assessments, evidence_ledger=[])
+    assert validated.overall_evidence_assessment == "inconclusive"
+    assert "no directly relevant empirical literature" in validated.bottom_line.lower()
+    assert "confidence is zero" in validated.confidence_and_limitations.lower()
+
+
+def test_adversarial_new_unseen_domain_probiotic_microbiome():
+    """Adversarial test on an entirely new domain (probiotics and depression) to ensure generalizability."""
+    subclaims = [
+        "Subclaim: oral Bifidobacterium supplementation reduces clinical depression severity in treatment-resistant adults"
+    ]
+    # Paper testing pediatric gut motility, not adult depression
+    evidence_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c_micro",
+            paper_id="W_micro",
+            paper_title="Bifidobacterium infantis in preterm infant feeding",
+            exact_source_passage="Bifidobacterium colonisation improved gastrointestinal transit times in neonates.",
+            intervention_exposure="Bifidobacterium infantis",
+            outcome="Gastrointestinal transit time",
+            direction=DirectionLabel.POSITIVE,
+        )
+    ]
+    assessments = assess_subclaims(subclaims, evidence_ledger)
+    assert assessments[0].status == SubclaimStatus.UNRESOLVED
+    assert len(assessments[0].evidence_paper_ids) == 0
