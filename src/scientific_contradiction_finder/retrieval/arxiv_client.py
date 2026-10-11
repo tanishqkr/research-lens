@@ -2,6 +2,7 @@
 
 import asyncio
 import xml.etree.ElementTree as ET
+from typing import List, Optional, Tuple
 
 import httpx
 
@@ -12,11 +13,11 @@ ARXIV_NAMESPACE = {"atom": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv
 
 
 class ArxivClient:
-    """Async client for arXiv API with caching and politeness throttling."""
+    """Async client for arXiv API with HTTPS, redirect support, caching, and politeness throttling."""
 
     def __init__(
         self,
-        cache: SQLiteCache | None = None,
+        cache: Optional[SQLiteCache] = None,
         timeout_seconds: int = 15,
         max_retries: int = 3,
         offline_mode: bool = False,
@@ -25,45 +26,63 @@ class ArxivClient:
         self.timeout_seconds = timeout_seconds
         self.max_retries = max_retries
         self.offline_mode = offline_mode
-        self.base_url = "http://export.arxiv.org/api/query"
+        self.base_url = "https://export.arxiv.org/api/query"
 
-    async def search(self, query: str, limit: int = 20) -> list[Paper]:
-        cache_key = self.cache.compute_key("arxiv", "/query", {"query": query, "limit": limit})
+    async def search_with_diagnostics(
+        self, query: str, limit: int = 20
+    ) -> Tuple[List[Paper], int, str]:
+        clean_query = query.strip()
+        cache_key = self.cache.compute_key(
+            "arxiv", "/query", {"query": clean_query, "limit": limit}
+        )
         cached_data = self.cache.get(cache_key)
         if cached_data is not None:
-            return [Paper(**p) for p in cached_data.get("papers", [])]
+            return [Paper(**p) for p in cached_data.get("papers", [])], 200, "CACHED"
 
         if self.offline_mode:
-            return []
+            return [], 0, "OFFLINE_MODE"
 
-        params = {"search_query": f"all:{query}", "start": 0, "max_results": limit}
+        terms = [t for t in clean_query.split() if t.isalnum()]
+        search_expr = " AND ".join(f"all:{t}" for t in terms) if terms else f"all:{clean_query}"
 
-        async with httpx.AsyncClient(timeout=self.timeout_seconds) as client:
+        params = {"search_query": search_expr, "start": 0, "max_results": limit}
+
+        last_status = 0
+        last_error = ""
+
+        async with httpx.AsyncClient(timeout=self.timeout_seconds, follow_redirects=True) as client:
             for attempt in range(self.max_retries):
                 try:
                     response = await client.get(self.base_url, params=params)
+                    last_status = response.status_code
                     if response.status_code == 200:
                         papers = self._parse_atom_xml(response.text)
-                        # Cache as json dict
                         self.cache.set(
                             cache_key,
                             "arxiv",
                             "/query",
                             {"papers": [p.model_dump() for p in papers]},
                         )
-                        return papers
+                        return papers, 200, "OK"
                     elif response.status_code == 429:
+                        last_error = "Rate limit (HTTP 429)"
                         await asyncio.sleep(3.0 * (2**attempt))
                     else:
+                        last_error = f"HTTP {response.status_code}"
                         response.raise_for_status()
-                except Exception:
+                except Exception as e:
+                    last_error = f"{type(e).__name__}: {e}"
                     if attempt == self.max_retries - 1:
-                        return []
+                        return [], last_status, last_error
                     await asyncio.sleep(2.0 * (2**attempt))
 
-        return []
+        return [], last_status, last_error
 
-    def _parse_atom_xml(self, xml_text: str) -> list[Paper]:
+    async def search(self, query: str, limit: int = 20) -> List[Paper]:
+        papers, _, _ = await self.search_with_diagnostics(query, limit)
+        return papers
+
+    def _parse_atom_xml(self, xml_text: str) -> List[Paper]:
         papers = []
         try:
             root = ET.fromstring(xml_text)
