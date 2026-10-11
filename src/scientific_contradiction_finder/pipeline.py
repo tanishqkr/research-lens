@@ -345,7 +345,14 @@ class ContradictionFinderPipeline:
 
         # Build Structured Evidence Ledger
         evidence_ledger: List[SupportedEvidenceClaim] = []
+        triage_map = {r.paper_id: r.category for r in triage_records}
         for f in findings:
+            cat = triage_map.get(f.paper_id, PaperTriageClassification.DIRECT_EMPIRICAL)
+            is_rev = cat == PaperTriageClassification.REVIEW_SYNTHESIS
+            is_dir = cat in (
+                PaperTriageClassification.DIRECT_COMPARISON,
+                PaperTriageClassification.DIRECT_EMPIRICAL,
+            )
             claim = SupportedEvidenceClaim(
                 claim_id=f"claim_{f.finding_id}",
                 paper_id=f.paper_id,
@@ -353,7 +360,8 @@ class ContradictionFinderPipeline:
                 doi=f.paper_doi,
                 url=f.paper_url,
                 exact_source_passage=f.evidence.text,
-                study_design=f.conditions.study_design or "Empirical Study",
+                study_design=f.conditions.study_design
+                or ("Systematic Review" if is_rev else "Empirical Study"),
                 population_setting=f.conditions.population or f.conditions.dataset_setting,
                 intervention_exposure=f.conditions.intervention,
                 comparator=f.conditions.comparator,
@@ -364,7 +372,8 @@ class ContradictionFinderPipeline:
                 full_text_used=bool(
                     next((p.full_text for p in deep_dive_papers if p.paper_id == f.paper_id), None)
                 ),
-                is_direct=True,
+                is_direct=is_dir,
+                is_review_synthesis=is_rev,
             )
             evidence_ledger.append(claim)
 
@@ -373,7 +382,7 @@ class ContradictionFinderPipeline:
 
         # Stage G: Disagreement & Moderator Analysis
         claims_summary_text = "\n".join(
-            f"[{c.paper_id}] {c.paper_title}: I={c.intervention_exposure}, C={c.comparator}, O={c.outcome}, Dir={c.direction.value}, Evidence='{c.exact_source_passage}'"
+            f"[{c.paper_id}] ({'REVIEW SYNTHESIS' if c.is_review_synthesis else 'PRIMARY EMPIRICAL'}) {c.paper_title}: I={c.intervention_exposure}, C={c.comparator}, O={c.outcome}, Dir={c.direction.value}, Evidence='{c.exact_source_passage}'"
             for c in evidence_ledger
         )
         disagreements_raw = await self.groq_client.analyze_disagreements(query, claims_summary_text)

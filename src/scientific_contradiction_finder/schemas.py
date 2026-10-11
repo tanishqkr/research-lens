@@ -207,6 +207,7 @@ class SupportedEvidenceClaim(BaseModel):
     limitations: str | None = None
     full_text_used: bool = False
     is_direct: bool = True
+    is_review_synthesis: bool = False
 
 
 class SubclaimStatus(str, Enum):

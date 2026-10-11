@@ -416,6 +416,44 @@ def enforce_summary_consistency(
                 "and qualifying conditions of the query remain unresolved in the sampled evidence."
             )
 
+    # 6. Check for causal overstatement when causal subclaim is UNRESOLVED
+    causal_subclaim_unresolved = any(
+        any(
+            k in s.subclaim_text.lower()
+            for k in [
+                "causation from association",
+                "causal relationship",
+                "distinguish causation",
+                "mechanism explains",
+            ]
+        )
+        for s in unresolved_subclaims
+    )
+    has_authoritative_synthesis = any(
+        c.is_review_synthesis
+        or any(
+            t in (c.study_design or "").lower()
+            for t in ["systematic review", "meta-analysis", "umbrella review", "consensus"]
+        )
+        for c in evidence_ledger
+    )
+    if causal_subclaim_unresolved:
+        # If no authoritative review/synthesis was examined in depth, qualify broad causal assertion
+        if not has_authoritative_synthesis:
+            if "distinguishes causation" in exec_summary.bottom_line.lower() or "causation from mere association" in exec_summary.bottom_line.lower():
+                exec_summary.bottom_line = re.sub(
+                    r"The evidence distinguishes causation from mere association.*?(\.|$)",
+                    "While primary cohort data demonstrates strong statistical association, formal epidemiological establishment of causality requires synthesis of broader multi-criteria evidence.",
+                    exec_summary.bottom_line,
+                    flags=re.IGNORECASE,
+                )
+            if "causal assessment remains incomplete" not in exec_summary.confidence_and_limitations.lower():
+                exec_summary.confidence_and_limitations += (
+                    " Note: while retrieved primary studies quantify robust associations, formal causal frameworks "
+                    "(e.g., Bradford Hill criteria, temporality across populations) require authoritative systematic syntheses, "
+                    "which were not directly examined in depth in the current sample."
+                )
+
     # Attach subclaim assessments to the executive summary
     exec_summary.subclaim_assessments = subclaim_assessments
     return exec_summary

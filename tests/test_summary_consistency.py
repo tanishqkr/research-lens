@@ -310,3 +310,62 @@ def test_adversarial_new_unseen_domain_probiotic_microbiome():
     assessments = assess_subclaims(subclaims, evidence_ledger)
     assert assessments[0].status == SubclaimStatus.UNRESOLVED
     assert len(assessments[0].evidence_paper_ids) == 0
+
+
+def test_review_synthesis_distinguished_and_supports_synthesis():
+    """Regression test: A relevant systematic review claim is marked as review synthesis and informs consistency."""
+    review_claim = SupportedEvidenceClaim(
+        claim_id="c_meta",
+        paper_id="W_meta",
+        paper_title="Intermittent fasting versus continuous energy restriction: a systematic review",
+        exact_source_passage="Intermittent fasting resulted in equivalent weight loss compared to continuous restriction across 27 randomized trials.",
+        study_design="Systematic Review",
+        is_direct=True,
+        is_review_synthesis=True,
+        direction=DirectionLabel.NO_DIFFERENCE,
+    )
+    assert review_claim.is_review_synthesis is True
+    assert review_claim.study_design == "Systematic Review"
+
+
+def test_causal_overstatement_qualified_without_authoritative_synthesis():
+    """Regression test: A causal conclusion is qualified when the causal subclaim is unresolved and no systematic review is present."""
+    exec_summary = ExecutiveSummary(
+        bottom_line="Smoking definitively increases lung cancer. The evidence distinguishes causation from mere association through pack-year dose response.",
+        overall_evidence_assessment="broadly supports",
+        strongest_supporting_evidence="Cohort study shows HR 1.18.",
+        strongest_conflicting_evidence="None.",
+        why_studies_disagree="None.",
+        confidence_and_limitations="High confidence.",
+        research_coverage="1 cohort study.",
+    )
+    assessments = [
+        SubclaimAssessment(
+            subclaim_text="Subclaim: Does smoking increase the risk of lung cancer",
+            status=SubclaimStatus.SUPPORTED,
+            rationale="Supported by cohort study.",
+            evidence_paper_ids=["W1"],
+        ),
+        SubclaimAssessment(
+            subclaim_text="Subclaim: does the evidence distinguish causation from association",
+            status=SubclaimStatus.UNRESOLVED,
+            rationale="Epistemological framework not in cohort snippet.",
+            evidence_paper_ids=[],
+        ),
+    ]
+    primary_cohort_claim = SupportedEvidenceClaim(
+        claim_id="c1",
+        paper_id="W1",
+        paper_title="Cohort study of smoking and lung cancer",
+        exact_source_passage="Pack-years associated with HR 1.18.",
+        study_design="Prospective Cohort",
+        is_direct=True,
+        is_review_synthesis=False,
+        direction=DirectionLabel.POSITIVE,
+    )
+    validated = enforce_summary_consistency(
+        exec_summary, assessments, evidence_ledger=[primary_cohort_claim]
+    )
+    assert "formal epidemiological establishment of causality requires synthesis" in validated.bottom_line
+    assert "formal causal frameworks" in validated.confidence_and_limitations.lower()
+

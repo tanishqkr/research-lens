@@ -1,17 +1,18 @@
 {
   "query": "Does smoking increase the risk of lung cancer, and how does the evidence distinguish causation from association?",
   "executive_summary": {
-    "bottom_line": "Smoking definitively increases the risk of lung cancer, with a clear dose-response relationship where higher pack-years and intensity significantly elevate hazard ratios. The evidence distinguishes causation from mere association through consistent dose-response gradients, biological plausibility via gene-environment interactions, and the elimination of confounding factors in comparative risk analyses.",
-    "overall_evidence_assessment": "broadly supports",
+    "bottom_line": "Empirical findings show divergence depending on specific study conditions, protocols, and outcome measures.",
+    "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
     "subclaim_assessments": [
       {
         "subclaim_text": "Subclaim: Does smoking increase the risk of lung cancer",
         "status": "SUPPORTED",
-        "rationale": "Directly addressed by empirical evidence claims in papers: W3136330176, W2104300284, W2054493202.",
+        "rationale": "Directly addressed by empirical evidence claims in papers: W3136330176, W2104300284, W2054493202, W3147877282.",
         "evidence_paper_ids": [
           "W3136330176",
           "W2104300284",
-          "W2054493202"
+          "W2054493202",
+          "W3147877282"
         ]
       },
       {
@@ -21,25 +22,26 @@
         "evidence_paper_ids": []
       }
     ],
-    "strongest_supporting_evidence": "Study W3136330176 provides the most definitive support by demonstrating a statistically significant positive dose-response relationship for Small Cell Lung Cancer (SPLC). It reports that smoking pack-years (HR = 1.18 per 10 pack-years) and smoking intensity (HR = 1.30 per 10 cigarettes per day) are significantly associated with increased SPLC risk (p < 0.001). Additionally, W2054493202 reinforces causal mechanisms by showing that the GSTP1 GG genotype approximately doubles the lung cancer risk associated with pack-years, indicating a specific biological interaction that supports a causal link rather than a spurious correlation.",
-    "strongest_conflicting_evidence": "There is no genuine conflicting evidence that challenges the causal link. Study W2104300284 initially appears to show a 'negative' direction (relative risks of 0.21–0.57) for certain ethnic groups compared to African Americans, but this is a misinterpretation of the metric. It reflects lower relative susceptibility or baseline risk in those groups, not a protective effect of smoking. Therefore, the evidence is uniformly consistent in establishing that smoking increases risk.",
-    "why_studies_disagree": "The apparent disagreement stems from differences in study design and metric interpretation rather than contradictory findings. W3136330176 uses hazard ratios to establish a direct dose-response causal link. W2104300284 uses relative risks to compare ethnic disparities, where the 'negative' direction in the ledger is an artifact of comparing against a higher-risk baseline (African Americans) rather than indicating a protective effect. W2054493202 introduces genetic modifiers (GSTP1 genotype), showing that while smoking is causative, the magnitude of risk is context-dependent on genetic susceptibility.",
-    "confidence_and_limitations": "Confidence in the causal link is high due to the consistency of dose-response data and biological plausibility. However, limitations include the lack of full-text access for all retrieved studies, which restricts the ability to verify specific methodological details. The ledger does not provide direct evidence on cross-climate or cross-geographic variation in smoking-related risk, so such subclaims remain unverified. The distinction between absolute and relative risk in ethnic comparisons requires careful interpretation to avoid mischaracterizing lower relative risk as a protective effect.",
-    "research_coverage": "10 studies were retrieved, 4 were examined in depth, and 3 findings were included in the ledger. No full texts were accessible, limiting the analysis to abstract-level data and provided snippets."
+    "strongest_supporting_evidence": "Tobacco Smoking and Risk of Second Primary Lung Cancer: Smoking pack-years (hazard ratio [HR] = 1.18 per 10 pack-years, p < 0.001) and smoking intensity (HR = 1.30 per 10 cigarettes per day, p < 0.001) were significantly associated with increased SPLC risk.",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 7 in depth (1 open-access full texts)."
   },
   "candidate_papers_retrieved": 10,
   "papers_triaged": 10,
-  "papers_deep_dived": 4,
-  "full_texts_accessible": 0,
+  "papers_deep_dived": 7,
+  "full_texts_accessible": 1,
   "subclaim_assessments": [
     {
       "subclaim_text": "Subclaim: Does smoking increase the risk of lung cancer",
       "status": "SUPPORTED",
-      "rationale": "Directly addressed by empirical evidence claims in papers: W3136330176, W2104300284, W2054493202.",
+      "rationale": "Directly addressed by empirical evidence claims in papers: W3136330176, W2104300284, W2054493202, W3147877282.",
       "evidence_paper_ids": [
         "W3136330176",
         "W2104300284",
-        "W2054493202"
+        "W2054493202",
+        "W3147877282"
       ]
     },
     {
@@ -54,70 +56,70 @@
       "paper_id": "W3136330176",
       "title": "Tobacco Smoking and Risk of Second Primary Lung Cancer",
       "category": "DIRECT_EMPIRICAL",
-      "relevance_rationale": "The paper presents original empirical data from large epidemiological cohorts (MEC, PLCO, EPIC) demonstrating a statistically significant association between smoking metrics (pack-years, intensity) and the risk of second primary lung cancer. While it focuses on SPLC rather than initial lung cancer, the dose-response relationship and consistent findings across cohorts provide strong empirical evidence supporting the causal link between smoking and lung cancer risk, directly addressing the 'association' and 'causation' aspects of the question.",
+      "relevance_rationale": "The paper presents original empirical data from multiple large cohorts (MEC, PLCO, EPIC) demonstrating a significant association between tobacco smoking (pack-years, intensity) and the risk of developing a second primary lung cancer. While the specific outcome is 'second primary' lung cancer rather than 'first primary', it directly addresses the exposure (smoking) and the outcome domain (lung cancer risk), providing strong evidence for the causal link between smoking and lung cancer pathology in a high-risk population. It contributes to the distinction of causation by showing dose-response relationships and consistency across cohorts.",
       "selected_for_deep_dive": true
     },
     {
       "paper_id": "W2141084717",
       "title": "HIV Infection Is Associated with an Increased Risk for Lung Cancer, Independent of Smoking",
-      "category": "INDIRECT_EMPIRICAL",
-      "relevance_rationale": "The paper provides original empirical data on lung cancer risk in an HIV-positive cohort. While it confirms that the vast majority of cases were smokers (96%), its primary focus is on establishing HIV as an independent risk factor rather than analyzing the causal mechanism of smoking itself. It serves as indirect evidence by controlling for smoking status to isolate other variables, but it does not directly test the causal link between smoking and lung cancer in a general population or provide the specific epidemiological evidence (like dose-response or temporal consistency) typically used to distinguish smoking's causation from mere association.",
+      "category": "INDIRECT_EVIDENCE",
+      "relevance_rationale": "The paper investigates the association between HIV infection and lung cancer risk, specifically controlling for smoking status. While it confirms that the majority of lung cancer cases in the cohort were smokers, its primary focus is on HIV as an independent risk factor, not on establishing the causal link between smoking and lung cancer itself. It provides contextual data on smoking prevalence among lung cancer patients but does not directly test the smoking-lung cancer hypothesis as its primary objective.",
       "selected_for_deep_dive": false
     },
     {
       "paper_id": "W1672055544",
       "title": "Genetic susceptibility to lung cancer and co-morbidities.",
-      "category": "REVIEW_SYNTHESIS",
-      "relevance_rationale": "The paper is a review summarizing findings from Genome-Wide Association Studies (GWAS) regarding genetic susceptibility to lung cancer and smoking behavior. While it discusses the biological pathways and genetic loci (e.g., CHRNA3, CHRNA5) that link smoking to lung cancer, it does not present original empirical data establishing the causal link between smoking and lung cancer risk itself. Instead, it synthesizes existing genetic evidence, which supports the biological plausibility of the association but does not directly test the causal question with new experimental or observational data on smoking exposure and cancer incidence.",
+      "category": "INDIRECT_EVIDENCE",
+      "relevance_rationale": "The paper focuses on genetic susceptibility (GWAS) to lung cancer and smoking behavior, identifying shared loci (e.g., CHRNA3, CHRNA5). While it provides mechanistic insight into the biological link between smoking and lung cancer, it does not directly report epidemiological data on the risk increase (causation vs. association) or directly compare smoking status to lung cancer incidence in a way that addresses the core question of distinguishing causation from association. It is relevant as indirect evidence regarding the biological plausibility of the link.",
       "selected_for_deep_dive": false
     },
     {
       "paper_id": "W4293384232",
       "title": "Gender and Smoking-Related Risk of Lung Cancer",
       "category": "DIRECT_EMPIRICAL",
-      "relevance_rationale": "The paper presents original empirical data from a large prospective cohort study (n=30,874) that directly quantifies the association between smoking (dose-response via pack-years) and lung cancer risk. While it primarily addresses gender differences, it provides strong evidence for the causal link by demonstrating a dose-response relationship and controlling for confounders, which are key criteria for distinguishing causation from mere association in epidemiological research.",
+      "relevance_rationale": "The paper presents original empirical data from a large prospective cohort study (n=30,874) directly examining the association between smoking (exposure) and lung cancer (outcome). It provides dose-response evidence (RRs increasing with pack-years) and compares risks across genders and histologic types, which directly addresses the core of the research question regarding the link between smoking and lung cancer risk.",
       "selected_for_deep_dive": true
     },
     {
       "paper_id": "W2104300284",
       "title": "Ethnic and Racial Differences in the Smoking-Related Risk of Lung Cancer",
       "category": "DIRECT_EMPIRICAL",
-      "relevance_rationale": "The paper reports original empirical data from a large prospective cohort study (Multiethnic Cohort Study) demonstrating a strong association between cigarette smoking and lung cancer risk. While it primarily focuses on effect modification by ethnicity/race, it provides direct evidence of the smoking-lung cancer link (dose-response relationship) which is fundamental to establishing causation (Bradford Hill criteria). It does not explicitly discuss the philosophical or methodological distinction between causation and association, but it provides the empirical foundation (consistency, strength, biological gradient) that supports the causal inference.",
+      "relevance_rationale": "The paper presents original empirical data from a large prospective cohort study (Multiethnic Cohort Study) directly investigating the association between cigarette smoking (exposure) and incident lung cancer (outcome). While it focuses on effect modification by ethnicity, it provides direct evidence on the smoking-lung cancer link, which is the core of the research question.",
       "selected_for_deep_dive": true
     },
     {
       "paper_id": "W2054493202",
       "title": "Smoking and the Risk of Lung Cancer",
       "category": "DIRECT_EMPIRICAL",
-      "relevance_rationale": "The paper presents original empirical data from a large case-control study demonstrating a strong association between smoking (pack-years) and lung cancer risk. While it focuses on the interaction with GSTP1 polymorphisms, the core finding confirms that smoking is a significant risk factor (with adjusted odds ratios of 6.1 to 13 depending on genotype), providing direct evidence for the causal link between smoking and lung cancer.",
+      "relevance_rationale": "The paper presents original empirical data from a case-control study directly examining the association between smoking (cumulative exposure/pack-years) and lung cancer risk. While it focuses on the interaction with GSTP1 polymorphisms, it provides direct evidence on the magnitude of risk associated with smoking, which is central to the queried exposure and outcome.",
       "selected_for_deep_dive": true
     },
     {
       "paper_id": "W1995322708",
       "title": "Systematic review with meta-analysis of the epidemiological evidence in the 1900s relating smoking to lung cancer",
       "category": "REVIEW_SYNTHESIS",
-      "relevance_rationale": "The paper is explicitly a systematic review and meta-analysis of epidemiological evidence linking smoking to lung cancer. It synthesizes data from 287 studies to quantify risk (RRs) and examine dose-response relationships, directly addressing the question of whether smoking increases risk and providing the quantitative basis for distinguishing strong association from causation (via Bradford Hill criteria like dose-response and consistency across populations).",
-      "selected_for_deep_dive": false
+      "relevance_rationale": "The paper is a systematic review and meta-analysis that directly synthesizes epidemiological evidence regarding the association between smoking and lung cancer. It provides quantitative risk estimates (RRs) for various smoking types and lung cancer histologies, directly addressing the core of the research question about the strength and nature of the link.",
+      "selected_for_deep_dive": true
     },
     {
       "paper_id": "W2110256220",
       "title": "Ingested Arsenic, Cigarette Smoking, and Lung Cancer Risk",
-      "category": "INDIRECT_EMPIRICAL",
-      "relevance_rationale": "The paper provides original empirical data on lung cancer risk, but its primary focus is on ingested arsenic. While it assesses the effect of cigarette smoking on the arsenic-lung cancer association (likely as a confounder or effect modifier), it does not primarily investigate the causal link between smoking and lung cancer itself. Therefore, it is indirectly relevant to the specific question about smoking causation.",
-      "selected_for_deep_dive": false
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from a large cohort study that directly measures the association between cigarette smoking and lung cancer risk. It specifically analyzes the joint effect of smoking and arsenic, providing data on how smoking modifies the risk and allowing for the assessment of causation versus association through dose-response trends and adjustment for confounders. This directly addresses the core components of the research question regarding smoking and lung cancer.",
+      "selected_for_deep_dive": true
     },
     {
       "paper_id": "W3147877282",
       "title": "Association of passive smoking and lung cancer: Is there substantial evidence to prove the causation?",
       "category": "REVIEW_SYNTHESIS",
-      "relevance_rationale": "The paper is a review or synthesis discussing the association between passive smoking and lung cancer. It summarizes existing literature ('previously conducted studies', 'recent studies') and discusses the distinction between association and causation in the context of second-hand smoke. It does not report original empirical data (e.g., new cohort studies or experimental results) but rather synthesizes evidence to argue for causation based on toxicological and epidemiological findings.",
-      "selected_for_deep_dive": false
+      "relevance_rationale": "The paper is a review/synthesis discussing the evidence for the causal link between smoking (specifically passive smoking, but contextualized within the broader role of cigarette smoking) and lung cancer. It explicitly addresses the distinction between association and causation ('Is there substantial evidence to prove the causation?'), which directly aligns with the second part of the research question. Although it focuses heavily on passive smoking, it synthesizes the toxicological and epidemiological evidence relevant to the smoking-lung cancer relationship.",
+      "selected_for_deep_dive": true
     },
     {
       "paper_id": "W3088651631",
       "title": "AHRR methylation in heavy smokers: associations with smoking, lung cancer risk, and lung cancer mortality",
-      "category": "INDIRECT_EMPIRICAL",
-      "relevance_rationale": "The paper investigates the association between a specific epigenetic marker (AHRR methylation) and lung cancer risk/mortality in heavy smokers. While it provides empirical data on lung cancer risk factors, it does not directly test the causal link between smoking itself and lung cancer, nor does it address the methodological distinction between causation and association (e.g., Bradford Hill criteria, Mendelian randomization, or causal inference frameworks). It is relevant as a downstream consequence or biomarker study within the smoking-lung cancer pathway, but not a direct answer to the core question about the smoking-cancer causal link.",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
       "selected_for_deep_dive": false
     }
   ],
@@ -139,7 +141,8 @@
       "conditions_and_moderators": "Association is statistical; causality not explicitly proven in this snippet.",
       "limitations": null,
       "full_text_used": false,
-      "is_direct": true
+      "is_direct": true,
+      "is_review_synthesis": false
     },
     {
       "claim_id": "claim_find_W2104300284",
@@ -158,7 +161,8 @@
       "conditions_and_moderators": "Specific disease outcome not identified in the provided text; relative risk is relative to African Americans.",
       "limitations": null,
       "full_text_used": false,
-      "is_direct": true
+      "is_direct": true,
+      "is_review_synthesis": false
     },
     {
       "claim_id": "claim_find_W2054493202",
@@ -177,26 +181,51 @@
       "conditions_and_moderators": "The specific statistical measure (OR, RR, HR) is not explicitly stated, only the magnitude 'approximately doubled'.",
       "limitations": null,
       "full_text_used": false,
-      "is_direct": true
-    }
-  ],
-  "disagreements": [
+      "is_direct": true,
+      "is_review_synthesis": false
+    },
     {
-      "topic_or_metric": "Direction and magnitude of smoking's effect on lung cancer risk",
-      "studies_in_disagreement": [
-        "W3136330176",
-        "W2104300284"
-      ],
-      "plausible_moderator_or_reason": "The apparent conflict arises from a fundamental difference in study design and metric interpretation. W3136330176 reports a positive dose-response relationship (HR > 1) for smoking intensity and pack-years on Small Cell Lung Cancer risk, consistent with the established causal link between smoking and lung cancer. In contrast, W2104300284 reports 'negative' relative risks (0.21-0.57) for specific ethnic groups compared to African Americans. This does not indicate that smoking *protects* against cancer; rather, it indicates that the *relative risk* of smoking-related disease is lower in these groups compared to the African American baseline. This is a classic case of confusing relative risk ratios between populations with absolute causal effects. The 'negative' direction in the ledger for W2104300284 is a misinterpretation of the comparative statistic; the study actually highlights ethnic disparities in susceptibility or baseline risk, not a protective effect of smoking. W2054493202 supports the positive causal link by showing gene-environment interaction (GSTP1 GG genotype amplifies risk), further reinforcing that smoking increases risk, particularly in genetically susceptible individuals.",
-      "verification_status": "SUPPORTED",
-      "supporting_evidence_ids": [
-        "claim_find_W3136330176",
-        "claim_find_W2104300284",
-        "claim_find_W2054493202"
-      ],
-      "suggested_follow_up_investigation": "Conduct a meta-analysis that standardizes the reporting of smoking-related lung cancer risk by distinguishing between absolute risk increases (causal inference) and relative risk differences across ethnic groups (disparity analysis). Specifically, investigate whether the lower relative risks observed in Japanese Americans, Latinos, and Whites compared to African Americans are due to differences in smoking intensity, duration, or genetic polymorphisms (like GSTP1) that modify susceptibility, rather than a protective effect of smoking."
+      "claim_id": "claim_find_W2110256220",
+      "paper_id": "W2110256220",
+      "paper_title": "Ingested Arsenic, Cigarette Smoking, and Lung Cancer Risk",
+      "doi": "https://doi.org/10.1001/jama.292.24.2984",
+      "url": "https://doi.org/10.1001/jama.292.24.2984",
+      "exact_source_passage": "The relative risk was 3.29 (95% confidence interval, 1.60-6.78) for the highest arsenic level compared with the lowest.",
+      "study_design": "Cohort or Case-Control (implied by Relative Risk metric)",
+      "population_setting": "Subjects exposed to varying levels of arsenic",
+      "intervention_exposure": "Highest arsenic level exposure",
+      "comparator": "Lowest arsenic level exposure",
+      "outcome": "Relative risk of adverse health outcome (implied by context of risk ratio)",
+      "direction": "POSITIVE",
+      "effect_size": "RR 3.29 (95% CI 1.60-6.78)",
+      "conditions_and_moderators": "The specific health outcome is not named in the snippet, only the statistical association is provided.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    },
+    {
+      "claim_id": "claim_find_W3147877282",
+      "paper_id": "W3147877282",
+      "paper_title": "Association of passive smoking and lung cancer: Is there substantial evidence to prove the causation?",
+      "doi": "https://doi.org/10.18203/2394-6040.ijcmph20211392",
+      "url": "https://doi.org/10.18203/2394-6040.ijcmph20211392",
+      "exact_source_passage": "The influence of passive smoke on lung cancer development is associated with toxic substances that cause chronic inflammation in the respiratory systems.",
+      "study_design": "Systematic Review",
+      "population_setting": null,
+      "intervention_exposure": "The Influence",
+      "comparator": null,
+      "outcome": "Passive Smoke",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": false,
+      "is_review_synthesis": true
     }
   ],
+  "disagreements": [],
   "detailed_comparisons": [
     {
       "pair_id": "pair_find_W3136330176_find_W2104300284",
@@ -241,6 +270,48 @@
       "explanation": "Studies evaluate disparate interventions: 'Smoking (pack-years and intensity)' vs 'GSTP1 GG genotype' (similarity=0.04)."
     },
     {
+      "pair_id": "pair_find_W3136330176_find_W2110256220",
+      "predicted_relation": "INCOMPARABLE_CONDITIONS",
+      "heuristic_score": 0.925,
+      "confidence_score": 0.925,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.1235034316778183,
+        "comparator_match": false,
+        "comparator_similarity": 0.4591778516769409,
+        "outcome_match": false,
+        "outcome_similarity": 0.2236241102218628,
+        "setting_match": true,
+        "setting_similarity": 0.721408486366272,
+        "overall_compatibility": 0.3103602774441242,
+        "summary_of_differences": "Intervention differs: 'Smoking (pack-years and intensity)' vs 'Highest arsenic level exposure' (sim=0.12); Comparator differs: 'Lower smoking exposure (baseline)' vs 'Lowest arsenic level exposure' (sim=0.46); Outcome metric differs: 'Risk of small cell lung cancer (SPLC)' vs 'Relative risk of adverse health outcome (implied by context of risk ratio)' (sim=0.22)"
+      },
+      "provenance_verified": true,
+      "explanation": "Studies evaluate disparate interventions: 'Smoking (pack-years and intensity)' vs 'Highest arsenic level exposure' (similarity=0.12)."
+    },
+    {
+      "pair_id": "pair_find_W3136330176_find_W3147877282",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.904,
+      "confidence_score": 0.904,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.1021222323179245,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.1868024468421936,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.09178351536393164,
+        "summary_of_differences": "Intervention differs: 'Smoking (pack-years and intensity)' vs 'The Influence' (sim=0.10); Comparator differs: 'Lower smoking exposure (baseline)' vs 'None' (sim=0.00); Outcome metric differs: 'Risk of small cell lung cancer (SPLC)' vs 'Passive Smoke' (sim=0.19); Setting/Cohort differs: 'Epidemiological study' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
       "pair_id": "pair_find_W2104300284_find_W2054493202",
       "predicted_relation": "INCOMPARABLE_CONDITIONS",
       "heuristic_score": 0.95,
@@ -260,6 +331,111 @@
       },
       "provenance_verified": true,
       "explanation": "Studies evaluate disparate interventions: 'Smoking 10 or fewer or 11-20 cigarettes per day' vs 'GSTP1 GG genotype' (similarity=0.00)."
+    },
+    {
+      "pair_id": "pair_find_W2104300284_find_W2110256220",
+      "predicted_relation": "INCOMPARABLE_CONDITIONS",
+      "heuristic_score": 0.912,
+      "confidence_score": 0.912,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.19017444550991058,
+        "comparator_match": false,
+        "comparator_similarity": 0.28621309995651245,
+        "outcome_match": true,
+        "outcome_similarity": 0.628173291683197,
+        "setting_match": false,
+        "setting_similarity": 0.16680103540420532,
+        "overall_compatibility": 0.33727581873536105,
+        "summary_of_differences": "Intervention differs: 'Smoking 10 or fewer or 11-20 cigarettes per day' vs 'Highest arsenic level exposure' (sim=0.19); Comparator differs: 'African Americans (implied baseline for relative risk calculation)' vs 'Lowest arsenic level exposure' (sim=0.29); Setting/Cohort differs: 'Not specified in passage' vs 'Epidemiological study (implied by relative risk metric)' (sim=0.17)"
+      },
+      "provenance_verified": true,
+      "explanation": "Studies evaluate disparate interventions: 'Smoking 10 or fewer or 11-20 cigarettes per day' vs 'Highest arsenic level exposure' (similarity=0.19)."
+    },
+    {
+      "pair_id": "pair_find_W2104300284_find_W3147877282",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.902,
+      "confidence_score": 0.902,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.0262150876224041,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.3125995695590973,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.10295515153557061,
+        "summary_of_differences": "Intervention differs: 'Smoking 10 or fewer or 11-20 cigarettes per day' vs 'The Influence' (sim=0.03); Comparator differs: 'African Americans (implied baseline for relative risk calculation)' vs 'None' (sim=0.00); Outcome metric differs: 'Relative risk (likely of a smoking-related disease, though specific disease not named in snippet)' vs 'Passive Smoke' (sim=0.31); Setting/Cohort differs: 'Not specified in passage' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W2054493202_find_W2110256220",
+      "predicted_relation": "INCOMPARABLE_CONDITIONS",
+      "heuristic_score": 0.95,
+      "confidence_score": 0.95,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.0,
+        "comparator_match": false,
+        "comparator_similarity": 0.12022566795349121,
+        "outcome_match": false,
+        "outcome_similarity": 0.38784775137901306,
+        "setting_match": false,
+        "setting_similarity": 0.10276645421981812,
+        "overall_compatibility": 0.15581442713737487,
+        "summary_of_differences": "Intervention differs: 'GSTP1 GG genotype' vs 'Highest arsenic level exposure' (sim=0.00); Comparator differs: 'Non-GG genotypes (implied baseline)' vs 'Lowest arsenic level exposure' (sim=0.12); Outcome metric differs: 'Lung cancer risk' vs 'Relative risk of adverse health outcome (implied by context of risk ratio)' (sim=0.39); Setting/Cohort differs: 'Not specified' vs 'Epidemiological study (implied by relative risk metric)' (sim=0.10)"
+      },
+      "provenance_verified": true,
+      "explanation": "Studies evaluate disparate interventions: 'GSTP1 GG genotype' vs 'Highest arsenic level exposure' (similarity=0.00)."
+    },
+    {
+      "pair_id": "pair_find_W2054493202_find_W3147877282",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.897,
+      "confidence_score": 0.897,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.0,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.2399422824382782,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.07198268473148346,
+        "summary_of_differences": "Intervention differs: 'GSTP1 GG genotype' vs 'The Influence' (sim=0.00); Comparator differs: 'Non-GG genotypes (implied baseline)' vs 'None' (sim=0.00); Outcome metric differs: 'Lung cancer risk' vs 'Passive Smoke' (sim=0.24); Setting/Cohort differs: 'Not specified' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W2110256220_find_W3147877282",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.902,
+      "confidence_score": 0.902,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.05790065601468086,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.09803798794746399,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.0496766259893775,
+        "summary_of_differences": "Intervention differs: 'Highest arsenic level exposure' vs 'The Influence' (sim=0.06); Comparator differs: 'Lowest arsenic level exposure' vs 'None' (sim=0.00); Outcome metric differs: 'Relative risk of adverse health outcome (implied by context of risk ratio)' vs 'Passive Smoke' (sim=0.10); Setting/Cohort differs: 'Epidemiological study (implied by relative risk metric)' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
     }
   ],
   "investigation_rounds": 1,

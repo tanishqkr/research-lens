@@ -204,15 +204,16 @@ class GroqClient:
 
         system_prompt = (
             "You are an empirical evidence auditor for scientific literature. Analyze the supplied passage.\n"
-            "Determine if it reports an actual EMPIRICAL FINDING (an observation, measured result, effect, or quantitative/qualitative finding).\n"
+            "Determine if it reports an actual EMPIRICAL FINDING (an observation, measured result, effect, or quantitative/qualitative finding from primary trials or systematic review synthesis).\n"
             "Reject generic background statements ('chronic sleep restriction is common'), methodology descriptions ('participants were administered the interview'),\n"
-            "review intentions ('this paper aims to'), speculation, recommendations, or generic promise statements ('demonstrated great promise').\n"
+            "review intentions ('this paper aims to'), unverified speculation, clinical recommendations, or generic promise statements ('demonstrated great promise').\n"
             "Rules:\n"
             "1. evidence_quote MUST be an EXACT, VERBATIM substring of the supplied passage.\n"
-            "2. If not an empirical finding, set is_empirical_finding=false, set rejection_reason, and leave slots null.\n"
+            "2. If not an empirical finding or synthesis result, set is_empirical_finding=false, set rejection_reason, and leave slots null.\n"
             "3. Never substitute generic phrases such as 'A Result', 'The Action', 'The Researcher', 'The Day', 'Our Findings', or 'The Effect' for scientific variables.\n"
             "4. direction must be one of: 'POSITIVE' (intervention increases/benefits outcome), 'NEGATIVE' (intervention decreases/worsens outcome or causes impairment), 'NO_DIFFERENCE' (no significant effect), 'MIXED' (opposing effects across measures), or 'UNCLEAR'.\n"
-            "5. Return strict JSON with keys: is_empirical_finding, evidence_quote, finding_summary, direction, intervention, comparator, outcome, population, setting, effect_estimate, study_design, limitations_or_qualifiers, confidence (float 0.0-1.0), rejection_reason."
+            "5. study_design: State explicitly whether this is a primary trial (e.g., 'RCT', 'Cohort') or a synthesis ('Systematic Review', 'Meta-Analysis').\n"
+            "6. Return strict JSON with keys: is_empirical_finding, evidence_quote, finding_summary, direction, intervention, comparator, outcome, population, setting, effect_estimate, study_design, limitations_or_qualifiers, confidence (float 0.0-1.0), rejection_reason."
         )
 
         payload = {
@@ -283,11 +284,11 @@ class GroqClient:
             "- 'DIRECT_COMPARISON': Directly compares the specific interventions/conditions requested in the question.\n"
             "- 'DIRECT_EMPIRICAL': Reports original empirical data directly on the target intervention and outcome.\n"
             "- 'INDIRECT_EVIDENCE': Investigates related variables, single-arm trials, or distinct mechanisms.\n"
-            "- 'REVIEW_SYNTHESIS': Meta-analysis, systematic review, or literature synthesis.\n"
+            "- 'REVIEW_SYNTHESIS': Meta-analysis, systematic review, or literature synthesis directly evaluating the target question.\n"
             "- 'BACKGROUND': Theoretical framing or contextual background.\n"
             "- 'IRRELEVANT': Studies an unrelated topic, different species, or incidental keyword match.\n"
             "Rules for selected_for_deep_dive:\n"
-            "Set true ONLY if category is 'DIRECT_COMPARISON' or 'DIRECT_EMPIRICAL' or highly relevant 'INDIRECT_EVIDENCE'.\n"
+            "Set true ONLY if category is 'DIRECT_COMPARISON', 'DIRECT_EMPIRICAL', highly relevant 'INDIRECT_EVIDENCE', or relevant 'REVIEW_SYNTHESIS' that directly synthesizes evidence on the queried question.\n"
             "If the paper is 'IRRELEVANT' or 'BACKGROUND', set selected_for_deep_dive=false.\n"
             'Return JSON: {"category": "...", "relevance_rationale": "...", "selected_for_deep_dive": true/false}'
         )
