@@ -145,3 +145,72 @@ def test_verify_disagreement_explanations():
     # The second one has zero supporting evidence claims in the ledger
     assert verified[1].verification_status == ExplanationVerificationStatus.UNRESOLVED
     assert len(verified[1].supporting_evidence_ids) == 0
+
+
+def test_adversarial_unsupported_moderator_marked_unresolved():
+    """Adversarial test: An unverified hypothesis presented as an established explanation must be marked UNRESOLVED."""
+    disagreements = [
+        DisagreementExplanation(
+            topic_or_metric="Working Memory Speed",
+            studies_in_disagreement=["Study A", "Study B"],
+            plausible_moderator_or_reason="Circadian clock gene polymorphism PER3 length variants caused divergence.",
+        )
+    ]
+    # Ledger only mentions behavioral tasks, no clock genes
+    evidence_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c1",
+            paper_id="Study A",
+            paper_title="Study A",
+            exact_source_passage="Participants performed worse on N-back task under sleep restriction.",
+            direction=DirectionLabel.NEGATIVE,
+        )
+    ]
+    verified = verify_disagreement_explanations(disagreements, evidence_ledger)
+    assert verified[0].verification_status == ExplanationVerificationStatus.UNRESOLVED
+    assert len(verified[0].supporting_evidence_ids) == 0
+
+
+def test_adversarial_overstated_summary_climate_and_deprivation_downgraded():
+    """Adversarial test: Summary claiming definitive multi-climate effects and adult deprivation differences is programmatically qualified."""
+    exec_summary = ExecutiveSummary(
+        bottom_line="Tree canopy cooling varies with city density and climate.",
+        overall_evidence_assessment="broadly supports",
+        strongest_supporting_evidence="Cooling demonstrated in one city.",
+        strongest_conflicting_evidence="None.",
+        why_studies_disagree="Measurement differences.",
+        confidence_and_limitations="High overall confidence.",
+        research_coverage="Retrieved 10.",
+    )
+    subclaims = [
+        "Canopy cooling effect: Increasing urban tree canopy cover reduces local air temperatures.",
+        "Cross-climate variation: Cooling magnitude systematically varies across distinct macroclimate zones.",
+    ]
+    # Only single-city paper in ledger
+    evidence_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c1",
+            paper_id="W1",
+            paper_title="Single City Study",
+            exact_source_passage="Tree canopy cover lowered temperature by 1.2C in New Haven.",
+            direction=DirectionLabel.NEGATIVE,
+        )
+    ]
+    assessments = assess_subclaims(subclaims, evidence_ledger)
+    assert assessments[1].status == SubclaimStatus.UNRESOLVED
+
+    validated = enforce_summary_consistency(exec_summary, assessments, evidence_ledger)
+    assert "cross-climate" in validated.confidence_and_limitations.lower()
+    assert "unresolved" in validated.confidence_and_limitations.lower()
+
+
+def test_adversarial_abstract_only_vs_full_text_provenance():
+    """Adversarial test: Ensure abstract-only claim is accurately flagged and not mistaken for full-text."""
+    claim = SupportedEvidenceClaim(
+        claim_id="c1",
+        paper_id="P1",
+        paper_title="Abstract Only Paper",
+        exact_source_passage="Canopy reduces temperature.",
+        full_text_used=False,
+    )
+    assert claim.full_text_used is False

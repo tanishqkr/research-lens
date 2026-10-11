@@ -184,7 +184,8 @@ def assess_subclaims(
                 rationale = f"Supported by adult studies ({', '.join(matching_paper_ids)}) showing significant working memory performance decrements following sleep restriction."
             else:
                 status = SubclaimStatus.QUALIFIED
-                rationale = "Impairment demonstrated, though age cohorts across retrieved studies include both adolescents and adults."
+                matching_paper_ids = []
+                rationale = "General impairment is reported across sleep loss literature, but specific empirical claims verifying healthy adult samples are limited in the sampled ledger."
 
         elif "cognitive load" in text_lower:
             load_claims = [

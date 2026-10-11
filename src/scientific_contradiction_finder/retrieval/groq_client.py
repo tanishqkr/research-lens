@@ -46,11 +46,14 @@ class StructuredFindingInterpretation(BaseModel):
         ...,
         description="True only if passage reports an observation, measured result, effect, or quantitative finding",
     )
-    evidence_quote: str = Field(
-        ..., description="Exact verbatim substring from the source passage supporting the finding"
+    evidence_quote: Optional[str] = Field(
+        default="",
+        description="Exact verbatim substring from the source passage supporting the finding",
     )
-    finding_summary: str = Field(..., description="Concise statement of the finding")
-    direction: str = Field(
+    finding_summary: Optional[str] = Field(
+        default="", description="Concise statement of the finding"
+    )
+    direction: Optional[str] = Field(
         default="UNCLEAR",
         description="POSITIVE (increases/benefits outcome), NEGATIVE (decreases/worsens outcome), NO_DIFFERENCE, MIXED, or UNCLEAR",
     )
