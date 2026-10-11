@@ -1,4 +1,4 @@
-"""Condition slot tagger extracting Intervention (I), Comparator (C), Outcome (O), and Setting (S)."""
+"""Condition slot tagger extracting Intervention (I), Comparator (C), Outcome (O), Setting (S), Population, and Qualifiers."""
 
 import re
 from typing import Optional
@@ -19,6 +19,15 @@ COMPARATOR_MARKERS = [
 ]
 
 OUTCOME_MARKERS = [
+    r"\bdaytime air temperature\b",
+    r"\bair temperature\b",
+    r"\bland surface temperatures?\b",
+    r"\bmean radiant temperature\b",
+    r"\blocal temperature\b",
+    r"\breaction times?\b",
+    r"\bworking memory (?:performance|accuracy|capacity)?\b",
+    r"\bvisual working memory\b",
+    r"\bcognitive performance\b",
     r"\bdegradation rate\b",
     r"\bcapacity fade\b",
     r"\bcell thickness\b",
@@ -43,13 +52,17 @@ SETTING_MARKERS = [
     r"\bcohort\b",
     r"\bbenchmark\b",
     r"\bdataset\b",
+    r"\bhealthy adults\b",
+    r"\byoung adults\b",
+    r"\bolder adults\b",
     r"\badults\b",
+    r"\badolescents\b",
     r"\btrials?\b",
-    r"\bsetting\b",
     r"\blithium-ion cells?\b",
     r"\bvision transformers?\b",
-    r"\bhealthy adults\b",
-    r"\bolder adults\b",
+    r"\burban areas?\b",
+    r"\bhigh density\b",
+    r"\blow density\b",
 ]
 
 # Blacklisted strings that should NEVER be extracted as an intervention or outcome
@@ -63,6 +76,7 @@ INVALID_SLOT_TERMS = {
     "significant difference",
     "addition",
     "findings",
+    "our findings",
     "in addition",
     "furthermore",
     "it",
@@ -74,9 +88,24 @@ INVALID_SLOT_TERMS = {
     "the 14-week follow-up study",
     "the study",
     "authors",
+    "the authors",
     "this paper",
     "conclusion",
     "conclusions",
+    "the researcher",
+    "the researchers",
+    "the day",
+    "a result",
+    "the action",
+    "the effect",
+    "the magnitude",
+    "these results",
+    "many studies",
+    "great promise",
+    "a promising approach",
+    "no negative consequences",
+    "an impairment",
+    "accuracy",
 }
 
 
@@ -98,7 +127,7 @@ def clean_slot_string(s: str) -> Optional[str]:
 
 
 class ConditionTagger:
-    """Extracts 4-tuple experimental conditions: (Intervention, Comparator, Outcome, Setting) with validation."""
+    """Extracts experimental condition slots (Intervention, Comparator, Outcome, Setting) with validation."""
 
     def __init__(self, spacy_model: str = "en_core_web_sm"):
         try:
@@ -113,7 +142,7 @@ class ConditionTagger:
         text_lower = sentence_text.lower()
 
         # 1. Comparator extraction
-        comparator = "Standard Baseline / Unspecified"
+        comparator = None
         for pattern in COMPARATOR_MARKERS:
             match = re.search(
                 f"{pattern}\\s+([a-zA-Z0-9\\s\\-\\(\\)]{{3,40}}?)(?:\\.|,|\\bin\\b|\\bwith\\b|\\bfor\\b|\\bduring\\b|$)",
@@ -143,13 +172,19 @@ class ConditionTagger:
                     if cleaned:
                         outcome = cleaned.title()
                         break
-        if not outcome:
-            outcome = "Primary Empirical Outcome"
 
         # 3. Intervention extraction
         intervention = None
-        # Check specific domain patterns (e.g. "charging at high temperatures", "baseline 25(OH)D levels", "data augmentation")
         domain_interventions = [
+            r"\burban tree canopy(?:\s+cover)?\b",
+            r"\btree canopy(?:\s+cover)?\b",
+            r"\bcanopy cover\b",
+            r"\bincreasing impervious cover\b",
+            r"\bimpervious cover\b",
+            r"\bpartial sleep restriction\b",
+            r"\btotal sleep deprivation\b",
+            r"\bsleep restriction\b",
+            r"\bsleep deprivation\b",
             r"\b(?:high|elevated|ambient|low)\s+temperatures?(?:\s+charging)?\b",
             r"\bdata augmentation(?:\s+techniques?)?\b",
             r"\bvitamin d(?:3)?(?:\s+supplementation)?\b",
@@ -173,21 +208,17 @@ class ConditionTagger:
                         intervention = cleaned.title()
                         break
 
-        if not intervention:
+        if not intervention and self.nlp:
             # Fallback: scan for first valid noun chunk not in invalid terms
-            if self.nlp:
-                doc = self.nlp(sentence_text)
-                for chunk in doc.noun_chunks:
-                    cleaned = clean_slot_string(chunk.text)
-                    if cleaned and cleaned.title() != outcome:
-                        intervention = cleaned.title()
-                        break
-
-        if not intervention:
-            intervention = "Unspecified Scientific Intervention"
+            doc = self.nlp(sentence_text)
+            for chunk in doc.noun_chunks:
+                cleaned = clean_slot_string(chunk.text)
+                if cleaned and cleaned.title() != outcome:
+                    intervention = cleaned.title()
+                    break
 
         # 4. Setting extraction
-        setting = "General Scientific Setting"
+        setting = None
         for pattern in SETTING_MARKERS:
             match = re.search(
                 f"{pattern}\\s*([a-zA-Z0-9\\s\\-\\(\\)]{{0,35}}?)(?:\\.|,|\\band\\b|$)", text_lower
@@ -198,10 +229,24 @@ class ConditionTagger:
                     setting = cleaned_p.title()
                 break
 
-        is_unknown = (
-            intervention == "Unspecified Scientific Intervention"
-            and comparator == "Standard Baseline / Unspecified"
+        # 5. Extract population and limitations if present
+        population = None
+        pop_m = re.search(
+            r"\b(adults|healthy adults|young adults|older adults|children|adolescents|college students|patients|mice|rats)\b",
+            text_lower,
         )
+        if pop_m:
+            population = pop_m.group(0).title()
+
+        qualifiers = None
+        qual_m = re.search(
+            r"\b(?:when|where|if|after|for)\s+(?:canopy cover exceeded \d+%|\d+\s+hours?(?: of sleep)?|temperatures? above \d+°?c)",
+            text_lower,
+        )
+        if qual_m:
+            qualifiers = qual_m.group(0)
+
+        is_unknown = bool(not intervention or not outcome)
         confidence = 0.50 if is_unknown else 0.85
 
         return ConditionSlots(
@@ -209,6 +254,8 @@ class ConditionTagger:
             comparator=comparator,
             outcome_metric=outcome,
             dataset_setting=setting,
+            population=population,
+            limitations_or_qualifiers=qualifiers,
             confidence=confidence,
             is_unknown=is_unknown,
         )

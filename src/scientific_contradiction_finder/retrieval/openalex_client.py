@@ -130,6 +130,12 @@ class OpenAlexClient:
                 if author_name:
                     authors.append(author_name)
 
+            open_access_info = r.get("open_access", {})
+            is_oa = open_access_info.get("is_oa", False)
+            oa_url = open_access_info.get("oa_url") or (r.get("primary_location", {}) or {}).get(
+                "pdf_url"
+            )
+
             if abstract:  # We require abstracts for evidence processing
                 papers.append(
                     Paper(
@@ -141,6 +147,8 @@ class OpenAlexClient:
                         year=year,
                         authors=authors,
                         source_provider="openalex",
+                        is_oa=is_oa,
+                        oa_url=oa_url,
                     )
                 )
         return papers

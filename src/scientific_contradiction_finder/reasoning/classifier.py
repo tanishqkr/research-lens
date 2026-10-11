@@ -50,14 +50,15 @@ class ConditionAwareRelationClassifier:
         ):
             diff = self.compat_evaluator.evaluate_difference(fa.conditions, fb.conditions)
             mean_ev_conf = (fa.evidence.confidence + fb.evidence.confidence) / 2.0
-            # Calibrated confidence based on evidence quality and slot completeness
-            calculated_conf = round(
+            # Heuristic comparison support score (not an uncalibrated probability)
+            calculated_score = round(
                 float(0.70 + 0.25 * (1.0 - diff.overall_compatibility) * mean_ev_conf), 3
             )
             return Prediction(
                 pair_id=pair.pair_id,
                 predicted_relation=RelationLabel.INSUFFICIENT_EVIDENCE,
-                confidence_score=calculated_conf,
+                heuristic_score=calculated_score,
+                confidence_score=calculated_score,
                 condition_differences=diff,
                 provenance_verified=True,
                 explanation="Findings lack sufficient empirical evidence or condition clarity to form a valid comparison.",
@@ -67,25 +68,25 @@ class ConditionAwareRelationClassifier:
         diff = self.compat_evaluator.evaluate_difference(fa.conditions, fb.conditions)
 
         # Check for fundamentally incomparable conditions (disparate fields / unrelated interventions)
-        if diff.intervention_similarity < 0.15:
-            # Distance from threshold determines confidence
-            incomp_conf = round(float(0.75 + 0.20 * (1.0 - diff.intervention_similarity)), 3)
+        if diff.intervention_similarity < 0.20:
+            incomp_score = round(float(0.75 + 0.20 * (1.0 - diff.intervention_similarity)), 3)
             return Prediction(
                 pair_id=pair.pair_id,
                 predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
-                confidence_score=incomp_conf,
+                heuristic_score=incomp_score,
+                confidence_score=incomp_score,
                 condition_differences=diff,
                 provenance_verified=True,
-                explanation=f"Studies evaluate disparate interventions (sim={diff.intervention_similarity:.2f}): {diff.summary_of_differences}",
+                explanation=f"Studies evaluate disparate interventions: '{fa.conditions.intervention}' vs '{fb.conditions.intervention}' (similarity={diff.intervention_similarity:.2f}).",
             )
 
-        # If both outcomes and settings are completely disjoint (<0.10)
+        # If both outcomes and settings are completely disjoint (<0.15)
         if (
-            diff.outcome_similarity < 0.10
+            diff.outcome_similarity < 0.15
             and diff.setting_similarity < 0.15
             and not diff.intervention_match
         ):
-            disjoint_conf = round(
+            disjoint_score = round(
                 float(
                     0.75 + 0.20 * (1.0 - (diff.outcome_similarity + diff.setting_similarity) / 2.0)
                 ),
@@ -94,56 +95,57 @@ class ConditionAwareRelationClassifier:
             return Prediction(
                 pair_id=pair.pair_id,
                 predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
-                confidence_score=disjoint_conf,
+                heuristic_score=disjoint_score,
+                confidence_score=disjoint_score,
                 condition_differences=diff,
                 provenance_verified=True,
                 explanation=f"Studies evaluate disparate outcomes and settings: {diff.summary_of_differences}",
             )
 
         # 3. Assess directional agreement
+        is_fa_active = fa.direction in (DirectionLabel.POSITIVE, DirectionLabel.NEGATIVE)
+        is_fb_active = fb.direction in (DirectionLabel.POSITIVE, DirectionLabel.NEGATIVE)
+
+        # Conflict cases:
+        # A) Opposite polarities (POSITIVE vs NEGATIVE)
+        # B) One active vs NO_DIFFERENCE
+        # C) MIXED vs single active direction
         directions_conflict = (
-            (
-                fa.direction in (DirectionLabel.POSITIVE, DirectionLabel.NEGATIVE)
-                and fb.direction == DirectionLabel.NO_DIFFERENCE
-            )
-            or (fa.direction == DirectionLabel.POSITIVE and fb.direction == DirectionLabel.NEGATIVE)
+            (fa.direction == DirectionLabel.POSITIVE and fb.direction == DirectionLabel.NEGATIVE)
             or (fa.direction == DirectionLabel.NEGATIVE and fb.direction == DirectionLabel.POSITIVE)
-            or (
-                fa.direction == DirectionLabel.NO_DIFFERENCE
-                and fb.direction in (DirectionLabel.POSITIVE, DirectionLabel.NEGATIVE)
-            )
+            or (is_fa_active and fb.direction == DirectionLabel.NO_DIFFERENCE)
+            or (fa.direction == DirectionLabel.NO_DIFFERENCE and is_fb_active)
+            or (fa.direction == DirectionLabel.MIXED and is_fb_active)
+            or (is_fa_active and fb.direction == DirectionLabel.MIXED)
         )
 
         mean_ev_conf = (fa.evidence.confidence + fb.evidence.confidence) / 2.0
 
         if directions_conflict:
             # If all conditions match almost identically (strict tolerance) -> Direct contradiction
-            is_strict_setting_match = diff.setting_similarity >= 0.88
-            is_strict_comparator_match = diff.comparator_similarity >= 0.85
-            is_strict_overall = diff.overall_compatibility >= 0.85
+            is_strict_setting_match = diff.setting_similarity >= 0.85
+            is_strict_comparator_match = diff.comparator_similarity >= 0.80
+            is_strict_overall = diff.overall_compatibility >= 0.82
 
             if is_strict_setting_match and is_strict_comparator_match and is_strict_overall:
                 pred_label = RelationLabel.CONTRADICTS
-                explanation = "Direct empirical contradiction: studies evaluate identical conditions but report opposing directional findings."
-                conf = round(float(0.75 + 0.20 * diff.overall_compatibility * mean_ev_conf), 3)
+                explanation = f"Direct empirical contradiction: studies evaluate comparable conditions ({fa.conditions.intervention} on {fa.conditions.outcome_metric}) but report opposing directional findings."
+                score = round(float(0.75 + 0.20 * diff.overall_compatibility * mean_ev_conf), 3)
             else:
-                # Diverging setting, comparator, or metric qualifies the disagreement
+                # Diverging setting, comparator, metric, or population qualifies the disagreement
                 pred_label = RelationLabel.QUALIFIES_OR_PARTIAL_DISAGREEMENT
                 explanation = f"Apparent disagreement qualified by experimental condition divergence: {diff.summary_of_differences}"
-                # Confidence reflects how clearly divergence explains the opposing results
-                conf = round(
+                score = round(
                     float(
                         0.70 + 0.22 * (1.0 - abs(diff.overall_compatibility - 0.55)) * mean_ev_conf
                     ),
                     3,
                 )
         else:
-            # Directions concordant
+            # Directions concordant (both positive, both negative, or both no difference)
             pred_label = RelationLabel.SUPPORTS_OR_CONSISTENT
-            explanation = (
-                "Findings report consistent directional outcomes under compatible conditions."
-            )
-            conf = round(float(0.70 + 0.25 * diff.overall_compatibility * mean_ev_conf), 3)
+            explanation = f"Findings report consistent directional outcomes ({fa.direction.value}) under compatible conditions."
+            score = round(float(0.70 + 0.25 * diff.overall_compatibility * mean_ev_conf), 3)
 
         # Provenance verification check
         provenance_ok = fa.evidence.verify_against_source(
@@ -153,7 +155,8 @@ class ConditionAwareRelationClassifier:
         return Prediction(
             pair_id=pair.pair_id,
             predicted_relation=pred_label,
-            confidence_score=conf,
+            heuristic_score=score,
+            confidence_score=score,
             condition_differences=diff,
             provenance_verified=provenance_ok,
             explanation=explanation,

@@ -12,6 +12,7 @@ from scientific_contradiction_finder.retrieval.arxiv_client import ArxivClient
 from scientific_contradiction_finder.retrieval.bm25_retriever import BM25Retriever
 from scientific_contradiction_finder.retrieval.deduplicator import DocumentDeduplicator
 from scientific_contradiction_finder.retrieval.dense_retriever import DenseRetriever
+from scientific_contradiction_finder.retrieval.fulltext_resolver import OpenAccessFullTextResolver
 from scientific_contradiction_finder.retrieval.groq_client import GroqClient
 from scientific_contradiction_finder.retrieval.hybrid_reranker import ReciprocalRankFusion
 from scientific_contradiction_finder.retrieval.openalex_client import OpenAlexClient
@@ -19,10 +20,17 @@ from scientific_contradiction_finder.retrieval.query_parser import PolarityQuery
 from scientific_contradiction_finder.schemas import (
     ConditionSlots,
     DirectionLabel,
+    DisagreementExplanation,
+    EvidenceSpan,
+    ExecutiveSummary,
     Finding,
     FindingPair,
     Paper,
+    PaperTriageClassification,
+    PaperTriageRecord,
     Prediction,
+    ResearchReport,
+    SupportedEvidenceClaim,
 )
 
 
@@ -44,6 +52,7 @@ class ContradictionFinderPipeline:
             timeout_seconds=self.cfg.retrieval.request_timeout_seconds,
             offline_mode=self.cfg.app.offline_mode,
         )
+        self.fulltext_resolver = OpenAccessFullTextResolver()
         self.finding_extractor = FindingExtractor()
         self.condition_tagger = ConditionTagger()
         self.compat_evaluator = ConditionCompatibilityEvaluator()
@@ -181,22 +190,37 @@ class ContradictionFinderPipeline:
                             else DirectionLabel.UNCLEAR
                         )
                         conditions = ConditionSlots(
-                            intervention=interp.intervention
-                            or "Unspecified Scientific Intervention",
-                            comparator=interp.comparator or "Standard Baseline / Unspecified",
+                            intervention=interp.intervention,
+                            comparator=interp.comparator,
                             outcome_metric=interp.outcome or "Primary Empirical Outcome",
-                            dataset_setting=interp.setting or "General Scientific Setting",
+                            dataset_setting=interp.setting,
+                            population=interp.population,
+                            effect_size=interp.effect_estimate,
+                            study_design=interp.study_design,
+                            limitations_or_qualifiers=interp.limitations_or_qualifiers,
                             confidence=interp.confidence or 0.85,
-                            is_unknown=bool(not interp.intervention),
+                            is_unknown=bool(not interp.intervention or not interp.outcome),
                         )
+                        # Verbatim quote check against paper abstract
+                        quote_text = interp.evidence_quote.strip().strip("\"'")
+                        if quote_text and quote_text in paper.abstract:
+                            evidence = EvidenceSpan(
+                                text=quote_text,
+                                start_char=paper.abstract.find(quote_text),
+                                end_char=paper.abstract.find(quote_text) + len(quote_text),
+                                confidence=top_span.confidence,
+                            )
+                        else:
+                            evidence = top_span
+
                         finding = Finding(
                             finding_id=f"find_{paper.paper_id}",
                             paper_id=paper.paper_id,
                             paper_title=paper.title,
                             paper_doi=paper.doi,
                             paper_url=paper.url,
-                            evidence=top_span,
-                            finding_claim=interp.finding_summary or top_span.text,
+                            evidence=evidence,
+                            finding_claim=interp.finding_summary or evidence.text,
                             direction=direction,
                             conditions=conditions,
                         )
@@ -243,10 +267,206 @@ class ContradictionFinderPipeline:
                 count += 1
         return results
 
+    async def analyze_as_research_analyst(
+        self, query: str, limit: int = 25, max_deep_dives: int = 8
+    ) -> ResearchReport:
+        """Executes a multi-stage, iterative scientific research analysis workflow (Stages A through H)."""
+        # Stage A & B: Retrieve broad candidate pool with diagnostics
+        candidates, diag = await self.search_papers_with_diagnostics(query, limit=limit)
+        if not candidates:
+            exec_summary = ExecutiveSummary(
+                bottom_line="No relevant scholarly papers with accessible abstracts could be retrieved for this query.",
+                overall_evidence_assessment="inconclusive",
+                strongest_supporting_evidence="None identified.",
+                strongest_conflicting_evidence="None identified.",
+                why_studies_disagree="Literature coverage was insufficient to identify peer-reviewed findings.",
+                confidence_and_limitations="High uncertainty due to absence of retrieved literature.",
+                research_coverage="Retrieved 0 papers across OpenAlex and arXiv.",
+            )
+            return ResearchReport(
+                query=query,
+                executive_summary=exec_summary,
+                candidate_papers_retrieved=0,
+                papers_triaged=0,
+                papers_deep_dived=0,
+                full_texts_accessible=0,
+                stopped_reason="No literature retrieved.",
+            )
+
+        # Stage C: LLM / heuristic triage of candidate papers
+        triage_records: List[PaperTriageRecord] = []
+        deep_dive_papers: List[Paper] = []
+        for paper in candidates:
+            triage_data = await self.groq_client.triage_paper(paper.title, paper.abstract, query)
+            cat_str = triage_data.get("category", "DIRECT_EMPIRICAL")
+            cat_enum = (
+                PaperTriageClassification(cat_str)
+                if cat_str in PaperTriageClassification._value2member_map_
+                else PaperTriageClassification.DIRECT_EMPIRICAL
+            )
+            is_selected = bool(triage_data.get("selected_for_deep_dive", True)) and (
+                len(deep_dive_papers) < max_deep_dives
+            )
+            rec = PaperTriageRecord(
+                paper_id=paper.paper_id,
+                title=paper.title,
+                category=cat_enum,
+                relevance_rationale=triage_data.get(
+                    "relevance_rationale", "Empirical study evaluating target phenomenon."
+                ),
+                selected_for_deep_dive=is_selected,
+            )
+            triage_records.append(rec)
+            if is_selected:
+                deep_dive_papers.append(paper)
+
+        if not deep_dive_papers:
+            deep_dive_papers = candidates[:max_deep_dives]
+
+        # Stage D & E: Deep-dive into selected papers (resolve OA full-text where available)
+        full_text_count = 0
+        for paper in deep_dive_papers:
+            if paper.is_oa and paper.oa_url:
+                ft = await self.fulltext_resolver.resolve_full_text(paper.oa_url, paper.doi)
+                if ft:
+                    paper.full_text = ft
+                    full_text_count += 1
+
+        # Extract structured findings from deep-dived papers
+        findings = await self.extract_findings_from_papers(
+            deep_dive_papers, use_groq_interpretation=True
+        )
+
+        # Build Structured Evidence Ledger
+        evidence_ledger: List[SupportedEvidenceClaim] = []
+        for f in findings:
+            claim = SupportedEvidenceClaim(
+                claim_id=f"claim_{f.finding_id}",
+                paper_id=f.paper_id,
+                paper_title=f.paper_title,
+                doi=f.paper_doi,
+                url=f.paper_url,
+                exact_source_passage=f.evidence.text,
+                study_design=f.conditions.study_design or "Empirical Study",
+                population_setting=f.conditions.population or f.conditions.dataset_setting,
+                intervention_exposure=f.conditions.intervention,
+                comparator=f.conditions.comparator,
+                outcome=f.conditions.outcome_metric,
+                direction=f.direction,
+                effect_size=f.conditions.effect_size,
+                conditions_and_moderators=f.conditions.limitations_or_qualifiers,
+                full_text_used=bool(
+                    next((p.full_text for p in deep_dive_papers if p.paper_id == f.paper_id), None)
+                ),
+                is_direct=True,
+            )
+            evidence_ledger.append(claim)
+
+        # Stage F: Cross-paper finding comparisons
+        comparisons = self.compare_findings(findings, max_comparisons=10)
+
+        # Stage G: Disagreement & Moderator Analysis
+        claims_summary_text = "\n".join(
+            f"[{c.paper_id}] {c.paper_title}: I={c.intervention_exposure}, C={c.comparator}, O={c.outcome}, Dir={c.direction.value}, Evidence='{c.exact_source_passage}'"
+            for c in evidence_ledger
+        )
+        disagreements_raw = await self.groq_client.analyze_disagreements(query, claims_summary_text)
+        disagreements: List[DisagreementExplanation] = [
+            DisagreementExplanation(**d) for d in disagreements_raw if isinstance(d, dict)
+        ]
+
+        # Stage H: Executive Summary Synthesis
+        cov_stats = {
+            "retrieved_total": len(candidates),
+            "examined_in_depth": len(deep_dive_papers),
+            "findings_in_ledger": len(evidence_ledger),
+            "full_texts_accessible": full_text_count,
+        }
+        disag_summary_text = "\n".join(
+            f"- Topic: {d.topic_or_metric}; Studies: {', '.join(d.studies_in_disagreement)}; Reason: {d.plausible_moderator_or_reason}"
+            for d in disagreements
+        )
+        exec_raw = await self.groq_client.synthesize_executive_summary(
+            query,
+            claims_summary_text,
+            disag_summary_text or "No substantive disagreement identified.",
+            cov_stats,
+        )
+
+        if exec_raw:
+            exec_summary = ExecutiveSummary(**exec_raw)
+        else:
+            # Deterministic fallback summary
+            pos_count = sum(1 for f in findings if f.direction == DirectionLabel.POSITIVE)
+            neg_count = sum(1 for f in findings if f.direction == DirectionLabel.NEGATIVE)
+            sum(1 for f in findings if f.direction == DirectionLabel.NO_DIFFERENCE)
+            mixed_count = sum(1 for f in findings if f.direction == DirectionLabel.MIXED)
+
+            if pos_count > 0 and neg_count == 0:
+                overall = "broadly supports"
+                bl = f"The reviewed empirical evidence indicates consistent positive effects for {query.strip('?')}."
+            elif neg_count > 0 and pos_count == 0:
+                overall = "broadly supports an inverse or reducing relationship"
+                bl = "The available empirical studies demonstrate consistent reductions or negative impacts."
+            elif (pos_count > 0 and neg_count > 0) or mixed_count > 0:
+                overall = "suggests context-dependent effects or qualified disagreement"
+                bl = "Empirical findings show divergence depending on specific study conditions, protocols, and outcome measures."
+            else:
+                overall = "inconclusive"
+                bl = "Available empirical evidence is preliminary or lacks standardized comparative outcomes."
+
+            sup_claim = next(
+                (
+                    c
+                    for c in evidence_ledger
+                    if c.direction in (DirectionLabel.POSITIVE, DirectionLabel.NEGATIVE)
+                ),
+                None,
+            )
+            sup_text = (
+                f"{sup_claim.paper_title}: {sup_claim.exact_source_passage}"
+                if sup_claim
+                else "No definitive primary study."
+            )
+            opp_claim = next(
+                (c for c in evidence_ledger if c.direction == DirectionLabel.NO_DIFFERENCE), None
+            )
+            opp_text = (
+                f"{opp_claim.paper_title}: {opp_claim.exact_source_passage}"
+                if opp_claim
+                else "No conflicting studies found in sampled literature."
+            )
+
+            exec_summary = ExecutiveSummary(
+                bottom_line=bl,
+                overall_evidence_assessment=overall,
+                strongest_supporting_evidence=sup_text,
+                strongest_conflicting_evidence=opp_text,
+                why_studies_disagree="Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+                confidence_and_limitations="Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+                research_coverage=f"Retrieved {len(candidates)} candidate papers; examined {len(deep_dive_papers)} in depth ({full_text_count} open-access full texts).",
+            )
+
+        return ResearchReport(
+            query=query,
+            executive_summary=exec_summary,
+            candidate_papers_retrieved=len(candidates),
+            papers_triaged=len(triage_records),
+            papers_deep_dived=len(deep_dive_papers),
+            full_texts_accessible=full_text_count,
+            triage_records=triage_records,
+            evidence_ledger=evidence_ledger,
+            disagreements=disagreements,
+            detailed_comparisons=[p for _, p in comparisons],
+            investigation_rounds=1,
+            stopped_reason="Completed full staged evidence synthesis across accessible open literature.",
+        )
+
     async def run(
         self, query: str, limit: int = 15, use_groq_interpretation: bool = False
     ) -> Dict[str, Any]:
-        """Runs the end-to-end pipeline: search -> extract -> condition tag -> compare."""
+        """Runs the end-to-end pipeline: search -> extract -> condition tag -> compare -> research report."""
+        report = await self.analyze_as_research_analyst(query, limit=limit)
         papers, diag = await self.search_papers_with_diagnostics(query, limit=limit)
         findings = await self.extract_findings_from_papers(
             papers, use_groq_interpretation=use_groq_interpretation
@@ -261,4 +481,5 @@ class ContradictionFinderPipeline:
             "papers": papers,
             "findings": findings,
             "diagnostics": diag,
+            "research_report": report,
         }

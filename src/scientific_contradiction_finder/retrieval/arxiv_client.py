@@ -119,6 +119,7 @@ class ArxivClient:
                         authors.append(name_elem.text.strip())
 
                 if abstract:
+                    pdf_url = f"https://arxiv.org/pdf/{arxiv_id}.pdf" if arxiv_id else None
                     papers.append(
                         Paper(
                             paper_id=f"arxiv:{arxiv_id}",
@@ -128,6 +129,8 @@ class ArxivClient:
                             year=year,
                             authors=authors,
                             source_provider="arxiv",
+                            is_oa=True,
+                            oa_url=pdf_url,
                         )
                     )
         except Exception:

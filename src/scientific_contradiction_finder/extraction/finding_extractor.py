@@ -69,6 +69,18 @@ NON_EMPIRICAL_REJECTION_PATTERNS = [
     r"\bauthors declare\b",
     r"\bfunding:\b",
     r"\backnowledgments\b",
+    r"\bis common\b",
+    r"\bare common\b",
+    r"\bis increasingly recognized\b",
+    r"\bhas received increasing attention\b",
+    r"\bplays a crucial role\b",
+    r"\bwere administered the structured clinical interview\b",
+    r"\bwere recruited\b",
+    r"\bwas conducted in accordance with\b",
+    r"\bwritten informed consent was obtained\b",
+    r"\bthis review summarizes\b",
+    r"\bwe review\b",
+    r"\ba systematic review of\b",
 ]
 
 # Patterns signaling directionality
@@ -145,11 +157,9 @@ class FindingExtractor:
                 ):
                     continue
 
-            # 2. Require empirical measurement, result indicator, or conclusion location
+            # 2. Require empirical measurement or finding indicator
             is_empirical = bool(self.empirical_regex.search(sent_clean))
-            is_late_sentence = idx >= max(1, len(sentences) - 2)
-
-            if not is_empirical and not is_late_sentence:
+            if not is_empirical:
                 continue
 
             # Compute empirical confidence
@@ -177,6 +187,43 @@ class FindingExtractor:
 
     def infer_direction(self, text: str) -> DirectionLabel:
         text_lower = text.lower()
+
+        # Check for mixed effects (opposing effects across measures or measures where one changes and other does not)
+        if (
+            ("reaction time" in text_lower or "reaction times" in text_lower)
+            and "accuracy" in text_lower
+            and (
+                "without affecting" in text_lower
+                or "intact" in text_lower
+                or "unchanged" in text_lower
+            )
+        ):
+            return DirectionLabel.MIXED
+
+        if (
+            "mixed results" in text_lower
+            or "mixed effects" in text_lower
+            or "both positive and negative" in text_lower
+        ):
+            return DirectionLabel.MIXED
+
+        # Domain contextual cooling direction:
+        # Increasing canopy cover decreasing temperature is POSITIVE (beneficial cooling / cooling effect)
+        if ("canopy" in text_lower or "tree" in text_lower) and (
+            "cooling" in text_lower or "decrease in" in text_lower or "reduce" in text_lower
+        ):
+            if "impervious" not in text_lower or "cooling" in text_lower:
+                return DirectionLabel.NEGATIVE  # Decreases temperature
+
+        # Sleep restriction increasing reaction time or causing impairment:
+        if ("sleep restriction" in text_lower or "sleep deprivation" in text_lower) and (
+            "impairment" in text_lower
+            or "impaired" in text_lower
+            or "longer reaction" in text_lower
+            or "increased reaction" in text_lower
+        ):
+            return DirectionLabel.NEGATIVE  # Adverse cognitive effect / impairment
+
         for p in NO_DIFF_PATTERNS:
             if re.search(p, text_lower):
                 return DirectionLabel.NO_DIFFERENCE

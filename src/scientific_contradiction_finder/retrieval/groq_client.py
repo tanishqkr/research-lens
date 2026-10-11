@@ -3,7 +3,7 @@
 import json
 import logging
 import os
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 import httpx
 from dotenv import load_dotenv
@@ -51,22 +51,36 @@ class StructuredFindingInterpretation(BaseModel):
     )
     finding_summary: str = Field(..., description="Concise statement of the finding")
     direction: str = Field(
-        default="UNCLEAR", description="POSITIVE, NEGATIVE, NO_DIFFERENCE, or UNCLEAR"
+        default="UNCLEAR",
+        description="POSITIVE (increases/benefits outcome), NEGATIVE (decreases/worsens outcome), NO_DIFFERENCE, MIXED, or UNCLEAR",
     )
     intervention: Optional[str] = Field(
-        None, description="Intervention or exposure evaluated, null if unspecified"
+        None,
+        description="Intervention, method, exposure or manipulated condition, null if unspecified",
     )
     comparator: Optional[str] = Field(
-        None, description="Control or reference condition, null if unspecified"
+        None, description="Control group, baseline condition, or comparator, null if unspecified"
     )
     outcome: Optional[str] = Field(
-        None, description="Outcome metric or variable, null if unspecified"
+        None, description="Measured, assessed, or dependent variable, null if unspecified"
+    )
+    population: Optional[str] = Field(
+        None, description="Cohort, subjects, species, or demographic group, null if unspecified"
     )
     setting: Optional[str] = Field(
-        None, description="Population, benchmark, or setting, null if unspecified"
+        None,
+        description="Experimental environment, city, climate, benchmark, or context, null if unspecified",
     )
     effect_estimate: Optional[str] = Field(
-        None, description="Numerical effect or statistics if reported"
+        None,
+        description="Numerical effect size, percentage, or statistics if reported, null otherwise",
+    )
+    study_design: Optional[str] = Field(
+        None,
+        description="Study design (RCT, observational, simulation, benchmark), null if unstated",
+    )
+    limitations_or_qualifiers: Optional[str] = Field(
+        None, description="Reported threshold, duration, dose, or qualification, null if unstated"
     )
     confidence: Optional[float] = Field(
         default=0.8, description="Extraction confidence between 0.0 and 1.0"
@@ -186,13 +200,15 @@ class GroqClient:
 
         system_prompt = (
             "You are an empirical evidence auditor for scientific literature. Analyze the supplied passage.\n"
-            "Determine if it reports an actual EMPIRICAL FINDING (an observation, measured result, effect, or quantitative finding).\n"
-            "Reject generic promises ('models show great promise'), background introductions, study aims, biographies, or boilerplate.\n"
+            "Determine if it reports an actual EMPIRICAL FINDING (an observation, measured result, effect, or quantitative/qualitative finding).\n"
+            "Reject generic background statements ('chronic sleep restriction is common'), methodology descriptions ('participants were administered the interview'),\n"
+            "review intentions ('this paper aims to'), speculation, recommendations, or generic promise statements ('demonstrated great promise').\n"
             "Rules:\n"
             "1. evidence_quote MUST be an EXACT, VERBATIM substring of the supplied passage.\n"
-            "2. If not an empirical finding, set is_empirical_finding=false, set rejection_reason, and do not invent conditions.\n"
-            "3. direction must be one of: 'POSITIVE', 'NEGATIVE', 'NO_DIFFERENCE', 'UNCLEAR'.\n"
-            "4. Return strict JSON with keys: is_empirical_finding, evidence_quote, finding_summary, direction, intervention, comparator, outcome, setting, effect_estimate, confidence (number between 0.0 and 1.0), rejection_reason."
+            "2. If not an empirical finding, set is_empirical_finding=false, set rejection_reason, and leave slots null.\n"
+            "3. Never substitute generic phrases such as 'A Result', 'The Action', 'The Researcher', 'The Day', 'Our Findings', or 'The Effect' for scientific variables.\n"
+            "4. direction must be one of: 'POSITIVE' (intervention increases/benefits outcome), 'NEGATIVE' (intervention decreases/worsens outcome or causes impairment), 'NO_DIFFERENCE' (no significant effect), 'MIXED' (opposing effects across measures), or 'UNCLEAR'.\n"
+            "5. Return strict JSON with keys: is_empirical_finding, evidence_quote, finding_summary, direction, intervention, comparator, outcome, population, setting, effect_estimate, study_design, limitations_or_qualifiers, confidence (float 0.0-1.0), rejection_reason."
         )
 
         payload = {
@@ -229,5 +245,177 @@ class GroqClient:
                         return parsed
                 except Exception as e:
                     logger.warning(f"Groq passage interpretation attempt {attempt + 1} failed: {e}")
+
+        return None
+
+    async def triage_paper(self, paper_title: str, abstract: str, query: str) -> Dict[str, Any]:
+        """Triage a candidate paper into DIRECT_EMPIRICAL, INDIRECT_EMPIRICAL, REVIEW_SYNTHESIS, BACKGROUND_THEORY, or WEAK_OR_IRRELEVANT."""
+        if not self.is_available:
+            # Fallback heuristic
+            return {
+                "category": "DIRECT_EMPIRICAL"
+                if any(
+                    w in abstract.lower()
+                    for w in ["result", "show", "found", "trial", "experiment"]
+                )
+                else "INDIRECT_EMPIRICAL",
+                "relevance_rationale": "Categorized via local heuristic keyword filter.",
+                "selected_for_deep_dive": True,
+            }
+
+        cache_key = self.cache.compute_key(
+            "groq", "triage_paper", {"title": paper_title, "query": query}
+        )
+        cached = self.cache.get(cache_key)
+        if cached:
+            return cached
+
+        prompt = (
+            f"Question: {query}\n"
+            f"Paper Title: {paper_title}\n"
+            f"Abstract: {abstract[:1500]}\n\n"
+            "Assess this candidate paper for the research question.\n"
+            "Classify category into exactly one of: 'DIRECT_EMPIRICAL', 'INDIRECT_EMPIRICAL', 'REVIEW_SYNTHESIS', 'BACKGROUND_THEORY', 'WEAK_OR_IRRELEVANT'.\n"
+            "Set selected_for_deep_dive (boolean, true if it reports original empirical data relevant to the question).\n"
+            'Return JSON: {"category": "...", "relevance_rationale": "...", "selected_for_deep_dive": true/false}'
+        )
+
+        payload = {
+            "model": self.model,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are a scientific literature triage analyst. Return strict JSON.",
+                },
+                {"role": "user", "content": prompt},
+            ],
+            "response_format": {"type": "json_object"},
+            "temperature": 0.0,
+        }
+        headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
+
+        try:
+            async with httpx.AsyncClient(timeout=self.timeout_seconds) as client:
+                res = await client.post(self.base_url, headers=headers, json=payload)
+                if res.status_code == 200:
+                    data = json.loads(res.json()["choices"][0]["message"]["content"])
+                    self.cache.set(cache_key, "groq", "triage_paper", data)
+                    return data
+        except Exception as e:
+            logger.warning(f"Groq triage failed: {e}")
+
+        return {
+            "category": "DIRECT_EMPIRICAL",
+            "relevance_rationale": "Fallback classification due to triage timeout.",
+            "selected_for_deep_dive": True,
+        }
+
+    async def analyze_disagreements(self, query: str, claims_summary: str) -> List[Dict[str, Any]]:
+        """Reasons across empirical claims to identify genuine disagreements, moderators, and explanations."""
+        if not self.is_available or not claims_summary:
+            return []
+
+        cache_key = self.cache.compute_key(
+            "groq", "disagreements", {"query": query, "summary": claims_summary[:2000]}
+        )
+        cached = self.cache.get(cache_key)
+        if cached:
+            return cached.get("disagreements", [])
+
+        prompt = (
+            f"Scientific Question: {query}\n\n"
+            f"Evidence Ledger:\n{claims_summary}\n\n"
+            "Analyze whether these studies agree, disagree, or report context-dependent effects.\n"
+            "Identify: 1) What topic/metric exhibits divergence, 2) Which studies diverge, 3) The most plausible scientific explanations/moderators (e.g. population, measurement method, dose/duration, urban density, climate), 4) Suggested follow-up investigation.\n"
+            'Return JSON: {"disagreements": [{"topic_or_metric": "...", "studies_in_disagreement": ["Study A", "Study B"], "plausible_moderator_or_reason": "...", "suggested_follow_up_investigation": "..."}]}'
+        )
+
+        payload = {
+            "model": self.model,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are a rigorous scientific research synthesist. Identify genuine conflicts vs condition differences.",
+                },
+                {"role": "user", "content": prompt},
+            ],
+            "response_format": {"type": "json_object"},
+            "temperature": 0.0,
+        }
+        headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
+
+        try:
+            async with httpx.AsyncClient(timeout=self.timeout_seconds) as client:
+                res = await client.post(self.base_url, headers=headers, json=payload)
+                if res.status_code == 200:
+                    data = json.loads(res.json()["choices"][0]["message"]["content"])
+                    disagreements = data.get("disagreements", [])
+                    self.cache.set(
+                        cache_key, "groq", "disagreements", {"disagreements": disagreements}
+                    )
+                    return disagreements
+        except Exception as e:
+            logger.warning(f"Groq disagreement analysis failed: {e}")
+
+        return []
+
+    async def synthesize_executive_summary(
+        self,
+        query: str,
+        evidence_summary: str,
+        disagreement_summary: str,
+        coverage_stats: Dict[str, Any],
+    ) -> Optional[Dict[str, str]]:
+        """Generates an evidence-grounded executive summary answering the question directly in 15-30 seconds."""
+        if not self.is_available:
+            return None
+
+        cache_key = self.cache.compute_key(
+            "groq", "exec_summary", {"query": query, "evidence": evidence_summary[:2000]}
+        )
+        cached = self.cache.get(cache_key)
+        if cached:
+            return cached
+
+        prompt = (
+            f"Original Question: {query}\n\n"
+            f"Evidence Ledger:\n{evidence_summary}\n\n"
+            f"Disagreement & Moderator Analysis:\n{disagreement_summary}\n\n"
+            f"Coverage: {coverage_stats}\n\n"
+            "Synthesize a rigorous, evidence-grounded executive summary.\n"
+            "Rules:\n"
+            "1. bottom_line: A direct, unambiguous scientific answer in 1-2 sentences. Never lead with 'INSUFFICIENT_EVIDENCE'.\n"
+            "2. overall_evidence_assessment: State clearly whether evidence 'broadly supports', 'broadly challenges', 'shows mixed results', 'suggests context-dependent effects', or 'remains inconclusive'.\n"
+            "3. strongest_supporting_evidence: Summarize the most definitive supporting paper(s) and what they measured.\n"
+            "4. strongest_conflicting_evidence: Summarize studies that genuinely challenge or qualify the leading interpretation (or note if evidence is uniformly consistent).\n"
+            "5. why_studies_disagree: Explain scientific causes of divergence (metrics, baseline, dose, climate, setting).\n"
+            "6. confidence_and_limitations: State evidence robustness honestly without claiming uncalibrated probabilities.\n"
+            "7. research_coverage: Summarize coverage counts (retrieved vs examined, abstract vs full-text).\n"
+            "Return JSON matching keys: bottom_line, overall_evidence_assessment, strongest_supporting_evidence, strongest_conflicting_evidence, why_studies_disagree, confidence_and_limitations, research_coverage."
+        )
+
+        payload = {
+            "model": self.model,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are a master scientific research analyst writing an executive briefing.",
+                },
+                {"role": "user", "content": prompt},
+            ],
+            "response_format": {"type": "json_object"},
+            "temperature": 0.0,
+        }
+        headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
+
+        try:
+            async with httpx.AsyncClient(timeout=self.timeout_seconds) as client:
+                res = await client.post(self.base_url, headers=headers, json=payload)
+                if res.status_code == 200:
+                    data = json.loads(res.json()["choices"][0]["message"]["content"])
+                    self.cache.set(cache_key, "groq", "exec_summary", data)
+                    return data
+        except Exception as e:
+            logger.warning(f"Groq executive summary synthesis failed: {e}")
 
         return None

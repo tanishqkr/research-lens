@@ -6,7 +6,7 @@ import streamlit as st
 
 from scientific_contradiction_finder.ingestion.dataset_loader import BenchmarkLoader
 from scientific_contradiction_finder.pipeline import ContradictionFinderPipeline
-from scientific_contradiction_finder.schemas import RelationLabel
+from scientific_contradiction_finder.schemas import RelationLabel, ResearchReport
 
 st.set_page_config(
     page_title="Scientific Contradiction Finder",
@@ -83,15 +83,28 @@ if mode == "Demo Benchmark Pairs (CAS-Con150)":
             st.markdown(f"**Reported Direction:** `{selected_pair.finding_a.direction.value}`")
             with st.expander("📌 Extracted Conditions (Study A)", expanded=True):
                 st.write(
-                    f"- **Intervention ($I$):** {selected_pair.finding_a.conditions.intervention}"
-                )
-                st.write(f"- **Comparator ($C$):** {selected_pair.finding_a.conditions.comparator}")
-                st.write(
-                    f"- **Outcome Metric ($O$):** {selected_pair.finding_a.conditions.outcome_metric}"
+                    f"- **Intervention ($I$):** {selected_pair.finding_a.conditions.intervention or '_Unstated_'}"
                 )
                 st.write(
-                    f"- **Setting / Cohort ($S$):** {selected_pair.finding_a.conditions.dataset_setting}"
+                    f"- **Comparator ($C$):** {selected_pair.finding_a.conditions.comparator or '_Unstated / Standard Baseline_'}"
                 )
+                st.write(
+                    f"- **Outcome Metric ($O$):** {selected_pair.finding_a.conditions.outcome_metric or '_Unstated_'}"
+                )
+                st.write(
+                    f"- **Population:** {selected_pair.finding_a.conditions.population or '_Not specified_'}"
+                )
+                st.write(
+                    f"- **Setting / Cohort ($S$):** {selected_pair.finding_a.conditions.dataset_setting or '_General scientific setting_'}"
+                )
+                if selected_pair.finding_a.conditions.limitations_or_qualifiers:
+                    st.write(
+                        f"- **Conditions / Qualifiers:** {selected_pair.finding_a.conditions.limitations_or_qualifiers}"
+                    )
+                if selected_pair.finding_a.conditions.effect_size:
+                    st.write(
+                        f"- **Reported Effect:** {selected_pair.finding_a.conditions.effect_size}"
+                    )
 
         with col2:
             st.markdown("### 📄 Finding B")
@@ -100,15 +113,28 @@ if mode == "Demo Benchmark Pairs (CAS-Con150)":
             st.markdown(f"**Reported Direction:** `{selected_pair.finding_b.direction.value}`")
             with st.expander("📌 Extracted Conditions (Study B)", expanded=True):
                 st.write(
-                    f"- **Intervention ($I$):** {selected_pair.finding_b.conditions.intervention}"
-                )
-                st.write(f"- **Comparator ($C$):** {selected_pair.finding_b.conditions.comparator}")
-                st.write(
-                    f"- **Outcome Metric ($O$):** {selected_pair.finding_b.conditions.outcome_metric}"
+                    f"- **Intervention ($I$):** {selected_pair.finding_b.conditions.intervention or '_Unstated_'}"
                 )
                 st.write(
-                    f"- **Setting / Cohort ($S$):** {selected_pair.finding_b.conditions.dataset_setting}"
+                    f"- **Comparator ($C$):** {selected_pair.finding_b.conditions.comparator or '_Unstated / Standard Baseline_'}"
                 )
+                st.write(
+                    f"- **Outcome Metric ($O$):** {selected_pair.finding_b.conditions.outcome_metric or '_Unstated_'}"
+                )
+                st.write(
+                    f"- **Population:** {selected_pair.finding_b.conditions.population or '_Not specified_'}"
+                )
+                st.write(
+                    f"- **Setting / Cohort ($S$):** {selected_pair.finding_b.conditions.dataset_setting or '_General scientific setting_'}"
+                )
+                if selected_pair.finding_b.conditions.limitations_or_qualifiers:
+                    st.write(
+                        f"- **Conditions / Qualifiers:** {selected_pair.finding_b.conditions.limitations_or_qualifiers}"
+                    )
+                if selected_pair.finding_b.conditions.effect_size:
+                    st.write(
+                        f"- **Reported Effect:** {selected_pair.finding_b.conditions.effect_size}"
+                    )
 
         st.markdown("---")
         st.markdown("### 🧠 Condition-Aware Reasoning & Verdict")
@@ -121,10 +147,14 @@ if mode == "Demo Benchmark Pairs (CAS-Con150)":
             RelationLabel.INSUFFICIENT_EVIDENCE: "gray",
         }.get(pred.predicted_relation, "blue")
 
+        support_score = getattr(pred, "heuristic_score", pred.confidence_score)
         st.markdown(
             f"<h4>Predicted Relationship: <span style='color:{verdict_color};'>{pred.predicted_relation.value}</span> "
-            f"(Calibrated Confidence: {pred.confidence_score * 100:.1f}%)</h4>",
+            f"(Comparison Support Score: {support_score * 100:.1f}%)</h4>",
             unsafe_allow_html=True,
+        )
+        st.caption(
+            "ℹ️ *Comparison Support Score represents heuristic evidence certainty and condition alignment (0–100%). It is not an uncalibrated posterior probability.*"
         )
 
         st.markdown(f"**Reasoning Explanation:** {pred.explanation}")
@@ -171,6 +201,8 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
         "Choose an empirical query preset or write your own below:",
         [
             "Custom Query",
+            "Does increasing urban tree canopy cover reduce local temperatures, and does the effect vary with city density and climate?",
+            "Does sleep restriction impair working memory in adults, and do the effects differ between partial sleep restriction and total sleep deprivation?",
             "Do lithium-ion batteries degrade faster when charged at high temperatures compared with moderate temperatures?",
             "Does image augmentation improve image classification accuracy in vision transformer models compared with training without augmentation?",
             "Does vitamin D supplementation reduce the risk of acute respiratory infections, and does the effect depend on baseline vitamin D levels?",
@@ -195,53 +227,119 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
                 pipeline.run(query, limit=10, use_groq_interpretation=use_groq_interp)
             )
 
+        report: ResearchReport = res.get("research_report")
+        if report and report.executive_summary:
+            es = report.executive_summary
+            st.markdown("## 📋 Executive Research Summary")
+
+            # 1. Bottom line
+            st.markdown(f"### 💡 Bottom Line\n**{es.bottom_line}**")
+
+            # Evidence assessment badge
+            assessment_color = (
+                "green"
+                if "support" in es.overall_evidence_assessment.lower()
+                else (
+                    "orange"
+                    if "mixed" in es.overall_evidence_assessment.lower()
+                    or "context" in es.overall_evidence_assessment.lower()
+                    else "blue"
+                )
+            )
+            st.markdown(
+                f"**Overall Evidence Assessment:** <span style='color:{assessment_color}; font-weight:bold;'>{es.overall_evidence_assessment.upper()}</span>",
+                unsafe_allow_html=True,
+            )
+
+            c_sum1, c_sum2 = st.columns(2)
+            with c_sum1:
+                st.markdown("#### 🟢 Strongest Supporting Evidence")
+                st.info(es.strongest_supporting_evidence)
+            with c_sum2:
+                st.markdown("#### 🔴 Strongest Conflicting / Qualifying Evidence")
+                st.warning(es.strongest_conflicting_evidence)
+
+            with st.expander(
+                "🔬 Why Studies Disagree (Moderator & Context Analysis)", expanded=True
+            ):
+                st.markdown(es.why_studies_disagree)
+                if report.disagreements:
+                    st.markdown("##### 📌 Specific Disagreement Cases")
+                    for d in report.disagreements:
+                        st.markdown(
+                            f"- **{d.topic_or_metric}:** {', '.join(d.studies_in_disagreement)}"
+                        )
+                        st.caption(f"Reason: {d.plausible_moderator_or_reason}")
+                        if d.suggested_follow_up_investigation:
+                            st.caption(f"Follow-up: _{d.suggested_follow_up_investigation}_")
+
+            c_lim1, c_lim2 = st.columns(2)
+            with c_lim1:
+                st.markdown("#### ⚠️ Evidence Robustness & Limitations")
+                st.write(es.confidence_and_limitations)
+            with c_lim2:
+                st.markdown("#### 📊 Research Coverage")
+                st.write(es.research_coverage)
+                st.caption(f"Status: {report.stopped_reason}")
+
+            st.divider()
+
+        # Display Structured Evidence Ledger
+        if report and report.evidence_ledger:
+            st.markdown(
+                f"### 📑 Structured Evidence Ledger ({len(report.evidence_ledger)} Verified Findings)"
+            )
+            for claim in report.evidence_ledger:
+                badge = "📖 [Full-Text]" if claim.full_text_used else "📄 [Abstract]"
+                st.markdown(f"**{badge} [{claim.paper_id}] {claim.paper_title}**")
+                st.markdown(f'> *"{claim.exact_source_passage}"*')
+                c1, c2, c3 = st.columns(3)
+                c1.caption(f"**Intervention ($I$):** {claim.intervention_exposure or '_Unstated_'}")
+                c2.caption(f"**Outcome ($O$):** {claim.outcome or '_Unstated_'}")
+                c3.caption(f"**Direction:** `{claim.direction.value}`")
+                if claim.conditions_and_moderators:
+                    st.caption(f"**Conditions/Moderators:** {claim.conditions_and_moderators}")
+                st.divider()
+
+        # Literature Triage Section
+        if report and report.triage_records:
+            with st.expander(
+                f"🔍 Literature Triage & Paper Selection ({len(report.triage_records)} Candidates)",
+                expanded=False,
+            ):
+                for tr in report.triage_records:
+                    icon = "✅ Deep-Dive" if tr.selected_for_deep_dive else "➖ Screened"
+                    st.markdown(f"- **{icon} [{tr.category.value}] {tr.title}**")
+                    st.caption(f"Rationale: {tr.relevance_rationale}")
+
         # Show pipeline diagnostics
         diag = res.get("diagnostics", {})
         oa_diag = diag.get("openalex", {})
         ax_diag = diag.get("arxiv", {})
 
-        col_d1, col_d2, col_d3, col_d4 = st.columns(4)
-        col_d1.metric(
-            "OpenAlex Papers",
-            f"{oa_diag.get('results_count', 0)}",
-            f"Status {oa_diag.get('status') or 'N/A'}",
-        )
-        col_d2.metric(
-            "arXiv Papers",
-            f"{ax_diag.get('results_count', 0)}",
-            f"Status {ax_diag.get('status') or 'N/A'}",
-        )
-        col_d3.metric("Usable Abstracts", f"{diag.get('usable_abstracts', 0)}")
-        col_d4.metric("Extracted Findings", f"{res['findings_extracted']}")
-
-        if diag.get("groq_assisted") and diag.get("groq_structured"):
-            st.info(
-                f"💡 **Groq-Assisted Structured Query:** Keywords used: `{diag['groq_structured']['search_keywords']}`"
+        with st.expander("🛠️ Retrieval Diagnostics & Search Queries", expanded=False):
+            col_d1, col_d2, col_d3, col_d4 = st.columns(4)
+            col_d1.metric(
+                "OpenAlex Papers",
+                f"{oa_diag.get('results_count', 0)}",
+                f"Status {oa_diag.get('status') or 'N/A'}",
             )
-
-        if res["papers_found"] > 0:
-            st.success(
-                f"Retrieved **{res['papers_found']}** deduplicated papers; extracted **{res['findings_extracted']}** empirical findings."
+            col_d2.metric(
+                "arXiv Papers",
+                f"{ax_diag.get('results_count', 0)}",
+                f"Status {ax_diag.get('status') or 'N/A'}",
             )
-        else:
-            st.warning("No papers with abstracts could be retrieved for this query.")
+            col_d3.metric("Usable Abstracts", f"{diag.get('usable_abstracts', 0)}")
+            col_d4.metric("Extracted Findings", f"{res['findings_extracted']}")
 
-        # Display extracted findings
-        if res["findings"]:
-            with st.expander(
-                f"📑 Extracted Evidence Findings ({len(res['findings'])})", expanded=True
-            ):
-                for f in res["findings"]:
-                    st.markdown(f"**[{f.paper_id}] {f.paper_title}**")
-                    st.markdown(f"> _{f.evidence.text}_")
-                    st.caption(
-                        f"Direction: `{f.direction.value}` | Intervention: `{f.conditions.intervention}` | Comparator: `{f.conditions.comparator}` | Outcome: `{f.conditions.outcome_metric}` | Setting: `{f.conditions.dataset_setting}`"
-                    )
-                    st.divider()
+            if diag.get("groq_assisted") and diag.get("groq_structured"):
+                st.info(
+                    f"💡 **Groq-Assisted Structured Query:** Keywords used: `{diag['groq_structured']['search_keywords']}`"
+                )
 
         # Display cross-paper finding comparisons
         if res["comparisons"]:
-            st.markdown("### ⚖️ Cross-Paper Finding Comparisons")
+            st.markdown("### ⚖️ Detailed Cross-Paper Finding Comparisons")
             for pair, pred in res["comparisons"][:10]:
                 v_color = {
                     RelationLabel.SUPPORTS_OR_CONSISTENT: "green",
@@ -253,7 +351,7 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
 
                 with st.expander(
                     f"[{pred.predicted_relation.value}] {pair.finding_a.paper_title[:45]} vs {pair.finding_b.paper_title[:45]}",
-                    expanded=True,
+                    expanded=False,
                 ):
                     c1, c2 = st.columns(2)
                     with c1:
@@ -273,9 +371,10 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
                             f"Direction: `{pair.finding_b.direction.value}` | $I$: {pair.finding_b.conditions.intervention} | $C$: {pair.finding_b.conditions.comparator} | $O$: {pair.finding_b.conditions.outcome_metric}"
                         )
 
+                    support_score = getattr(pred, "heuristic_score", pred.confidence_score)
                     st.markdown(
                         f"**Verdict:** <span style='color:{v_color}; font-weight:bold;'>{pred.predicted_relation.value}</span> "
-                        f"(Calibrated Confidence: {pred.confidence_score * 100:.1f}%)",
+                        f"(Comparison Support Score: {support_score * 100:.1f}%)",
                         unsafe_allow_html=True,
                     )
                     st.markdown(f"**Explanation:** {pred.explanation}")
