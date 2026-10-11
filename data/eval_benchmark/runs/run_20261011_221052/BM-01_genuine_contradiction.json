@@ -1,0 +1,433 @@
+{
+  "query": "Does hydroxychloroquine reduce mortality in hospitalized patients with COVID-19?",
+  "executive_summary": {
+    "bottom_line": "Empirical findings show divergence depending on specific study conditions, protocols, and outcome measures.",
+    "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does hydroxychloroquine reduce mortality in hospitalized patients with COVID-19",
+        "status": "SUPPORTED",
+        "rationale": "Directly addressed by empirical evidence claims in papers: W3090815911, W3048376209, W3153506813, W3022004645, W3092382993.",
+        "evidence_paper_ids": [
+          "W3090815911",
+          "W3048376209",
+          "W3153506813",
+          "W3022004645",
+          "W3092382993"
+        ]
+      }
+    ],
+    "strongest_supporting_evidence": "The association of treatment with hydroxychloroquine and hospital mortality in COVID-19 patients: Hydroxychloroquine was associated with lower mortality when the model was adjusted for age and gender, with OR (95% CI): 0.44 (0.29-0.67).",
+    "strongest_conflicting_evidence": "Hydroxychloroquine and tocilizumab therapy in COVID-19 patients\u2014An observational study: there were no significant differences in associated mortality for patients receiving any hydroxychloroquine during the hospitalization (HR, 0.99 [95% CI, 0.80-1.22]), hydroxychloroquine alone (HR, 1.02 [95% CI, 0.83-1.27]), or hydroxychloroquine with azithromycin (HR, 0.98 [95% CI, 0.75-1.28]).",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 5 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 5,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does hydroxychloroquine reduce mortality in hospitalized patients with COVID-19",
+      "status": "SUPPORTED",
+      "rationale": "Directly addressed by empirical evidence claims in papers: W3090815911, W3048376209, W3153506813, W3022004645, W3092382993.",
+      "evidence_paper_ids": [
+        "W3090815911",
+        "W3048376209",
+        "W3153506813",
+        "W3022004645",
+        "W3092382993"
+      ]
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W3090815911",
+      "title": "The association of treatment with hydroxychloroquine and hospital mortality in COVID-19 patients",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from a large cohort of hospitalized COVID-19 patients in Spain, specifically analyzing the association between hydroxychloroquine treatment and hospital mortality using multivariable logistic regression. This directly addresses the exposure (hydroxychloroquine) and outcome (mortality) specified in the research question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W3048376209",
+      "title": "Hydroxychloroquine and tocilizumab therapy in COVID-19 patients\u2014An observational study",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper is a retrospective observational cohort study that directly investigates the association between hydroxychloroquine therapy and mortality in hospitalized patients with COVID-19. It provides original empirical data (Hazard Ratios and confidence intervals) specifically addressing the queried exposure (hydroxychloroquine) and outcome (mortality) in the specified population (hospitalized patients).",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W3153506813",
+      "title": "Mortality outcomes with hydroxychloroquine and chloroquine in COVID-19 from an international collaborative meta-analysis of randomized trials",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a meta-analysis of randomized controlled trials specifically evaluating the effect of hydroxychloroquine (and chloroquine) on all-cause mortality in patients with COVID-19. This directly addresses the research question regarding whether hydroxychloroquine reduces mortality in hospitalized patients (as the included trials like RECOVERY and SOLIDARITY primarily involve hospitalized or severe cases, and the meta-analysis synthesizes this specific evidence).",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W3022004645",
+      "title": "Hydroxychloroquine application is associated with a decreased mortality in critically ill patients with COVID-19",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from a retrospective cohort study specifically examining the association between hydroxychloroquine use and mortality in hospitalized (critically ill) patients with COVID-19. It directly addresses the exposure (hydroxychloroquine) and the outcome (mortality) specified in the research question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W3024357685",
+      "title": "Hydroxychloroquine and Mortality Among Patients With Systemic Lupus Erythematosus in the General Population",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The paper investigates the association between hydroxychloroquine and mortality in patients with Systemic Lupus Erythematosus (SLE), not in patients hospitalized with COVID-19. The exposure (HCQ) is the same, but the population and the specific outcome context (SLE survival vs. COVID-19 mortality) are fundamentally different, making it irrelevant to the specific research question.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3092382993",
+      "title": "Efficacy of chloroquine or hydroxychloroquine in COVID-19 patients: a systematic review and meta-analysis",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a systematic review and meta-analysis that directly evaluates the effect of hydroxychloroquine (HCQ) on short-term mortality in hospitalized patients with COVID-19, which matches the specific research question exactly.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W3082056442",
+      "title": "Impact of Azithromycin and/or Hydroxychloroquine on Hospital Mortality in COVID-19",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from a cohort of hospitalized patients with SARS-CoV-2 infection. It specifically evaluates the association between hydroxychloroquine treatment (alone and in combination) and the outcome of hospital mortality, directly addressing the research question.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3091868035",
+      "title": "Effect of Hydroxychloroquine in Hospitalized Patients with Covid-19",
+      "category": "DIRECT_COMPARISON",
+      "relevance_rationale": "The paper is a large randomized controlled trial (RECOVERY trial) that directly compares hydroxychloroquine to usual care in hospitalized patients with COVID-19, specifically measuring 28-day mortality, which is the exact exposure and outcome specified in the research question.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3122629328",
+      "title": "Prevalence and Predictors of Venous Thromboembolism or Mortality in Hospitalized COVID-19 Patients",
+      "category": "INDIRECT_EVIDENCE",
+      "relevance_rationale": "The paper investigates predictors of mortality (and VTE) in hospitalized COVID-19 patients and identifies hydroxychloroquine use as a significant predictor of increased VTE or mortality. While it provides empirical data linking the exposure (hydroxychloroquine) to the outcome (mortality/VTE), it is an observational study of predictors rather than a direct comparative trial or analysis specifically designed to test the causal effect of hydroxychloroquine on mortality. It offers indirect evidence regarding the association.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3040366309",
+      "title": "Treatment with hydroxychloroquine, azithromycin, and combination in patients hospitalized with COVID-19",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W3090815911",
+      "paper_id": "W3090815911",
+      "paper_title": "The association of treatment with hydroxychloroquine and hospital mortality in COVID-19 patients",
+      "doi": "https://doi.org/10.1007/s11739-020-02505-x",
+      "url": "https://doi.org/10.1007/s11739-020-02505-x",
+      "exact_source_passage": "Hydroxychloroquine was associated with lower mortality when the model was adjusted for age and gender, with OR (95% CI): 0.44 (0.29-0.67).",
+      "study_design": "Observational Study (implied by 'associated with' and adjustment for confounders, likely Cohort or Case-Control)",
+      "population_setting": "Patients (specific demographic details not provided in snippet, adjusted for age and gender)",
+      "intervention_exposure": "Hydroxychloroquine",
+      "comparator": "No hydroxychloroquine (implied by the odds ratio comparison)",
+      "outcome": "Mortality",
+      "direction": "POSITIVE",
+      "effect_size": "OR 0.44 (95% CI: 0.29-0.67)",
+      "conditions_and_moderators": "Association is adjusted only for age and gender; other potential confounders may not be accounted for. The specific study design (e.g., retrospective cohort) is not explicitly stated in the snippet.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    },
+    {
+      "claim_id": "claim_find_W3048376209",
+      "paper_id": "W3048376209",
+      "paper_title": "Hydroxychloroquine and tocilizumab therapy in COVID-19 patients\u2014An observational study",
+      "doi": "https://doi.org/10.1371/journal.pone.0237693",
+      "url": "https://doi.org/10.1371/journal.pone.0237693",
+      "exact_source_passage": "there were no significant differences in associated mortality for patients receiving any hydroxychloroquine during the hospitalization (HR, 0.99 [95% CI, 0.80-1.22]), hydroxychloroquine alone (HR, 1.02 [95% CI, 0.83-1.27]), or hydroxychloroquine with azithromycin (HR, 0.98 [95% CI, 0.75-1.28]).",
+      "study_design": "Cohort",
+      "population_setting": "Patients hospitalized",
+      "intervention_exposure": "Hydroxychloroquine (alone or with azithromycin)",
+      "comparator": "Neither drug",
+      "outcome": "Mortality",
+      "direction": "NO_DIFFERENCE",
+      "effect_size": "HR 0.99 (95% CI 0.80-1.22) for any hydroxychloroquine; HR 1.02 (95% CI 0.83-1.27) for hydroxychloroquine alone; HR 0.98 (95% CI 0.75-1.28) for hydroxychloroquine with azithromycin",
+      "conditions_and_moderators": "Findings are adjusted for imbalances via propensity modeling; observational design.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    },
+    {
+      "claim_id": "claim_find_W3153506813",
+      "paper_id": "W3153506813",
+      "paper_title": "Mortality outcomes with hydroxychloroquine and chloroquine in COVID-19 from an international collaborative meta-analysis of randomized trials",
+      "doi": "https://doi.org/10.1038/s41467-021-22446-z",
+      "url": "https://doi.org/10.1038/s41467-021-22446-z",
+      "exact_source_passage": "The combined OR on all-cause mortality for hydroxychloroquine is 1.11 (95% CI: 1.02, 1.20; I\u00b2 = 0%; 26 trials; 10,012 patients) and for chloroquine 1.77 (95%CI: 0.15, 21.13, I\u00b2 = 0%; 4 trials; 307 patients).",
+      "study_design": "Meta-Analysis",
+      "population_setting": "10,319 patients (10,012 in hydroxychloroquine trials, 307 in chloroquine trials)",
+      "intervention_exposure": "Hydroxychloroquine and Chloroquine",
+      "comparator": "Control (implied by Odds Ratio calculation)",
+      "outcome": "All-cause mortality",
+      "direction": "NEGATIVE",
+      "effect_size": "Hydroxychloroquine: OR 1.11 (95% CI: 1.02, 1.20); Chloroquine: OR 1.77 (95% CI: 0.15, 21.13)",
+      "conditions_and_moderators": "The confidence interval for chloroquine is very wide and includes 1.0, indicating the result is not statistically significant. The I\u00b2 statistic is 0% for both, suggesting low heterogeneity.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": false,
+      "is_review_synthesis": true
+    },
+    {
+      "claim_id": "claim_find_W3022004645",
+      "paper_id": "W3022004645",
+      "paper_title": "Hydroxychloroquine application is associated with a decreased mortality in critically ill patients with COVID-19",
+      "doi": "https://doi.org/10.1101/2020.04.27.20073379",
+      "url": "https://doi.org/10.1101/2020.04.27.20073379",
+      "exact_source_passage": "Mortalities are 18.8% (9/48) in HCQ group and 45.8% (238/520) in NHCQ group (p<0.001).",
+      "study_design": "Empirical Study",
+      "population_setting": null,
+      "intervention_exposure": "Mortalities",
+      "comparator": null,
+      "outcome": "Hcq Group",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    },
+    {
+      "claim_id": "claim_find_W3092382993",
+      "paper_id": "W3092382993",
+      "paper_title": "Efficacy of chloroquine or hydroxychloroquine in COVID-19 patients: a systematic review and meta-analysis",
+      "doi": "https://doi.org/10.1093/jac/dkaa403",
+      "url": "https://doi.org/10.1093/jac/dkaa403",
+      "exact_source_passage": "The pooled adjusted OR was 1.05 (95% CI 0.96\u20131.15, I2 = 0%).",
+      "study_design": "Systematic Review",
+      "population_setting": null,
+      "intervention_exposure": "1.05 (95% Ci 0.96\u20131.15, I2",
+      "comparator": null,
+      "outcome": null,
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": false,
+      "is_review_synthesis": true
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [
+    {
+      "pair_id": "pair_find_W3090815911_find_W3048376209",
+      "predicted_relation": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+      "heuristic_score": 0.881,
+      "confidence_score": 0.881,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": true,
+        "intervention_similarity": 0.7647004127502441,
+        "comparator_match": false,
+        "comparator_similarity": 0.24639630317687988,
+        "outcome_match": true,
+        "outcome_similarity": 1.0,
+        "setting_match": false,
+        "setting_similarity": 0.44493234157562256,
+        "overall_compatibility": 0.6836642563343048,
+        "summary_of_differences": "Comparator differs: 'No hydroxychloroquine (implied by the odds ratio comparison)' vs 'Neither drug' (sim=0.25); Setting/Cohort differs: 'Clinical/Healthcare setting (implied by mortality outcome and medication use)' vs 'Hospital' (sim=0.44)"
+      },
+      "provenance_verified": true,
+      "explanation": "Apparent disagreement qualified by experimental condition divergence: Comparator differs: 'No hydroxychloroquine (implied by the odds ratio comparison)' vs 'Neither drug' (sim=0.25); Setting/Cohort differs: 'Clinical/Healthcare setting (implied by mortality outcome and medication use)' vs 'Hospital' (sim=0.44)"
+    },
+    {
+      "pair_id": "pair_find_W3090815911_find_W3153506813",
+      "predicted_relation": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+      "heuristic_score": 0.89,
+      "confidence_score": 0.89,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": true,
+        "intervention_similarity": 0.9176716804504395,
+        "comparator_match": false,
+        "comparator_similarity": 0.41874784231185913,
+        "outcome_match": true,
+        "outcome_similarity": 0.685416579246521,
+        "setting_match": false,
+        "setting_similarity": 0.21015627682209015,
+        "overall_compatibility": 0.6420830719172954,
+        "summary_of_differences": "Comparator differs: 'No hydroxychloroquine (implied by the odds ratio comparison)' vs 'Control (implied by Odds Ratio calculation)' (sim=0.42); Setting/Cohort differs: 'Clinical/Healthcare setting (implied by mortality outcome and medication use)' vs 'Clinical trials (26 trials for hydroxychloroquine, 4 trials for chloroquine)' (sim=0.21)"
+      },
+      "provenance_verified": true,
+      "explanation": "Apparent disagreement qualified by experimental condition divergence: Comparator differs: 'No hydroxychloroquine (implied by the odds ratio comparison)' vs 'Control (implied by Odds Ratio calculation)' (sim=0.42); Setting/Cohort differs: 'Clinical/Healthcare setting (implied by mortality outcome and medication use)' vs 'Clinical trials (26 trials for hydroxychloroquine, 4 trials for chloroquine)' (sim=0.21)"
+    },
+    {
+      "pair_id": "pair_find_W3090815911_find_W3022004645",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.921,
+      "confidence_score": 0.921,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.10071689635515213,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.11920556426048279,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.07101258300244809,
+        "summary_of_differences": "Intervention differs: 'Hydroxychloroquine' vs 'Mortalities' (sim=0.10); Comparator differs: 'No hydroxychloroquine (implied by the odds ratio comparison)' vs 'None' (sim=0.00); Outcome metric differs: 'Mortality' vs 'Hcq Group' (sim=0.12); Setting/Cohort differs: 'Clinical/Healthcare setting (implied by mortality outcome and medication use)' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W3090815911_find_W3092382993",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.938,
+      "confidence_score": 0.938,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.0,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.0,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.0,
+        "summary_of_differences": "One or both findings contain unspecified/unknown experimental conditions."
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W3048376209_find_W3153506813",
+      "predicted_relation": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+      "heuristic_score": 0.894,
+      "confidence_score": 0.894,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": true,
+        "intervention_similarity": 0.7303923964500427,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": true,
+        "outcome_similarity": 0.685416579246521,
+        "setting_match": false,
+        "setting_similarity": 0.1178114116191864,
+        "overall_compatibility": 0.47893402427434917,
+        "summary_of_differences": "Comparator differs: 'Neither drug' vs 'Control (implied by Odds Ratio calculation)' (sim=0.00); Setting/Cohort differs: 'Hospital' vs 'Clinical trials (26 trials for hydroxychloroquine, 4 trials for chloroquine)' (sim=0.12)"
+      },
+      "provenance_verified": true,
+      "explanation": "Apparent disagreement qualified by experimental condition divergence: Comparator differs: 'Neither drug' vs 'Control (implied by Odds Ratio calculation)' (sim=0.00); Setting/Cohort differs: 'Hospital' vs 'Clinical trials (26 trials for hydroxychloroquine, 4 trials for chloroquine)' (sim=0.12)"
+    },
+    {
+      "pair_id": "pair_find_W3048376209_find_W3022004645",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.929,
+      "confidence_score": 0.929,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.0046721408143639565,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.11920556426048279,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.03739691856317222,
+        "summary_of_differences": "Intervention differs: 'Hydroxychloroquine (alone or with azithromycin)' vs 'Mortalities' (sim=0.00); Comparator differs: 'Neither drug' vs 'None' (sim=0.00); Outcome metric differs: 'Mortality' vs 'Hcq Group' (sim=0.12); Setting/Cohort differs: 'Hospital' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W3048376209_find_W3092382993",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.938,
+      "confidence_score": 0.938,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.0,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.0,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.0,
+        "summary_of_differences": "One or both findings contain unspecified/unknown experimental conditions."
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W3153506813_find_W3022004645",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.922,
+      "confidence_score": 0.922,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.06102819740772247,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.1452985256910324,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.06494942680001259,
+        "summary_of_differences": "Intervention differs: 'Hydroxychloroquine and Chloroquine' vs 'Mortalities' (sim=0.06); Comparator differs: 'Control (implied by Odds Ratio calculation)' vs 'None' (sim=0.00); Outcome metric differs: 'All-cause mortality' vs 'Hcq Group' (sim=0.15); Setting/Cohort differs: 'Clinical trials (26 trials for hydroxychloroquine, 4 trials for chloroquine)' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W3153506813_find_W3092382993",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.938,
+      "confidence_score": 0.938,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.0,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.0,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.0,
+        "summary_of_differences": "One or both findings contain unspecified/unknown experimental conditions."
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W3022004645_find_W3092382993",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.938,
+      "confidence_score": 0.938,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.0,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.0,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.0,
+        "summary_of_differences": "One or both findings contain unspecified/unknown experimental conditions."
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    }
+  ],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

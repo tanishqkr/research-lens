@@ -1,0 +1,109 @@
+{
+  "query": "Is cognitive behavioral therapy (CBT) more effective than SSRIs for preventing depression relapse at 12-month follow-up?",
+  "executive_summary": {
+    "bottom_line": "No qualifying empirical literature was identified testing this relationship in the retrieved search corpus.",
+    "overall_evidence_assessment": "inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Is cognitive behavioral therapy (CBT) more effective than SSRIs for preventing depression relapse at 12-month follow-up",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "None: no eligible empirical studies evaluated the queried relationship in the retrieved literature.",
+    "strongest_conflicting_evidence": "None: hypothesis remains unaddressed in retrieved empirical literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Confidence is zero within the retrieved corpus because no qualifying empirical trials were identified in retrieved scholarly literature. An empty evidence ledger indicates that no qualifying evidence was found in the retrieved sample, rather than conclusive proof that no broader scientific literature exists.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 0 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 0,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Is cognitive behavioral therapy (CBT) more effective than SSRIs for preventing depression relapse at 12-month follow-up",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W4241951208",
+      "title": "CBT plus medication reduces depression relapse even after treatment has ended",
+      "category": "INDIRECT_EVIDENCE",
+      "relevance_rationale": "The paper evaluates the combination of CBT and medication (fluoxetine) versus medication alone (implied by the comparison group that did not get CBT). It does not directly compare CBT alone versus SSRIs alone, which is the specific comparison requested in the question. Therefore, it provides indirect evidence regarding the role of CBT in relapse prevention but does not answer the head-to-head comparison query.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2272220490",
+      "title": "Relapse Prevention for Recurrent Major Depression: CBT or Psychoeducation?",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The research question specifically asks for a comparison between Cognitive Behavioral Therapy (CBT) and SSRIs (antidepressant medication). The candidate paper compares CBT with Psychoeducation. Since it does not involve SSRIs, it does not address the specific comparative effectiveness requested in the query.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W7196926378",
+      "title": "Effectiveness of Cognitive Behavioral Therapy(CBT) on Relapse in Adults with Depression: A Systematic Review and Meta-Analysis",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2050645823",
+      "title": "Sequential Treatment With Fluoxetine and Relapse-Prevention CBT to Improve Outcomes in Pediatric Depression",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2032842183",
+      "title": "CBT for major depression may continue to reduce relapse in the long term",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2906420156",
+      "title": "Predictors of depression relapse and recurrence after cognitive behavioural therapy: a systematic review and meta-analysis",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3129587728",
+      "title": "Combined Cognitive-Behavioral Therapy and Placebo Treatment for Patients with Depression: A Follow-Up Assessment",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2911611400",
+      "title": "Benefits of Sequentially Adding Cognitive-Behavioral Therapy or Antidepressant Medication for Adults With Nonremitting Depression",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2013712695",
+      "title": "Cognitive therapy in relapse prevention in depression",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W1558949487",
+      "title": "Brain Connectivity and Prediction of Relapse after Cognitive-Behavioral Therapy in Obsessive\u2013Compulsive Disorder",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [],
+  "disagreements": [],
+  "detailed_comparisons": [],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

@@ -201,6 +201,12 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
         "Choose an empirical query preset or write your own below:",
         [
             "Custom Query",
+            "Do randomized controlled trials show that low-carbohydrate diets produce greater weight loss than low-fat diets, and does the difference persist over time?",
+            "Does moderate alcohol consumption reduce all-cause mortality, or can the apparent protective association be explained by study design and confounding?",
+            "Does intermittent fasting produce greater long-term weight loss than continuous calorie restriction when energy intake is comparable?",
+            "Does vitamin D supplementation prevent cardiovascular events in generally healthy adults, and how do randomized trials compare with observational findings?",
+            "Which machine-learning approaches have been evaluated for early prediction of pediatric sepsis, and how reliable is the evidence that one approach outperforms another?",
+            "Does high-dose intravenous curcumin improve survival in severe acute pancreatitis?",
             "Does increasing urban tree canopy cover reduce local temperatures, and does the effect vary with city density and climate?",
             "Does sleep restriction impair working memory in adults, and do the effects differ between partial sleep restriction and total sleep deprivation?",
             "Do lithium-ion batteries degrade faster when charged at high temperatures compared with moderate temperatures?",
@@ -210,11 +216,17 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
     )
 
     default_val = (
-        "Do lithium-ion batteries degrade faster when charged at high temperatures compared with moderate temperatures?"
+        "Do randomized controlled trials show that low-carbohydrate diets produce greater weight loss than low-fat diets, and does the difference persist over time?"
         if preset == "Custom Query"
         else preset
     )
     query = st.text_input("Enter Empirical Claim or Scientific Question:", value=default_val)
+
+    # Session state initialization for query isolation
+    if "current_query" not in st.session_state:
+        st.session_state["current_query"] = None
+    if "search_results" not in st.session_state:
+        st.session_state["search_results"] = None
 
     col_btn, _ = st.columns([1, 4])
     submit = col_btn.button("Analyze Conflict", type="primary")
@@ -226,11 +238,31 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
             res = asyncio.run(
                 pipeline.run(query, limit=10, use_groq_interpretation=use_groq_interp)
             )
+            st.session_state["current_query"] = query
+            st.session_state["search_results"] = res
 
-        report: ResearchReport = res.get("research_report")
-        if report and report.executive_summary:
-            es = report.executive_summary
-            st.markdown("## 📋 Executive Research Summary")
+    # Check for query text modification to prevent displaying stale results
+    if st.session_state.get("search_results") is not None:
+        if query != st.session_state.get("current_query"):
+            st.info(
+                "ℹ️ Query text was changed. Stale results are hidden. Click **Analyze Conflict** to run analysis for the updated query."
+            )
+        else:
+            res = st.session_state["search_results"]
+            report: ResearchReport = res.get("research_report")
+            if report and report.executive_summary:
+                es = report.executive_summary
+                st.markdown("## 📋 Executive Research Summary")
+
+            # Status and Intent Badges
+            exec_state_color = "green" if report.execution_state.value == "COMPLETED" else "orange"
+            st.markdown(
+                f"<span style='background-color:#4A5568; color:white; padding:3px 10px; border-radius:6px; font-size:0.85em; font-weight:bold;'>Intent: {report.query_intent.value}</span> "
+                f"<span style='background-color:{exec_state_color}; color:white; padding:3px 10px; border-radius:6px; font-size:0.85em; font-weight:bold;'>Pipeline State: {report.execution_state.value}</span> "
+                f"<span style='color:#718096; font-size:0.85em; margin-left:10px;'>Run ID: <code>{report.run_id or 'N/A'}</code></span>",
+                unsafe_allow_html=True,
+            )
+            st.write("")
 
             # 1. Bottom line
             st.markdown(f"### 💡 Bottom Line\n**{es.bottom_line}**")
@@ -323,14 +355,57 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
             )
             for claim in report.evidence_ledger:
                 badge = "📖 [Full-Text]" if claim.full_text_used else "📄 [Abstract]"
-                st.markdown(f"**{badge} [{claim.paper_id}] {claim.paper_title}**")
+                design_color = {
+                    "INTERVENTIONAL_TRIAL": "#2E7D32",
+                    "OBSERVATIONAL_STUDY": "#1565C0",
+                    "SYSTEMATIC_REVIEW_META_ANALYSIS": "#6A1B9A",
+                    "PREDICTION_MODEL": "#E65100",
+                    "UNKNOWN": "#616161",
+                }.get(claim.study_type.value, "#616161")
+                design_badge = f"<span style='background-color:{design_color}; color:white; padding:2px 8px; border-radius:4px; font-size:0.8em; font-weight:bold;'>{claim.study_type.value}</span>"
+
+                title_link = f"[{claim.paper_title}]({claim.url or claim.doi or '#'})"
+                st.markdown(
+                    f"**{badge} {design_badge} [{claim.paper_id}] {title_link}**",
+                    unsafe_allow_html=True,
+                )
                 st.markdown(f'> *"{claim.exact_source_passage}"*')
                 c1, c2, c3 = st.columns(3)
-                c1.caption(f"**Intervention ($I$):** {claim.intervention_exposure or '_Unstated_'}")
-                c2.caption(f"**Outcome ($O$):** {claim.outcome or '_Unstated_'}")
+                c1.caption(f"**Intervention / Model ($I$):** {claim.intervention_exposure or '_Unstated_'}")
+                c2.caption(f"**Outcome / Target ($O$):** {claim.outcome or '_Unstated_'}")
                 c3.caption(f"**Direction:** `{claim.direction.value}`")
+
+                c4, c5 = st.columns(2)
+                if claim.population_setting:
+                    c4.caption(f"**Population / Setting ($S$):** {claim.population_setting}")
+                if claim.follow_up_duration:
+                    c5.caption(f"**Follow-Up Duration:** {claim.follow_up_duration}")
+                if claim.comparator:
+                    st.caption(f"**Comparator ($C$):** {claim.comparator}")
                 if claim.conditions_and_moderators:
                     st.caption(f"**Conditions/Moderators:** {claim.conditions_and_moderators}")
+
+                if claim.numerical_results:
+                    with st.expander(
+                        f"📊 Attributed Multi-Arm Numerical Results ({len(claim.numerical_results)} Estimates)",
+                        expanded=False,
+                    ):
+                        for nr in claim.numerical_results:
+                            arm_txt = f"**Arm:** `{nr.arm_name}`" if nr.arm_name else "**Estimate**"
+                            comp_txt = f" vs `{nr.comparator_arm}`" if nr.comparator_arm else ""
+                            val_txt = f": **{nr.point_estimate} {nr.unit or ''}**" if nr.point_estimate is not None else ""
+                            uncertainty_txt = f" ({nr.statistical_uncertainty})" if nr.statistical_uncertainty else ""
+                            horizon_txt = f" at {nr.follow_up_horizon}" if nr.follow_up_horizon else ""
+                            n_txt = f" [n={nr.sample_size}]" if nr.sample_size else ""
+                            st.write(f"- {arm_txt}{comp_txt}{val_txt}{uncertainty_txt}{horizon_txt}{n_txt}")
+
+                if claim.prediction_model_details:
+                    pm = claim.prediction_model_details
+                    with st.expander("🤖 Prediction Model Architecture & Metrics", expanded=False):
+                        st.write(f"- **Method:** {pm.model_method or 'N/A'}")
+                        st.write(f"- **Target Condition:** {pm.target_condition or 'N/A'}")
+                        st.write(f"- **Horizon:** {pm.prediction_horizon or 'N/A'}")
+                        st.write(f"- **Metrics:** {pm.metrics_and_values}")
                 st.divider()
 
         # Literature Triage Section
@@ -341,7 +416,8 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
             ):
                 for tr in report.triage_records:
                     icon = "✅ Deep-Dive" if tr.selected_for_deep_dive else "➖ Screened"
-                    st.markdown(f"- **{icon} [{tr.category.value}] {tr.title}**")
+                    fallback_tag = " `[Heuristic Fallback]`" if tr.is_heuristic_fallback else ""
+                    st.markdown(f"- **{icon} [{tr.category.value}]{fallback_tag} {tr.title}**")
                     st.caption(f"Rationale: {tr.relevance_rationale}")
 
         # Show pipeline diagnostics
@@ -403,10 +479,13 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
                             f"Direction: `{pair.finding_b.direction.value}` | $I$: {pair.finding_b.conditions.intervention} | $C$: {pair.finding_b.conditions.comparator} | $O$: {pair.finding_b.conditions.outcome_metric}"
                         )
 
-                    support_score = getattr(pred, "heuristic_score", pred.confidence_score)
+                    is_incomparable = pred.predicted_relation == RelationLabel.INCOMPARABLE_CONDITIONS
+                    score_label = "Incomparability Confidence" if is_incomparable else "Comparison Support Score"
+                    score_val = pred.confidence_score if is_incomparable else getattr(pred, "heuristic_score", pred.confidence_score)
+
                     st.markdown(
                         f"**Verdict:** <span style='color:{v_color}; font-weight:bold;'>{pred.predicted_relation.value}</span> "
-                        f"(Comparison Support Score: {support_score * 100:.1f}%)",
+                        f"({score_label}: {score_val * 100:.1f}%)",
                         unsafe_allow_html=True,
                     )
                     st.markdown(f"**Explanation:** {pred.explanation}")
@@ -420,3 +499,8 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
             st.info(
                 "Retrieved papers did not contain multiple distinct empirical finding statements meeting comparison criteria."
             )
+        else:
+            st.warning(
+                "⚠️ No relevant scholarly publications were retrieved matching this query from the configured providers."
+            )
+

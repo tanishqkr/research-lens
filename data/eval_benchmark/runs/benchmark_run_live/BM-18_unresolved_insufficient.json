@@ -1,0 +1,130 @@
+{
+  "query": "Does intermittent fasting produce greater weight loss than continuous calorie restriction under strictly matched isocaloric conditions?",
+  "executive_summary": {
+    "bottom_line": "Available empirical evidence is preliminary or lacks standardized comparative outcomes.",
+    "overall_evidence_assessment": "inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does intermittent fasting produce greater weight loss than continuous calorie restriction under strictly matched isocaloric conditions",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "No definitive primary study.",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 1 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 1,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does intermittent fasting produce greater weight loss than continuous calorie restriction under strictly matched isocaloric conditions",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W3016060685",
+      "title": "The Benefits of Intermittent Fasting For Weight Loss",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a clinical review of intermittent fasting for weight loss. However, the abstract explicitly states that there are 'limited studies comparing IF to other popular weight loss programs/strategies' and concludes that 'further research is needed.' It does not provide a synthesis of evidence specifically addressing the comparison between intermittent fasting and continuous calorie restriction under strictly matched isocaloric conditions, which is the core of the research question. Therefore, it does not directly evaluate the target question.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W7117291511",
+      "title": "Is intermittent fasting good for weight loss?",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3107824382",
+      "title": "The Safety and Efficacy of Intermittent Fasting for Weight Loss",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a literature review discussing the safety and efficacy of intermittent fasting for weight loss. However, it does not specifically address the comparison between intermittent fasting and continuous calorie restriction under strictly matched isocaloric conditions, which is the core of the research question. It provides general context but lacks the specific comparative data required.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3005999862",
+      "title": "Intermittent fasting and weight loss: Systematic review.",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3151811918",
+      "title": "Effect of Various Types of Intermittent Fasting (IF) on Weight Loss and Improvement of Diabetic Parameters in Human",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a review that synthesizes evidence on intermittent fasting (IF) versus continuous calorie restriction (CR) for weight loss. However, it does not explicitly confirm that the included studies used 'strictly matched isocaloric conditions,' which is a critical constraint in the research question. While it addresses the general comparison, it lacks the specific methodological rigor required for the 'strictly matched' condition, making it less direct than a study specifically designed for isocaloric matching. Nevertheless, it is a relevant synthesis of the broader topic.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2979922699",
+      "title": "Effectiveness of Intermittent Fasting and Time-Restricted Feeding Compared to Continuous Energy Restriction for Weight Loss",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W7125527506",
+      "title": "Intermittent Fasting: A Metabolically Focused Therapeutic Strategy for Obesity",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4224318250",
+      "title": "Intermittent Fasting versus Continuous Calorie Restriction: Which Is Better for Weight Loss?",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a systematic review and meta-analysis that directly compares intermittent fasting (IF) and continuous calorie restriction (CCR) for weight loss, which aligns with the core comparison in the research question. However, the question specifically asks about 'strictly matched isocaloric conditions.' Meta-analyses of RCTs often include trials with varying degrees of caloric matching or adherence, and the abstract does not explicitly confirm that all included studies were strictly isocaloric. While it is a relevant synthesis, it may not exclusively address the 'strictly matched isocaloric' constraint as a primary filter, but it is the closest available evidence type for this specific comparative question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2140595199",
+      "title": "Intermittent fasting combined with calorie restriction is effective for weight loss and cardio-protection in obese women",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2918196371",
+      "title": "Investigations of the Mechanisms of Diabetes Remission: A Focus on Adaptive Thermogenesis",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W4224318250",
+      "paper_id": "W4224318250",
+      "paper_title": "Intermittent Fasting versus Continuous Calorie Restriction: Which Is Better for Weight Loss?",
+      "doi": "https://doi.org/10.3390/nu14091781",
+      "url": "https://doi.org/10.3390/nu14091781",
+      "exact_source_passage": "The significance of body weight change (SMD = \u22120.21, 95% CI (\u22120.40, \u22120.02) p = 0.028) was more significant after IF than CCR.",
+      "study_design": "Systematic Review",
+      "population_setting": null,
+      "intervention_exposure": "The Significance",
+      "comparator": "Ccr",
+      "outcome": "Body Weight Change",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": false,
+      "is_review_synthesis": true
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

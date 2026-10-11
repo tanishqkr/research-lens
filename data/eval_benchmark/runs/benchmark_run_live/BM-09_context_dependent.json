@@ -1,0 +1,109 @@
+{
+  "query": "Does acute caffeine administration improve working memory performance?",
+  "executive_summary": {
+    "bottom_line": "No qualifying empirical literature was identified testing this relationship in the retrieved search corpus.",
+    "overall_evidence_assessment": "inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does acute caffeine administration improve working memory performance",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "None: no eligible empirical studies evaluated the queried relationship in the retrieved literature.",
+    "strongest_conflicting_evidence": "None: hypothesis remains unaddressed in retrieved empirical literature.",
+    "why_studies_disagree": "No substantive disagreement was identified because no findings were extracted from the examined studies. The lack of data precludes any analysis of divergence in metrics, baseline, dose, or setting.",
+    "confidence_and_limitations": "Confidence is zero within the retrieved corpus because no qualifying empirical trials were identified in retrieved scholarly literature. An empty evidence ledger indicates that no qualifying evidence was found in the retrieved sample, rather than conclusive proof that no broader scientific literature exists.",
+    "research_coverage": "10 papers were retrieved in total, but only 3 were examined in depth. Only 1 full text was accessible, and 0 findings were recorded in the ledger."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 3,
+  "full_texts_accessible": 1,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does acute caffeine administration improve working memory performance",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W4402306990",
+      "title": "Acute caffeine administration impaired spatial working memory in habitual coffee/tea drinkers: A randomized, placebo-controlled, double-blind study",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2965908192",
+      "title": "The Effects of Acute Aerobic Exercise and Caffeine on Working Memory and Caffeine Withdrawal",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper reports original empirical data from a controlled study (Phase I) where acute caffeine administration was tested against a baseline/counterbalanced condition. The results explicitly state that caffeine administration improved working memory (WM) accuracy in both non-caffeine and caffeine consumers, directly addressing the research question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W3156317321",
+      "title": "Working Memory Performance after Daily Caffeine Intake: Compromised Performance and Reduced Hippocampal Activity",
+      "category": "INDIRECT_EVIDENCE",
+      "relevance_rationale": "The research question specifically asks about 'acute' caffeine administration. This paper investigates the effects of 'daily' caffeine intake (chronic use over 10 days) and acute withdrawal, rather than a single acute dose in a naive or non-dependent state. While it measures working memory performance, the exposure condition (chronic daily intake) is distinct from the queried exposure (acute administration), making it indirect evidence.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2147870248",
+      "title": "Is Caffeine a Cognitive Enhancer?",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2996175748",
+      "title": "Effects of Caffeine and Acute Aerobic Exercise on Working Memory and Caffeine Withdrawal",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper reports original empirical data showing that acute caffeine administration (1.2 mg/kg) significantly improved working memory accuracy, directly addressing the queried exposure and outcome.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4380354850",
+      "title": "Effects of caffeine intake and performance pressure on working memory",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4404821766",
+      "title": "Concurrent consumption of cocoa flavanols and caffeine does not acutely modulate working memory and attention",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper is a randomized, double-blind, placebo-controlled crossover trial that explicitly tests the acute effect of caffeine (215 mg) on working memory performance (measured via a delayed recall task). Although it also tests cocoa flavanols and their combination, it provides direct empirical data on the specific exposure (caffeine) and outcome (working memory) requested in the question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W1514696983",
+      "title": "Chronic Caffeine Consumption Prevents Memory Disturbance in Different Animal Models of Memory Decline",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2161465738",
+      "title": "International society of sports nutrition position stand: caffeine and performance",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2791163366",
+      "title": "Administration of Caffeine in Alternate Forms",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [],
+  "disagreements": [],
+  "detailed_comparisons": [],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

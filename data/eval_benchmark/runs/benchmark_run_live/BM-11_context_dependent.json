@@ -1,0 +1,88 @@
+{
+  "query": "Does metformin increase lifespan and healthspan in non-diabetic organisms?",
+  "executive_summary": {
+    "bottom_line": "No qualifying empirical literature was identified testing this relationship in the retrieved search corpus.",
+    "overall_evidence_assessment": "inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does metformin increase lifespan and healthspan in non-diabetic organisms",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "None: no eligible empirical studies evaluated the queried relationship in the retrieved literature.",
+    "strongest_conflicting_evidence": "None: hypothesis remains unaddressed in retrieved empirical literature.",
+    "why_studies_disagree": "No disagreement exists because no relevant studies were identified in the retrieved sample. The absence of data precludes any analysis of scientific divergence regarding metrics, baseline health, or dosage.",
+    "confidence_and_limitations": "Confidence is zero within the retrieved corpus because no qualifying empirical trials were identified in retrieved scholarly literature. An empty evidence ledger indicates that no qualifying evidence was found in the retrieved sample, rather than conclusive proof that no broader scientific literature exists.",
+    "research_coverage": "7 documents were retrieved in total, but only 1 was examined in depth. Zero findings were recorded in the ledger, and zero full texts were accessible for analysis."
+  },
+  "candidate_papers_retrieved": 7,
+  "papers_triaged": 7,
+  "papers_deep_dived": 1,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does metformin increase lifespan and healthspan in non-diabetic organisms",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W4415607907",
+      "title": "Molecular mechanisms of metformin action: From metabolic effects to lifespan extension and healthspan promotion",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3187589847",
+      "title": "A Critical Review of the Evidence That Metformin Is a Putative Anti-Aging Drug That Enhances Healthspan and Extends Lifespan",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2082603625",
+      "title": "Metformin Induces a Dietary Restriction\u2013Like State and the Oxidative Stress Response to Extend C. elegans Healthspan via AMPK, LKB1, and SKN-1",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2101468528",
+      "title": "Activation of AMPK by the Putative Dietary Restriction Mimetic Metformin Is Insufficient to Extend Lifespan in Drosophila",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2058881502",
+      "title": "Metformin promotes lifespan through mitohormesis via the peroxiredoxin PRDX-2",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data using C. elegans (a non-diabetic organism) demonstrating that metformin exposure extends lifespan. It specifically addresses the mechanism (mitohormesis via PRDX-2) and confirms the lifespan-extending property, directly supporting the 'lifespan' component of the research question in a non-diabetic model.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4405451994",
+      "title": "Biochemical Mechanisms of Aging: Implications for Healthspan and Lifespan",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The provided text is a commercial listing for a book titled 'Biochemical Mechanisms of Aging' and does not contain an abstract or empirical data. It does not study metformin, nor does it provide evidence regarding its effects on lifespan or healthspan in non-diabetic organisms.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W7126069068",
+      "title": "Molecular mechanisms underlying the lifespan and healthspan benefits of dietary restriction across species",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [],
+  "disagreements": [],
+  "detailed_comparisons": [],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

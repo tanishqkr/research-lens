@@ -1,0 +1,81 @@
+{
+  "query": "Does resveratrol supplementation extend human lifespan or reduce all-cause mortality?",
+  "executive_summary": {
+    "bottom_line": "No qualifying empirical literature was identified testing this relationship in the retrieved search corpus.",
+    "overall_evidence_assessment": "inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does resveratrol supplementation extend human lifespan or reduce all-cause mortality",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "None: no eligible empirical studies evaluated the queried relationship in the retrieved literature.",
+    "strongest_conflicting_evidence": "None: hypothesis remains unaddressed in retrieved empirical literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Confidence is zero within the retrieved corpus because no qualifying empirical trials were identified in retrieved scholarly literature. An empty evidence ledger indicates that no qualifying evidence was found in the retrieved sample, rather than conclusive proof that no broader scientific literature exists.",
+    "research_coverage": "Retrieved 6 candidate papers; examined 0 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 6,
+  "papers_triaged": 6,
+  "papers_deep_dived": 0,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does resveratrol supplementation extend human lifespan or reduce all-cause mortality",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W3200165070",
+      "title": "Benefits of Resveratrol Supplementation",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W66742448",
+      "title": "Autophagy mediates pharmacological lifespan extension by spermidineand resveratrol",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4408055281",
+      "title": "Resveratrol does not mimic the positive effects of calorie restriction on lifespan in Microcebus murinus",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2023731823",
+      "title": "The effects of the dietary polyphenol resveratrol on human healthy aging and lifespan",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2902539416",
+      "title": "Health Effects of Resveratrol: Results from Human Intervention Trials",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The paper is a review focusing on the bioavailability, pharmacokinetics, and effects of resveratrol on specific pathologies (cardiovascular, cognitive, cancer, diabetes, oxidative stress). It does not address the specific outcome of 'all-cause mortality' or 'lifespan extension' in humans, which is the core of the research question. Therefore, it does not provide direct evidence for the queried outcome.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2168607225",
+      "title": "The lifespan extension effects of resveratrol are conserved in the honey bee and may be driven by a mechanism related to caloric restriction",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The paper studies the effects of resveratrol on honey bees (Apis mellifera), not humans. The research question specifically asks about human lifespan or all-cause mortality. While the mechanism might be conserved, the study does not provide empirical data on the human outcome requested.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [],
+  "disagreements": [],
+  "detailed_comparisons": [],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

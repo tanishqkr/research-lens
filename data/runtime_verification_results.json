@@ -1,0 +1,269 @@
+[
+  {
+    "label": "Query A (Battery science)",
+    "query": "Do higher temperatures accelerate lithium-ion battery degradation?",
+    "openalex_count": 24,
+    "openalex_status": 200,
+    "arxiv_count": 2,
+    "arxiv_status": 200,
+    "usable_abstracts": 26,
+    "extracted_findings": 10,
+    "comparisons_count": 45,
+    "sample_papers": [
+      {
+        "id": "W2981113727",
+        "title": "Effects of Nonuniform Temperature Distribution on Degradation of Lithium-Ion Batteries",
+        "provider": "openalex",
+        "doi_or_url": "https://doi.org/10.1115/1.4045205"
+      },
+      {
+        "id": "W4228996522",
+        "title": "Investigation the Degradation Mechanisms of Lithium-Ion Batteries under Low-Temperature High-Rate Cycling",
+        "provider": "openalex",
+        "doi_or_url": "https://doi.org/10.1021/acsaem.2c00957"
+      },
+      {
+        "id": "W4387846509",
+        "title": "Effect of thermal gradients on inhomogeneous degradation in lithium-ion batteries",
+        "provider": "openalex",
+        "doi_or_url": "https://doi.org/10.1038/s44172-023-00124-w"
+      }
+    ],
+    "sample_findings": [
+      {
+        "claim": "The middle cell resistance increased abruptly in the last 20 cycles before failure.",
+        "direction": "POSITIVE",
+        "conditions": {
+          "intervention": "The middle cell resistance",
+          "comparator": "Standard Baseline / Unspecified",
+          "outcome_metric": "The Last 20 Cycles",
+          "dataset_setting": "General Scientific Setting",
+          "confidence": 0.85,
+          "is_unknown": false
+        }
+      },
+      {
+        "claim": "In view of the lower temperature, the plated lithium can better retain the reaction activity, which results in a higher capacity recovery rate.",
+        "direction": "POSITIVE",
+        "conditions": {
+          "intervention": "the plated lithium",
+          "comparator": "Standard Baseline / Unspecified",
+          "outcome_metric": "View",
+          "dataset_setting": "General Scientific Setting",
+          "confidence": 0.85,
+          "is_unknown": false
+        }
+      },
+      {
+        "claim": "Poor understanding leads to reduced energy and power density due to over-engineering, or conversely to increased safety risks and failure rates.",
+        "direction": "POSITIVE",
+        "conditions": {
+          "intervention": "Poor understanding",
+          "comparator": "Standard Baseline / Unspecified",
+          "outcome_metric": "Engineering",
+          "dataset_setting": "General Scientific Setting",
+          "confidence": 0.85,
+          "is_unknown": false
+        }
+      }
+    ],
+    "sample_verdicts": [
+      {
+        "pair_id": "pair_find_W2981113727_find_W4228996522",
+        "verdict": "SUPPORTS_OR_CONSISTENT",
+        "confidence": 0.92,
+        "explanation": "Findings report consistent directional outcomes under compatible conditions."
+      },
+      {
+        "pair_id": "pair_find_W2981113727_find_W4387846509",
+        "verdict": "INCOMPARABLE_CONDITIONS",
+        "confidence": 0.92,
+        "explanation": "Studies evaluate disparate interventions: Intervention differs: 'The middle cell resistance' vs 'Poor understanding' (sim=0.11); Outcome metric differs: 'The Last 20 Cycles' vs 'Engineering' (sim=0.08)"
+      },
+      {
+        "pair_id": "pair_find_W2981113727_find_W2135242655",
+        "verdict": "INCOMPARABLE_CONDITIONS",
+        "confidence": 0.92,
+        "explanation": "Studies evaluate disparate interventions: Intervention differs: 'The middle cell resistance' vs 'A lithium-ion battery aging model' (sim=0.11); Outcome metric differs: 'The Last 20 Cycles' vs 'The Power Fade' (sim=0.31)"
+      }
+    ]
+  },
+  {
+    "label": "Query B (Machine learning)",
+    "query": "Does data augmentation improve the generalization of vision transformers?",
+    "openalex_count": 28,
+    "openalex_status": 200,
+    "arxiv_count": 10,
+    "arxiv_status": 200,
+    "usable_abstracts": 38,
+    "extracted_findings": 10,
+    "comparisons_count": 45,
+    "sample_papers": [
+      {
+        "id": "arxiv:2110.10536v1",
+        "title": "Improving Model Generalization by Agreement of Learned Representations from Data Augmentation",
+        "provider": "arxiv",
+        "doi_or_url": "http://arxiv.org/abs/2110.10536v1"
+      },
+      {
+        "id": "W4409494123",
+        "title": "Adversarial Data Augmentation With Vision Transformer for Image Classification Tasks",
+        "provider": "openalex",
+        "doi_or_url": "https://doi.org/10.4018/979-8-3693-7575-4.ch003"
+      },
+      {
+        "id": "W4408564273",
+        "title": "Distinct Views Improve Generalization and Robustness: Combinations of Augmentations With Different Features",
+        "provider": "openalex",
+        "doi_or_url": "https://doi.org/10.1109/access.2025.3552110"
+      }
+    ],
+    "sample_findings": [
+      {
+        "claim": "On downstream tasks such as object detection and segmentation on PascalVOC and COCO, AgMax pre-trained models outperforms other data augmentation methods by as much as 1.0mAP (box) and 0.5mAP (mask).",
+        "direction": "POSITIVE",
+        "conditions": {
+          "intervention": "On downstream tasks such",
+          "comparator": "Standard Baseline / Unspecified",
+          "outcome_metric": "Downstream Tasks",
+          "dataset_setting": "General Scientific Setting",
+          "confidence": 0.85,
+          "is_unknown": false
+        }
+      },
+      {
+        "claim": "The ViT model is trained by tuning with specific hyperparameters such as number of epochs, weight decay, learning rate, batch size, to improve the classification outcomes.",
+        "direction": "UNCLEAR",
+        "conditions": {
+          "intervention": "The ViT model",
+          "comparator": "Standard Baseline / Unspecified",
+          "outcome_metric": "Specific Hyperparameters",
+          "dataset_setting": "General Scientific Setting",
+          "confidence": 0.85,
+          "is_unknown": false
+        }
+      },
+      {
+        "claim": "To further improve robustness against corruption, we incorporate adversarial perturbations into the third (diversity-enhancing) view, unifying additional hardness and diversity.",
+        "direction": "UNCLEAR",
+        "conditions": {
+          "intervention": "To further improve robustness",
+          "comparator": "Corruption",
+          "outcome_metric": "Robustness",
+          "dataset_setting": "General Scientific Setting",
+          "confidence": 0.85,
+          "is_unknown": false
+        }
+      }
+    ],
+    "sample_verdicts": [
+      {
+        "pair_id": "pair_find_arxiv:2110.10536v1_find_W4409494123",
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "confidence": 0.88,
+        "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+      },
+      {
+        "pair_id": "pair_find_arxiv:2110.10536v1_find_W4408564273",
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "confidence": 0.88,
+        "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+      },
+      {
+        "pair_id": "pair_find_arxiv:2110.10536v1_find_W4286229305",
+        "verdict": "INCOMPARABLE_CONDITIONS",
+        "confidence": 0.92,
+        "explanation": "Studies evaluate disparate interventions: Intervention differs: 'On downstream tasks such' vs 'It' (sim=0.09); Outcome metric differs: 'Downstream Tasks' vs 'Convolution Neural Networks' (sim=0.23)"
+      }
+    ]
+  },
+  {
+    "label": "Query C (Medical research)",
+    "query": "Does vitamin D supplementation reduce respiratory infections in adults?",
+    "openalex_count": 29,
+    "openalex_status": 200,
+    "arxiv_count": 0,
+    "arxiv_status": 200,
+    "usable_abstracts": 29,
+    "extracted_findings": 9,
+    "comparisons_count": 36,
+    "sample_papers": [
+      {
+        "id": "W3132973568",
+        "title": "In healthy adults, does routine vitamin supplementation reduce the incidence of respiratory infections?",
+        "provider": "openalex",
+        "doi_or_url": "https://doi.org/10.1097/01.ebp.0000541682.05780.4c"
+      },
+      {
+        "id": "W4380028657",
+        "title": "Does vitamin D supplementation reduce the frequency or severity of respiratory viral infections in adults?",
+        "provider": "openalex",
+        "doi_or_url": "https://doi.org/10.1097/ebp.0000000000001601"
+      },
+      {
+        "id": "W4398774999",
+        "title": "Vitamin D supplementation for prevention of acute respiratory infections in older adults: A systematic review and meta-analysis",
+        "provider": "openalex",
+        "doi_or_url": "https://doi.org/10.1371/journal.pone.0303495"
+      }
+    ],
+    "sample_findings": [
+      {
+        "claim": "Daily dosing of vitamin D, but not bolus dosing, reduces respiratory tract infections (RTIs) in the general population (SOR: B, meta-analysis of heterogeneous RCTs).",
+        "direction": "NEGATIVE",
+        "conditions": {
+          "intervention": "Daily dosing",
+          "comparator": "Standard Baseline / Unspecified",
+          "outcome_metric": "Vitamin D",
+          "dataset_setting": "General Scientific Setting",
+          "confidence": 0.85,
+          "is_unknown": false
+        }
+      },
+      {
+        "claim": "CONCLUSIONS: Vitamin D supplementation among older adults probably results in little to no difference in the incidence of ARIs.",
+        "direction": "UNCLEAR",
+        "conditions": {
+          "intervention": "CONCLUSIONS",
+          "comparator": "Standard Baseline / Unspecified",
+          "outcome_metric": "Older Adults",
+          "dataset_setting": "General Scientific Setting",
+          "confidence": 0.85,
+          "is_unknown": false
+        }
+      },
+      {
+        "claim": "Vitamin D supplementation reduced the risk of ARI (risk ratio (RR)=0.97; 95% CI 0.94 to 1.00; p=0.028) and shortened the duration of symptoms (per cent difference: \u22126% (95% CI \u22129% to \u22122%; p=0.003)).",
+        "direction": "NEGATIVE",
+        "conditions": {
+          "intervention": "Vitamin D supplementation",
+          "comparator": "Standard Baseline / Unspecified",
+          "outcome_metric": "The Risk",
+          "dataset_setting": "General Scientific Setting",
+          "confidence": 0.85,
+          "is_unknown": false
+        }
+      }
+    ],
+    "sample_verdicts": [
+      {
+        "pair_id": "pair_find_W3132973568_find_W4398774999",
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "confidence": 0.88,
+        "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+      },
+      {
+        "pair_id": "pair_find_W3132973568_find_W3125790204",
+        "verdict": "SUPPORTS_OR_CONSISTENT",
+        "confidence": 0.92,
+        "explanation": "Findings report consistent directional outcomes under compatible conditions."
+      },
+      {
+        "pair_id": "pair_find_W3132973568_find_W2123426282",
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "confidence": 0.88,
+        "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+      }
+    ]
+  }
+]

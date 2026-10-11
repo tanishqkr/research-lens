@@ -1,0 +1,123 @@
+{
+  "query": "Does tight glycemic control improve survival in critically ill adult patients compared to standard blood glucose control?",
+  "executive_summary": {
+    "bottom_line": "The retrieved evidence does not establish that tight glycemic control improves survival in critically ill adult patients; it only confirms the established background association between hyperglycemia and poor clinical outcomes. No direct comparative evidence from the ledger supports a survival benefit for tight control over standard control.",
+    "overall_evidence_assessment": "remains inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does tight glycemic control improve survival in critically ill adult patients compared to standard blood glucose control",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "None. The single entry in the ledger (W4221066607) is a review synthesis that identifies hyperglycemia as a marker for poor outcomes but does not provide data demonstrating that active tight glycemic control improves survival compared to standard control.",
+    "strongest_conflicting_evidence": "None. There is no evidence in the ledger that directly challenges the premise, but there is also no evidence supporting the intervention's efficacy. The ledger lacks the comparative data required to evaluate the specific question.",
+    "why_studies_disagree": "No disagreement is identified because only one non-comparative review synthesis was examined. The lack of head-to-head trial data in the ledger prevents any assessment of divergence between studies.",
+    "confidence_and_limitations": "Confidence in the specific answer regarding survival benefit is low due to the absence of comparative trial data in the retrieved sample. The ledger contains only one review synthesis that addresses the association between hyperglycemia and outcomes, not the causal effect of tight control interventions. No full texts were accessible, and no head-to-head trials were examined.",
+    "research_coverage": "9 documents were retrieved, but only 1 was examined in depth. 1 finding was recorded in the ledger, and 0 full texts were accessible."
+  },
+  "candidate_papers_retrieved": 9,
+  "papers_triaged": 9,
+  "papers_deep_dived": 1,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does tight glycemic control improve survival in critically ill adult patients compared to standard blood glucose control",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W2073818344",
+      "title": "Glycemic control in critically ill patients",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2403736234",
+      "title": "Glucose control in critical care",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2008902910",
+      "title": "Tight Glucose Control in Critically Ill Patients: Should Glucose Meters Be Used?",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4285587583",
+      "title": "Glycemic control in critically ill patients with or without diabetes",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4221066607",
+      "title": "Glycemic control in the critically ill: Less is more",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a narrative review that synthesizes evidence from initial clinical trials and subsequent studies regarding intensive (tight) versus standard glycemic control in critically ill patients. It directly addresses the research question by summarizing the conflicting results (improved outcomes in early trials vs. no benefit/harm in later trials) and current guidelines, making it a relevant synthesis of the target question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2027766207",
+      "title": "Tight Glycemic Control versus Standard Care after Pediatric Cardiac Surgery",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W1571225114",
+      "title": "Towards a feasible algorithm for tight glycaemic control in critically ill patients: a systematic review of the literature",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2886086984",
+      "title": "Improving glycemic control in critically ill patients: personalized care to mimic the endocrine pancreas",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a narrative review discussing the challenges of glycemic control in critically ill patients, mentioning the association between dysglycemia/hypoglycemia and mortality. However, it does not directly synthesize evidence comparing tight vs. standard control for survival outcomes (the specific PICO of the question). Instead, it focuses on future directions, personalized care, and mimicking the endocrine pancreas. It provides context but lacks the direct comparative synthesis required for the specific question.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2335248514",
+      "title": "Blood Glucose Control Among Critically Ill Patients with Brain Injury",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W4221066607",
+      "paper_id": "W4221066607",
+      "paper_title": "Glycemic control in the critically ill: Less is more",
+      "doi": "https://doi.org/10.3949/ccjm.89a.20171",
+      "url": "https://doi.org/10.3949/ccjm.89a.20171",
+      "exact_source_passage": "Hyperglycemia is associated with poor clinical outcomes in critically ill patients.",
+      "study_design": "Systematic Review",
+      "population_setting": "Patients",
+      "intervention_exposure": "Hyperglycemia",
+      "comparator": null,
+      "outcome": "Poor Clinical Outcomes",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": false,
+      "is_review_synthesis": true
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

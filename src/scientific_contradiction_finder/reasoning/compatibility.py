@@ -34,15 +34,36 @@ class ConditionCompatibilityEvaluator:
             self._cache[norm] = emb
         return self._cache[norm]
 
+    def canonicalize(self, text: str) -> str:
+        if not text:
+            return ""
+        t = text.strip()
+        t_lower = t.lower()
+        from scientific_contradiction_finder.extraction.condition_tagger import (
+            CANONICAL_COMPARATORS,
+            CANONICAL_INTERVENTIONS,
+            CANONICAL_OUTCOMES,
+        )
+
+        if t_lower in CANONICAL_INTERVENTIONS:
+            return CANONICAL_INTERVENTIONS[t_lower]
+        if t_lower in CANONICAL_COMPARATORS:
+            return CANONICAL_COMPARATORS[t_lower]
+        if t_lower in CANONICAL_OUTCOMES:
+            return CANONICAL_OUTCOMES[t_lower]
+        return t
+
     def compute_similarity(self, s1: str, s2: str) -> float:
         if not s1 or not s2:
             return 0.0
+        c1 = self.canonicalize(s1)
+        c2 = self.canonicalize(s2)
         # Quick exact / normalized match check
-        if s1.strip().lower() == s2.strip().lower():
+        if c1.strip().lower() == c2.strip().lower():
             return 1.0
 
-        v1 = self._encode_text(s1)
-        v2 = self._encode_text(s2)
+        v1 = self._encode_text(c1)
+        v2 = self._encode_text(c2)
         cos_sim = float(np.dot(v1, v2))
         return max(0.0, min(1.0, cos_sim))
 

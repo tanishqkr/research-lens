@@ -1,0 +1,238 @@
+{
+  "query": "Does persistent high-risk human papillomavirus (HPV) infection cause cervical cancer?",
+  "executive_summary": {
+    "bottom_line": "Available empirical evidence is preliminary or lacks standardized comparative outcomes.",
+    "overall_evidence_assessment": "inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does persistent high-risk human papillomavirus (HPV) infection cause cervical cancer",
+        "status": "SUPPORTED",
+        "rationale": "Directly addressed by empirical evidence claims in papers: W2944361240.",
+        "evidence_paper_ids": [
+          "W2944361240"
+        ]
+      }
+    ],
+    "strongest_supporting_evidence": "No definitive primary study.",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 4 in depth (1 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 4,
+  "full_texts_accessible": 1,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does persistent high-risk human papillomavirus (HPV) infection cause cervical cancer",
+      "status": "SUPPORTED",
+      "rationale": "Directly addressed by empirical evidence claims in papers: W2944361240.",
+      "evidence_paper_ids": [
+        "W2944361240"
+      ]
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W2944361240",
+      "title": "Human papillomavirus and cervical cancer",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a review that directly addresses the causal link between persistent high-risk HPV infection and cervical cancer, stating that 99.7% of cases are caused by this specific condition and explaining the biological mechanism.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2391287657",
+      "title": "The Rsearch of Health Management for Prevention and Treatment of Cervical Persistent High-risk HPV Infection",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The paper investigates the efficacy of health management interventions for treating persistent high-risk HPV infection. It does not study the causal relationship between persistent HPV infection and the development of cervical cancer (the specific outcome in the query). The outcome measured is HPV clearance/viral load, not cancer incidence.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2369772053",
+      "title": "Clinical analysis of cervical persistent high-risk HPV infection treated by health management and Baofukang suppository",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2898332763",
+      "title": "Screening for persistent high-risk HPV infections may be a valuable screening method for young women; A retrospective cohort study",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from a retrospective cohort study directly investigating the association between persistent high-risk HPV (hrHPV) infection and the development of high-grade cervical lesions (HSIL), which are precursors to cervical cancer. It compares the prevalence of HSIL in women with persistent hrHPV against those who cleared the infection or were negative, providing direct evidence on the causal link between persistent infection and cervical pathology.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2048342883",
+      "title": "Human papillomavirus infection and cervical cancer",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "arxiv:2404.19235v2",
+      "title": "Computational Approaches of Modelling Human Papillomavirus Transmission and Prevention Strategies: A Systematic Review",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2007706099",
+      "title": "The Epidemiology of Human Papillomavirus Infection and Cervical Cancer",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a review of the epidemiology of HPV and cervical cancer. It explicitly states that the association is causal, that HPV DNA is found in all invasive cervical cancer specimens, and that HPV infection is a necessary cause. It also discusses persistence (implied by 'HPV DNA persistency' in the context of HIV and progression) and co-factors. This directly synthesizes the evidence for the causal link between persistent high-risk HPV and cervical cancer.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2038675789",
+      "title": "Accumulation of invariant NKT cells with increased IFN-\u03b3 production in persistent high-risk HPV-infected high-grade cervical intraepithelial neoplasia",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3021307196",
+      "title": "Abstract A20: Persistent high-risk HPV infection in the development of uterine cervical cancer",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2009334997",
+      "title": "The presence of persistent high\u2010risk hpv genotypes in dysplastic cervical lesions is associated with progressive disease: Natural history up to 36 months",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from a prospective cohort study demonstrating that persistent high-risk HPV infection is associated with the progression of cervical intraepithelial neoplasia (CIN) to CIN III (a pre-cancerous lesion). While the endpoint is CIN III rather than invasive cervical cancer, the study directly addresses the causal link between persistent high-risk HPV and the development of severe cervical dysplasia, which is the immediate precursor to cancer. It provides strong evidence for the mechanism and progression pathway queried.",
+      "selected_for_deep_dive": true
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W2944361240",
+      "paper_id": "W2944361240",
+      "paper_title": "Human papillomavirus and cervical cancer",
+      "doi": "https://doi.org/10.1080/01443615.2019.1634030",
+      "url": "https://doi.org/10.1080/01443615.2019.1634030",
+      "exact_source_passage": "About 99.7% of cervical cancer cases are caused by persistent genital high-risk human papillomavirus (HPV) infection.",
+      "study_design": "Systematic Review",
+      "population_setting": null,
+      "intervention_exposure": "About 99.7%",
+      "comparator": null,
+      "outcome": "Cervical Cancer Cases",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": true,
+      "is_direct": false,
+      "is_review_synthesis": true
+    },
+    {
+      "claim_id": "claim_find_W2898332763",
+      "paper_id": "W2898332763",
+      "paper_title": "Screening for persistent high-risk HPV infections may be a valuable screening method for young women; A retrospective cohort study",
+      "doi": "https://doi.org/10.1371/journal.pone.0206219",
+      "url": "https://doi.org/10.1371/journal.pone.0206219",
+      "exact_source_passage": "The prevalence of HSIL was 19.3% in women with a persistent HPV infection at a younger age.",
+      "study_design": "Cohort",
+      "population_setting": "Women with a persistent HPV infection at a younger age",
+      "intervention_exposure": "Persistent HPV infection at a younger age",
+      "comparator": null,
+      "outcome": "Prevalence of HSIL",
+      "direction": "UNCLEAR",
+      "effect_size": "19.3%",
+      "conditions_and_moderators": "The passage reports a prevalence rate rather than a comparative effect size or risk ratio. It does not specify the comparator group (e.g., women without persistent HPV or those with transient infection) or the specific age cutoff for 'younger age'.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    },
+    {
+      "claim_id": "claim_find_W2009334997",
+      "paper_id": "W2009334997",
+      "paper_title": "The presence of persistent high\u2010risk hpv genotypes in dysplastic cervical lesions is associated with progressive disease: Natural history up to 36 months",
+      "doi": "https://doi.org/10.1002/ijc.2910610305",
+      "url": "https://doi.org/10.1002/ijc.2910610305",
+      "exact_source_passage": "In life-table analysis the cumulative rate of progressive, histologically verified CIN disease was 17% after 36 months.",
+      "study_design": "Empirical Study",
+      "population_setting": null,
+      "intervention_exposure": "The Cumulative Rate",
+      "comparator": null,
+      "outcome": "Life-Table Analysis",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [
+    {
+      "pair_id": "pair_find_W2944361240_find_W2898332763",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.9,
+      "confidence_score": 0.9,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.0,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.19621221721172333,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.058863665163516994,
+        "summary_of_differences": "Intervention differs: 'About 99.7%' vs 'Persistent HPV infection at a younger age' (sim=0.00); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Cervical Cancer Cases' vs 'Prevalence of HSIL' (sim=0.20); Setting/Cohort differs: 'None' vs 'Clinical or epidemiological study population' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W2944361240_find_W2009334997",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.888,
+      "confidence_score": 0.888,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.292044460773468,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.050700943917036057,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.11742584444582461,
+        "summary_of_differences": "Intervention differs: 'About 99.7%' vs 'The Cumulative Rate' (sim=0.29); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Cervical Cancer Cases' vs 'Life-Table Analysis' (sim=0.05); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W2898332763_find_W2009334997",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.908,
+      "confidence_score": 0.908,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.017144793644547462,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.054553430527448654,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.022366706933826207,
+        "summary_of_differences": "Intervention differs: 'Persistent HPV infection at a younger age' vs 'The Cumulative Rate' (sim=0.02); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Prevalence of HSIL' vs 'Life-Table Analysis' (sim=0.05); Setting/Cohort differs: 'Clinical or epidemiological study population' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    }
+  ],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

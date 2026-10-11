@@ -1,0 +1,169 @@
+{
+  "query": "Are direct oral anticoagulants (DOACs) superior to warfarin for reducing major bleeding in non-valvular atrial fibrillation?",
+  "executive_summary": {
+    "bottom_line": "The available empirical studies demonstrate consistent reductions or negative impacts.",
+    "overall_evidence_assessment": "broadly supports an inverse or reducing relationship",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Are direct oral anticoagulants (DOACs) superior to warfarin for reducing major bleeding in non-valvular atrial fibrillation",
+        "status": "SUPPORTED",
+        "rationale": "Directly addressed by empirical evidence claims in papers: W4389448233.",
+        "evidence_paper_ids": [
+          "W4389448233"
+        ]
+      }
+    ],
+    "strongest_supporting_evidence": "Oral anticoagulants for prevention of stroke in atrial fibrillation: systematic review, network meta-analysis, and cost effectiveness analysis: Apixaban 5 mg twice daily (odds ratio 0.79, 95% confidence interval 0.66 to 0.94), dabigatran 150 mg twice daily (0.65, 0.52 to 0.81), edoxaban 60 mg once daily (0.86, 0.74 to 1.01), and rivaroxaban 20 mg once daily (0.88, 0.74 to 1.03) reduced the risk of stroke or systemic embolism compared with warfarin.",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+    "research_coverage": "Retrieved 9 candidate papers; examined 2 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 9,
+  "papers_triaged": 9,
+  "papers_deep_dived": 2,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Are direct oral anticoagulants (DOACs) superior to warfarin for reducing major bleeding in non-valvular atrial fibrillation",
+      "status": "SUPPORTED",
+      "rationale": "Directly addressed by empirical evidence claims in papers: W4389448233.",
+      "evidence_paper_ids": [
+        "W4389448233"
+      ]
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W2951469699",
+      "title": "Effectiveness and safety of direct oral anticoagulants compared to warfarin in treatment na\u00efve non-valvular atrial fibrillation patients in the US Department of defense population",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W7172128535",
+      "title": "Stroke Prevention With Direct Oral Anticoagulants (Doac) Versus Warfarin In Patients With Non-Valvular Atrial Fibrillation (Nvaf): A Real-World Cohort Meta-Analysis",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4389448233",
+      "title": "Efficacy and Safety of Direct Oral Anticoagulants Versus Warfarin in Patients with Non-valvular Atrial Fibrillation and Liver Cirrhosis",
+      "category": "DIRECT_COMPARISON",
+      "relevance_rationale": "The paper directly compares DOACs versus warfarin in patients with non-valvular atrial fibrillation (specifically those with liver cirrhosis) and reports on major bleeding as a primary outcome. Although the population is a specific subgroup (liver cirrhosis), it provides direct empirical evidence comparing the two interventions for the queried outcome.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2046494907",
+      "title": "Direct oral anticoagulants for secondary prevention in patients with non-valvular atrial fibrillation",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4386152598",
+      "title": "Development and Validation of the DOAC Score: A Novel Bleeding Risk Prediction Tool for Patients With Atrial Fibrillation on Direct-Acting Oral Anticoagulants",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4399098210",
+      "title": "Machine Learning - Based Bleeding Risk Predictions in Atrial Fibrillation Patients on Direct Oral Anticoagulants",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The paper focuses on developing and validating machine learning models to predict bleeding risk in patients already taking DOACs. It explicitly excludes patients on warfarin and does not compare DOACs against warfarin. Therefore, it does not provide evidence on the comparative superiority of DOACs over warfarin for reducing major bleeding.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2769275060",
+      "title": "Oral anticoagulants for prevention of stroke in atrial fibrillation: systematic review, network meta-analysis, and cost effectiveness analysis",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a systematic review and network meta-analysis that directly compares DOACs with warfarin in patients with atrial fibrillation. It explicitly reports odds ratios for major bleeding, addressing the specific outcome of interest in the research question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2733913781",
+      "title": "Indications for suboptimal low\u2010dose direct oral anticoagulants for non\u2010valvular atrial fibrillation patients",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4414789033",
+      "title": "Performance of DOAC and HAS-BLED scores in predicting major bleeding in Asian patients with non-valvular atrial fibrillation receiving direct oral anticoagulants",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The paper exclusively studies patients receiving DOACs and compares two risk prediction scores (DOAC score vs. HAS-BLED) for predicting major bleeding. It does not include a warfarin group, nor does it compare the efficacy or safety of DOACs versus warfarin. Therefore, it does not address the specific research question regarding the superiority of DOACs over warfarin.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W4389448233",
+      "paper_id": "W4389448233",
+      "paper_title": "Efficacy and Safety of Direct Oral Anticoagulants Versus Warfarin in Patients with Non-valvular Atrial Fibrillation and Liver Cirrhosis",
+      "doi": "https://doi.org/10.1101/2023.12.05.23299538",
+      "url": "https://doi.org/10.1101/2023.12.05.23299538",
+      "exact_source_passage": "DOACs and warfarin exhibited comparable efficacy in preventing thromboembolic events, namely IS (adjusted hazard ratio [aHR], 1.05; 95% confidence interval [CI], 0.42\u20132.61), TIA (aHR, 1.36; 95% CI, 0.18\u201310.31]), and SE (aHR, 0.49; 95% CI, 0.14\u20131.70).",
+      "study_design": "Empirical Study",
+      "population_setting": null,
+      "intervention_exposure": "Doacs",
+      "comparator": null,
+      "outcome": "Efficacy",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    },
+    {
+      "claim_id": "claim_find_W2769275060",
+      "paper_id": "W2769275060",
+      "paper_title": "Oral anticoagulants for prevention of stroke in atrial fibrillation: systematic review, network meta-analysis, and cost effectiveness analysis",
+      "doi": "https://doi.org/10.1136/bmj.j5058",
+      "url": "https://doi.org/10.1136/bmj.j5058",
+      "exact_source_passage": "Apixaban 5 mg twice daily (odds ratio 0.79, 95% confidence interval 0.66 to 0.94), dabigatran 150 mg twice daily (0.65, 0.52 to 0.81), edoxaban 60 mg once daily (0.86, 0.74 to 1.01), and rivaroxaban 20 mg once daily (0.88, 0.74 to 1.03) reduced the risk of stroke or systemic embolism compared with warfarin.",
+      "study_design": "Systematic Review",
+      "population_setting": null,
+      "intervention_exposure": "Apixaban",
+      "comparator": "Warfarin",
+      "outcome": "Risk Of Stroke Or Systemic Embolism Compared With Warfarin",
+      "direction": "NEGATIVE",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": false,
+      "is_review_synthesis": true
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [
+    {
+      "pair_id": "pair_find_W4389448233_find_W2769275060",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.91,
+      "confidence_score": 0.91,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.11027929186820984,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.08814967423677444,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.06504265442490577,
+        "summary_of_differences": "Intervention differs: 'Doacs' vs 'Apixaban' (sim=0.11); Comparator differs: 'None' vs 'Warfarin' (sim=0.00); Outcome metric differs: 'Efficacy' vs 'Risk Of Stroke Or Systemic Embolism Compared With Warfarin' (sim=0.09); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    }
+  ],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

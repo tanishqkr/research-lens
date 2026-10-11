@@ -5,7 +5,12 @@ from typing import Optional
 
 import spacy
 
-from scientific_contradiction_finder.schemas import ConditionSlots
+from scientific_contradiction_finder.schemas import (
+    ConditionSlots,
+    NumericalResult,
+    ProvenanceSection,
+    StudyDesignType,
+)
 
 # Predefined lexical triggers for comparators, outcomes, and settings
 COMPARATOR_MARKERS = [
@@ -31,8 +36,31 @@ OUTCOME_MARKERS = [
     r"\bdegradation rate\b",
     r"\bcapacity fade\b",
     r"\bcell thickness\b",
+    r"\ball-cause mortality\b",
+    r"\bcardiovascular mortality\b",
     r"\bmortality\b",
+    r"\bweight loss\b",
+    r"\bbody weight\b",
+    r"\bweight reduction\b",
+    r"\bbmi\b",
+    r"\bbody mass index\b",
+    r"\bstroke\b",
+    r"\bcardiovascular (?:disease|events?)\b",
+    r"\bcoronary heart disease\b",
+    r"\btype 2 diabetes\b",
+    r"\bdiabetes\b",
     r"\bhba1c\b",
+    r"\bblood pressure\b",
+    r"\bsystolic blood pressure\b",
+    r"\bdiastolic blood pressure\b",
+    r"\bpediatric sepsis\b",
+    r"\bsepsis\b",
+    r"\bcervical cancer\b",
+    r"\blung cancer\b",
+    r"\blipid profile\b",
+    r"\bcholesterol\b",
+    r"\btriglycerides\b",
+    r"\binsulin resistance\b",
     r"\bexacerbation\b",
     r"\bf1 score\b",
     r"\baccuracy\b",
@@ -87,6 +115,11 @@ INVALID_SLOT_TERMS = {
     "the 14-week follow-up",
     "the 14-week follow-up study",
     "the study",
+    "this study",
+    "our study",
+    "the present study",
+    "the trial",
+    "trials",
     "authors",
     "the authors",
     "this paper",
@@ -103,9 +136,236 @@ INVALID_SLOT_TERMS = {
     "many studies",
     "great promise",
     "a promising approach",
+    "promising approach",
     "no negative consequences",
     "an impairment",
     "accuracy",
+    "algorithm",
+    "the algorithm",
+    "the prediction",
+    "prediction",
+    "the model",
+    "models",
+    "methods",
+    "the methods",
+    "the approach",
+    "performance",
+    "early prediction",
+    "individuals",
+    "individual",
+    "the individuals",
+    "patients",
+    "patient",
+    "the patients",
+    "subjects",
+    "subject",
+    "the subjects",
+    "participants",
+    "participant",
+    "the participants",
+    "hospital",
+    "hospitals",
+    "the hospital",
+    "the diet",
+    "diet",
+    "diets",
+    "the diets",
+    "both diets",
+    "both groups",
+    "the two groups",
+    "the group",
+    "groups",
+    "group",
+    "the cohort",
+    "cohort",
+    "the waist/hip ratio",
+    "waist/hip ratio",
+    "the largest amounts",
+    "largest amounts",
+    "the smallest amounts",
+    "smallest amounts",
+    "the control group",
+    "the intervention group",
+    "cases",
+    "controls",
+    "children",
+    "infants",
+    "adults",
+    "men",
+    "women",
+    "6 months",
+    "12 months",
+    "14 weeks",
+    "0.91 kg",
+    "the decrease",
+    "decrease",
+    "the increase",
+    "increase",
+    "the difference",
+    "the respective differences",
+    "differences",
+    "change",
+    "changes",
+    "the change",
+    "reduction",
+    "the reduction",
+    "no significant difference",
+    "no significant reduction",
+    "the range",
+    "range",
+    "treatment",
+    "treatments",
+    "the treatment",
+    "the management",
+    "management",
+    "total energy expenditure",
+    "energy expenditure",
+    "the best performance",
+    "better performance",
+    "a novel target",
+    "good agreement",
+    "meta-analysis",
+    "meta-analyses",
+    "systematic review",
+    "systematic reviews",
+    "intention-to-treat",
+    "the intention-to-treat analysis",
+    "intention-to-treat analysis",
+    "per-protocol",
+    "per protocol",
+    "the per protocol analysis",
+    "per protocol analysis",
+    "hazard ratios",
+    "hazard ratio",
+    "odds ratio",
+    "odds ratios",
+    "risk ratio",
+    "risk ratios",
+    "relative risk",
+    "confidence intervals",
+    "confidence interval",
+    "p-values",
+    "p-value",
+    "p value",
+    "p values",
+    "mice",
+    "rats",
+    "animals",
+    "1) control group",
+}
+
+CANONICAL_INTERVENTIONS = {
+    "lcd": "Low-Carbohydrate Diet",
+    "lcds": "Low-Carbohydrate Diet",
+    "lc diet": "Low-Carbohydrate Diet",
+    "lc diets": "Low-Carbohydrate Diet",
+    "very low-carbohydrate diet": "Very Low-Carbohydrate Diet",
+    "very low carbohydrate diet": "Very Low-Carbohydrate Diet",
+    "vlcd": "Very Low-Carbohydrate Diet",
+    "vlcds": "Very Low-Carbohydrate Diet",
+    "low-carbohydrate diet": "Low-Carbohydrate Diet",
+    "low-carbohydrate diets": "Low-Carbohydrate Diet",
+    "low-carbohydrate": "Low-Carbohydrate Diet",
+    "low-carb diet": "Low-Carbohydrate Diet",
+    "low-carb diets": "Low-Carbohydrate Diet",
+    "low-carb": "Low-Carbohydrate Diet",
+    "the lcd interventions": "Low-Carbohydrate Diet",
+    "lfd": "Low-Fat Diet",
+    "lfds": "Low-Fat Diet",
+    "lf diet": "Low-Fat Diet",
+    "lf diets": "Low-Fat Diet",
+    "low-fat diet": "Low-Fat Diet",
+    "low-fat diets": "Low-Fat Diet",
+    "low-fat": "Low-Fat Diet",
+    "continuous calorie restriction": "Continuous Calorie Restriction",
+    "continuous energy restriction": "Continuous Calorie Restriction",
+    "caloric restriction": "Continuous Calorie Restriction",
+    "intermittent fasting": "Intermittent Fasting",
+    "time-restricted feeding": "Time-Restricted Feeding",
+    "time-restricted eating": "Time-Restricted Feeding",
+    "alternate-day fasting": "Alternate-Day Fasting",
+    "moderate alcohol": "Moderate Alcohol Consumption",
+    "moderate drinking": "Moderate Alcohol Consumption",
+    "moderate alcohol consumption": "Moderate Alcohol Consumption",
+    "alcohol consumption": "Moderate Alcohol Consumption",
+    "vitamin d": "Vitamin D Supplementation",
+    "vitamin d supplementation": "Vitamin D Supplementation",
+    "vitamin d3": "Vitamin D Supplementation",
+    "cholecalciferol": "Vitamin D Supplementation",
+    "gradient boosting": "Gradient Boosting",
+    "gradient boosting decision tree": "Gradient Boosting",
+    "xgboost": "XGBoost",
+    "random forest": "Random Forest",
+    "logistic regression": "Logistic Regression",
+    "lr classifier": "Logistic Regression",
+    "machine learning": "Machine Learning Model",
+    "machine learning model": "Machine Learning Model",
+    "machine learning models": "Machine Learning Model",
+    "intravenous curcumin": "High-Dose Intravenous Curcumin",
+    "high-dose intravenous curcumin": "High-Dose Intravenous Curcumin",
+    "curcumin": "Curcumin",
+    "cigarette smoking": "Cigarette Smoking",
+    "smoking": "Cigarette Smoking",
+    "human papillomavirus": "HPV Infection",
+    "hpv": "HPV Infection",
+    "hpv infection": "HPV Infection",
+}
+
+CANONICAL_COMPARATORS = {
+    "lfd": "Low-Fat Diet",
+    "lfds": "Low-Fat Diet",
+    "low-fat diet": "Low-Fat Diet",
+    "low-fat diets": "Low-Fat Diet",
+    "participants on lfd": "Low-Fat Diet",
+    "lcd": "Low-Carbohydrate Diet",
+    "lcds": "Low-Carbohydrate Diet",
+    "low-carbohydrate diet": "Low-Carbohydrate Diet",
+    "low-carbohydrate diets": "Low-Carbohydrate Diet",
+    "participants on lcd": "Low-Carbohydrate Diet",
+    "placebo": "Placebo",
+    "placebo group": "Placebo",
+    "control": "Standard Control",
+    "control group": "Standard Control",
+    "standard care": "Standard Care",
+    "usual care": "Standard Care",
+    "non-drinkers": "Non-Drinkers",
+    "non drinkers": "Non-Drinkers",
+    "abstainers": "Non-Drinkers",
+    "lifetime abstainers": "Lifetime Abstainers",
+    "former drinkers": "Former Drinkers",
+    "continuous calorie restriction": "Continuous Calorie Restriction",
+    "continuous energy restriction": "Continuous Calorie Restriction",
+}
+
+CANONICAL_OUTCOMES = {
+    "body weight": "Weight Loss",
+    "weight loss": "Weight Loss",
+    "weight reduction": "Weight Loss",
+    "bmi": "Weight Loss",
+    "body mass index": "Weight Loss",
+    "all-cause mortality": "All-Cause Mortality",
+    "mortality": "All-Cause Mortality",
+    "cardiovascular mortality": "Cardiovascular Mortality",
+    "cardiovascular events": "Cardiovascular Events",
+    "cardiovascular disease": "Cardiovascular Disease",
+    "cvd": "Cardiovascular Disease",
+    "coronary heart disease": "Coronary Heart Disease",
+    "stroke": "Stroke",
+    "hba1c": "HbA1c",
+    "type 2 diabetes": "Type 2 Diabetes",
+    "diabetes": "Type 2 Diabetes",
+    "diastolic blood pressure": "Diastolic Blood Pressure",
+    "systolic blood pressure": "Systolic Blood Pressure",
+    "blood pressure": "Blood Pressure",
+    "triglycerides": "Triglycerides",
+    "cholesterol": "Lipid Profile",
+    "pediatric sepsis": "Pediatric Sepsis Onset",
+    "sepsis": "Pediatric Sepsis Onset",
+    "acute kidney injury": "Acute Kidney Injury",
+    "auroc": "AUROC Discrimination",
+    "auprc": "AUPRC Discrimination",
+    "c-statistic": "AUROC Discrimination",
+    "c-index": "AUROC Discrimination",
 }
 
 
@@ -116,14 +376,444 @@ def clean_slot_string(s: str) -> Optional[str]:
     cleaned = re.sub(r"^[,\.;:\s\(\)\[\]]+|[,\.;:\s\(\)\[\]]+$", "", s).strip()
     if len(cleaned) < 3:
         return None
-    if cleaned.lower() in INVALID_SLOT_TERMS:
+    c_lower = cleaned.lower()
+    if c_lower in INVALID_SLOT_TERMS:
+        return None
+    # Reject temporal durations (e.g., '6 months', '12 months', '14 weeks', '2 years')
+    if re.search(r"^\d+\s*(?:months?|weeks?|years?|days?|hours?)$", cleaned, re.IGNORECASE):
+        return None
+    if re.search(
+        r"^(?:at|after|over|during|for|in)\s+\d+\s*(?:months?|weeks?|years?|days?|hours?)$",
+        cleaned,
+        re.IGNORECASE,
+    ):
+        return None
+    # Reject pure numbers, numbers with parentheses/SE/SD, or numbers with units (e.g. '0.91 kg', '13.7 (1.8) kg', '12 kg', '5 %', '120 mmhg')
+    if re.match(
+        r"^[\+\-−–]?\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s*(?:kg|g|mg|mcg|lbs|%|°c|mmhg|ml|l|min|hr|s|kcal|kcal/d|mmol/l)?$",
+        cleaned,
+        re.IGNORECASE,
+    ):
+        return None
+    # Reject comparative quantity phrases (e.g. 'the largest amounts', 'highest levels')
+    if re.match(
+        r"^(?:the\s+)?(?:largest|smallest|highest|lowest|greater|lesser|mean|median|total|average)\s+(?:amounts?|levels?|values?|numbers?|quantities?)",
+        cleaned,
+        re.IGNORECASE,
+    ):
+        return None
+    # Reject strings that are primarily numbers with subjects (e.g. '6553 eligible children', '8 times that of children', '1) control group')
+    if re.match(
+        r"^\d+[\)\.]?\s*(?:eligible\s+)?(?:children|patients|participants|subjects|cases|controls|infants|adults|individuals|control group|intervention group)",
+        cleaned,
+        re.IGNORECASE,
+    ):
+        return None
+    if re.match(
+        r"^\d+\s+times\s+(?:that\s+of\s+)?(?:children|patients|controls|adults)",
+        cleaned,
+        re.IGNORECASE,
+    ):
+        return None
+    # Reject statistical analysis phrases (e.g. 'the intention-to-treat analysis', 'per protocol analysis')
+    if re.search(
+        r"\b(?:intention[\s-]to[\s-]treat|per[\s-]protocol|sensitivity analysis|multivariate analysis|regression analysis)\b",
+        cleaned,
+        re.IGNORECASE,
+    ):
         return None
     # Filter strings starting with introductory time/study phrases
     if re.match(
         r"^(in the|during the|across the)\s+\d+-(?:week|month|year|day)", cleaned, re.IGNORECASE
     ):
         return None
+    # Filter generic subject phrases
+    if cleaned.lower() in {
+        "both groups",
+        "the two groups",
+        "the group",
+        "two groups",
+        "both diets",
+        "the diets",
+        "the subjects",
+        "the patients",
+        "the participants",
+        "the individuals",
+    }:
+        return None
     return cleaned
+
+
+def extract_numerical_results(
+    text: str,
+    default_endpoint: Optional[str] = None,
+    default_duration: Optional[str] = None,
+) -> list[NumericalResult]:
+    """Extracts structured point estimates, confidence intervals, p-values, and units verbatim,
+    associating each numerical estimate with the correct arm, comparator, endpoint, horizon,
+    sample size, and statistical uncertainty in multi-arm or single-arm trials.
+    """
+    if not text:
+        return []
+
+    results: list[NumericalResult] = []
+    text_norm = text.replace("−", "-").replace("–", "-").replace("—", "-")
+
+    sentence_duration = extract_follow_up_duration(text) or default_duration
+    sentence_sample_sz = extract_sample_size(text)
+
+    # 1. Detect all confidence intervals and their character spans
+    ci_matches = list(
+        re.finditer(
+            r"(?:95%\s*CI|95%\s*confidence\s+interval)[\s:=,]*\[?\(?\s*([+-]?[0-9]+(?:\.[0-9]+)?)\s*(?:to|-|,)\s*([+-]?[0-9]+(?:\.[0-9]+)?)\s*(?:[a-zA-Z/%]+)?\)?\]?",
+            text_norm,
+            re.IGNORECASE,
+        )
+    )
+    ci_spans = [m.span() for m in ci_matches]
+
+    # 2. Detect all p-values and their character spans
+    p_matches = list(
+        re.finditer(
+            r"\bp\s*([<>=])\s*(0?\.[0-9]+|1e-[0-9]+|\d+\.\d+e-\d+)\b",
+            text_norm,
+            re.IGNORECASE,
+        )
+    )
+
+    # 3. Detect trial arms
+    arm_pattern = (
+        r"\b(low[\s-]carbohydrate(?:\s+diets?)?|low[\s-]carb(?:\s+diets?)?|low[\s-]fat(?:\s+diets?)?|"
+        r"ketogenic(?:\s+diets?)?|lcd(?:s)?|lfd(?:s)?|vlcd(?:s)?|kd|intermittent\s+fasting|"
+        r"continuous\s+calorie\s+restriction|continuous\s+energy\s+restriction|time[\s-]restricted\s+feeding|"
+        r"moderate\s+alcohol(?:\s+consumption)?|standard\s+care|usual\s+care|control(?:\s+group)?|"
+        r"intervention(?:\s+group)?|placebo(?:\s+group)?|arm\s+[a-zA-Z0-9]+|group\s+[a-zA-Z0-9]+)\b"
+    )
+    all_arms = list(re.finditer(arm_pattern, text_norm, re.IGNORECASE))
+
+    # Comparative split markers
+    comp_split = re.search(
+        r"\b(compared with|compared to|versus|vs\.?|relative to)\b",
+        text_norm,
+        re.IGNORECASE,
+    )
+
+    # 4. Detect Ratio estimates (OR, RR, HR)
+    ratio_matches = list(
+        re.finditer(r"\b(OR|RR|HR)\s*[:=]?\s*([0-9]+(?:\.[0-9]+)?)\b", text_norm, re.IGNORECASE)
+    )
+
+    # 5. Detect Unit point estimates (skipping any inside CI spans)
+    unit_pattern = (
+        r"(?:^|[\s\(>~=])([+-]?[0-9]+(?:\.[0-9]+)?)\s*"
+        r"(kg|g|mg|mcg|μg|ug|%|percent|percentage points|mmhg|ml|l|lbs|mmol/l|mg/dl|kcal/d|kcal|kg/m2)\b"
+    )
+    unit_matches = list(re.finditer(unit_pattern, text_norm, re.IGNORECASE))
+
+    estimates: list[tuple[str, Optional[str], float, Optional[str], int, int, str]] = []
+    for m in ratio_matches:
+        estimates.append(("RATIO", m.group(1).upper(), float(m.group(2)), None, m.start(), m.end(), m.group(0)))
+    for m in unit_matches:
+        start, end = m.span()
+        # Skip if within any CI span
+        if any(c_start <= start and end <= c_end for c_start, c_end in ci_spans):
+            continue
+        estimates.append(("UNIT", None, float(m.group(1)), m.group(2).lower(), start, end, m.group(0).strip()))
+
+    estimates.sort(key=lambda x: x[4])
+
+    used_p_spans: set[tuple[int, int]] = set()
+
+    for i, (est_type, metric, pe, unit, start, end, raw) in enumerate(estimates):
+        next_est_start = estimates[i + 1][4] if i + 1 < len(estimates) else len(text_norm)
+
+        # 1. Attach closest CI (within 40 chars following this estimate and before next estimate)
+        ci_l: Optional[float] = None
+        ci_u: Optional[float] = None
+        uncert_ci: Optional[str] = None
+        ci_end_offset = end
+        for ci_m in ci_matches:
+            c_start, c_end = ci_m.span()
+            if end <= c_start < next_est_start and (c_start - end) <= 40:
+                ci_l = float(ci_m.group(1))
+                ci_u = float(ci_m.group(2))
+                uncert_ci = f"95% CI {ci_l} to {ci_u}"
+                ci_end_offset = c_end
+                break
+
+        # 2. Attach closest p-value (inside CI parentheses or within 60 chars following this estimate)
+        pval: Optional[float] = None
+        uncert_p: Optional[str] = None
+        for p_m in p_matches:
+            p_start, p_end = p_m.span()
+            if end <= p_start < next_est_start and (
+                (p_start - end) <= 60 or abs(p_start - ci_end_offset) <= 25
+            ):
+                pval = float(p_m.group(2))
+                uncert_p = f"p = {pval}"
+                used_p_spans.add(p_m.span())
+                break
+
+        uncert = None
+        if uncert_ci and uncert_p:
+            uncert = f"{uncert_ci}, {uncert_p}"
+        elif uncert_ci:
+            uncert = uncert_ci
+        elif uncert_p:
+            uncert = uncert_p
+
+        # 3. Endpoint detection: look in 80 chars preceding this estimate for closest outcome marker
+        window = text_norm[max(0, start - 80) : start]
+        matched_endpoints: list[tuple[int, str]] = []
+        for marker in OUTCOME_MARKERS:
+            for f in re.finditer(marker, window, re.IGNORECASE):
+                cleaned_ep = clean_slot_string(f.group(0))
+                if cleaned_ep:
+                    matched_endpoints.append((f.end(), cleaned_ep.title()))
+
+        detected_ep = default_endpoint
+        if matched_endpoints:
+            matched_endpoints.sort(key=lambda x: x[0], reverse=True)
+            detected_ep = matched_endpoints[0][1]
+        elif unit == "mmhg":
+            detected_ep = "Blood Pressure"
+        elif unit in ("kg", "lbs"):
+            detected_ep = "Weight Loss"
+        elif unit in ("mmol/l", "mg/dl"):
+            detected_ep = "Lipid Profile"
+
+        # 4. Arm attribution
+        curr_arm = None
+        comp_arm = None
+        if all_arms:
+            preceding = [a for a in all_arms if a.end() <= start]
+            following = [a for a in all_arms if a.start() >= end]
+            prec_dist = (start - preceding[-1].end()) if preceding else 9999
+            foll_dist = (following[0].start() - end) if following else 9999
+
+            if foll_dist <= 30 and foll_dist < prec_dist:
+                curr_arm = following[0].group(0).strip()
+            elif preceding:
+                curr_arm = preceding[-1].group(0).strip()
+            elif following:
+                curr_arm = following[0].group(0).strip()
+
+            other_arms = [
+                a.group(0).strip()
+                for a in all_arms
+                if a.group(0).strip().lower() != (curr_arm or "").lower()
+            ]
+            if other_arms:
+                comp_arm = other_arms[0]
+        elif comp_split:
+            if start > comp_split.start():
+                curr_arm = "Comparator Arm"
+                comp_arm = "Intervention Arm"
+            else:
+                curr_arm = "Intervention Arm"
+                comp_arm = "Comparator Arm"
+
+        # Local sample size & horizon
+        clause_start = estimates[i - 1][5] if i > 0 else 0
+        local_clause = text_norm[clause_start:next_est_start]
+        local_dur = extract_follow_up_duration(local_clause) or sentence_duration
+        local_sz = extract_sample_size(local_clause) or sentence_sample_sz
+
+        results.append(
+            NumericalResult(
+                arm_name=curr_arm,
+                comparator_arm=comp_arm,
+                endpoint=detected_ep,
+                point_estimate=pe,
+                metric_name=metric,
+                ci_lower=ci_l,
+                ci_upper=ci_u,
+                p_value=pval,
+                unit=unit,
+                follow_up_horizon=local_dur,
+                sample_size=local_sz,
+                statistical_uncertainty=uncert,
+                raw_text=raw,
+            )
+        )
+
+    # 6. Unattached p-values (only if p-value was not associated with any point estimate)
+    for p_m in p_matches:
+        if p_m.span() in used_p_spans:
+            continue
+        pval = float(p_m.group(2))
+        results.append(
+            NumericalResult(
+                endpoint=default_endpoint,
+                p_value=pval,
+                follow_up_horizon=sentence_duration,
+                sample_size=sentence_sample_sz,
+                statistical_uncertainty=f"p = {pval}",
+                raw_text=p_m.group(0),
+            )
+        )
+
+    return results
+
+
+def extract_follow_up_duration(text: str) -> Optional[str]:
+    """Extracts follow-up duration (e.g. '6 months', '12 months', '14 weeks')."""
+    if not text:
+        return None
+    m = re.search(
+        r"\b(?:at|after|over|during|for)\s+(\d+\s*(?:months?|weeks?|years?|days?))\b",
+        text,
+        re.IGNORECASE,
+    )
+    if m:
+        return m.group(1).strip().lower()
+    m2 = re.search(
+        r"\b(\d+[\s-]*(?:months?|weeks?|years?|days?))\s+(?:follow[\s-]*up|intervention|trial|study|period)\b",
+        text,
+        re.IGNORECASE,
+    )
+    if m2:
+        return m2.group(1).strip().lower()
+    m3 = re.search(
+        r"\b(\d+\s*(?:months?|weeks?|years?))\b",
+        text,
+        re.IGNORECASE,
+    )
+    if m3:
+        return m3.group(1).strip().lower()
+    return None
+
+
+def extract_sample_size(text: str) -> Optional[int]:
+    """Extracts cohort or trial participant sample size."""
+    if not text:
+        return None
+    m = re.search(
+        r"\b(?:n\s*=\s*|sample\s+size\s*(?:of\s*)?|total\s+of\s+|enrolled\s+|randomized\s+|including\s+)(\d[\d,]*)\s*(?:patients|participants|subjects|individuals|cases|adults|children|women|men|infants|persons)?\b",
+        text,
+        re.IGNORECASE,
+    )
+    if m:
+        try:
+            return int(m.group(1).replace(",", ""))
+        except ValueError:
+            pass
+    m2 = re.search(
+        r"\b(\d[\d,]*)\s+(?:eligible\s+)?(?:patients|participants|subjects|individuals|cases|controls|adults|children|women|men|infants|persons)\b",
+        text,
+        re.IGNORECASE,
+    )
+    if m2:
+        try:
+            return int(m2.group(1).replace(",", ""))
+        except ValueError:
+            pass
+    return None
+
+
+def infer_study_type(combined_text: str) -> tuple[StudyDesignType, str]:
+    """Infers study design category and textual descriptor with section-aware gating."""
+    t_lower = combined_text.lower()
+
+    # Prioritize METHODS / DESIGN section over BACKGROUND statements
+    methods_match = re.search(
+        r"\b(?:methods?|methodology|design|patients and methods):\s*(.*?)(?=\b(?:results?|findings|conclusions?|interpretation):|$)",
+        t_lower,
+        re.DOTALL,
+    )
+    target_text = methods_match.group(1) if methods_match else t_lower
+
+    # 1. Systematic Review / Meta-analysis
+    if re.search(
+        r"\b(?:systematic review|meta-analysis|meta analysis|pooled analysis|network meta-analysis|umbrella review|cochrane)\b",
+        target_text,
+    ):
+        return StudyDesignType.SYSTEMATIC_REVIEW_META_ANALYSIS, "Systematic Review / Meta-Analysis"
+
+    # 2. Prediction Model
+    if re.search(
+        r"\b(?:prediction model|predictive model|machine learning|deep learning|random forest|gradient boosting|neural network|xgboost|auroc|auprc|c-statistic|discrimination metric|risk prediction)\b",
+        target_text,
+    ):
+        return StudyDesignType.PREDICTION_MODEL, "Prediction Model"
+
+    # Filter out literature review references (e.g. 'previous randomized trials', 'trials have shown')
+    clean_target = re.sub(
+        r"\b(?:previous|prior|earlier|past|existing)\s+(?:randomized|clinical|controlled)?\s*trials?\b",
+        "",
+        target_text,
+    )
+    clean_target = re.sub(
+        r"\b(?:randomized|clinical)\s+trials?\s+(?:have|had)\s+(?:shown|evaluated|suggested|demonstrated)\b",
+        "",
+        clean_target,
+    )
+
+    has_rct = bool(
+        re.search(
+            r"\b(?:randomized|randomised|controlled trial|rct|clinical trial|double-blind|single-blind|open-label trial|parallel-group|crossover trial)\b",
+            clean_target,
+        )
+    )
+    has_obs = bool(
+        re.search(
+            r"\b(?:cohort|prospective|retrospective|case-control|cross-sectional|observational|longitudinal|epidemiologic|population-based|registry)\b",
+            clean_target,
+        )
+    )
+
+    if has_rct and not has_obs:
+        return StudyDesignType.INTERVENTIONAL_TRIAL, "Randomized Controlled Trial"
+    elif has_obs and not has_rct:
+        return StudyDesignType.OBSERVATIONAL_STUDY, "Observational Study"
+    elif has_rct and has_obs:
+        # Check active conduct phrases
+        if re.search(
+            r"\b(?:we conducted|in this|our)\s+(?:prospective|retrospective|cohort|observational)\b",
+            clean_target,
+        ):
+            return StudyDesignType.OBSERVATIONAL_STUDY, "Observational Study"
+        elif re.search(
+            r"\b(?:we conducted|in this|our)\s+(?:randomized|randomised|trial|clinical trial|rct)\b",
+            clean_target,
+        ):
+            return StudyDesignType.INTERVENTIONAL_TRIAL, "Randomized Controlled Trial"
+        return StudyDesignType.INTERVENTIONAL_TRIAL, "Randomized Controlled Trial"
+
+    if re.search(
+        r"\b(?:in vitro|in vivo|murine|mouse model|rat model|cell culture|mechanistic|electrochemical)\b",
+        clean_target,
+    ):
+        return StudyDesignType.MECHANISTIC_EXPLORATORY, "Mechanistic / Exploratory"
+
+    return StudyDesignType.UNKNOWN, "Unknown Study Design"
+
+
+def infer_provenance_section(
+    sentence_text: str, abstract_text: Optional[str] = None
+) -> ProvenanceSection:
+    """Classifies abstract section provenance (RESULTS, CONCLUSION, METHODS, BACKGROUND)."""
+    s_lower = sentence_text.lower().strip()
+    if re.search(r"^(?:background|introduction|objective|aim):", s_lower):
+        return ProvenanceSection.BACKGROUND
+    if re.search(r"^(?:methods|methodology|design|patients and methods|setting):", s_lower):
+        return ProvenanceSection.METHODS
+    if re.search(r"^(?:conclusions?|interpretation):", s_lower):
+        return ProvenanceSection.CONCLUSION
+    if re.search(r"^(?:results?|findings):", s_lower):
+        return ProvenanceSection.RESULTS
+
+    # Contextual clues in sentence
+    if re.search(
+        r"\b(?:we conclude|in conclusion|these findings suggest|these results indicate|in summary)\b",
+        s_lower,
+    ):
+        return ProvenanceSection.CONCLUSION
+    if re.search(
+        r"\b(?:is the leading cause of|is a common|remains a major|accounts for \d+%)\b", s_lower
+    ):
+        return ProvenanceSection.BACKGROUND
+    return ProvenanceSection.RESULTS
 
 
 class ConditionTagger:
@@ -140,6 +830,7 @@ class ConditionTagger:
     ) -> ConditionSlots:
         """Extracts PICO condition slots from finding sentence and abstract context."""
         text_lower = sentence_text.lower()
+        combined_text = f"{sentence_text} {abstract_text or ''}"
 
         # 1. Comparator extraction
         comparator = None
@@ -153,6 +844,8 @@ class ConditionTagger:
                 if extracted_c:
                     comparator = extracted_c.title()
                 break
+        if comparator:
+            comparator = CANONICAL_COMPARATORS.get(comparator.lower(), comparator)
 
         # 2. Outcome extraction
         outcome = None
@@ -172,10 +865,29 @@ class ConditionTagger:
                     if cleaned:
                         outcome = cleaned.title()
                         break
+        if outcome:
+            outcome = CANONICAL_OUTCOMES.get(outcome.lower(), outcome)
 
         # 3. Intervention extraction
         intervention = None
         domain_interventions = [
+            r"\b(?:very\s+low|low)[\s-]carbohydrate(?:\s+diets?)?\b",
+            r"\b(?:very\s+low|low)[\s-]carb(?:\s+diets?)?\b",
+            r"\blow[\s-]fat(?:\s+diets?)?\b",
+            r"\bvlcd(?:s)?\b",
+            r"\blcd(?:s)?\b",
+            r"\blfd(?:s)?\b",
+            r"\bketogenic(?:\s+diets?)?\b",
+            r"\bintermittent fasting\b",
+            r"\btime[\s-]restricted\s+(?:feeding|eating)\b",
+            r"\balternate[\s-]day\s+fasting\b",
+            r"\bcontinuous\s+(?:calorie|energy)\s+restriction\b",
+            r"\bmoderate alcohol(?:\s+consumption)?\b",
+            r"\bmoderate drinking\b",
+            r"\blight[\s-]to[\s-]moderate\s+drinking\b",
+            r"\balcohol consumption\b",
+            r"\bheavy drinking\b",
+            r"\bcaloric restriction\b",
             r"\burban tree canopy(?:\s+cover)?\b",
             r"\btree canopy(?:\s+cover)?\b",
             r"\bcanopy cover\b",
@@ -188,10 +900,24 @@ class ConditionTagger:
             r"\b(?:high|elevated|ambient|low)\s+temperatures?(?:\s+charging)?\b",
             r"\bdata augmentation(?:\s+techniques?)?\b",
             r"\bvitamin d(?:3)?(?:\s+supplementation)?\b",
+            r"\bcholecalciferol\b",
             r"\bbaseline 25\(oh\)d levels?(?:\s+below\s+\d+\s+nmol/l)?\b",
             r"\b(?:higher|lower)\s+charging(?:\s*-\s*discharging)?\s+rates?\b",
             r"\blithium plating\b",
             r"\bcell thickness increase\b",
+            r"\bmachine learning(?:\s+models?|\s+approaches?)?\b",
+            r"\bgradient\s+boosting(?:\s+decision\s+trees?)?\b",
+            r"\bxgboost(?:\s+models?)?\b",
+            r"\brandom\s+forest(?:\s+models?)?\b",
+            r"\blogistic\s+regression(?:\s+classifiers?)?\b",
+            r"\bhpv(?:\s+infection)?\b",
+            r"\bhuman papillomavirus\b",
+            r"\bcigarette smoking\b",
+            r"\bsmoking\b",
+            r"\bcurcumin\b",
+            r"\bintravenous\s+curcumin\b",
+            r"\bstandard\s+care\b",
+            r"\busual\s+care\b",
         ]
         for ip in domain_interventions:
             im = re.search(ip, text_lower)
@@ -204,7 +930,7 @@ class ConditionTagger:
             for chunk in doc.noun_chunks:
                 if chunk.root.dep_ in ("nsubj", "nsubjpass"):
                     cleaned = clean_slot_string(chunk.text)
-                    if cleaned:
+                    if cleaned and cleaned.title() != outcome:
                         intervention = cleaned.title()
                         break
 
@@ -217,11 +943,15 @@ class ConditionTagger:
                     intervention = cleaned.title()
                     break
 
+        if intervention:
+            intervention = CANONICAL_INTERVENTIONS.get(intervention.lower(), intervention)
+
         # 4. Setting extraction
         setting = None
         for pattern in SETTING_MARKERS:
             match = re.search(
-                f"{pattern}\\s*([a-zA-Z0-9\\s\\-\\(\\)]{{0,35}}?)(?:\\.|,|\\band\\b|$)", text_lower
+                f"{pattern}\\s*([a-zA-Z0-9\\s\\-\\(\\)]{{0,35}}?)(?:\\.|,|\\band\\b|$)",
+                text_lower,
             )
             if match:
                 cleaned_p = clean_slot_string(match.group(0))
@@ -246,6 +976,19 @@ class ConditionTagger:
         if qual_m:
             qualifiers = qual_m.group(0)
 
+        # 6. Extract follow-up duration, sample size, numerical results, study design, and provenance
+        follow_up = extract_follow_up_duration(sentence_text) or (
+            extract_follow_up_duration(abstract_text) if abstract_text else None
+        )
+        sample_sz = extract_sample_size(sentence_text) or (
+            extract_sample_size(abstract_text) if abstract_text else None
+        )
+        num_results = extract_numerical_results(
+            sentence_text, default_endpoint=outcome, default_duration=follow_up
+        )
+        study_t, s_design = infer_study_type(combined_text)
+        prov_sec = infer_provenance_section(sentence_text, abstract_text)
+
         is_unknown = bool(not intervention or not outcome)
         confidence = 0.50 if is_unknown else 0.85
 
@@ -255,6 +998,13 @@ class ConditionTagger:
             outcome_metric=outcome,
             dataset_setting=setting,
             population=population,
+            effect_size=None,
+            follow_up_duration=follow_up,
+            sample_size=sample_sz,
+            numerical_results=num_results,
+            study_design=s_design,
+            study_type=study_t,
+            provenance_section=prov_sec,
             limitations_or_qualifiers=qualifiers,
             confidence=confidence,
             is_unknown=is_unknown,

@@ -1,0 +1,693 @@
+{
+  "timestamp": "2026-10-11T22:38:28.657139",
+  "total_queries": 30,
+  "total_duration_seconds": 1531.27,
+  "overall": {
+    "mean_composite_score": 0.878,
+    "retrieval_pass_rate": 0.8,
+    "claim_grounding_rate": 1.0,
+    "relationship_classification_score": 0.692,
+    "abstention_accuracy": 1.0,
+    "summary_consistency_rate": 0.967
+  },
+  "by_category": {
+    "conditional_comparative": {
+      "count": 4,
+      "avg_composite": 0.759,
+      "retrieval_pass_rate": 0.5,
+      "avg_relationship_score": 0.438,
+      "avg_abstention_score": 1.0
+    },
+    "consistent_finding": {
+      "count": 5,
+      "avg_composite": 0.91,
+      "retrieval_pass_rate": 0.8,
+      "avg_relationship_score": 0.8,
+      "avg_abstention_score": 1.0
+    },
+    "context_dependent": {
+      "count": 6,
+      "avg_composite": 0.875,
+      "retrieval_pass_rate": 1.0,
+      "avg_relationship_score": 0.5,
+      "avg_abstention_score": 1.0
+    },
+    "genuine_contradiction": {
+      "count": 6,
+      "avg_composite": 0.842,
+      "retrieval_pass_rate": 0.833,
+      "avg_relationship_score": 0.5,
+      "avg_abstention_score": 1.0
+    },
+    "irrelevant_implausible": {
+      "count": 4,
+      "avg_composite": 1.0,
+      "retrieval_pass_rate": 1.0,
+      "avg_relationship_score": 1.0,
+      "avg_abstention_score": 1.0
+    },
+    "unresolved_insufficient": {
+      "count": 5,
+      "avg_composite": 0.89,
+      "retrieval_pass_rate": 0.6,
+      "avg_relationship_score": 1.0,
+      "avg_abstention_score": 1.0
+    }
+  },
+  "evaluations": [
+    {
+      "id": "BM-01",
+      "category": "genuine_contradiction",
+      "query": "Does hydroxychloroquine reduce mortality in hospitalized patients with COVID-19?",
+      "expected_relationship": "CONTRADICTION",
+      "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
+      "retrieved_count": 10,
+      "deep_dive_count": 5,
+      "ledger_count": 4,
+      "subclaim_statuses": [
+        "SUPPORTED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 1.0,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 1.0,
+      "latency_seconds": 66.71,
+      "error": null
+    },
+    {
+      "id": "BM-02",
+      "category": "genuine_contradiction",
+      "query": "Does statin therapy increase the risk of cataract development?",
+      "expected_relationship": "CONTRADICTION",
+      "overall_evidence_assessment": "broadly supports an inverse or reducing relationship",
+      "retrieved_count": 10,
+      "deep_dive_count": 3,
+      "ledger_count": 2,
+      "subclaim_statuses": [
+        "SUPPORTED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.25,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.812,
+      "latency_seconds": 58.84,
+      "error": null
+    },
+    {
+      "id": "BM-03",
+      "category": "genuine_contradiction",
+      "query": "Does routine mammography screening reduce breast cancer mortality in women aged 40 to 49?",
+      "expected_relationship": "CONTRADICTION",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 10,
+      "deep_dive_count": 2,
+      "ledger_count": 2,
+      "subclaim_statuses": [
+        "SUPPORTED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.25,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.812,
+      "latency_seconds": 58.88,
+      "error": null
+    },
+    {
+      "id": "BM-04",
+      "category": "genuine_contradiction",
+      "query": "Does tight glycemic control improve survival in critically ill adult patients compared to standard blood glucose control?",
+      "expected_relationship": "CONTRADICTION",
+      "overall_evidence_assessment": "remains inconclusive",
+      "retrieved_count": 9,
+      "deep_dive_count": 1,
+      "ledger_count": 1,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.5,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.875,
+      "latency_seconds": 39.42,
+      "error": null
+    },
+    {
+      "id": "BM-05",
+      "category": "genuine_contradiction",
+      "query": "Does early dietary introduction of peanut reduce the risk of peanut allergy compared to delayed avoidance?",
+      "expected_relationship": "CONTRADICTION",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 4,
+      "deep_dive_count": 0,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": false,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.5,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.675,
+      "latency_seconds": 20.74,
+      "error": null
+    },
+    {
+      "id": "BM-06",
+      "category": "genuine_contradiction",
+      "query": "Does dietary sodium reduction reduce all-cause mortality in normotensive adults?",
+      "expected_relationship": "CONTRADICTION",
+      "overall_evidence_assessment": "remains inconclusive",
+      "retrieved_count": 9,
+      "deep_dive_count": 1,
+      "ledger_count": 1,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.5,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.875,
+      "latency_seconds": 36.08,
+      "error": null
+    },
+    {
+      "id": "BM-07",
+      "category": "context_dependent",
+      "query": "Does urban tree canopy cover effectively reduce land surface temperature?",
+      "expected_relationship": "COMPATIBLE",
+      "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
+      "retrieved_count": 10,
+      "deep_dive_count": 3,
+      "ledger_count": 2,
+      "subclaim_statuses": [
+        "SUPPORTED",
+        "SUPPORTED",
+        "SUPPORTED",
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 1.0,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 1.0,
+      "latency_seconds": 141.11,
+      "error": null
+    },
+    {
+      "id": "BM-08",
+      "category": "context_dependent",
+      "query": "Does low-dose aspirin reduce all-cause mortality in primary cardiovascular prevention?",
+      "expected_relationship": "COMPATIBLE",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 10,
+      "deep_dive_count": 3,
+      "ledger_count": 1,
+      "subclaim_statuses": [
+        "SUPPORTED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.25,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.812,
+      "latency_seconds": 46.6,
+      "error": null
+    },
+    {
+      "id": "BM-09",
+      "category": "context_dependent",
+      "query": "Does acute caffeine administration improve working memory performance?",
+      "expected_relationship": "COMPATIBLE",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 10,
+      "deep_dive_count": 3,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.5,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.875,
+      "latency_seconds": 188.36,
+      "error": null
+    },
+    {
+      "id": "BM-10",
+      "category": "context_dependent",
+      "query": "Does sleep extension improve athletic reaction time and sprint performance?",
+      "expected_relationship": "COMPATIBLE",
+      "overall_evidence_assessment": "remains inconclusive",
+      "retrieved_count": 10,
+      "deep_dive_count": 4,
+      "ledger_count": 1,
+      "subclaim_statuses": [
+        "SUPPORTED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.25,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.812,
+      "latency_seconds": 61.72,
+      "error": null
+    },
+    {
+      "id": "BM-11",
+      "category": "context_dependent",
+      "query": "Does metformin increase lifespan and healthspan in non-diabetic organisms?",
+      "expected_relationship": "COMPATIBLE",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 7,
+      "deep_dive_count": 1,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.5,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.875,
+      "latency_seconds": 25.71,
+      "error": null
+    },
+    {
+      "id": "BM-12",
+      "category": "context_dependent",
+      "query": "Does remote work increase worker productivity compared to in-office work?",
+      "expected_relationship": "COMPATIBLE",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 9,
+      "deep_dive_count": 1,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.5,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.875,
+      "latency_seconds": 34.14,
+      "error": null
+    },
+    {
+      "id": "BM-13",
+      "category": "consistent_finding",
+      "query": "Does tobacco cigarette smoking increase the risk of developing lung cancer?",
+      "expected_relationship": "CONSISTENT",
+      "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
+      "retrieved_count": 10,
+      "deep_dive_count": 3,
+      "ledger_count": 2,
+      "subclaim_statuses": [
+        "SUPPORTED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.75,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.938,
+      "latency_seconds": 44.46,
+      "error": null
+    },
+    {
+      "id": "BM-14",
+      "category": "consistent_finding",
+      "query": "Does persistent high-risk human papillomavirus (HPV) infection cause cervical cancer?",
+      "expected_relationship": "CONSISTENT",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 10,
+      "deep_dive_count": 4,
+      "ledger_count": 3,
+      "subclaim_statuses": [
+        "SUPPORTED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.75,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.938,
+      "latency_seconds": 45.78,
+      "error": null
+    },
+    {
+      "id": "BM-15",
+      "category": "consistent_finding",
+      "query": "Does regular aerobic exercise reduce depressive symptoms in adults with major depressive disorder?",
+      "expected_relationship": "CONSISTENT",
+      "overall_evidence_assessment": "broadly supports",
+      "retrieved_count": 10,
+      "deep_dive_count": 2,
+      "ledger_count": 2,
+      "subclaim_statuses": [
+        "SUPPORTED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 1.0,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 1.0,
+      "latency_seconds": 41.79,
+      "error": null
+    },
+    {
+      "id": "BM-16",
+      "category": "consistent_finding",
+      "query": "Does dietary sodium restriction lower blood pressure in hypertensive individuals?",
+      "expected_relationship": "CONSISTENT",
+      "overall_evidence_assessment": "broadly supports an inverse or reducing relationship",
+      "retrieved_count": 10,
+      "deep_dive_count": 5,
+      "ledger_count": 4,
+      "subclaim_statuses": [
+        "SUPPORTED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 1.0,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 1.0,
+      "latency_seconds": 67.16,
+      "error": null
+    },
+    {
+      "id": "BM-17",
+      "category": "consistent_finding",
+      "query": "Does vitamin D supplementation prevent nutritional rickets in exclusively breastfed infants?",
+      "expected_relationship": "CONSISTENT",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 10,
+      "deep_dive_count": 0,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED",
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": false,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.5,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.675,
+      "latency_seconds": 34.1,
+      "error": null
+    },
+    {
+      "id": "BM-18",
+      "category": "unresolved_insufficient",
+      "query": "Does intermittent fasting produce greater weight loss than continuous calorie restriction under strictly matched isocaloric conditions?",
+      "expected_relationship": "UNRESOLVED",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 10,
+      "deep_dive_count": 1,
+      "ledger_count": 1,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 1.0,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 1.0,
+      "latency_seconds": 39.57,
+      "error": null
+    },
+    {
+      "id": "BM-19",
+      "category": "unresolved_insufficient",
+      "query": "Does dietary ingestion of microplastics cause clinical cardiovascular events in humans?",
+      "expected_relationship": "INSUFFICIENT_EVIDENCE",
+      "overall_evidence_assessment": "broadly supports an inverse or reducing relationship",
+      "retrieved_count": 10,
+      "deep_dive_count": 3,
+      "ledger_count": 1,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 1.0,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 0.0,
+      "composite_score": 0.85,
+      "latency_seconds": 37.07,
+      "error": null
+    },
+    {
+      "id": "BM-20",
+      "category": "unresolved_insufficient",
+      "query": "Does transcranial direct current stimulation (tDCS) produce lasting improvements in general fluid intelligence in healthy adults?",
+      "expected_relationship": "INSUFFICIENT_EVIDENCE",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 10,
+      "deep_dive_count": 0,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": false,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 1.0,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.8,
+      "latency_seconds": 36.57,
+      "error": null
+    },
+    {
+      "id": "BM-21",
+      "category": "unresolved_insufficient",
+      "query": "Does Ginkgo biloba extract prevent cognitive decline or dementia in healthy older adults?",
+      "expected_relationship": "INSUFFICIENT_EVIDENCE",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 10,
+      "deep_dive_count": 2,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 1.0,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 1.0,
+      "latency_seconds": 31.63,
+      "error": null
+    },
+    {
+      "id": "BM-22",
+      "category": "unresolved_insufficient",
+      "query": "Does resveratrol supplementation extend human lifespan or reduce all-cause mortality?",
+      "expected_relationship": "INSUFFICIENT_EVIDENCE",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 6,
+      "deep_dive_count": 0,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": false,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 1.0,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.8,
+      "latency_seconds": 24.9,
+      "error": null
+    },
+    {
+      "id": "BM-23",
+      "category": "irrelevant_implausible",
+      "query": "Does drinking cold water immediately after eating dark chocolate improve human IQ?",
+      "expected_relationship": "NO_EVALUABLE_EVIDENCE",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 10,
+      "deep_dive_count": 0,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 1.0,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 1.0,
+      "latency_seconds": 29.33,
+      "error": null
+    },
+    {
+      "id": "BM-24",
+      "category": "irrelevant_implausible",
+      "query": "Does listening to Mozart sonatas during deep sleep permanently raise adult mathematical reasoning skills?",
+      "expected_relationship": "NO_EVALUABLE_EVIDENCE",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 10,
+      "deep_dive_count": 0,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 1.0,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 1.0,
+      "latency_seconds": 29.54,
+      "error": null
+    },
+    {
+      "id": "BM-25",
+      "category": "irrelevant_implausible",
+      "query": "Does drinking blueberry smoothies cure clinical glioblastoma multiforme?",
+      "expected_relationship": "NO_EVALUABLE_EVIDENCE",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 10,
+      "deep_dive_count": 0,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 1.0,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 1.0,
+      "latency_seconds": 34.86,
+      "error": null
+    },
+    {
+      "id": "BM-26",
+      "category": "irrelevant_implausible",
+      "query": "Does wearing magnetic wristbands prevent atmospheric ozone depletion?",
+      "expected_relationship": "NO_EVALUABLE_EVIDENCE",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 3,
+      "deep_dive_count": 0,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 1.0,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 1.0,
+      "latency_seconds": 13.38,
+      "error": null
+    },
+    {
+      "id": "BM-27",
+      "category": "conditional_comparative",
+      "query": "Are direct oral anticoagulants (DOACs) superior to warfarin for reducing major bleeding in non-valvular atrial fibrillation?",
+      "expected_relationship": "COMPATIBLE",
+      "overall_evidence_assessment": "broadly supports an inverse or reducing relationship",
+      "retrieved_count": 9,
+      "deep_dive_count": 2,
+      "ledger_count": 2,
+      "subclaim_statuses": [
+        "SUPPORTED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.25,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.812,
+      "latency_seconds": 38.88,
+      "error": null
+    },
+    {
+      "id": "BM-28",
+      "category": "conditional_comparative",
+      "query": "Do SGLT2 inhibitors provide greater renal protection than GLP-1 receptor agonists in patients with diabetic kidney disease?",
+      "expected_relationship": "COMPATIBLE",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 10,
+      "deep_dive_count": 4,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.5,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.875,
+      "latency_seconds": 80.51,
+      "error": null
+    },
+    {
+      "id": "BM-29",
+      "category": "conditional_comparative",
+      "query": "Is cognitive behavioral therapy (CBT) more effective than SSRIs for preventing depression relapse at 12-month follow-up?",
+      "expected_relationship": "COMPATIBLE",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 10,
+      "deep_dive_count": 0,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": false,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.5,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.675,
+      "latency_seconds": 38.51,
+      "error": null
+    },
+    {
+      "id": "BM-30",
+      "category": "conditional_comparative",
+      "query": "Is high-intensity interval training (HIIT) superior to moderate-intensity continuous training (MICT) for improving VO2max in healthy adults?",
+      "expected_relationship": "COMPATIBLE",
+      "overall_evidence_assessment": "inconclusive",
+      "retrieved_count": 9,
+      "deep_dive_count": 0,
+      "ledger_count": 0,
+      "subclaim_statuses": [
+        "UNRESOLVED"
+      ],
+      "retrieval_pass": false,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 0.5,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 0.675,
+      "latency_seconds": 41.28,
+      "error": null
+    }
+  ]
+}

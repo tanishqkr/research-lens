@@ -1,0 +1,272 @@
+{
+  "dataset": "CAS-Con150",
+  "n_train": 105,
+  "n_test": 45,
+  "unconditioned_baseline": {
+    "dataset_name": "Unconditioned TF-IDF Baseline",
+    "total_pairs": 45,
+    "evaluated_pairs": 45,
+    "abstained_count": 6,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "per_class_f1": {
+      "SUPPORTS_OR_CONSISTENT": 1.0,
+      "CONTRADICTS": 1.0,
+      "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 1.0,
+      "INCOMPARABLE_CONDITIONS": 1.0,
+      "INSUFFICIENT_EVIDENCE": 1.0
+    },
+    "confusion_matrix": {
+      "SUPPORTS_OR_CONSISTENT": {
+        "SUPPORTS_OR_CONSISTENT": 9,
+        "CONTRADICTS": 0,
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+        "INCOMPARABLE_CONDITIONS": 0,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "CONTRADICTS": {
+        "SUPPORTS_OR_CONSISTENT": 0,
+        "CONTRADICTS": 9,
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+        "INCOMPARABLE_CONDITIONS": 0,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "QUALIFIES_OR_PARTIAL_DISAGREEMENT": {
+        "SUPPORTS_OR_CONSISTENT": 0,
+        "CONTRADICTS": 0,
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 12,
+        "INCOMPARABLE_CONDITIONS": 0,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "INCOMPARABLE_CONDITIONS": {
+        "SUPPORTS_OR_CONSISTENT": 0,
+        "CONTRADICTS": 0,
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+        "INCOMPARABLE_CONDITIONS": 9,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "INSUFFICIENT_EVIDENCE": {
+        "SUPPORTS_OR_CONSISTENT": 0,
+        "CONTRADICTS": 0,
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+        "INCOMPARABLE_CONDITIONS": 0,
+        "INSUFFICIENT_EVIDENCE": 6
+      }
+    },
+    "metadata": {}
+  },
+  "condition_aware_model": {
+    "dataset_name": "Condition-Aware Pipeline (Proposed)",
+    "total_pairs": 45,
+    "evaluated_pairs": 45,
+    "abstained_count": 6,
+    "accuracy": 0.9111111111111111,
+    "macro_f1": 0.9192598251421782,
+    "per_class_f1": {
+      "SUPPORTS_OR_CONSISTENT": 0.8888888888888888,
+      "CONTRADICTS": 0.9411764705882353,
+      "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0.9090909090909091,
+      "INCOMPARABLE_CONDITIONS": 0.8571428571428571,
+      "INSUFFICIENT_EVIDENCE": 1.0
+    },
+    "confusion_matrix": {
+      "SUPPORTS_OR_CONSISTENT": {
+        "SUPPORTS_OR_CONSISTENT": 8,
+        "CONTRADICTS": 0,
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+        "INCOMPARABLE_CONDITIONS": 1,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "CONTRADICTS": {
+        "SUPPORTS_OR_CONSISTENT": 1,
+        "CONTRADICTS": 8,
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+        "INCOMPARABLE_CONDITIONS": 0,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "QUALIFIES_OR_PARTIAL_DISAGREEMENT": {
+        "SUPPORTS_OR_CONSISTENT": 0,
+        "CONTRADICTS": 0,
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 10,
+        "INCOMPARABLE_CONDITIONS": 2,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "INCOMPARABLE_CONDITIONS": {
+        "SUPPORTS_OR_CONSISTENT": 0,
+        "CONTRADICTS": 0,
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+        "INCOMPARABLE_CONDITIONS": 9,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "INSUFFICIENT_EVIDENCE": {
+        "SUPPORTS_OR_CONSISTENT": 0,
+        "CONTRADICTS": 0,
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+        "INCOMPARABLE_CONDITIONS": 0,
+        "INSUFFICIENT_EVIDENCE": 6
+      }
+    },
+    "metadata": {}
+  },
+  "ablations": {
+    "full_model": {
+      "dataset_name": "Full Condition-Aware",
+      "total_pairs": 45,
+      "evaluated_pairs": 45,
+      "abstained_count": 6,
+      "accuracy": 0.9111111111111111,
+      "macro_f1": 0.9192598251421782,
+      "per_class_f1": {
+        "SUPPORTS_OR_CONSISTENT": 0.8888888888888888,
+        "CONTRADICTS": 0.9411764705882353,
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0.9090909090909091,
+        "INCOMPARABLE_CONDITIONS": 0.8571428571428571,
+        "INSUFFICIENT_EVIDENCE": 1.0
+      },
+      "confusion_matrix": {
+        "SUPPORTS_OR_CONSISTENT": {
+          "SUPPORTS_OR_CONSISTENT": 8,
+          "CONTRADICTS": 0,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+          "INCOMPARABLE_CONDITIONS": 1,
+          "INSUFFICIENT_EVIDENCE": 0
+        },
+        "CONTRADICTS": {
+          "SUPPORTS_OR_CONSISTENT": 1,
+          "CONTRADICTS": 8,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+          "INCOMPARABLE_CONDITIONS": 0,
+          "INSUFFICIENT_EVIDENCE": 0
+        },
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": {
+          "SUPPORTS_OR_CONSISTENT": 0,
+          "CONTRADICTS": 0,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 10,
+          "INCOMPARABLE_CONDITIONS": 2,
+          "INSUFFICIENT_EVIDENCE": 0
+        },
+        "INCOMPARABLE_CONDITIONS": {
+          "SUPPORTS_OR_CONSISTENT": 0,
+          "CONTRADICTS": 0,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+          "INCOMPARABLE_CONDITIONS": 9,
+          "INSUFFICIENT_EVIDENCE": 0
+        },
+        "INSUFFICIENT_EVIDENCE": {
+          "SUPPORTS_OR_CONSISTENT": 0,
+          "CONTRADICTS": 0,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+          "INCOMPARABLE_CONDITIONS": 0,
+          "INSUFFICIENT_EVIDENCE": 6
+        }
+      },
+      "metadata": {}
+    },
+    "no_setting_ablation": {
+      "dataset_name": "Ablation: No Setting",
+      "total_pairs": 45,
+      "evaluated_pairs": 45,
+      "abstained_count": 6,
+      "accuracy": 0.6888888888888889,
+      "macro_f1": 0.6677248677248677,
+      "per_class_f1": {
+        "SUPPORTS_OR_CONSISTENT": 0.8888888888888888,
+        "CONTRADICTS": 0.5925925925925926,
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0.0,
+        "INCOMPARABLE_CONDITIONS": 0.8571428571428571,
+        "INSUFFICIENT_EVIDENCE": 1.0
+      },
+      "confusion_matrix": {
+        "SUPPORTS_OR_CONSISTENT": {
+          "SUPPORTS_OR_CONSISTENT": 8,
+          "CONTRADICTS": 0,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+          "INCOMPARABLE_CONDITIONS": 1,
+          "INSUFFICIENT_EVIDENCE": 0
+        },
+        "CONTRADICTS": {
+          "SUPPORTS_OR_CONSISTENT": 1,
+          "CONTRADICTS": 8,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+          "INCOMPARABLE_CONDITIONS": 0,
+          "INSUFFICIENT_EVIDENCE": 0
+        },
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": {
+          "SUPPORTS_OR_CONSISTENT": 0,
+          "CONTRADICTS": 10,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+          "INCOMPARABLE_CONDITIONS": 2,
+          "INSUFFICIENT_EVIDENCE": 0
+        },
+        "INCOMPARABLE_CONDITIONS": {
+          "SUPPORTS_OR_CONSISTENT": 0,
+          "CONTRADICTS": 0,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+          "INCOMPARABLE_CONDITIONS": 9,
+          "INSUFFICIENT_EVIDENCE": 0
+        },
+        "INSUFFICIENT_EVIDENCE": {
+          "SUPPORTS_OR_CONSISTENT": 0,
+          "CONTRADICTS": 0,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+          "INCOMPARABLE_CONDITIONS": 0,
+          "INSUFFICIENT_EVIDENCE": 6
+        }
+      },
+      "metadata": {}
+    },
+    "no_incomparable_ablation": {
+      "dataset_name": "Ablation: No Incomparable Check",
+      "total_pairs": 45,
+      "evaluated_pairs": 45,
+      "abstained_count": 6,
+      "accuracy": 0.7111111111111111,
+      "macro_f1": 0.6699407871821664,
+      "per_class_f1": {
+        "SUPPORTS_OR_CONSISTENT": 0.8888888888888888,
+        "CONTRADICTS": 0.5517241379310345,
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0.9090909090909091,
+        "INCOMPARABLE_CONDITIONS": 0.0,
+        "INSUFFICIENT_EVIDENCE": 1.0
+      },
+      "confusion_matrix": {
+        "SUPPORTS_OR_CONSISTENT": {
+          "SUPPORTS_OR_CONSISTENT": 8,
+          "CONTRADICTS": 1,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+          "INCOMPARABLE_CONDITIONS": 0,
+          "INSUFFICIENT_EVIDENCE": 0
+        },
+        "CONTRADICTS": {
+          "SUPPORTS_OR_CONSISTENT": 1,
+          "CONTRADICTS": 8,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+          "INCOMPARABLE_CONDITIONS": 0,
+          "INSUFFICIENT_EVIDENCE": 0
+        },
+        "QUALIFIES_OR_PARTIAL_DISAGREEMENT": {
+          "SUPPORTS_OR_CONSISTENT": 0,
+          "CONTRADICTS": 2,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 10,
+          "INCOMPARABLE_CONDITIONS": 0,
+          "INSUFFICIENT_EVIDENCE": 0
+        },
+        "INCOMPARABLE_CONDITIONS": {
+          "SUPPORTS_OR_CONSISTENT": 0,
+          "CONTRADICTS": 9,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+          "INCOMPARABLE_CONDITIONS": 0,
+          "INSUFFICIENT_EVIDENCE": 0
+        },
+        "INSUFFICIENT_EVIDENCE": {
+          "SUPPORTS_OR_CONSISTENT": 0,
+          "CONTRADICTS": 0,
+          "QUALIFIES_OR_PARTIAL_DISAGREEMENT": 0,
+          "INCOMPARABLE_CONDITIONS": 0,
+          "INSUFFICIENT_EVIDENCE": 6
+        }
+      },
+      "metadata": {}
+    }
+  }
+}

@@ -369,3 +369,329 @@ def test_causal_overstatement_qualified_without_authoritative_synthesis():
     assert "formal epidemiological establishment of causality requires synthesis" in validated.bottom_line
     assert "formal causal frameworks" in validated.confidence_and_limitations.lower()
 
+
+def test_regression_non_supporting_passage_with_relevant_citation():
+    """Requirement: A passage that mentions keywords but does not support the subclaim must not be marked SUPPORTED."""
+    subclaims = ["Subclaim: Does human papillomavirus infection cause cervical cancer"]
+    # Citation mentions HPV and cervical cancer, but passage is a mathematical clearance model on 28 patients
+    evidence_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c_clearance",
+            paper_id="arxiv:1111.1496v1",
+            paper_title="Dinamics of HPV Infection among Women with Cervical Lesions",
+            exact_source_passage="Persistent infection was detected in 35.7% of primarily HPV-positive cases (10 out of 28 patients), mainly in cervical cancer patients.",
+            conditions_and_moderators="Small sample size clearance model; mathematical model of clearance",
+            study_design="Observational/Mathematical Model",
+            is_review_synthesis=False,
+            direction=DirectionLabel.POSITIVE,
+        )
+    ]
+    assessments = assess_subclaims(subclaims, evidence_ledger)
+    assert assessments[0].status == SubclaimStatus.UNRESOLVED
+    assert len(assessments[0].evidence_paper_ids) == 0
+
+
+def test_regression_authoritative_review_genuinely_supports_conclusion():
+    """Requirement: An authoritative systematic review / meta-analysis genuinely supports an established conclusion."""
+    subclaims = ["Subclaim: Does human papillomavirus infection cause cervical cancer"]
+    evidence_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c_walboomers",
+            paper_id="W1987350137",
+            paper_title="Human papillomavirus is a necessary cause of invasive cervical cancer worldwide",
+            exact_source_passage="Combining data and excluding inadequate specimens, worldwide HPV prevalence in cervical carcinomas is 99.7 per cent, establishing HPV as a necessary cause.",
+            study_design="Systematic Review / International Case Series",
+            is_review_synthesis=True,
+            direction=DirectionLabel.POSITIVE,
+        )
+    ]
+    assessments = assess_subclaims(subclaims, evidence_ledger)
+    assert assessments[0].status == SubclaimStatus.SUPPORTED
+    assert "W1987350137" in assessments[0].evidence_paper_ids
+
+
+def test_regression_review_mentions_topic_without_requested_comparison():
+    """Requirement: A review mentioning topic without requested head-to-head comparison leaves comparison subclaim UNRESOLVED."""
+    subclaims = [
+        "Subclaim: Does intermittent fasting produce greater long-term weight loss than continuous daily calorie restriction when total calorie intake is comparable",
+        "Subclaim: total calorie intake is comparable",
+    ]
+    # Review only examined within-group weight loss across trials without matched isocaloric comparison
+    evidence_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c_within_group",
+            paper_id="W3005999862",
+            paper_title="Intermittent fasting and weight loss: Systematic review",
+            exact_source_passage="All 27 IF trials found weight loss of 0.8% to 13.0% of baseline weight with no serious adverse events.",
+            study_design="Systematic Review",
+            is_review_synthesis=True,
+            direction=DirectionLabel.POSITIVE,
+        )
+    ]
+    assessments = assess_subclaims(subclaims, evidence_ledger)
+    for a in assessments:
+        assert a.status == SubclaimStatus.UNRESOLVED
+        assert len(a.evidence_paper_ids) == 0
+
+
+def test_regression_consistency_between_summary_and_subclaim_assessments():
+    """Requirement: Executive summary cannot claim superiority or established variation when subclaims are unresolved."""
+    exec_summary = ExecutiveSummary(
+        bottom_line="Intermittent fasting is consistently superior to continuous calorie restriction for long-term weight loss.",
+        overall_evidence_assessment="broadly supports",
+        strongest_supporting_evidence="Review found 0.8% to 13% weight loss.",
+        strongest_conflicting_evidence="None.",
+        why_studies_disagree="None.",
+        confidence_and_limitations="High confidence.",
+        research_coverage="3 reviews.",
+    )
+    assessments = [
+        SubclaimAssessment(
+            subclaim_text="Subclaim: Does intermittent fasting produce greater long-term weight loss than continuous daily calorie restriction",
+            status=SubclaimStatus.UNRESOLVED,
+            rationale="No direct superiority demonstrated under isocaloric conditions.",
+            evidence_paper_ids=[],
+        ),
+        SubclaimAssessment(
+            subclaim_text="Subclaim: total calorie intake is comparable",
+            status=SubclaimStatus.UNRESOLVED,
+            rationale="Isocaloric comparisons absent in ledger.",
+            evidence_paper_ids=[],
+        ),
+    ]
+    evidence_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c1",
+            paper_id="W1",
+            paper_title="Fasting review",
+            exact_source_passage="Trials found 0.8% to 13.0% weight loss.",
+            direction=DirectionLabel.POSITIVE,
+        )
+    ]
+    validated = enforce_summary_consistency(exec_summary, assessments, evidence_ledger)
+    # The overstatement of superiority must be eliminated and equivalence must NOT be claimed without direct comparative trials
+    assert "consistently superior" not in validated.bottom_line
+    assert "does not establish superiority" in validated.bottom_line
+    assert "equivalent rather than superior" not in validated.bottom_line
+
+
+def test_regression_narrow_population_cannot_generalize_to_general_population():
+    """Requirement: A finding in a narrow survivor cohort (e.g. SPLC in prior cancer patients) cannot support general risk."""
+    subclaims = ["Subclaim: Does smoking increase the risk of lung cancer"]
+    # Study only looks at second primary lung cancer in patients with prior lung cancer
+    evidence_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c_splc",
+            paper_id="W3136330176",
+            paper_title="Tobacco Smoking and Risk of Second Primary Lung Cancer",
+            exact_source_passage="Smoking pack-years were significantly associated with increased SPLC risk in prior cancer patients.",
+            population_setting="Second Primary Lung Cancer patients with prior lung cancer",
+            outcome="Second Primary Lung Cancer risk",
+            direction=DirectionLabel.POSITIVE,
+        )
+    ]
+    assessments = assess_subclaims(subclaims, evidence_ledger)
+    # Must NOT be marked supported for general primary lung cancer risk
+    assert assessments[0].status == SubclaimStatus.UNRESOLVED
+    assert len(assessments[0].evidence_paper_ids) == 0
+
+
+def test_regression_well_established_claim_with_evidence_not_indiscriminately_abstained():
+    """Requirement: A well-supported claim with valid evidence must be marked SUPPORTED, preventing indiscriminate abstention."""
+    subclaims = ["Subclaim: Does smoking increase the risk of lung cancer"]
+    evidence_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c_cohort",
+            paper_id="W4293384232",
+            paper_title="Gender and Smoking-Related Risk of Lung Cancer",
+            exact_source_passage="In a prospective cohort of 30,874 participants, cigarette smoking significantly increased incident lung cancer risk with RR 12.4 (95% CI 8.2-18.7).",
+            population_setting="General prospective cohort of 30,874 adults",
+            outcome="Incident lung cancer risk",
+            study_design="Prospective Cohort Study",
+            is_direct=True,
+            direction=DirectionLabel.POSITIVE,
+        )
+    ]
+    assessments = assess_subclaims(subclaims, evidence_ledger)
+    assert assessments[0].status == SubclaimStatus.SUPPORTED
+    assert "W4293384232" in assessments[0].evidence_paper_ids
+
+
+def test_equivalence_requires_actual_comparative_evidence():
+    """Requirement: A claim of equivalence requires actual comparative evidence in the ledger."""
+    exec_summary = ExecutiveSummary(
+        bottom_line="Intermittent fasting is consistently superior to continuous calorie restriction.",
+        overall_evidence_assessment="broadly supports",
+        strongest_supporting_evidence="Direct RCT.",
+        strongest_conflicting_evidence="None.",
+        why_studies_disagree="None.",
+        confidence_and_limitations="High confidence.",
+        research_coverage="1 trial.",
+    )
+    assessments = [
+        SubclaimAssessment(
+            subclaim_text="Subclaim: Does intermittent fasting produce greater long-term weight loss than continuous daily calorie restriction",
+            status=SubclaimStatus.UNRESOLVED,
+            rationale="Equivalence found.",
+            evidence_paper_ids=[],
+        ),
+    ]
+    # Ledger WITH direct isocaloric comparison demonstrating equivalence
+    comparative_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c_direct_rct",
+            paper_id="W_rct",
+            paper_title="RCT of intermittent fasting versus continuous energy restriction",
+            exact_source_passage="Intermittent fasting resulted in equivalent weight loss compared to continuous energy restriction under isocaloric conditions with no significant difference (p=0.48).",
+            comparator="Continuous energy restriction",
+            is_direct=True,
+            direction=DirectionLabel.NO_DIFFERENCE,
+        )
+    ]
+    validated = enforce_summary_consistency(exec_summary, assessments, comparative_ledger)
+    assert "equivalence rather than superiority" in validated.bottom_line
+
+
+def test_strong_observational_association_does_not_establish_causation_alone():
+    """Requirement: Strong observational association does not automatically establish causation without authoritative synthesis."""
+    exec_summary = ExecutiveSummary(
+        bottom_line="Human papillomavirus (HPV) infection is a primary causal factor in the development of cervical cancer.",
+        overall_evidence_assessment="broadly supports",
+        strongest_supporting_evidence="Case control study OR 23.8.",
+        strongest_conflicting_evidence="None.",
+        why_studies_disagree="None.",
+        confidence_and_limitations="High confidence.",
+        research_coverage="1 study.",
+    )
+    assessments = [
+        SubclaimAssessment(
+            subclaim_text="Subclaim: Does human papillomavirus infection cause cervical cancer",
+            status=SubclaimStatus.SUPPORTED,
+            rationale="Supported by case-control study.",
+            evidence_paper_ids=["W1994873916"],
+        ),
+        SubclaimAssessment(
+            subclaim_text="Subclaim: evidence supports a causal relationship",
+            status=SubclaimStatus.UNRESOLVED,
+            rationale="Causal multi-criteria framework not evaluated in snippet.",
+            evidence_paper_ids=[],
+        ),
+    ]
+    observational_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c_obs",
+            paper_id="W1994873916",
+            paper_title="Risk factors for cervical cancer in Colombia and Spain",
+            exact_source_passage="The presence of HPV DNA in cervical scrapes was assessed by PCR-based methods and was the strongest risk factor (OR = 23.8; 13.4-42.0).",
+            study_design="Case-Control Study",
+            is_direct=True,
+            is_review_synthesis=False,
+            direction=DirectionLabel.POSITIVE,
+        )
+    ]
+    validated = enforce_summary_consistency(exec_summary, assessments, observational_ledger)
+    assert "strongly associated primary risk factor" in validated.bottom_line
+    assert "primary causal factor" not in validated.bottom_line
+    assert "formal causal frameworks" in validated.confidence_and_limitations.lower()
+
+
+def test_observational_association_cannot_independently_support_causal_subclaim():
+    """Requirement: An observational association study reporting an odds ratio cannot mark a causal subclaim SUPPORTED."""
+    subclaims = [
+        "Subclaim: Does human papillomavirus infection cause cervical cancer",
+        "Subclaim: evidence supports a causal relationship",
+    ]
+    observational_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c_colombia",
+            paper_id="W1994873916",
+            paper_title="Risk factors for cervical cancer in Colombia and Spain",
+            exact_source_passage="The presence of HPV DNA in cervical scrapes was assessed by PCR-based methods and was the strongest risk factor (OR = 23.8; 13.4-42.0).",
+            study_design="Case-Control Study",
+            is_direct=True,
+            is_review_synthesis=False,
+            direction=DirectionLabel.POSITIVE,
+        )
+    ]
+    assessments = assess_subclaims(subclaims, observational_ledger)
+    # The causal subclaim must remain UNRESOLVED because an observational OR is not causal proof
+    assert assessments[0].status == SubclaimStatus.UNRESOLVED
+    assert len(assessments[0].evidence_paper_ids) == 0
+    assert "observational" in assessments[0].rationale.lower()
+    assert assessments[1].status == SubclaimStatus.UNRESOLVED
+
+
+def test_missing_comparative_evidence_distinguished_from_inconclusive_comparison():
+    """Requirement: Missing comparative evidence in retrieved corpus is distinguished from inconclusive comparison results."""
+    # Scenario A: Missing head-to-head evidence (empty comparison ledger)
+    subclaims = [
+        "Subclaim: Does intermittent fasting produce greater long-term weight loss than continuous daily calorie restriction when total calorie intake is comparable"
+    ]
+    empty_ledger = []
+    assessments_missing = assess_subclaims(subclaims, empty_ledger)
+    assert assessments_missing[0].status == SubclaimStatus.UNRESOLVED
+
+    exec_summary_missing = ExecutiveSummary(
+        bottom_line="Intermittent fasting produces weight loss, but comparative trials are absent.",
+        overall_evidence_assessment="inconclusive",
+        strongest_supporting_evidence="None.",
+        strongest_conflicting_evidence="None.",
+        why_studies_disagree="None.",
+        confidence_and_limitations="Confidence is zero.",
+        research_coverage="0 studies.",
+    )
+    validated_missing = enforce_summary_consistency(exec_summary_missing, assessments_missing, empty_ledger)
+    assert "empty evidence ledger indicates that no qualifying evidence was found in the retrieved sample, rather than conclusive proof that no broader scientific literature exists" in validated_missing.confidence_and_limitations.lower()
+
+    # Scenario B: Retrieved comparative evidence exists, but trials conflict or show inconclusive difference
+    conflicting_ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c_inconclusive",
+            paper_id="W_trial",
+            paper_title="Direct trial of intermittent fasting versus continuous restriction",
+            exact_source_passage="Results comparing intermittent fasting to continuous restriction were inconclusive with conflicting trends across trial arms.",
+            comparator="Continuous restriction",
+            is_direct=True,
+            direction=DirectionLabel.MIXED,
+        )
+    ]
+    assessments_inconclusive = assess_subclaims(subclaims, conflicting_ledger)
+    assert assessments_inconclusive[0].status == SubclaimStatus.SUPPORTED or assessments_inconclusive[0].status == SubclaimStatus.UNRESOLVED
+
+
+def test_summary_never_claims_broader_evidence_coverage_than_ledger():
+    """Requirement: Summary never claims broader evidence coverage than the ledger demonstrates."""
+    exec_summary = ExecutiveSummary(
+        bottom_line="Tree canopy cooling varies significantly across distinct climate zones globally.",
+        overall_evidence_assessment="broadly supports",
+        strongest_supporting_evidence="Study 1.",
+        strongest_conflicting_evidence="None.",
+        why_studies_disagree="None.",
+        confidence_and_limitations="High confidence across global zones.",
+        research_coverage="1 single-city study.",
+    )
+    assessments = [
+        SubclaimAssessment(
+            subclaim_text="Subclaim: Cross-climate variation",
+            status=SubclaimStatus.UNRESOLVED,
+            rationale="Single-city studies only.",
+            evidence_paper_ids=[],
+        )
+    ]
+    ledger = [
+        SupportedEvidenceClaim(
+            claim_id="c_single_city",
+            paper_id="W_city",
+            paper_title="Portland canopy study",
+            exact_source_passage="Canopy reduced local temperature by 1.2C.",
+            direction=DirectionLabel.POSITIVE,
+        )
+    ]
+    validated = enforce_summary_consistency(exec_summary, assessments, ledger)
+    assert "cross-climate variation" in validated.bottom_line.lower()
+    assert "unresolved" in validated.bottom_line.lower() or "not directly tested" in validated.bottom_line.lower()
+    assert (
+        "individual cities" in validated.confidence_and_limitations.lower()
+        or "single-city" in validated.confidence_and_limitations.lower()
+    )
+

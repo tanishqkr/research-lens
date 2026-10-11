@@ -1,7 +1,7 @@
 {
   "query": "Does intermittent fasting produce greater long-term weight loss than continuous daily calorie restriction when total calorie intake is comparable, and do the effects differ by fasting schedule?",
   "executive_summary": {
-    "bottom_line": "While retrieved literature provides preliminary or single-arm data, the specific comparative facets and qualifying conditions of the query remain unresolved in the sampled evidence.",
+    "bottom_line": "Intermittent fasting produces significant weight loss across clinical trials, but evidence does not establish superiority over continuous calorie restriction under matched calorie intake, and head-to-head comparisons remain unresolved in the sampled literature.",
     "overall_evidence_assessment": "remains inconclusive",
     "subclaim_assessments": [
       {
@@ -23,16 +23,16 @@
         "evidence_paper_ids": []
       }
     ],
-    "strongest_supporting_evidence": "Intermittent fasting and weight loss: Systematic review.: All 27 IF trials found weight loss of 0.8% to 13.0% of baseline weight with no serious adverse events.",
-    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
-    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
-    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
-    "research_coverage": "Retrieved 10 candidate papers; examined 3 in depth (0 open-access full texts)."
+    "strongest_supporting_evidence": "A systematic review of 27 IF trials (W3005999862) demonstrated that IF interventions result in weight loss of 0.8% to 13.0% of baseline weight with no serious adverse events, establishing the safety and efficacy of IF for weight reduction in isolation.",
+    "strongest_conflicting_evidence": "No conflicting evidence was identified in the retrieved ledger; however, the absence of comparative trials means there is no evidence to support the claim that IF is superior to continuous calorie restriction, nor is there evidence to refute it.",
+    "why_studies_disagree": "No substantive disagreement was identified in the retrieved evidence. The lack of comparative conclusions stems from the absence of head-to-head trials in the ledger that directly compare IF to continuous daily calorie restriction with matched total calorie intake, rather than from conflicting results between studies.",
+    "confidence_and_limitations": "Confidence in the specific claim that IF produces greater long-term weight loss than continuous calorie restriction is low because the retrieved ledger lacks direct comparative trials. The evidence supports the safety and weight-loss efficacy of IF but does not address the comparative superiority or schedule-specific differences requested in the question. Unverified subclaims include the relative efficacy of IF versus continuous restriction and the differential effects of various fasting schedules.",
+    "research_coverage": "10 studies were retrieved, 5 were examined in depth, 1 finding was recorded in the ledger, and 2 full texts were accessible."
   },
   "candidate_papers_retrieved": 10,
   "papers_triaged": 10,
-  "papers_deep_dived": 3,
-  "full_texts_accessible": 0,
+  "papers_deep_dived": 5,
+  "full_texts_accessible": 2,
   "subclaim_assessments": [
     {
       "subclaim_text": "Subclaim: Does intermittent fasting produce greater long-term weight loss than continuous daily calorie restriction",
@@ -64,15 +64,15 @@
     {
       "paper_id": "W7117291511",
       "title": "Is intermittent fasting good for weight loss?",
-      "category": "IRRELEVANT",
-      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
-      "selected_for_deep_dive": false
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The abstract summarizes the comparative effectiveness of intermittent fasting versus continuous energy restriction for weight loss, which directly addresses the core comparison in the research question. Although the abstract is brief and does not explicitly detail the 'comparable total calorie intake' constraint or 'differences by fasting schedule', the title and summary indicate it is a synthesis of evidence on the specific topic queried.",
+      "selected_for_deep_dive": true
     },
     {
       "paper_id": "W3107824382",
       "title": "The Safety and Efficacy of Intermittent Fasting for Weight Loss",
-      "category": "IRRELEVANT",
-      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a literature review that evaluates the efficacy of intermittent fasting for weight loss. However, it explicitly states that the 'long-term sustainability of these effects has not been studied' and does not provide a direct comparison between intermittent fasting and continuous daily calorie restriction with comparable total calorie intake. It also does not analyze differences by specific fasting schedule in the context of the specific comparative question asked. Therefore, while it is a review on the general topic, it does not directly synthesize evidence answering the specific comparative and long-term questions posed.",
       "selected_for_deep_dive": false
     },
     {
@@ -85,9 +85,9 @@
     {
       "paper_id": "W3151811918",
       "title": "Effect of Various Types of Intermittent Fasting (IF) on Weight Loss and Improvement of Diabetic Parameters in Human",
-      "category": "IRRELEVANT",
-      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
-      "selected_for_deep_dive": false
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a review that synthesizes evidence on intermittent fasting (IF) versus traditional calorie restriction (CR) for weight loss. It explicitly addresses the comparison between IF and CR and analyzes different IF schedules (Alternate Day Fasting and Time-Restricted Feeding), which aligns with the specific research question regarding the comparison of IF to CR and the effects of different fasting schedules. Although it is a review rather than a primary empirical study, it directly evaluates the target question by summarizing relevant studies.",
+      "selected_for_deep_dive": true
     },
     {
       "paper_id": "W2979922699",
@@ -99,29 +99,29 @@
     {
       "paper_id": "W7171813654",
       "title": "A Review of the Effects of Intermittent Fasting on Obesity and Metabolic Health: Analyzing the Benefits and Limitations of Intermittent Fasting Regimens",
-      "category": "IRRELEVANT",
-      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
-      "selected_for_deep_dive": false
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a review that directly addresses the comparison between intermittent fasting (IF) and continuous energy restriction (CER) for weight loss. It specifically analyzes different IF schedules (ADF, TRE, 5:2) and discusses their relative efficacy and adherence compared to CER, which aligns with the specific research question regarding whether IF produces greater weight loss and if effects differ by schedule.",
+      "selected_for_deep_dive": true
     },
     {
       "paper_id": "W4224318250",
       "title": "Intermittent Fasting versus Continuous Calorie Restriction: Which Is Better for Weight Loss?",
       "category": "REVIEW_SYNTHESIS",
       "relevance_rationale": "The paper is a systematic review and meta-analysis that directly compares intermittent fasting (IF) and continuous calorie restriction (CCR) for weight loss, which aligns with the core of the research question. However, it does not explicitly address the specific constraint of 'comparable total calorie intake' or the sub-question regarding differences by 'fasting schedule' (e.g., 16:8 vs 5:2), which are key nuances in the user's query. Despite this, it synthesizes direct evidence on the primary comparison.",
-      "selected_for_deep_dive": true
+      "selected_for_deep_dive": false
     },
     {
       "paper_id": "W4223601687",
       "title": "The Role of Intermittent Energy Restriction Diet on Metabolic Profile and Weight Loss among Obese Adults",
-      "category": "IRRELEVANT",
-      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "category": "BACKGROUND",
+      "relevance_rationale": "The provided text is a narrative summary or introduction that discusses the general concepts of Intermittent Energy Restriction (IER) and Continuous Energy Restriction (CER). It states that IER is 'presented as being as efficient as' CER based on existing literature, but it does not report original empirical data, nor does it provide a systematic synthesis with specific effect sizes or long-term follow-up data required to answer the specific question about long-term weight loss and schedule differences. It serves as contextual background rather than direct evidence.",
       "selected_for_deep_dive": false
     },
     {
       "paper_id": "W2942501865",
       "title": "The role of intermittent fasting and meal timing in weight management and metabolic health",
-      "category": "IRRELEVANT",
-      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a review that directly addresses the comparison between intermittent fasting (including specific schedules like 5:2, TRF, and ADF) and standard daily energy restriction. It synthesizes evidence on their efficacy for weight loss and discusses how fasting duration and schedule affect physiological outcomes, which aligns with the specific research question regarding long-term weight loss and differences by fasting schedule.",
       "selected_for_deep_dive": false
     }
   ],
@@ -142,117 +142,13 @@
       "effect_size": "0.8% to 13.0% weight loss",
       "conditions_and_moderators": "The passage provides a range rather than a pooled mean, and 'no serious adverse events' is a binary safety outcome without incidence rates.",
       "limitations": null,
-      "full_text_used": false,
-      "is_direct": false,
-      "is_review_synthesis": true
-    },
-    {
-      "claim_id": "claim_find_W2979922699",
-      "paper_id": "W2979922699",
-      "paper_title": "Effectiveness of Intermittent Fasting and Time-Restricted Feeding Compared to Continuous Energy Restriction for Weight Loss",
-      "doi": "https://doi.org/10.3390/nu11102442",
-      "url": "https://doi.org/10.3390/nu11102442",
-      "exact_source_passage": "These strategies include intermittent fasting (IMF; >60% energy restriction on 2–3 days per week, or on alternate days) and time-restricted feeding (TRF; limiting the daily period of food intake to 8–10 h or less on most days of the week).",
-      "study_design": "Systematic Review",
-      "population_setting": null,
-      "intervention_exposure": "These Strategies",
-      "comparator": null,
-      "outcome": "Intermittent Fasting",
-      "direction": "UNCLEAR",
-      "effect_size": null,
-      "conditions_and_moderators": null,
-      "limitations": null,
-      "full_text_used": false,
-      "is_direct": false,
-      "is_review_synthesis": true
-    },
-    {
-      "claim_id": "claim_find_W4224318250",
-      "paper_id": "W4224318250",
-      "paper_title": "Intermittent Fasting versus Continuous Calorie Restriction: Which Is Better for Weight Loss?",
-      "doi": "https://doi.org/10.3390/nu14091781",
-      "url": "https://doi.org/10.3390/nu14091781",
-      "exact_source_passage": "The significance of body weight change (SMD = −0.21, 95% CI (−0.40, −0.02) p = 0.028) was more significant after IF than CCR.",
-      "study_design": "Systematic Review",
-      "population_setting": null,
-      "intervention_exposure": "The Significance",
-      "comparator": "Ccr",
-      "outcome": "Body Weight Change",
-      "direction": "UNCLEAR",
-      "effect_size": null,
-      "conditions_and_moderators": null,
-      "limitations": null,
-      "full_text_used": false,
+      "full_text_used": true,
       "is_direct": false,
       "is_review_synthesis": true
     }
   ],
   "disagreements": [],
-  "detailed_comparisons": [
-    {
-      "pair_id": "pair_find_W3005999862_find_W2979922699",
-      "predicted_relation": "INSUFFICIENT_EVIDENCE",
-      "heuristic_score": 0.895,
-      "confidence_score": 0.895,
-      "unconditioned_relation": null,
-      "condition_differences": {
-        "intervention_match": false,
-        "intervention_similarity": 0.0494321808218956,
-        "comparator_match": false,
-        "comparator_similarity": 0.0,
-        "outcome_match": false,
-        "outcome_similarity": 0.21128399670124054,
-        "setting_match": false,
-        "setting_similarity": 0.0,
-        "overall_compatibility": 0.08068646229803562,
-        "summary_of_differences": "Intervention differs: 'Intermittent Fasting (IF)' vs 'These Strategies' (sim=0.05); Comparator differs: 'Baseline weight (implied control or pre-intervention state)' vs 'None' (sim=0.00); Outcome metric differs: 'Weight loss percentage and serious adverse events' vs 'Intermittent Fasting' (sim=0.21); Setting/Cohort differs: 'Clinical trials (synthesized)' vs 'None' (sim=0.00)"
-      },
-      "provenance_verified": true,
-      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
-    },
-    {
-      "pair_id": "pair_find_W3005999862_find_W4224318250",
-      "predicted_relation": "INSUFFICIENT_EVIDENCE",
-      "heuristic_score": 0.894,
-      "confidence_score": 0.894,
-      "unconditioned_relation": null,
-      "condition_differences": {
-        "intervention_match": false,
-        "intervention_similarity": 0.0,
-        "comparator_match": false,
-        "comparator_similarity": 0.07768309861421585,
-        "outcome_match": false,
-        "outcome_similarity": 0.4101208746433258,
-        "setting_match": false,
-        "setting_similarity": 0.0,
-        "overall_compatibility": 0.1385728821158409,
-        "summary_of_differences": "Intervention differs: 'Intermittent Fasting (IF)' vs 'The Significance' (sim=0.00); Comparator differs: 'Baseline weight (implied control or pre-intervention state)' vs 'Ccr' (sim=0.08); Outcome metric differs: 'Weight loss percentage and serious adverse events' vs 'Body Weight Change' (sim=0.41); Setting/Cohort differs: 'Clinical trials (synthesized)' vs 'None' (sim=0.00)"
-      },
-      "provenance_verified": true,
-      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
-    },
-    {
-      "pair_id": "pair_find_W2979922699_find_W4224318250",
-      "predicted_relation": "INSUFFICIENT_EVIDENCE",
-      "heuristic_score": 0.891,
-      "confidence_score": 0.891,
-      "unconditioned_relation": null,
-      "condition_differences": {
-        "intervention_match": false,
-        "intervention_similarity": 0.2578490376472473,
-        "comparator_match": false,
-        "comparator_similarity": 0.0,
-        "outcome_match": false,
-        "outcome_similarity": 0.20145036280155182,
-        "setting_match": false,
-        "setting_similarity": 0.0,
-        "overall_compatibility": 0.1506822720170021,
-        "summary_of_differences": "Intervention differs: 'These Strategies' vs 'The Significance' (sim=0.26); Comparator differs: 'None' vs 'Ccr' (sim=0.00); Outcome metric differs: 'Intermittent Fasting' vs 'Body Weight Change' (sim=0.20); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)"
-      },
-      "provenance_verified": true,
-      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
-    }
-  ],
+  "detailed_comparisons": [],
   "investigation_rounds": 1,
   "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
 }

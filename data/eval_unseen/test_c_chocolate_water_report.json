@@ -1,0 +1,174 @@
+{
+  "query": "Does drinking cold water immediately after eating chocolate cause a permanent reduction in human intelligence, and what is the mechanism?",
+  "executive_summary": {
+    "bottom_line": "Empirical findings show divergence depending on specific study conditions, protocols, and outcome measures.",
+    "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does drinking cold water immediately after eating chocolate cause a permanent reduction in human intelligence, and what is the mechanism",
+        "status": "SUPPORTED",
+        "rationale": "Supported by evidence claims in papers: W2301518831.",
+        "evidence_paper_ids": [
+          "W2301518831"
+        ]
+      }
+    ],
+    "strongest_supporting_evidence": "Analysis of Rehabilitation Inefficiency in Persons with Disabilities After Musculoskeletal Injuries: Only 31.4% persons reduced the severity of disability.",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 8 in depth (1 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 8,
+  "full_texts_accessible": 1,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does drinking cold water immediately after eating chocolate cause a permanent reduction in human intelligence, and what is the mechanism",
+      "status": "SUPPORTED",
+      "rationale": "Supported by evidence claims in papers: W2301518831.",
+      "evidence_paper_ids": [
+        "W2301518831"
+      ]
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W4321331585",
+      "title": "The Aesthetics of Taste: Eating within the Realm of Art",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2604176316",
+      "title": "Making chocolate from beans: what\u2019s involved?",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2618045350",
+      "title": "Human development: from conception to maturity",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2611010294",
+      "title": "Politics, decolonisation, and the cold war in Dar es Salaam c.1965-72",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4213379435",
+      "title": "The Influence of the Application of Mineral Water on the Functional State of the Liver of Patients after Laparoscopic Cholecystektomia in the Long Period of Rehabilitation",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W191317389",
+      "title": "More than mere vanity : men with eating disorders",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4212888562",
+      "title": "Analysis of Rehabilitation Inefficiency in Persons with Disabilities After Musculoskeletal Injuries",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2301518831",
+      "title": "Determination of trihalomethanes in tap water of different origin in Republic of Macedonia",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2921979001",
+      "title": "Flint, Michigan: Three years after the water crisis, where are we now?",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W92805492",
+      "title": "Why do youth step out of sport and into court? A narrative-based exploration",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W4212888562",
+      "paper_id": "W4212888562",
+      "paper_title": "Analysis of Rehabilitation Inefficiency in Persons with Disabilities After Musculoskeletal Injuries",
+      "doi": "https://doi.org/10.36740/abal202201111",
+      "url": "https://doi.org/10.36740/abal202201111",
+      "exact_source_passage": "Only 31.4% persons reduced the severity of disability.",
+      "study_design": "Empirical Study",
+      "population_setting": "Persons (unspecified demographic details)",
+      "intervention_exposure": null,
+      "comparator": null,
+      "outcome": "Reduction in severity of disability",
+      "direction": "POSITIVE",
+      "effect_size": "31.4%",
+      "conditions_and_moderators": "The passage provides only a single descriptive statistic without context on the intervention, baseline, or statistical significance.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true
+    },
+    {
+      "claim_id": "claim_find_W2301518831",
+      "paper_id": "W2301518831",
+      "paper_title": "Determination of trihalomethanes in tap water of different origin in Republic of Macedonia",
+      "doi": null,
+      "url": "https://openalex.org/W2301518831",
+      "exact_source_passage": "The concentration of THMs in potable water after chlorination that comes from water facilities as wells and springs show significant decreasing trend in comparison with concentration of THMs in potable water that comes from accumulations (p<0.05).",
+      "study_design": "Comparative observational study",
+      "population_setting": "Potable water samples",
+      "intervention_exposure": "Water source type (Wells/Springs vs. Accumulations)",
+      "comparator": "Water from accumulations",
+      "outcome": "Concentration of THMs in potable water after chlorination",
+      "direction": "NEGATIVE",
+      "effect_size": "p<0.05",
+      "conditions_and_moderators": "The term 'decreasing trend' is used in a comparative context rather than a temporal one, implying lower levels in the well/spring group relative to the accumulation group.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [
+    {
+      "pair_id": "pair_find_W4212888562_find_W2301518831",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.925,
+      "confidence_score": 0.925,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.0,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.0,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.0,
+        "summary_of_differences": "One or both findings contain unspecified/unknown experimental conditions."
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    }
+  ],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

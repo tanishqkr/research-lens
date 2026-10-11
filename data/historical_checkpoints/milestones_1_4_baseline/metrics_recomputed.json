@@ -1,0 +1,116 @@
+{
+  "audit_timestamp": "2026-10-11T23:05:00",
+  "total_queries": 30,
+  "metrics": {
+    "retrieval_pass_rate": {
+      "numerator": 24,
+      "denominator": 30,
+      "value": 0.8,
+      "definition": "Proportion of queries that retrieved >0 candidates and deep-dived >0 papers (for standard queries) or successfully retrieved and triaged off-target candidates to 0 deep dives (for implausible queries)."
+    },
+    "claim_grounding_precision": {
+      "numerator": 28,
+      "denominator": 29,
+      "value": 0.966,
+      "definition": "Proportion of evidence ledger claims that are verbatim contained in cited text AND semantically relevant to query exposure/outcome (excluding off-target extractions like diabetes for cataract query)."
+    },
+    "strict_relationship_classification_accuracy": {
+      "numerator": 13,
+      "denominator": 30,
+      "value": 0.433,
+      "definition": "Proportion of queries where end-to-end synthesized relationship strictly matches independent literature ground truth (no partial credit)."
+    },
+    "retrieval_conditioned_relationship_accuracy": {
+      "numerator": 6,
+      "denominator": 15,
+      "value": 0.4,
+      "definition": "Relationship classification accuracy evaluated ONLY on the subset of queries where the system successfully extracted >=1 finding into the evidence ledger (15 queries)."
+    },
+    "abstention_accuracy": {
+      "numerator": 30,
+      "denominator": 30,
+      "value": 1.0,
+      "definition": "Proportion of queries avoiding false confidence (no SUPPORTED subclaims on implausible folklore or insufficient evidence)."
+    },
+    "summary_consistency_rate": {
+      "numerator": 29,
+      "denominator": 30,
+      "value": 0.967,
+      "definition": "Proportion of queries where executive summary bottom line and overall assessment strictly align with subclaim assessments and evidence ledger."
+    }
+  },
+  "runner_metric_audit": {
+    "reported_relationship_score": 0.692,
+    "runner_formula_numerator_sum": 20.75,
+    "runner_formula_denominator": 30,
+    "explanation": "The runner reported 69.2% by granting partial credit: 0.5 for inconclusive/unresolved on missing literature, 0.75 for qualified/supported matches, and 0.25 for directional mismatches. True strict binary match is 43.3% (13/30)."
+  },
+  "per_category_breakdown": {
+    "genuine_contradiction": {
+      "total": 6,
+      "retrieval_pass": 5,
+      "strict_rel": 1,
+      "abstention_pass": 6,
+      "summary_consistent": 6,
+      "ledger_claims": 10,
+      "grounded_claims": 9,
+      "has_ledger_count": 5,
+      "strict_rel_cond": 1
+    },
+    "context_dependent": {
+      "total": 6,
+      "retrieval_pass": 6,
+      "strict_rel": 1,
+      "abstention_pass": 6,
+      "summary_consistent": 6,
+      "ledger_claims": 4,
+      "grounded_claims": 4,
+      "has_ledger_count": 3,
+      "strict_rel_cond": 1
+    },
+    "consistent_finding": {
+      "total": 5,
+      "retrieval_pass": 4,
+      "strict_rel": 2,
+      "abstention_pass": 5,
+      "summary_consistent": 5,
+      "ledger_claims": 11,
+      "grounded_claims": 11,
+      "has_ledger_count": 4,
+      "strict_rel_cond": 2
+    },
+    "unresolved_insufficient": {
+      "total": 5,
+      "retrieval_pass": 3,
+      "strict_rel": 5,
+      "abstention_pass": 5,
+      "summary_consistent": 4,
+      "ledger_claims": 2,
+      "grounded_claims": 2,
+      "has_ledger_count": 2,
+      "strict_rel_cond": 2
+    },
+    "irrelevant_implausible": {
+      "total": 4,
+      "retrieval_pass": 4,
+      "strict_rel": 4,
+      "abstention_pass": 4,
+      "summary_consistent": 4,
+      "ledger_claims": 0,
+      "grounded_claims": 0,
+      "has_ledger_count": 0,
+      "strict_rel_cond": 0
+    },
+    "conditional_comparative": {
+      "total": 4,
+      "retrieval_pass": 2,
+      "strict_rel": 0,
+      "abstention_pass": 4,
+      "summary_consistent": 4,
+      "ledger_claims": 2,
+      "grounded_claims": 2,
+      "has_ledger_count": 1,
+      "strict_rel_cond": 0
+    }
+  }
+}

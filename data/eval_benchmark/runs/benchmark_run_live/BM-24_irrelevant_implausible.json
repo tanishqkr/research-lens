@@ -1,0 +1,109 @@
+{
+  "query": "Does listening to Mozart sonatas during deep sleep permanently raise adult mathematical reasoning skills?",
+  "executive_summary": {
+    "bottom_line": "No qualifying empirical literature was identified testing this relationship in the retrieved search corpus.",
+    "overall_evidence_assessment": "inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does listening to Mozart sonatas during deep sleep permanently raise adult mathematical reasoning skills",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "None: no eligible empirical studies evaluated the queried relationship in the retrieved literature.",
+    "strongest_conflicting_evidence": "None: hypothesis remains unaddressed in retrieved empirical literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Confidence is zero within the retrieved corpus because no qualifying empirical trials were identified in retrieved scholarly literature. An empty evidence ledger indicates that no qualifying evidence was found in the retrieved sample, rather than conclusive proof that no broader scientific literature exists.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 0 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 0,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does listening to Mozart sonatas during deep sleep permanently raise adult mathematical reasoning skills",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W7154949222",
+      "title": "The Effect of Combining Infant Massage with Mozart Classical Music on Infant Body Weight and Sleep Quality at Ariyana Maternity Hospital",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The paper studies infants, not adults, and measures body weight and sleep quality, not mathematical reasoning skills. The exposure (Mozart music) is present, but the population and outcome are completely different from the query.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W919054055",
+      "title": "In the Shadow of the Mozart Effect",
+      "category": "BACKGROUND",
+      "relevance_rationale": "The paper is a retrospective commentary and theoretical critique of the 'Mozart Effect' as a debunked theory. It discusses the historical context and the distinction between passive exposure and active engagement in learning, but it does not present original empirical data, a systematic review, or a direct comparison regarding the specific question of whether listening to Mozart during deep sleep permanently raises mathematical reasoning skills in adults. It serves as contextual background for the broader, already debunked concept.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2035992186",
+      "title": "Mozart K.545 Mimics Mozart K.448 in Reducing Epileptiform Discharges in Epileptic Children",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2746258267",
+      "title": "The Mozart Effect For Epilepsy Treatment In Children",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The paper investigates the effect of Mozart's music on seizure activity in children with epilepsy. The research question specifically asks about the effect on adult mathematical reasoning skills during deep sleep. The population (children vs. adults), outcome (seizure reduction vs. mathematical reasoning), and context (epilepsy treatment vs. cognitive enhancement) are completely different.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4291329602",
+      "title": "THE MOZART EFFECT AND ACADEMIC ACHIEVEMENT",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2101564695",
+      "title": "Mozart, Music and Medicine",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4403483039",
+      "title": "Overnight changes in performance fatigability and their relationship to modulated deep sleep oscillations via auditory stimulation",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The paper investigates the effect of auditory stimulation on motor performance (finger tapping speed and fatigability) and deep sleep oscillations. It does not study mathematical reasoning skills, nor does it specifically use Mozart sonatas as the intervention. The outcome variable (motor fatigability) is distinct from the queried outcome (mathematical reasoning).",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2566050244",
+      "title": "The Process of Listening to Music: How it Modulates Nervous System Activity and Affects Emotion",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4225637120",
+      "title": "Auditory deep sleep stimulation in older adults at home: a randomized crossover trial",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4405406955",
+      "title": "The Intersection Between Music and Creativity",
+      "category": "BACKGROUND",
+      "relevance_rationale": "The paper is a theoretical discussion or review of the intersection between music and creativity, mentioning the 'Mozart effect' and logical thinking in a general context. It does not present original empirical data on listening to Mozart during deep sleep, nor does it specifically measure mathematical reasoning skills. It serves as contextual background rather than direct evidence for the specific hypothesis.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [],
+  "disagreements": [],
+  "detailed_comparisons": [],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

@@ -1,0 +1,109 @@
+{
+  "query": "Does Ginkgo biloba extract prevent cognitive decline or dementia in healthy older adults?",
+  "executive_summary": {
+    "bottom_line": "No qualifying empirical literature was identified testing this relationship in the retrieved search corpus.",
+    "overall_evidence_assessment": "inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does Ginkgo biloba extract prevent cognitive decline or dementia in healthy older adults",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "None: no eligible empirical studies evaluated the queried relationship in the retrieved literature.",
+    "strongest_conflicting_evidence": "None: hypothesis remains unaddressed in retrieved empirical literature.",
+    "why_studies_disagree": "No disagreement can be analyzed because no studies with findings were examined in depth. The absence of data in the ledger precludes any analysis of divergence in metrics, baseline, dose, or duration.",
+    "confidence_and_limitations": "Confidence is zero within the retrieved corpus because no qualifying empirical trials were identified in retrieved scholarly literature. An empty evidence ledger indicates that no qualifying evidence was found in the retrieved sample, rather than conclusive proof that no broader scientific literature exists.",
+    "research_coverage": "10 documents were retrieved, 2 were examined in depth, 0 findings were recorded in the ledger, and 0 full texts were accessible."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 2,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does Ginkgo biloba extract prevent cognitive decline or dementia in healthy older adults",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W2560607604",
+      "title": "An Overview of Systematic Reviews of Ginkgo biloba Extracts for Mild Cognitive Impairment and Dementia",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is an overview of systematic reviews specifically evaluating Ginkgo biloba extracts for the prevention of cognitive decline, MCI, and dementia. It directly addresses the queried exposure (Ginkgo biloba) and outcome (cognitive decline/dementia) by synthesizing existing high-level evidence, concluding that while efficacy for MCI/dementia is supported, the question of preventing cognitive decline remains open. This makes it a highly relevant synthesis for the specific research question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W3031930232",
+      "title": "The Effects of Standardized Ginkgo Biloba Extracts (GBE) on Subjective Cognitive Decline (SCD) in Middle-Aged Adults: A Review",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The research question specifically asks about the prevention of cognitive decline or dementia in 'healthy older adults'. The candidate paper focuses on 'Subjective Cognitive Decline (SCD)' in 'Middle-Aged Adults'. SCD is a distinct clinical entity (self-reported complaints with normal objective testing) and the population (middle-aged) differs from the target population (older adults). Furthermore, the paper is a review of treatment effects on SCD, not a study on the prevention of objective cognitive decline or dementia in healthy older adults.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W360858024",
+      "title": "Efficacy of Ginkgo biloba in dementia and cognitive decline",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3140664558",
+      "title": "Mild Cognitive Impairment and Mild Dementia: The Role of Ginkgo biloba (EGb 761\u00ae)",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2975537434",
+      "title": "Alcohol Consumption and Risk of Dementia and Cognitive Decline Among Older Adults With or Without Mild Cognitive Impairment",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The paper investigates the association between alcohol consumption and dementia/cognitive decline. Although it uses data from the Ginkgo Evaluation of Memory Study (GEM), the specific exposure analyzed is alcohol, not Ginkgo biloba extract. Therefore, it does not study the queried exposure.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2034601808",
+      "title": "Ginkgo biloba and neurodegenerative disorders",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2030455832",
+      "title": "Ginkgo Biloba Extract and Long-Term Cognitive Decline: A 20-Year Follow-Up Population-Based Study",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from a large prospective cohort study (Paquid) specifically examining the association between Ginkgo biloba extract (EGb761) intake and long-term cognitive decline (MMSE, verbal fluency, visual memory) in non-demented older adults. This directly addresses the exposure (Ginkgo biloba) and outcome (cognitive decline) specified in the research question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W7128756519",
+      "title": "Ginkgo biloba for cognitive impairment and dementia (Review)",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2135279815",
+      "title": "Effect of Ginkgo Biloba on the Pharmacokinetics of Raltegravir in Healthy Volunteers",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2779837244",
+      "title": "Ginkgo biloba extract improved cognitive and neurological functions of acute ischaemic stroke: a randomised controlled trial",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [],
+  "disagreements": [],
+  "detailed_comparisons": [],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

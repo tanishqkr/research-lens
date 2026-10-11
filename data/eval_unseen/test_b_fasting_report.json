@@ -1,0 +1,242 @@
+{
+  "query": "Does intermittent fasting produce greater long-term weight loss than continuous daily calorie restriction when total calorie intake is comparable, and do the effects differ by fasting schedule?",
+  "executive_summary": {
+    "bottom_line": "The reviewed empirical evidence indicates consistent positive effects for Does intermittent fasting produce greater long-term weight loss than continuous daily calorie restriction when total calorie intake is comparable, and do the effects differ by fasting schedule.",
+    "overall_evidence_assessment": "broadly supports",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does intermittent fasting produce greater long-term weight loss than continuous daily calorie restriction when total calorie intake is comparable",
+        "status": "SUPPORTED",
+        "rationale": "Supported by evidence claims in papers: W4407963661, W4398144347.",
+        "evidence_paper_ids": [
+          "W4407963661",
+          "W4398144347"
+        ]
+      },
+      {
+        "subclaim_text": "Subclaim: the effects differ by fasting schedule",
+        "status": "UNRESOLVED",
+        "rationale": "Insufficient specific empirical findings in current ledger to establish claim.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "A Comprehensive Perspective on the Biological Effects of Intermittent Fasting and Periodic Short-Term Fasting: A Promising Strategy for Optimizing Metabolic Health: In addition, IF modulates the growth hormone/insulin-like growth factor 1 (GH/IGF-1) axis by lowering IGF-1 levels, a change associated with enhanced cellular protection, reduced tumorigenesis, and delayed aging.",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+    "research_coverage": "Retrieved 9 candidate papers; examined 7 in depth (2 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 9,
+  "papers_triaged": 9,
+  "papers_deep_dived": 7,
+  "full_texts_accessible": 2,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does intermittent fasting produce greater long-term weight loss than continuous daily calorie restriction when total calorie intake is comparable",
+      "status": "SUPPORTED",
+      "rationale": "Supported by evidence claims in papers: W4407963661, W4398144347.",
+      "evidence_paper_ids": [
+        "W4407963661",
+        "W4398144347"
+      ]
+    },
+    {
+      "subclaim_text": "Subclaim: the effects differ by fasting schedule",
+      "status": "UNRESOLVED",
+      "rationale": "Insufficient specific empirical findings in current ledger to establish claim.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W2942501865",
+      "title": "The role of intermittent fasting and meal timing in weight management and metabolic health",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is explicitly identified as a review ('This review will consider the state of current understanding'). It synthesizes existing evidence on intermittent fasting versus daily energy restriction, noting that efficacy appears broadly equivalent but highlighting nuances regarding fasting duration and physiological mechanisms. It does not report original empirical data.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W7171813654",
+      "title": "A Review of the Effects of Intermittent Fasting on Obesity and Metabolic Health: Analyzing the Benefits and Limitations of Intermittent Fasting Regimens",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4223601687",
+      "title": "The Role of Intermittent Energy Restriction Diet on Metabolic Profile and Weight Loss among Obese Adults",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W3201251334",
+      "title": "The Effects of Intermittent Fasting on Brain and Cognitive Function",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4407963661",
+      "title": "Author response: Time to Eat - A Personalized Circadian Eating Schedule Leads to Weight Loss Without Imposing Calorie Restriction: A Randomized Controlled Pilot Study",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4411471366",
+      "title": "A Comprehensive Perspective on the Biological Effects of Intermittent Fasting and Periodic Short-Term Fasting: A Promising Strategy for Optimizing Metabolic Health",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4407079862",
+      "title": "Time Restricted Eating: A Valuable Alternative to Calorie Restriction for Addressing Obesity?",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4398140083",
+      "title": "Reviewer #3 (Public Review): Time to Eat - A Personalized Circadian Eating Schedule Leads to Weight Loss Without Calorie Restriction: A Randomized Controlled Trial",
+      "category": "WEAK_OR_IRRELEVANT",
+      "relevance_rationale": "The research question specifically asks for a comparison between intermittent fasting (IF) and continuous daily calorie restriction (CDR) with comparable total calorie intake. The candidate paper investigates a 'Personalized Circadian Eating Schedule' intervention that explicitly does *not* involve calorie restriction (the abstract states weight loss occurred 'Without Calorie Restriction' and was 'not related to changes in self-reported calories'). Furthermore, the intervention is based on meal regularity/timing rather than the specific fasting windows (e.g., 16:8, 5:2) typically associated with IF, and it lacks a CDR control group. Therefore, it does not provide empirical data to answer the specific comparative question posed.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4398144347",
+      "title": "Time to Eat - A Personalized Circadian Eating Schedule Leads to Weight Loss Without Imposing Calorie Restriction: A Randomized Controlled Pilot Study",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W4407963661",
+      "paper_id": "W4407963661",
+      "paper_title": "Author response: Time to Eat - A Personalized Circadian Eating Schedule Leads to Weight Loss Without Imposing Calorie Restriction: A Randomized Controlled Pilot Study",
+      "doi": "https://doi.org/10.7554/elife.96837.3.sa0",
+      "url": "https://doi.org/10.7554/elife.96837.3.sa0",
+      "exact_source_passage": "Our results show that the more regular the meals of participants of the experimental group became, the more weight/BMI they lost, averaging 2.62 kg (0.87 kg/m2); p < 0.0001 (BMI: p < 0.0001) compared to an insignificant weight loss of 0.56 kg (0.20 kg/m2) in the control group; p = 0.0918 (BMI: p = 0.0658).",
+      "study_design": "Empirical Study",
+      "population_setting": null,
+      "intervention_exposure": "The More Regular The Meals",
+      "comparator": "An Insignificant Weight Loss Of 0",
+      "outcome": "Participants",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": true,
+      "is_direct": true
+    },
+    {
+      "claim_id": "claim_find_W4411471366",
+      "paper_id": "W4411471366",
+      "paper_title": "A Comprehensive Perspective on the Biological Effects of Intermittent Fasting and Periodic Short-Term Fasting: A Promising Strategy for Optimizing Metabolic Health",
+      "doi": "https://doi.org/10.3390/nu17132061",
+      "url": "https://doi.org/10.3390/nu17132061",
+      "exact_source_passage": "In addition, IF modulates the growth hormone/insulin-like growth factor 1 (GH/IGF-1) axis by lowering IGF-1 levels, a change associated with enhanced cellular protection, reduced tumorigenesis, and delayed aging.",
+      "study_design": "Empirical Study",
+      "population_setting": null,
+      "intervention_exposure": "The Growth Hormone/Insulin-Like Growth Factor",
+      "comparator": null,
+      "outcome": "Igf-1 Levels",
+      "direction": "POSITIVE",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true
+    },
+    {
+      "claim_id": "claim_find_W4398144347",
+      "paper_id": "W4398144347",
+      "paper_title": "Time to Eat - A Personalized Circadian Eating Schedule Leads to Weight Loss Without Imposing Calorie Restriction: A Randomized Controlled Pilot Study",
+      "doi": "https://doi.org/10.7554/elife.96837",
+      "url": "https://doi.org/10.7554/elife.96837",
+      "exact_source_passage": "Our results show that the more regular the meals of participants of the experimental group became, the more weight/BMI they lost, averaging 2.62 kg (0.87 kg/m 2 ); p < 0.0001 (BMI: p < 0.0001) compared to an insignificant weight loss of 0.56 kg (0.20 kg/m 2 ) in the control group; p = 0.0918 (BMI: p = 0.0658).",
+      "study_design": "Controlled experiment (implied by 'experimental group' and 'control group')",
+      "population_setting": "Participants in an experimental study (likely adults seeking weight loss)",
+      "intervention_exposure": "More regular meals",
+      "comparator": "Control group (standard/less regular meals)",
+      "outcome": "Weight loss and BMI reduction",
+      "direction": "POSITIVE",
+      "effect_size": "Experimental group: 2.62 kg weight loss, 0.87 kg/m2 BMI loss; Control group: 0.56 kg weight loss, 0.20 kg/m2 BMI loss",
+      "conditions_and_moderators": "The control group's weight loss was not statistically significant (p > 0.05), while the experimental group's was highly significant. The finding is correlational within the experimental group (regularity linked to loss).",
+      "limitations": null,
+      "full_text_used": true,
+      "is_direct": true
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [
+    {
+      "pair_id": "pair_find_W4407963661_find_W4411471366",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.914,
+      "confidence_score": 0.914,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.1382291615009308,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.006436715833842754,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.050311221275478595,
+        "summary_of_differences": "Intervention differs: 'The More Regular The Meals' vs 'The Growth Hormone/Insulin-Like Growth Factor' (sim=0.14); Comparator differs: 'An Insignificant Weight Loss Of 0' vs 'None' (sim=0.00); Outcome metric differs: 'Participants' vs 'Igf-1 Levels' (sim=0.01); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W4407963661_find_W4398144347",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.847,
+      "confidence_score": 0.847,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": true,
+        "intervention_similarity": 0.9427269101142883,
+        "comparator_match": false,
+        "comparator_similarity": 0.1624511033296585,
+        "outcome_match": false,
+        "outcome_similarity": 0.06603037565946579,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.38225375190377237,
+        "summary_of_differences": "Comparator differs: 'An Insignificant Weight Loss Of 0' vs 'Control group (standard/less regular meals)' (sim=0.16); Outcome metric differs: 'Participants' vs 'Weight loss and BMI reduction' (sim=0.07); Setting/Cohort differs: 'None' vs 'Experimental study setting' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W4411471366_find_W4398144347",
+      "predicted_relation": "INCOMPARABLE_CONDITIONS",
+      "heuristic_score": 0.916,
+      "confidence_score": 0.916,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.16845032572746277,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.19835908710956573,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.11846534013748168,
+        "summary_of_differences": "Intervention differs: 'The Growth Hormone/Insulin-Like Growth Factor' vs 'More regular meals' (sim=0.17); Comparator differs: 'None' vs 'Control group (standard/less regular meals)' (sim=0.00); Outcome metric differs: 'Igf-1 Levels' vs 'Weight loss and BMI reduction' (sim=0.20); Setting/Cohort differs: 'None' vs 'Experimental study setting' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Studies evaluate disparate interventions: 'The Growth Hormone/Insulin-Like Growth Factor' vs 'More regular meals' (similarity=0.17)."
+    }
+  ],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

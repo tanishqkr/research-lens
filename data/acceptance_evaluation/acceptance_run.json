@@ -1,0 +1,2437 @@
+{
+  "suite": [
+    {
+      "id": "Query_A",
+      "name": "Diet Durability (Low-Carb vs Low-Fat)",
+      "query": "Do randomized controlled trials show that low-carbohydrate diets produce greater weight loss than low-fat diets, and does the difference persist over time?",
+      "focus": "Multi-arm attribution, short vs long-term persistence, null findings",
+      "elapsed_seconds": 14.87,
+      "diagnostics": {
+        "openalex_count": 14,
+        "openalex_status": 200,
+        "arxiv_count": 0,
+        "arxiv_status": 200,
+        "usable_abstracts": 14,
+        "findings_extracted": 10,
+        "candidate_pairs_compared": 15
+      },
+      "executive_summary": {
+        "bottom_line": "Empirical findings show divergence depending on specific study conditions, protocols, and outcome measures.",
+        "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
+        "strongest_supporting_evidence": "Effects of low-carbohydrate diets versus low-fat diets on metabolic risk factors in overweight and obese adults: A meta-analysis of randomized controlled trials: Compared with participants on LFD, participants on LCD had a greater reduction in triglycerides (-0.14 mmol/L; 95% CI, -0.18 to -0.10 mmol/L), diastolic blood pressure (-0.87 mmHg; 95% CI, -1.41 to -0.32 mmHg), weight loss (-1.33 kg; 95% CI, -1.79 to -0.87 kg), and a greater increase in high-density lipoprotein cholesterol (0.07 mmol/L; 95% CI, 0.06 to 0.09 mmol/L) in 6-23 months.",
+        "strongest_conflicting_evidence": "Long-term Effects of a Very Low-Carbohydrate Diet and a Low-Fat Diet on Mood and Cognitive Function: RESULTS: By 1 year, the overall mean (SE) weight loss was 13.7 (1.8) kg, with no significant difference between groups (P = .26).",
+        "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+        "confidence_and_limitations": "Evidence synthesis is based on accessible scholarly abstracts (0 open-access full texts accessible). Findings reflect abstract-reported results without full-text verification.",
+        "research_coverage": "Retrieved 7 candidate papers; synthesized 4 study abstracts (0 open-access full texts accessible; abstract-level synthesis)."
+      },
+      "subclaim_assessments": [
+        {
+          "subclaim": "Trial weight-loss comparison: Randomized controlled trials show low-carbohydrate diets produce greater weight loss than low-fat diets in short-term horizons.",
+          "status": "SUPPORTED",
+          "rationale": "Directly addressed by empirical evidence claims in papers: W4292401731.",
+          "evidence_paper_ids": [
+            "W4292401731"
+          ]
+        },
+        {
+          "subclaim": "Long-term persistence: The difference in weight loss between low-carbohydrate and low-fat diets persists over time.",
+          "status": "QUALIFIED",
+          "rationale": "Qualified: trials show initial weight loss differences attenuate over time and are no longer statistically significant at 12 months.",
+          "evidence_paper_ids": [
+            "W4200376380",
+            "W2166147261"
+          ]
+        }
+      ],
+      "evidence_ledger": [
+        {
+          "paper_id": "W4292401731",
+          "paper_title": "Effects of low-carbohydrate diets versus low-fat diets on metabolic risk factors in overweight and obese adults: A meta-analysis of randomized controlled trials",
+          "doi_or_url": "https://doi.org/10.3389/fnut.2022.935234",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "Compared with participants on LFD, participants on LCD had a greater reduction in triglycerides (-0.14 mmol/L; 95% CI, -0.18 to -0.10 mmol/L), diastolic blood pressure (-0.87 mmHg; 95% CI, -1.41 to -0.32 mmHg), weight loss (-1.33 kg; 95% CI, -1.79 to -0.87 kg), and a greater increase in high-density lipoprotein cholesterol (0.07 mmol/L; 95% CI, 0.06 to 0.09 mmol/L) in 6-23 months.",
+          "intervention_exposure": "LCD (Low-Carbohydrate Diet)",
+          "comparator": "LFD (Low-Fat Diet)",
+          "outcome": "Reduction in triglycerides, diastolic blood pressure, and weight; increase in HDL cholesterol",
+          "direction": "POSITIVE",
+          "population_setting": "Participants on LFD or LCD diets",
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4292401731",
+          "paper_title": "Effects of low-carbohydrate diets versus low-fat diets on metabolic risk factors in overweight and obese adults: A meta-analysis of randomized controlled trials",
+          "doi_or_url": "https://doi.org/10.3389/fnut.2022.935234",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "However, the decrease of total cholesterol (0.14 mmol/L; 95% CI, 0.07 to 0.20 mmol/L) and low-density lipoprotein cholesterol (0.10 mmol/L; 95% CI, 0.06 to 0.14 mmol/L) was more conducive to LFD in 6-23 months.",
+          "intervention_exposure": "Low-Fat Diet",
+          "comparator": null,
+          "outcome": "Lipid Profile",
+          "direction": "NEGATIVE",
+          "population_setting": null,
+          "follow_up_duration": "23 months",
+          "numerical_results": [
+            {
+              "arm_name": "LFD",
+              "comparator_arm": null,
+              "endpoint": "Cholesterol",
+              "point_estimate": 0.14,
+              "metric_name": null,
+              "ci_lower": 0.07,
+              "ci_upper": 0.2,
+              "p_value": null,
+              "unit": "mmol/l",
+              "follow_up_horizon": "23 months",
+              "sample_size": null,
+              "statistical_uncertainty": "95% CI 0.07 to 0.2",
+              "raw_text": "(0.14 mmol/L"
+            },
+            {
+              "arm_name": "LFD",
+              "comparator_arm": null,
+              "endpoint": "Cholesterol",
+              "point_estimate": 0.1,
+              "metric_name": null,
+              "ci_lower": 0.06,
+              "ci_upper": 0.14,
+              "p_value": null,
+              "unit": "mmol/l",
+              "follow_up_horizon": "23 months",
+              "sample_size": null,
+              "statistical_uncertainty": "95% CI 0.06 to 0.14",
+              "raw_text": "(0.10 mmol/L"
+            }
+          ]
+        },
+        {
+          "paper_id": "W4292401731",
+          "paper_title": "Effects of low-carbohydrate diets versus low-fat diets on metabolic risk factors in overweight and obese adults: A meta-analysis of randomized controlled trials",
+          "doi_or_url": "https://doi.org/10.3389/fnut.2022.935234",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "The meta-analysis compared the effects of LCD (carbohydrate intake \u2264 40%) with LFD (fat intake < 30%) on metabolic risk factors and weight loss for \u22656 months.",
+          "intervention_exposure": "Low-Carbohydrate Diet",
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": "6 months",
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4200376380",
+          "paper_title": "Comparing the Efficacy and Safety of Low-Carbohydrate Diets with Low-Fat Diets for Type 2 Diabetes Mellitus Patients: A Systematic Review and Meta-Analysis of Randomized Clinical Trials",
+          "doi_or_url": "https://doi.org/10.1155/2021/8521756",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "Compared with LFDs, treatment with LCDs achieved significant reduced HbA1c by 0.35% (95% CI: \u22120.45, \u22120.24; P < 0.00001).",
+          "intervention_exposure": "LCDs",
+          "comparator": "LFDs",
+          "outcome": "HbA1c reduction",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4200376380",
+          "paper_title": "Comparing the Efficacy and Safety of Low-Carbohydrate Diets with Low-Fat Diets for Type 2 Diabetes Mellitus Patients: A Systematic Review and Meta-Analysis of Randomized Clinical Trials",
+          "doi_or_url": "https://doi.org/10.1155/2021/8521756",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "LCDs appeared to be more beneficial in decreasing body weight than LFDs (WMD = \u22122.99 kg; 95% CI: \u22124.36, \u22121.63; P < 0.0001), especially in the subgroup that used VLCDs (WMD = \u22129.49 kg; 95% CI: \u221212.88, \u22126.09, P < 0.00001).",
+          "intervention_exposure": "Very Low-Carbohydrate Diet",
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": "2 years",
+          "numerical_results": [
+            {
+              "arm_name": "LFDs",
+              "comparator_arm": "LCDs",
+              "endpoint": "Body Weight",
+              "point_estimate": -2.99,
+              "metric_name": null,
+              "ci_lower": -4.36,
+              "ci_upper": -1.63,
+              "p_value": 0.0001,
+              "unit": "kg",
+              "follow_up_horizon": "2 years",
+              "sample_size": null,
+              "statistical_uncertainty": "95% CI -4.36 to -1.63, p = 0.0001",
+              "raw_text": "-2.99 kg"
+            },
+            {
+              "arm_name": "VLCDs",
+              "comparator_arm": "LCDs",
+              "endpoint": "Weight Loss",
+              "point_estimate": -9.49,
+              "metric_name": null,
+              "ci_lower": -12.88,
+              "ci_upper": -6.09,
+              "p_value": 1e-05,
+              "unit": "kg",
+              "follow_up_horizon": "2 years",
+              "sample_size": null,
+              "statistical_uncertainty": "95% CI -12.88 to -6.09, p = 1e-05",
+              "raw_text": "-9.49 kg"
+            }
+          ]
+        },
+        {
+          "paper_id": "W4200376380",
+          "paper_title": "Comparing the Efficacy and Safety of Low-Carbohydrate Diets with Low-Fat Diets for Type 2 Diabetes Mellitus Patients: A Systematic Review and Meta-Analysis of Randomized Clinical Trials",
+          "doi_or_url": "https://doi.org/10.1155/2021/8521756",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "For cardiovascular risk factors, the LCD interventions significantly reduced TG concentration (WMD: \u22120.20 mmol/l; 95% CI: \u22120.31, \u22120.10; P = 0.0001) and increased HDL-C concentration (WMD: 0.09 mmol/l; 95% CI: 0.05,0.13; P < 0.00001).",
+          "intervention_exposure": "Low-Carbohydrate Diet",
+          "comparator": null,
+          "outcome": "Cardiovascular Risk Factors",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": "2 years",
+          "numerical_results": [
+            {
+              "arm_name": "LCD",
+              "comparator_arm": null,
+              "endpoint": "Lipid Profile",
+              "point_estimate": -0.2,
+              "metric_name": null,
+              "ci_lower": -0.31,
+              "ci_upper": -0.1,
+              "p_value": 0.0001,
+              "unit": "mmol/l",
+              "follow_up_horizon": "2 years",
+              "sample_size": null,
+              "statistical_uncertainty": "95% CI -0.31 to -0.1, p = 0.0001",
+              "raw_text": "-0.20 mmol/l"
+            },
+            {
+              "arm_name": "LCD",
+              "comparator_arm": null,
+              "endpoint": "Lipid Profile",
+              "point_estimate": 0.09,
+              "metric_name": null,
+              "ci_lower": 0.05,
+              "ci_upper": 0.13,
+              "p_value": 1e-05,
+              "unit": "mmol/l",
+              "follow_up_horizon": "2 years",
+              "sample_size": null,
+              "statistical_uncertainty": "95% CI 0.05 to 0.13, p = 1e-05",
+              "raw_text": "0.09 mmol/l"
+            }
+          ]
+        },
+        {
+          "paper_id": "W2900786730",
+          "paper_title": "Effects of a low carbohydrate diet on energy expenditure during weight loss maintenance: randomized trial",
+          "doi_or_url": "https://doi.org/10.1136/bmj.k4583",
+          "study_type": "INTERVENTIONAL_TRIAL",
+          "exact_source_passage": "RESULTS: Total energy expenditure differed by diet in the intention-to-treat analysis (n=162, P=0.002), with a linear trend of 52 kcal/d (95% confidence interval 23 to 82) for every 10% decrease in the contribution of carbohydrate to total energy intake (1 kcal=4.18 kJ=0.00418 MJ).",
+          "intervention_exposure": "N=162",
+          "comparator": null,
+          "outcome": "A Linear Trend",
+          "direction": "NEGATIVE",
+          "population_setting": null,
+          "follow_up_duration": "20 weeks",
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "A Linear Trend",
+              "point_estimate": 52.0,
+              "metric_name": null,
+              "ci_lower": 23.0,
+              "ci_upper": 82.0,
+              "p_value": null,
+              "unit": "kcal/d",
+              "follow_up_horizon": "20 weeks",
+              "sample_size": 162,
+              "statistical_uncertainty": "95% CI 23.0 to 82.0",
+              "raw_text": "52 kcal/d"
+            },
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "A Linear Trend",
+              "point_estimate": 1.0,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": null,
+              "unit": "kcal",
+              "follow_up_horizon": "20 weeks",
+              "sample_size": 162,
+              "statistical_uncertainty": null,
+              "raw_text": "(1 kcal"
+            },
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "A Linear Trend",
+              "point_estimate": null,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.002,
+              "unit": null,
+              "follow_up_horizon": "20 weeks",
+              "sample_size": 162,
+              "statistical_uncertainty": "p = 0.002",
+              "raw_text": "P=0.002"
+            }
+          ]
+        },
+        {
+          "paper_id": "W2900786730",
+          "paper_title": "Effects of a low carbohydrate diet on energy expenditure during weight loss maintenance: randomized trial",
+          "doi_or_url": "https://doi.org/10.1136/bmj.k4583",
+          "study_type": "INTERVENTIONAL_TRIAL",
+          "exact_source_passage": "In the per protocol analysis (n=120, P<0.001), the respective differences were 131 kcal/d (-6 to 267) and 278 kcal/d (144 to 411).",
+          "intervention_exposure": null,
+          "comparator": null,
+          "outcome": null,
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": "20 weeks",
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": null,
+              "point_estimate": 131.0,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": null,
+              "unit": "kcal/d",
+              "follow_up_horizon": "20 weeks",
+              "sample_size": 120,
+              "statistical_uncertainty": null,
+              "raw_text": "131 kcal/d"
+            },
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": null,
+              "point_estimate": 278.0,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": null,
+              "unit": "kcal/d",
+              "follow_up_horizon": "20 weeks",
+              "sample_size": 120,
+              "statistical_uncertainty": null,
+              "raw_text": "278 kcal/d"
+            },
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": null,
+              "point_estimate": null,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.001,
+              "unit": null,
+              "follow_up_horizon": "20 weeks",
+              "sample_size": 120,
+              "statistical_uncertainty": "p = 0.001",
+              "raw_text": "P<0.001"
+            }
+          ]
+        },
+        {
+          "paper_id": "W2900786730",
+          "paper_title": "Effects of a low carbohydrate diet on energy expenditure during weight loss maintenance: randomized trial",
+          "doi_or_url": "https://doi.org/10.1136/bmj.k4583",
+          "study_type": "INTERVENTIONAL_TRIAL",
+          "exact_source_passage": "Among participants in the highest third of pre-weight loss insulin secretion, the difference between the low and high carbohydrate diet was 308 kcal/d in the intention-to-treat analysis and 478 kcal/d in the per protocol analysis (P<0.004).",
+          "intervention_exposure": "Pre-Weight Loss Insulin Secretion",
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": "20 weeks",
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Weight Loss",
+              "point_estimate": 308.0,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": null,
+              "unit": "kcal/d",
+              "follow_up_horizon": "20 weeks",
+              "sample_size": null,
+              "statistical_uncertainty": null,
+              "raw_text": "308 kcal/d"
+            },
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Weight Loss",
+              "point_estimate": 478.0,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.004,
+              "unit": "kcal/d",
+              "follow_up_horizon": "20 weeks",
+              "sample_size": null,
+              "statistical_uncertainty": "p = 0.004",
+              "raw_text": "478 kcal/d"
+            }
+          ]
+        },
+        {
+          "paper_id": "W2166147261",
+          "paper_title": "Long-term Effects of a Very Low-Carbohydrate Diet and a Low-Fat Diet on Mood and Cognitive Function",
+          "doi_or_url": "https://doi.org/10.1001/archinternmed.2009.329",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "RESULTS: By 1 year, the overall mean (SE) weight loss was 13.7 (1.8) kg, with no significant difference between groups (P = .26).",
+          "intervention_exposure": null,
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "NO_DIFFERENCE",
+          "population_setting": null,
+          "follow_up_duration": "1 year",
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Weight Loss",
+              "point_estimate": null,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.26,
+              "unit": null,
+              "follow_up_horizon": "1 year",
+              "sample_size": null,
+              "statistical_uncertainty": "p = 0.26",
+              "raw_text": "P = .26"
+            }
+          ]
+        }
+      ],
+      "comparisons": [
+        {
+          "pair_id": "pair_find_W4292401731_find_W4292401731_1",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Effects of low-carbohydrate diets versus low-",
+          "condition_aware_verdict": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+          "condition_aware_confidence": 0.854,
+          "condition_differences": "Comparator differs: 'LFD (Low-Fat Diet)' vs 'None' (sim=0.00); Outcome metric differs: 'Reduction in triglycerides, diastolic blood pressure, and weight; increase in HDL cholesterol' vs 'Lipid Profile' (sim=0.43); Setting/Cohort differs: 'Participants on LFD or LCD diets' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.5455141142021134
+        },
+        {
+          "pair_id": "pair_find_W4292401731_find_W4292401731_2",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Effects of low-carbohydrate diets versus low-",
+          "condition_aware_verdict": "SUPPORTS_OR_CONSISTENT",
+          "condition_aware_confidence": 0.778,
+          "condition_differences": "Comparator differs: 'LFD (Low-Fat Diet)' vs 'None' (sim=0.00); Outcome metric differs: 'Reduction in triglycerides, diastolic blood pressure, and weight; increase in HDL cholesterol' vs 'Weight Loss' (sim=0.36); Setting/Cohort differs: 'Participants on LFD or LCD diets' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.5975508571097427
+        },
+        {
+          "pair_id": "pair_find_W4292401731_find_W4200376380",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Comparing the Efficacy and Safety of Low-Carb",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.92,
+          "condition_differences": "Outcome metric differs: 'Reduction in triglycerides, diastolic blood pressure, and weight; increase in HDL cholesterol' vs 'HbA1c reduction' (sim=0.19); Setting/Cohort differs: 'Participants on LFD or LCD diets' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.635239211391539
+        },
+        {
+          "pair_id": "pair_find_W4292401731_find_W4200376380_1",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Comparing the Efficacy and Safety of Low-Carb",
+          "condition_aware_verdict": "SUPPORTS_OR_CONSISTENT",
+          "condition_aware_confidence": 0.779,
+          "condition_differences": "Comparator differs: 'LFD (Low-Fat Diet)' vs 'None' (sim=0.00); Outcome metric differs: 'Reduction in triglycerides, diastolic blood pressure, and weight; increase in HDL cholesterol' vs 'Weight Loss' (sim=0.36); Setting/Cohort differs: 'Participants on LFD or LCD diets' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.6447336290755628
+        },
+        {
+          "pair_id": "pair_find_W4292401731_find_W4200376380_2",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Comparing the Efficacy and Safety of Low-Carb",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.92,
+          "condition_differences": "Comparator differs: 'LFD (Low-Fat Diet)' vs 'None' (sim=0.00); Outcome metric differs: 'Reduction in triglycerides, diastolic blood pressure, and weight; increase in HDL cholesterol' vs 'Cardiovascular Risk Factors' (sim=0.46); Setting/Cohort differs: 'Participants on LFD or LCD diets' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.6200727448814851
+        },
+        {
+          "pair_id": "pair_find_W4292401731_find_W2900786730",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Effects of a low carbohydrate diet on energy ",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.95,
+          "condition_differences": "Intervention differs: 'LCD (Low-Carbohydrate Diet)' vs 'N=162' (sim=0.00); Comparator differs: 'LFD (Low-Fat Diet)' vs 'None' (sim=0.00); Outcome metric differs: 'Reduction in triglycerides, diastolic blood pressure, and weight; increase in HDL cholesterol' vs 'A Linear Trend' (sim=0.01); Setting/Cohort differs: 'Participants on LFD or LCD diets' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.4112522355552755
+        },
+        {
+          "pair_id": "pair_find_W4292401731_find_W2900786730_1",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Effects of a low carbohydrate diet on energy ",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'LCD (Low-Carbohydrate Diet)' vs 'None' (sim=0.00); Comparator differs: 'LFD (Low-Fat Diet)' vs 'None' (sim=0.00); Outcome metric differs: 'Reduction in triglycerides, diastolic blood pressure, and weight; increase in HDL cholesterol' vs 'None' (sim=0.00); Setting/Cohort differs: 'Participants on LFD or LCD diets' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.41062994241325274
+        },
+        {
+          "pair_id": "pair_find_W4292401731_find_W2900786730_2",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Effects of a low carbohydrate diet on energy ",
+          "condition_aware_verdict": "SUPPORTS_OR_CONSISTENT",
+          "condition_aware_confidence": 0.752,
+          "condition_differences": "Intervention differs: 'LCD (Low-Carbohydrate Diet)' vs 'Pre-Weight Loss Insulin Secretion' (sim=0.35); Comparator differs: 'LFD (Low-Fat Diet)' vs 'None' (sim=0.00); Outcome metric differs: 'Reduction in triglycerides, diastolic blood pressure, and weight; increase in HDL cholesterol' vs 'Weight Loss' (sim=0.36); Setting/Cohort differs: 'Participants on LFD or LCD diets' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.6655511372109055
+        },
+        {
+          "pair_id": "pair_find_W4292401731_find_W2166147261",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Long-term Effects of a Very Low-Carbohydrate ",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.95,
+          "condition_differences": "Intervention differs: 'LCD (Low-Carbohydrate Diet)' vs 'None' (sim=0.00); Comparator differs: 'LFD (Low-Fat Diet)' vs 'None' (sim=0.00); Outcome metric differs: 'Reduction in triglycerides, diastolic blood pressure, and weight; increase in HDL cholesterol' vs 'Weight Loss' (sim=0.36); Setting/Cohort differs: 'Participants on LFD or LCD diets' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.5520195280550565
+        },
+        {
+          "pair_id": "pair_find_W4292401731_1_find_W4292401731_2",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Effects of low-carbohydrate diets versus low-",
+          "condition_aware_verdict": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+          "condition_aware_confidence": 0.855,
+          "condition_differences": "Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lipid Profile' vs 'Weight Loss' (sim=0.24); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.507355226467052
+        },
+        {
+          "pair_id": "pair_find_W4292401731_1_find_W4200376380",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Comparing the Efficacy and Safety of Low-Carb",
+          "condition_aware_verdict": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+          "condition_aware_confidence": 0.844,
+          "condition_differences": "Comparator differs: 'None' vs 'LFDs' (sim=0.00); Outcome metric differs: 'Lipid Profile' vs 'HbA1c reduction' (sim=0.05); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.5236000762564585
+        },
+        {
+          "pair_id": "pair_find_W4292401731_1_find_W4200376380_1",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Comparing the Efficacy and Safety of Low-Carb",
+          "condition_aware_verdict": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+          "condition_aware_confidence": 0.854,
+          "condition_differences": "Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lipid Profile' vs 'Weight Loss' (sim=0.24); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.5341904579949508
+        },
+        {
+          "pair_id": "pair_find_W4292401731_1_find_W4200376380_2",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Comparing the Efficacy and Safety of Low-Carb",
+          "condition_aware_verdict": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+          "condition_aware_confidence": 0.856,
+          "condition_differences": "Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lipid Profile' vs 'Cardiovascular Risk Factors' (sim=0.26); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.5644052709624361
+        },
+        {
+          "pair_id": "pair_find_W4292401731_1_find_W2900786730",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Effects of a low carbohydrate diet on energy ",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.95,
+          "condition_differences": "Intervention differs: 'Low-Fat Diet' vs 'N=162' (sim=0.00); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lipid Profile' vs 'A Linear Trend' (sim=0.03); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.4481568905668914
+        },
+        {
+          "pair_id": "pair_find_W4292401731_1_find_W2900786730_1",
+          "study_a": "Effects of low-carbohydrate diets versus low-",
+          "study_b": "Effects of a low carbohydrate diet on energy ",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Low-Fat Diet' vs 'None' (sim=0.00); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lipid Profile' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3339869719810003
+        }
+      ]
+    },
+    {
+      "id": "Query_B",
+      "name": "Alcohol & Mortality Confounding",
+      "query": "Does moderate alcohol consumption reduce all-cause mortality, or can the apparent protective association be explained by study design and confounding?",
+      "focus": "Observational vs trial classification, association vs causation, confounding",
+      "elapsed_seconds": 16.35,
+      "diagnostics": {
+        "openalex_count": 17,
+        "openalex_status": 200,
+        "arxiv_count": 0,
+        "arxiv_status": 200,
+        "usable_abstracts": 17,
+        "findings_extracted": 13,
+        "candidate_pairs_compared": 15
+      },
+      "executive_summary": {
+        "bottom_line": "Empirical findings show divergence depending on specific study conditions, protocols, and outcome measures.",
+        "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
+        "strongest_supporting_evidence": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality Risk? A Systematic Review and Meta-Analysis of Alcohol Consumption and All-Cause Mortality: RESULTS: Without adjustment, meta-analysis of all 87 included studies replicated the classic J-shaped curve, with low-volume drinkers (1.3-24.9 g ethanol per day) having reduced mortality risk (RR = 0.86, 95% CI [0.83, 0.90]).",
+        "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+        "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+        "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+        "research_coverage": "Retrieved 10 candidate papers; examined 8 in depth (1 open-access full texts)."
+      },
+      "subclaim_assessments": [
+        {
+          "subclaim": "Mortality reduction: Moderate alcohol consumption causally reduces all-cause mortality.",
+          "status": "QUALIFIED",
+          "rationale": "Qualified: observational studies observe an inverse association (J-shaped curve) between moderate alcohol intake and all-cause mortality, but causality is not established by randomized trials, and the apparent protective association is largely attenuated after controlling for abstainer reference-group misclassification (sick-quitters) and residual socioeconomic confounding.",
+          "evidence_paper_ids": [
+            "W2311763102",
+            "W1499635708",
+            "W2109129984",
+            "W4412381822"
+          ]
+        },
+        {
+          "subclaim": "Confounding and bias: The apparent protective association can be explained by study design limitations, reference-group definitions, and confounding.",
+          "status": "SUPPORTED",
+          "rationale": "Supported: methodological analyses and systematic evaluations indicate apparent protective mortality associations are substantially driven by reference-group misclassification (e.g., former drinkers / sick-quitters) and residual confounding.",
+          "evidence_paper_ids": [
+            "W1499635708",
+            "W2104396986",
+            "W2109129984",
+            "W4412381822"
+          ]
+        }
+      ],
+      "evidence_ledger": [
+        {
+          "paper_id": "W2311763102",
+          "paper_title": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality Risk? A Systematic Review and Meta-Analysis of Alcohol Consumption and All-Cause Mortality",
+          "doi_or_url": "https://doi.org/10.15288/jsad.2016.77.185",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "RESULTS: Without adjustment, meta-analysis of all 87 included studies replicated the classic J-shaped curve, with low-volume drinkers (1.3-24.9 g ethanol per day) having reduced mortality risk (RR = 0.86, 95% CI [0.83, 0.90]).",
+          "intervention_exposure": "Adjustment",
+          "comparator": null,
+          "outcome": "All-Cause Mortality",
+          "direction": "NEGATIVE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Mortality",
+              "point_estimate": 0.86,
+              "metric_name": "RR",
+              "ci_lower": 0.83,
+              "ci_upper": 0.9,
+              "p_value": null,
+              "unit": null,
+              "follow_up_horizon": null,
+              "sample_size": null,
+              "statistical_uncertainty": "95% CI 0.83 to 0.9",
+              "raw_text": "RR = 0.86"
+            }
+          ]
+        },
+        {
+          "paper_id": "W2311763102",
+          "paper_title": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality Risk? A Systematic Review and Meta-Analysis of Alcohol Consumption and All-Cause Mortality",
+          "doi_or_url": "https://doi.org/10.15288/jsad.2016.77.185",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "Occasional drinkers (<1.3 g per day) had similar mortality risk (RR = 0.84, 95% CI [0.79, 0.89]), and former drinkers had elevated risk (RR = 1.22, 95% CI [1.14, 1.31]).",
+          "intervention_exposure": "Occasional Drinkers",
+          "comparator": null,
+          "outcome": "All-Cause Mortality",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Mortality",
+              "point_estimate": 0.84,
+              "metric_name": "RR",
+              "ci_lower": 0.79,
+              "ci_upper": 0.89,
+              "p_value": null,
+              "unit": null,
+              "follow_up_horizon": null,
+              "sample_size": null,
+              "statistical_uncertainty": "95% CI 0.79 to 0.89",
+              "raw_text": "RR = 0.84"
+            },
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "All-Cause Mortality",
+              "point_estimate": 1.22,
+              "metric_name": "RR",
+              "ci_lower": 1.14,
+              "ci_upper": 1.31,
+              "p_value": null,
+              "unit": null,
+              "follow_up_horizon": null,
+              "sample_size": null,
+              "statistical_uncertainty": "95% CI 1.14 to 1.31",
+              "raw_text": "RR = 1.22"
+            }
+          ]
+        },
+        {
+          "paper_id": "W2311763102",
+          "paper_title": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality Risk? A Systematic Review and Meta-Analysis of Alcohol Consumption and All-Cause Mortality",
+          "doi_or_url": "https://doi.org/10.15288/jsad.2016.77.185",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "After adjustment for abstainer biases and quality-related study characteristics, no significant reduction in mortality risk was observed for low-volume drinkers (RR = 0.97, 95% CI [0.88, 1.07]).",
+          "intervention_exposure": "Adjustment",
+          "comparator": null,
+          "outcome": "All-Cause Mortality",
+          "direction": "NEGATIVE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Mortality",
+              "point_estimate": 0.97,
+              "metric_name": "RR",
+              "ci_lower": 0.88,
+              "ci_upper": 1.07,
+              "p_value": null,
+              "unit": null,
+              "follow_up_horizon": null,
+              "sample_size": null,
+              "statistical_uncertainty": "95% CI 0.88 to 1.07",
+              "raw_text": "RR = 0.97"
+            }
+          ]
+        },
+        {
+          "paper_id": "W1977134398",
+          "paper_title": "All cause mortality and the case for age specific alcohol consumption guidelines: pooled analyses of up to 10 population based cohorts",
+          "doi_or_url": "https://doi.org/10.1136/bmj.h384",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "Among younger men, the range of protective effects was minimal, with a significant reduction in hazards present only among those who reported consuming 15.1-20.0 units/average week (hazard ratio 0.49, 95% confidence interval 0.26 to 0.91) or 0.1-1.5 units on the heaviest day (0.43, 0.21 to 0.87).",
+          "intervention_exposure": "A Significant Reduction",
+          "comparator": null,
+          "outcome": "Younger Men",
+          "direction": "NEGATIVE",
+          "population_setting": null,
+          "follow_up_duration": "65 years",
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Younger Men",
+              "point_estimate": 0.1,
+              "metric_name": "OR",
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": null,
+              "unit": null,
+              "follow_up_horizon": "65 years",
+              "sample_size": null,
+              "statistical_uncertainty": null,
+              "raw_text": "or 0.1"
+            }
+          ]
+        },
+        {
+          "paper_id": "W1977134398",
+          "paper_title": "All cause mortality and the case for age specific alcohol consumption guidelines: pooled analyses of up to 10 population based cohorts",
+          "doi_or_url": "https://doi.org/10.1136/bmj.h384",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "Supplementary analyses found that most protective effects disappeared where calculated in comparison with various definitions of occasional drinkers.",
+          "intervention_exposure": "Supplementary Analyses",
+          "comparator": null,
+          "outcome": "Comparison",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": "65 years",
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W1499635708",
+          "paper_title": "Moderate alcohol consumption and cardiovascular risk reduction: open issues",
+          "doi_or_url": "https://doi.org/10.2427/5933",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "This will be based on findings from theliterature, with a particular emphasis on meta-analyses.Results and Conclusion: The role of different alcoholic beverages, age and sex, confounding, former drinkersand study design has been discussed.Whether wine is better than beer or spirits, though suggestive, remains to be established.Cardiovascular morbidity and total mortality is significantly reduced both in men and women who are regulardrinkers of low amounts of alcohol; however, the predicted protection in women disappears at lower dosesthan in men.The primary protection of alcohol decreases after adjustment for known variables, thus confirming the importanceof confounding in assessing drinking effects, but it remains significant and of undoubted public health value.As the cardiovascular protection by moderate alcohol consumption might have been unduly overestimated byinclusion in control groups of former drinkers, we compared studies that used as a reference group the categoryof no alcohol intake and/or formally excluded former drinkers with studies which did not: the protection wasindeed somewhat lower in the former than in the latter studies, but was still statistically significant.We conclude that the dose-response relationship between alcohol intake and cardiovascular risk or totalmortality, consistently described by J-shaped curves, can be reasonably attributed to a combination of bothreal beneficial (at lower doses) and harmful (at higher doses) effects of alcohol or wine consumption.",
+          "intervention_exposure": "Moderate Alcohol Consumption",
+          "comparator": "Beer Or Spirits",
+          "outcome": "All-Cause Mortality",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W2104396986",
+          "paper_title": "Mortality in England and Wales attributable to current alcohol consumption",
+          "doi_or_url": "https://doi.org/10.1136/jech.55.6.383",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "RESULTS: Because of the cardioprotective properties of alcohol, it is estimated that there are approximately 2% fewer deaths annually in England and Wales than would be expected in a non-drinking population.",
+          "intervention_exposure": "Alcohol",
+          "comparator": "Would Be Expected",
+          "outcome": "The Cardioprotective Properties",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": "55 years",
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W2109129984",
+          "paper_title": "Association of alcohol consumption with selected cardiovascular disease outcomes: a systematic review and meta-analysis",
+          "doi_or_url": "https://doi.org/10.1136/bmj.d671",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "RESULTS: The pooled adjusted relative risks for alcohol drinkers relative to non-drinkers in random effects models for the outcomes of interest were 0.75 (95% confidence interval 0.70 to 0.80) for cardiovascular disease mortality (21 studies), 0.71 (0.66 to 0.77) for incident coronary heart disease (29 studies), 0.75 (0.68 to 0.81) for coronary heart disease mortality (31 studies), 0.98 (0.91 to 1.06) for incident stroke (17 studies), and 1.06 (0.91 to 1.23) for stroke mortality (10 studies).",
+          "intervention_exposure": "The Pooled Adjusted Relative Risks",
+          "comparator": "Non-Drinkers",
+          "outcome": "All-Cause Mortality",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W2109129984",
+          "paper_title": "Association of alcohol consumption with selected cardiovascular disease outcomes: a systematic review and meta-analysis",
+          "doi_or_url": "https://doi.org/10.1136/bmj.d671",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "Secondary analysis of mortality from all causes showed lower risk for drinkers compared with non-drinkers (relative risk 0.87 (0.83 to 0.92)).",
+          "intervention_exposure": "Secondary Analysis",
+          "comparator": "Non-Drinkers (Relative Risk 0",
+          "outcome": "All-Cause Mortality",
+          "direction": "NEGATIVE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W2109129984",
+          "paper_title": "Association of alcohol consumption with selected cardiovascular disease outcomes: a systematic review and meta-analysis",
+          "doi_or_url": "https://doi.org/10.1136/bmj.d671",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "CONCLUSIONS: Light to moderate alcohol consumption is associated with a reduced risk of multiple cardiovascular outcomes.",
+          "intervention_exposure": "Moderate Alcohol Consumption",
+          "comparator": null,
+          "outcome": "Risk Of Multiple Cardiovascular Outcomes",
+          "direction": "NEGATIVE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4412381822",
+          "paper_title": "Associations of Alcohol Consumption with All-Cause and Cancer Mortalities in Patients with Type 2 Diabetes Mellitus: A Nationwide Population Cohort Study",
+          "doi_or_url": "https://doi.org/10.3803/enm.2024.2275",
+          "study_type": "OBSERVATIONAL_STUDY",
+          "exact_source_passage": "Cox proportional hazard regression analyses were used to calculate adjusted hazard ratios (aHRs) with a 95% confidence interval (CI) with adjustments for age, sex, body mass index, smoking, exercise, comorbidities, diabetes duration, and medications.",
+          "intervention_exposure": "Cigarette Smoking",
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": "20 years",
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4412381822",
+          "paper_title": "Associations of Alcohol Consumption with All-Cause and Cancer Mortalities in Patients with Type 2 Diabetes Mellitus: A Nationwide Population Cohort Study",
+          "doi_or_url": "https://doi.org/10.3803/enm.2024.2275",
+          "study_type": "OBSERVATIONAL_STUDY",
+          "exact_source_passage": "Compared to non-drinkers, mild alcohol consumption was associated with reduced all-cause mortality (aHR, 0.81; 95% CI, 0.80 to 0.82) and cancer mortality (aHR, 0.88; 95% CI, 0.86 to 0.89), while heavy drinking increased both all-cause (aHR, 1.06; 95% CI, 1.04 to 1.07) and cancer mortalities (aHR, 1.09; 95% CI, 1.06 to 1.11).",
+          "intervention_exposure": "Moderate Alcohol Consumption",
+          "comparator": "Non-Drinkers",
+          "outcome": "All-Cause Mortality",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": "20 years",
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4412381822",
+          "paper_title": "Associations of Alcohol Consumption with All-Cause and Cancer Mortalities in Patients with Type 2 Diabetes Mellitus: A Nationwide Population Cohort Study",
+          "doi_or_url": "https://doi.org/10.3803/enm.2024.2275",
+          "study_type": "OBSERVATIONAL_STUDY",
+          "exact_source_passage": "RESULTS: Among 2,642,359 participants (median follow-up, 7.8 years), 57.2%, 32.7%, and 10.1% were non, mild, and heavy drinkers, respectively.",
+          "intervention_exposure": "Median Follow-Up",
+          "comparator": null,
+          "outcome": "2,642,359 Participants",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": "8 years",
+          "numerical_results": []
+        }
+      ],
+      "comparisons": [
+        {
+          "pair_id": "pair_find_W2311763102_find_W2311763102_1",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Adjustment' vs 'Occasional Drinkers' (sim=0.13); Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.5682987207616744
+        },
+        {
+          "pair_id": "pair_find_W2311763102_find_W2311763102_2",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "condition_aware_verdict": "SUPPORTS_OR_CONSISTENT",
+          "condition_aware_confidence": 0.846,
+          "condition_differences": "Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.6065845385652546
+        },
+        {
+          "pair_id": "pair_find_W2311763102_find_W1977134398",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "All cause mortality and the case for age spec",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.943,
+          "condition_differences": "Intervention differs: 'Adjustment' vs 'A Significant Reduction' (sim=0.33); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'All-Cause Mortality' vs 'Younger Men' (sim=0.07); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.6052843528801131
+        },
+        {
+          "pair_id": "pair_find_W2311763102_find_W1977134398_1",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "All cause mortality and the case for age spec",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Adjustment' vs 'Supplementary Analyses' (sim=0.30); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'All-Cause Mortality' vs 'Comparison' (sim=0.15); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3867519080737502
+        },
+        {
+          "pair_id": "pair_find_W2311763102_find_W1499635708",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "Moderate alcohol consumption and cardiovascul",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.929,
+          "condition_differences": "Intervention differs: 'Adjustment' vs 'Moderate Alcohol Consumption' (sim=0.11); Comparator differs: 'None' vs 'Beer Or Spirits' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.4363764215838783
+        },
+        {
+          "pair_id": "pair_find_W2311763102_find_W2104396986",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "Mortality in England and Wales attributable t",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Adjustment' vs 'Alcohol' (sim=0.25); Comparator differs: 'None' vs 'Would Be Expected' (sim=0.00); Outcome metric differs: 'All-Cause Mortality' vs 'The Cardioprotective Properties' (sim=0.27); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3859325449836303
+        },
+        {
+          "pair_id": "pair_find_W2311763102_find_W2109129984",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "Association of alcohol consumption with selec",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Adjustment' vs 'The Pooled Adjusted Relative Risks' (sim=0.27); Comparator differs: 'None' vs 'Non-Drinkers' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.43294436478479004
+        },
+        {
+          "pair_id": "pair_find_W2311763102_find_W2109129984_1",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "Association of alcohol consumption with selec",
+          "condition_aware_verdict": "SUPPORTS_OR_CONSISTENT",
+          "condition_aware_confidence": 0.784,
+          "condition_differences": "Intervention differs: 'Adjustment' vs 'Secondary Analysis' (sim=0.21); Comparator differs: 'None' vs 'Non-Drinkers (Relative Risk 0' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.49258338569847193
+        },
+        {
+          "pair_id": "pair_find_W2311763102_find_W2109129984_2",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "Association of alcohol consumption with selec",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.92,
+          "condition_differences": "Intervention differs: 'Adjustment' vs 'Moderate Alcohol Consumption' (sim=0.11); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'All-Cause Mortality' vs 'Risk Of Multiple Cardiovascular Outcomes' (sim=0.39); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.4513944931429835
+        },
+        {
+          "pair_id": "pair_find_W2311763102_find_W4412381822",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "Associations of Alcohol Consumption with All-",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Adjustment' vs 'Cigarette Smoking' (sim=0.18); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'All-Cause Mortality' vs 'Weight Loss' (sim=0.16); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.36757507039863196
+        },
+        {
+          "pair_id": "pair_find_W2311763102_find_W4412381822_1",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "Associations of Alcohol Consumption with All-",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.929,
+          "condition_differences": "Intervention differs: 'Adjustment' vs 'Moderate Alcohol Consumption' (sim=0.11); Comparator differs: 'None' vs 'Non-Drinkers' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3741048908139155
+        },
+        {
+          "pair_id": "pair_find_W2311763102_find_W4412381822_2",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "Associations of Alcohol Consumption with All-",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Adjustment' vs 'Median Follow-Up' (sim=0.27); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'All-Cause Mortality' vs '2,642,359 Participants' (sim=0.04); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3882208134745313
+        },
+        {
+          "pair_id": "pair_find_W2311763102_1_find_W2311763102_2",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Occasional Drinkers' vs 'Adjustment' (sim=0.13); Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.6672891139589693
+        },
+        {
+          "pair_id": "pair_find_W2311763102_1_find_W1977134398",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "All cause mortality and the case for age spec",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Occasional Drinkers' vs 'A Significant Reduction' (sim=0.04); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'All-Cause Mortality' vs 'Younger Men' (sim=0.07); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.5413064757767049
+        },
+        {
+          "pair_id": "pair_find_W2311763102_1_find_W1977134398_1",
+          "study_a": "Do \u201cModerate\u201d Drinkers Have Reduced Mortality",
+          "study_b": "All cause mortality and the case for age spec",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Occasional Drinkers' vs 'Supplementary Analyses' (sim=0.20); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'All-Cause Mortality' vs 'Comparison' (sim=0.15); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.32547441626664114
+        }
+      ]
+    },
+    {
+      "id": "Query_C",
+      "name": "Intermittent Fasting vs Continuous Restriction",
+      "query": "Does intermittent fasting produce greater long-term weight loss than continuous calorie restriction when energy intake is comparable?",
+      "focus": "Isocaloric comparison alignment, adherence, context-dependent vs contradiction",
+      "elapsed_seconds": 10.64,
+      "diagnostics": {
+        "openalex_count": 18,
+        "openalex_status": 200,
+        "arxiv_count": 0,
+        "arxiv_status": 200,
+        "usable_abstracts": 18,
+        "findings_extracted": 16,
+        "candidate_pairs_compared": 15
+      },
+      "executive_summary": {
+        "bottom_line": "Intermittent fasting produces significant weight loss across clinical trials, but evidence does not establish superiority over continuous calorie restriction under matched calorie intake, and head-to-head comparisons remain unresolved in the sampled literature.",
+        "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
+        "strongest_supporting_evidence": "Differential weight loss with intermittent fasting or daily calorie restriction in low\u2010 and high\u2010fitness phenotypes: How does intrinsic aerobic capacity impact weight loss with 50% daily caloric restriction and alternate-day fasting?",
+        "strongest_conflicting_evidence": "Intermittent fasting interventions for treatment of overweight and obesity in adults: a systematic review and meta-analysis: Although both treatment interventions achieved similar changes in body weight (approximately 7 kg), the pooled estimate for studies that investigated the effect of intermittent energy restriction in comparison to continuous energy restriction revealed no significant difference in weight loss (-1.03 kg; 95% CI -2.46 kg to 0.40 kg; p = 0.156).",
+        "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+        "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+        "research_coverage": "Retrieved 10 candidate papers; examined 8 in depth (1 open-access full texts)."
+      },
+      "subclaim_assessments": [
+        {
+          "subclaim": "Weight loss efficacy: Intermittent fasting produces greater weight loss than continuous calorie restriction.",
+          "status": "SUPPORTED",
+          "rationale": "Directly addressed by empirical evidence claims in papers: W3165233646, W2915213530, W4295774882, W2746923267, W7154958780, W4412598767, W4224318250.",
+          "evidence_paper_ids": [
+            "W3165233646",
+            "W2915213530",
+            "W4295774882",
+            "W2746923267",
+            "W7154958780",
+            "W4412598767",
+            "W4224318250"
+          ]
+        },
+        {
+          "subclaim": "Isocaloric equivalence: Differences in weight loss persist when energy intake is comparable between groups.",
+          "status": "UNRESOLVED",
+          "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+          "evidence_paper_ids": []
+        }
+      ],
+      "evidence_ledger": [
+        {
+          "paper_id": "W3165233646",
+          "paper_title": "Differential weight loss with intermittent fasting or daily calorie restriction in low\u2010 and high\u2010fitness phenotypes",
+          "doi_or_url": "https://doi.org/10.1113/ep089434",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "How does intrinsic aerobic capacity impact weight loss with 50% daily caloric restriction and alternate-day fasting?",
+          "intervention_exposure": "Alternate-Day Fasting",
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W3165233646",
+          "paper_title": "Differential weight loss with intermittent fasting or daily calorie restriction in low\u2010 and high\u2010fitness phenotypes",
+          "doi_or_url": "https://doi.org/10.1113/ep089434",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "Intermittent fasting is effective for weight loss in rats with low fitness, which highlights the importance of how intermittent fasting interacts with aerobic fitness.",
+          "intervention_exposure": "Intermittent Fasting",
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "POSITIVE",
+          "population_setting": "Rats",
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W3165233646",
+          "paper_title": "Differential weight loss with intermittent fasting or daily calorie restriction in low\u2010 and high\u2010fitness phenotypes",
+          "doi_or_url": "https://doi.org/10.1113/ep089434",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "ABSTRACT: Recent interest has focused on the benefits of time-restricted feeding strategies, including intermittent fasting, for weight loss.",
+          "intervention_exposure": "Intermittent Fasting",
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W2915213530",
+          "paper_title": "Intermittent fasting interventions for treatment of overweight and obesity in adults: a systematic review and meta-analysis",
+          "doi_or_url": "https://doi.org/10.11124/jbisrir-2016-003248",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "Meta-analyses showed that intermittent energy restriction was more effective than no treatment for weight loss (-4.14 kg; 95% CI -6.30 kg to -1.99 kg; p \u2264 0.001).",
+          "intervention_exposure": "Intermittent Energy Restriction",
+          "comparator": "No Treatment",
+          "outcome": "Weight Loss",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": "18 years",
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Weight Loss",
+              "point_estimate": -4.14,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": null,
+              "unit": "kg",
+              "follow_up_horizon": "18 years",
+              "sample_size": null,
+              "statistical_uncertainty": null,
+              "raw_text": "(-4.14 kg"
+            },
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Weight Loss",
+              "point_estimate": -6.3,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": null,
+              "unit": "kg",
+              "follow_up_horizon": "18 years",
+              "sample_size": null,
+              "statistical_uncertainty": null,
+              "raw_text": "-6.30 kg"
+            },
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Weight Loss",
+              "point_estimate": -1.99,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": null,
+              "unit": "kg",
+              "follow_up_horizon": "18 years",
+              "sample_size": null,
+              "statistical_uncertainty": null,
+              "raw_text": "-1.99 kg"
+            }
+          ]
+        },
+        {
+          "paper_id": "W2915213530",
+          "paper_title": "Intermittent fasting interventions for treatment of overweight and obesity in adults: a systematic review and meta-analysis",
+          "doi_or_url": "https://doi.org/10.11124/jbisrir-2016-003248",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "Although both treatment interventions achieved similar changes in body weight (approximately 7 kg), the pooled estimate for studies that investigated the effect of intermittent energy restriction in comparison to continuous energy restriction revealed no significant difference in weight loss (-1.03 kg; 95% CI -2.46 kg to 0.40 kg; p = 0.156).",
+          "intervention_exposure": "Continuous Calorie Restriction",
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "NO_DIFFERENCE",
+          "population_setting": null,
+          "follow_up_duration": "18 years",
+          "numerical_results": [
+            {
+              "arm_name": "continuous energy restriction",
+              "comparator_arm": null,
+              "endpoint": "Body Weight",
+              "point_estimate": 7.0,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": null,
+              "unit": "kg",
+              "follow_up_horizon": "18 years",
+              "sample_size": null,
+              "statistical_uncertainty": null,
+              "raw_text": "7 kg"
+            },
+            {
+              "arm_name": "continuous energy restriction",
+              "comparator_arm": null,
+              "endpoint": "Weight Loss",
+              "point_estimate": -1.03,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": null,
+              "unit": "kg",
+              "follow_up_horizon": "18 years",
+              "sample_size": null,
+              "statistical_uncertainty": null,
+              "raw_text": "(-1.03 kg"
+            },
+            {
+              "arm_name": "continuous energy restriction",
+              "comparator_arm": null,
+              "endpoint": "Weight Loss",
+              "point_estimate": -2.46,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": null,
+              "unit": "kg",
+              "follow_up_horizon": "18 years",
+              "sample_size": null,
+              "statistical_uncertainty": null,
+              "raw_text": "-2.46 kg"
+            },
+            {
+              "arm_name": "continuous energy restriction",
+              "comparator_arm": null,
+              "endpoint": "Weight Loss",
+              "point_estimate": 0.4,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.156,
+              "unit": "kg",
+              "follow_up_horizon": "18 years",
+              "sample_size": null,
+              "statistical_uncertainty": "p = 0.156",
+              "raw_text": "0.40 kg"
+            }
+          ]
+        },
+        {
+          "paper_id": "W2915213530",
+          "paper_title": "Intermittent fasting interventions for treatment of overweight and obesity in adults: a systematic review and meta-analysis",
+          "doi_or_url": "https://doi.org/10.11124/jbisrir-2016-003248",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "Despite the recent popularity of intermittent energy restriction and associated weight loss claims, the supporting evidence base is limited.",
+          "intervention_exposure": "The Supporting Evidence Base",
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": "18 years",
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4295774882",
+          "paper_title": "Is Intermittent Fasting Better Than Continuous Energy Restriction for Adults with Overweight and Obesity?",
+          "doi_or_url": "https://doi.org/10.2147/dmso.s376409",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "The existing evidence suggests that IF is as effective as continuous energy restriction and may be a feasible and effective approach to weight loss.",
+          "intervention_exposure": "Continuous Calorie Restriction",
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W2746923267",
+          "paper_title": "Intermittent energy restriction improves weight loss efficiency in obese men: the MATADOR study",
+          "doi_or_url": "https://doi.org/10.1038/ijo.2017.206",
+          "study_type": "INTERVENTIONAL_TRIAL",
+          "exact_source_passage": "For the N =19 CON and N =17 INT who completed the intervention per protocol , weight loss was greater for INT (14.1\u00b15.6 vs 9.1\u00b12.9 kg; P <0.001).",
+          "intervention_exposure": "Who",
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": "16 weeks",
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Weight Loss",
+              "point_estimate": null,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.001,
+              "unit": null,
+              "follow_up_horizon": "16 weeks",
+              "sample_size": 19,
+              "statistical_uncertainty": "p = 0.001",
+              "raw_text": "P <0.001"
+            }
+          ]
+        },
+        {
+          "paper_id": "W2746923267",
+          "paper_title": "Intermittent energy restriction improves weight loss efficiency in obese men: the MATADOR study",
+          "doi_or_url": "https://doi.org/10.1038/ijo.2017.206",
+          "study_type": "INTERVENTIONAL_TRIAL",
+          "exact_source_passage": "INT had greater FM loss (12.3\u00b14.8 vs 8.0\u00b14.2 kg; P <0.01), but FFM loss was similar (INT: 1.8\u00b11.6 vs CON: 1.2\u00b12.5 kg; P =0.4).",
+          "intervention_exposure": "Int",
+          "comparator": null,
+          "outcome": "Greater Fm Loss",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": "16 weeks",
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Greater Fm Loss",
+              "point_estimate": null,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.01,
+              "unit": null,
+              "follow_up_horizon": "16 weeks",
+              "sample_size": null,
+              "statistical_uncertainty": "p = 0.01",
+              "raw_text": "P <0.01"
+            },
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Greater Fm Loss",
+              "point_estimate": null,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.4,
+              "unit": null,
+              "follow_up_horizon": "16 weeks",
+              "sample_size": null,
+              "statistical_uncertainty": "p = 0.4",
+              "raw_text": "P =0.4"
+            }
+          ]
+        },
+        {
+          "paper_id": "W2746923267",
+          "paper_title": "Intermittent energy restriction improves weight loss efficiency in obese men: the MATADOR study",
+          "doi_or_url": "https://doi.org/10.1038/ijo.2017.206",
+          "study_type": "INTERVENTIONAL_TRIAL",
+          "exact_source_passage": "While reduction in absolute REE did not differ between groups (INT: -502\u00b1481 vs CON: \u2212624\u00b1557 kJ d \u22121 ; P =0.5), after adjusting for changes in body composition, it was significantly lower in INT (INT: \u2212360\u00b1502 vs CON: \u2212749\u00b1498 kJ d \u22121 ; P <0.05).",
+          "intervention_exposure": "Int: -502\u00b1481",
+          "comparator": null,
+          "outcome": "Absolute Ree",
+          "direction": "NO_DIFFERENCE",
+          "population_setting": null,
+          "follow_up_duration": "16 weeks",
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Absolute Ree",
+              "point_estimate": null,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.5,
+              "unit": null,
+              "follow_up_horizon": "16 weeks",
+              "sample_size": null,
+              "statistical_uncertainty": "p = 0.5",
+              "raw_text": "P =0.5"
+            },
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Absolute Ree",
+              "point_estimate": null,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.05,
+              "unit": null,
+              "follow_up_horizon": "16 weeks",
+              "sample_size": null,
+              "statistical_uncertainty": "p = 0.05",
+              "raw_text": "P <0.05"
+            }
+          ]
+        },
+        {
+          "paper_id": "W7154958780",
+          "paper_title": "Effectiveness Of Intermittent Fasting Versus Calorie Restriction For Weight Loss -A Comprehensive Meta-Analysis",
+          "doi_or_url": "https://doi.org/10.5281/zenodo.19657994",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "This is the published version of the article \"Effectiveness Of Intermittent Fasting Versus Calorie Restriction For Weight Loss -A Comprehensive Meta-Analysis \" by Aswathy H V , Rahul R K and Shanthy L The article was published in the International Journal of Creative Research Thoughts (IJCRT), Volume 13, Issue 11, November 2025 (ISSN: 2320-2882).",
+          "intervention_exposure": "Intermittent Fasting",
+          "comparator": "Calorie Restriction",
+          "outcome": "Weight Loss",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4412598767",
+          "paper_title": "Does Energy Restriction and Loss of Body Fat Account for the Effect of Intermittent Fasting on Cognitive Function?",
+          "doi_or_url": "https://doi.org/10.3390/nu17152407",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "This narrative review critically examines whether the cognitive benefits of IF are attributable to its specific fasting patterns or are instead mediated by the production of weight loss, fat loss, and improvements in insulin sensitivity.",
+          "intervention_exposure": "This Narrative Review",
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4224318250",
+          "paper_title": "Intermittent Fasting versus Continuous Calorie Restriction: Which Is Better for Weight Loss?",
+          "doi_or_url": "https://doi.org/10.3390/nu14091781",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "The significance of body weight change (SMD = \u22120.21, 95% CI (\u22120.40, \u22120.02) p = 0.028) was more significant after IF than CCR.",
+          "intervention_exposure": "The Significance",
+          "comparator": "Ccr",
+          "outcome": "Weight Loss",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Weight Loss",
+              "point_estimate": null,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.028,
+              "unit": null,
+              "follow_up_horizon": null,
+              "sample_size": null,
+              "statistical_uncertainty": "p = 0.028",
+              "raw_text": "p = 0.028"
+            }
+          ]
+        },
+        {
+          "paper_id": "W4224318250",
+          "paper_title": "Intermittent Fasting versus Continuous Calorie Restriction: Which Is Better for Weight Loss?",
+          "doi_or_url": "https://doi.org/10.3390/nu14091781",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "There was no significant difference in BMI (SMD = 0.02, 95% CI (\u22120.16, 0.20) p = 0.848) between IF and CCR.",
+          "intervention_exposure": "Bmi",
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "NO_DIFFERENCE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Weight Loss",
+              "point_estimate": null,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.848,
+              "unit": null,
+              "follow_up_horizon": null,
+              "sample_size": null,
+              "statistical_uncertainty": "p = 0.848",
+              "raw_text": "p = 0.848"
+            }
+          ]
+        },
+        {
+          "paper_id": "W4224318250",
+          "paper_title": "Intermittent Fasting versus Continuous Calorie Restriction: Which Is Better for Weight Loss?",
+          "doi_or_url": "https://doi.org/10.3390/nu14091781",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "Standardized mean differences (SMDs) with 95% confidence intervals (CIs) were used to measure the effectiveness.",
+          "intervention_exposure": "Standardized Mean Differences",
+          "comparator": null,
+          "outcome": "95% Confidence Intervals",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4223601687",
+          "paper_title": "The Role of Intermittent Energy Restriction Diet on Metabolic Profile and Weight Loss among Obese Adults",
+          "doi_or_url": "https://doi.org/10.3390/nu14071509",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "Dietary intervention is fundamental and essential as the first-line treatment for obese patients, and the main rule of every dietary modification is calorie restriction and consequent weight loss.",
+          "intervention_exposure": "Dietary Intervention",
+          "comparator": null,
+          "outcome": "Weight Loss",
+          "direction": "POSITIVE",
+          "population_setting": "Patients",
+          "follow_up_duration": null,
+          "numerical_results": []
+        }
+      ],
+      "comparisons": [
+        {
+          "pair_id": "pair_find_W3165233646_find_W3165233646_1",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "Differential weight loss with intermittent fa",
+          "condition_aware_verdict": "SUPPORTS_OR_CONSISTENT",
+          "condition_aware_confidence": 0.826,
+          "condition_differences": "Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'Rats' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.5653386343575927
+        },
+        {
+          "pair_id": "pair_find_W3165233646_find_W3165233646_2",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "Differential weight loss with intermittent fa",
+          "condition_aware_verdict": "SUPPORTS_OR_CONSISTENT",
+          "condition_aware_confidence": 0.826,
+          "condition_differences": "Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.41871935613759487
+        },
+        {
+          "pair_id": "pair_find_W3165233646_find_W2915213530",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "Intermittent fasting interventions for treatm",
+          "condition_aware_verdict": "SUPPORTS_OR_CONSISTENT",
+          "condition_aware_confidence": 0.797,
+          "condition_differences": "Intervention differs: 'Alternate-Day Fasting' vs 'Intermittent Energy Restriction' (sim=0.38); Comparator differs: 'None' vs 'No Treatment' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.42425011866841494
+        },
+        {
+          "pair_id": "pair_find_W3165233646_find_W2915213530_1",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "Intermittent fasting interventions for treatm",
+          "condition_aware_verdict": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+          "condition_aware_confidence": 0.863,
+          "condition_differences": "Intervention differs: 'Alternate-Day Fasting' vs 'Continuous Calorie Restriction' (sim=0.21); Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.49368697813697654
+        },
+        {
+          "pair_id": "pair_find_W3165233646_find_W2915213530_2",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "Intermittent fasting interventions for treatm",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.95,
+          "condition_differences": "Intervention differs: 'Alternate-Day Fasting' vs 'The Supporting Evidence Base' (sim=0.00); Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.5120955735424906
+        },
+        {
+          "pair_id": "pair_find_W3165233646_find_W4295774882",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "Is Intermittent Fasting Better Than Continuou",
+          "condition_aware_verdict": "SUPPORTS_OR_CONSISTENT",
+          "condition_aware_confidence": 0.784,
+          "condition_differences": "Intervention differs: 'Alternate-Day Fasting' vs 'Continuous Calorie Restriction' (sim=0.21); Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.45107693726785497
+        },
+        {
+          "pair_id": "pair_find_W3165233646_find_W2746923267",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "Intermittent energy restriction improves weig",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.936,
+          "condition_differences": "Intervention differs: 'Alternate-Day Fasting' vs 'Who' (sim=0.07); Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.48596167113930044
+        },
+        {
+          "pair_id": "pair_find_W3165233646_find_W2746923267_1",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "Intermittent energy restriction improves weig",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.925,
+          "condition_differences": "Intervention differs: 'Alternate-Day Fasting' vs 'Int' (sim=0.12); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Weight Loss' vs 'Greater Fm Loss' (sim=0.30); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.4577104712805721
+        },
+        {
+          "pair_id": "pair_find_W3165233646_find_W2746923267_2",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "Intermittent energy restriction improves weig",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.923,
+          "condition_differences": "Intervention differs: 'Alternate-Day Fasting' vs 'Int: -502\u00b1481' (sim=0.13); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Weight Loss' vs 'Absolute Ree' (sim=0.04); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.4491641716706216
+        },
+        {
+          "pair_id": "pair_find_W3165233646_find_W7154958780",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "Effectiveness Of Intermittent Fasting Versus ",
+          "condition_aware_verdict": "SUPPORTS_OR_CONSISTENT",
+          "condition_aware_confidence": 0.826,
+          "condition_differences": "Comparator differs: 'None' vs 'Calorie Restriction' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.5058193545514773
+        },
+        {
+          "pair_id": "pair_find_W3165233646_find_W4412598767",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "Does Energy Restriction and Loss of Body Fat ",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.94,
+          "condition_differences": "Intervention differs: 'Alternate-Day Fasting' vs 'This Narrative Review' (sim=0.05); Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.40943785398190646
+        },
+        {
+          "pair_id": "pair_find_W3165233646_find_W4224318250",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "Intermittent Fasting versus Continuous Calori",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Alternate-Day Fasting' vs 'The Significance' (sim=0.11); Comparator differs: 'None' vs 'Ccr' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.44637615262465025
+        },
+        {
+          "pair_id": "pair_find_W3165233646_find_W4224318250_1",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "Intermittent Fasting versus Continuous Calori",
+          "condition_aware_verdict": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+          "condition_aware_confidence": 0.865,
+          "condition_differences": "Intervention differs: 'Alternate-Day Fasting' vs 'Bmi' (sim=0.24); Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3544847958920377
+        },
+        {
+          "pair_id": "pair_find_W3165233646_find_W4224318250_2",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "Intermittent Fasting versus Continuous Calori",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Alternate-Day Fasting' vs 'Standardized Mean Differences' (sim=0.01); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Weight Loss' vs '95% Confidence Intervals' (sim=0.03); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.316470459641025
+        },
+        {
+          "pair_id": "pair_find_W3165233646_find_W4223601687",
+          "study_a": "Differential weight loss with intermittent fa",
+          "study_b": "The Role of Intermittent Energy Restriction D",
+          "condition_aware_verdict": "SUPPORTS_OR_CONSISTENT",
+          "condition_aware_confidence": 0.792,
+          "condition_differences": "Intervention differs: 'Alternate-Day Fasting' vs 'Dietary Intervention' (sim=0.31); Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'Patients' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.4630047826938884
+        }
+      ]
+    },
+    {
+      "id": "Query_D",
+      "name": "Vitamin D Trial vs Observational CVD",
+      "query": "Does vitamin D supplementation prevent cardiovascular events in generally healthy adults, and how do randomized trials compare with observational findings?",
+      "focus": "RCT null results vs observational inverse correlation, CVD endpoint matching",
+      "elapsed_seconds": 10.62,
+      "diagnostics": {
+        "openalex_count": 19,
+        "openalex_status": 200,
+        "arxiv_count": 0,
+        "arxiv_status": 200,
+        "usable_abstracts": 19,
+        "findings_extracted": 12,
+        "candidate_pairs_compared": 15
+      },
+      "executive_summary": {
+        "bottom_line": "Empirical findings show divergence depending on specific study conditions, protocols, and outcome measures.",
+        "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
+        "strongest_supporting_evidence": "Vitamin and Mineral Supplements for the Primary Prevention of Cardiovascular Disease and Cancer: In pooled analyses, multivitamin use was significantly associated with a lower incidence of any cancer (odds ratio [OR], 0.93 [95% CI, 0.87-0.99]; 4 RCTs [n=48 859]; absolute risk difference [ARD] range among adequately powered trials, -0.2% to -1.2%) and lung cancer (OR, 0.75 [95% CI, 0.58-0.95]; 2 RCTs [n=36 052]; ARD, 0.2%).",
+        "strongest_conflicting_evidence": "Supplemental Vitamins and Minerals for CVD Prevention and Treatment: Their systematic reviews and meta-analyses showed generally moderate- or low-quality evidence for preventive benefits (folic acid for total cardiovascular disease, folic acid and B-vitamins for stroke), no effect (multivitamins, vitamins C, D, \u03b2-carotene, calcium, and selenium), or increased risk (antioxidant mixtures and niacin [with a statin] for all-cause mortality).",
+        "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+        "confidence_and_limitations": "Evidence synthesis is based on accessible scholarly abstracts (0 open-access full texts accessible). Findings reflect abstract-reported results without full-text verification.",
+        "research_coverage": "Retrieved 10 candidate papers; synthesized 8 study abstracts (0 open-access full texts accessible; abstract-level synthesis)."
+      },
+      "subclaim_assessments": [
+        {
+          "subclaim": "Cardiovascular event prevention: Vitamin D supplementation prevents cardiovascular events in generally healthy adults.",
+          "status": "QUALIFIED",
+          "rationale": "Randomized controlled trials (W2806786445) demonstrate that vitamin D supplementation does not significantly reduce major cardiovascular events in healthy adults.",
+          "evidence_paper_ids": [
+            "W2806786445"
+          ]
+        },
+        {
+          "subclaim": "Trial vs observational concordance: Observational protective associations agree with interventional randomized trial outcomes.",
+          "status": "QUALIFIED",
+          "rationale": "Qualified divergence: observational cohort studies report inverse associations between serum 25(OH)D and cardiovascular risk, whereas randomized interventional trials show no significant reduction in cardiovascular endpoints with supplementation.",
+          "evidence_paper_ids": [
+            "W4283215237",
+            "W7170088870",
+            "W2806786445",
+            "W3088377738",
+            "W7137743926",
+            "W4409527032"
+          ]
+        }
+      ],
+      "evidence_ledger": [
+        {
+          "paper_id": "W4283215237",
+          "paper_title": "Vitamin and Mineral Supplements for the Primary Prevention of Cardiovascular Disease and Cancer",
+          "doi_or_url": "https://doi.org/10.1001/jama.2021.15650",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "In pooled analyses, multivitamin use was significantly associated with a lower incidence of any cancer (odds ratio [OR], 0.93 [95% CI, 0.87-0.99]; 4 RCTs [n=48 859]; absolute risk difference [ARD] range among adequately powered trials, -0.2% to -1.2%) and lung cancer (OR, 0.75 [95% CI, 0.58-0.95]; 2 RCTs [n=36 052]; ARD, 0.2%).",
+          "intervention_exposure": "Multivitamin Use",
+          "comparator": null,
+          "outcome": "Lung Cancer",
+          "direction": "NEGATIVE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4283215237",
+          "paper_title": "Vitamin and Mineral Supplements for the Primary Prevention of Cardiovascular Disease and Cancer",
+          "doi_or_url": "https://doi.org/10.1001/jama.2021.15650",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "Beta carotene (with or without vitamin A) was significantly associated with an increased risk of lung cancer (OR, 1.20 [95% CI, 1.01-1.42]; 4 RCTs [n=94 830]; ARD range, -0.1% to 0.6%) and cardiovascular mortality (OR, 1.10 [95% CI, 1.02-1.19]; 5 RCTs [n=94 506] ARD range, -0.8% to 0.8%).",
+          "intervention_exposure": "Beta Carotene",
+          "comparator": null,
+          "outcome": "Cardiovascular Mortality",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4283215237",
+          "paper_title": "Vitamin and Mineral Supplements for the Primary Prevention of Cardiovascular Disease and Cancer",
+          "doi_or_url": "https://doi.org/10.1001/jama.2021.15650",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "Vitamin D use was not significantly associated with all-cause mortality (OR, 0.96 [95% CI, 0.91-1.02]; 27 RCTs [n=117 082]), cardiovascular disease (eg, composite cardiovascular disease event outcome: OR, 1.00 [95% CI, 0.95-1.05]; 7 RCTs [n=74 925]), or cancer outcomes (eg, any cancer incidence: OR, 0.98 [95% CI, 0.92-1.03]; 19 RCTs [n=86 899]).",
+          "intervention_exposure": "Vitamin D Supplementation",
+          "comparator": null,
+          "outcome": "All-Cause Mortality",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W7170088870",
+          "paper_title": "Effect of vitamin D supplementation on cardiovascular outcomes: randomized trials revisited",
+          "doi_or_url": "https://doi.org/10.1007/s10654-026-01438-7",
+          "study_type": "INTERVENTIONAL_TRIAL",
+          "exact_source_passage": "For cardiovascular mortality, hazard ratios ranged from 0.74 (95% CI 0.62-0.88) to 0.79 (95% CI 0.69-0.91) across both trial emulations.",
+          "intervention_exposure": "0.74 (95%",
+          "comparator": null,
+          "outcome": "Cardiovascular Mortality",
+          "direction": "UNCLEAR",
+          "population_setting": "Trial Emulations",
+          "follow_up_duration": "7 years",
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W7170088870",
+          "paper_title": "Effect of vitamin D supplementation on cardiovascular outcomes: randomized trials revisited",
+          "doi_or_url": "https://doi.org/10.1007/s10654-026-01438-7",
+          "study_type": "INTERVENTIONAL_TRIAL",
+          "exact_source_passage": "By contrast, among individuals with vitamin D insufficiency or deficiency, increases in 25-hydroxyvitamin-D concentration as achieved in the trials were associated with significantly lower risks of cardiovascular outcomes, except ischemic stroke.",
+          "intervention_exposure": "Vitamin D Supplementation",
+          "comparator": null,
+          "outcome": "Stroke",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": "7 years",
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W2806786445",
+          "paper_title": "Supplemental Vitamins and Minerals for CVD Prevention and Treatment",
+          "doi_or_url": "https://doi.org/10.1016/j.jacc.2018.04.020",
+          "study_type": "INTERVENTIONAL_TRIAL",
+          "exact_source_passage": "Their systematic reviews and meta-analyses showed generally moderate- or low-quality evidence for preventive benefits (folic acid for total cardiovascular disease, folic acid and B-vitamins for stroke), no effect (multivitamins, vitamins C, D, \u03b2-carotene, calcium, and selenium), or increased risk (antioxidant mixtures and niacin [with a statin] for all-cause mortality).",
+          "intervention_exposure": "Their Systematic Reviews",
+          "comparator": null,
+          "outcome": "All-Cause Mortality",
+          "direction": "NO_DIFFERENCE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W3088377738",
+          "paper_title": "Vitamin K Supplementation for the Prevention of Cardiovascular Disease: Where Is the Evidence? A Systematic Review of Controlled Trials",
+          "doi_or_url": "https://doi.org/10.3390/nu12102909",
+          "study_type": "SYSTEMATIC_REVIEW_META_ANALYSIS",
+          "exact_source_passage": "High levels of uncarboxylated, dephosphorylated MGP have been associated with vascular calcification and are responsive to vitamin K treatment.",
+          "intervention_exposure": "High Levels",
+          "comparator": null,
+          "outcome": "Vascular Calcification",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W7137743926",
+          "paper_title": "Vitamin D supplementation and prevention of cardiovascular disease and cancer in the Finnish Vitamin D Trial-a randomized controlled trial",
+          "doi_or_url": "https://openalex.org/W7137743926",
+          "study_type": "INTERVENTIONAL_TRIAL",
+          "exact_source_passage": "Results: During the follow-up, there were 41 (4.9%), 42 (5.0%) and 36 (4.3%) major CVD events in the placebo, 1600 IU/d (vs. placebo: hazard ratio (HR), 0.97;95% CI, 0.63,1.49; P = 0.89), and 3200 IU/d (HR, 0.84;95% CI, 0.54,1.31; P = 0.44) arms, respectively.",
+          "intervention_exposure": "42 (5.0%",
+          "comparator": null,
+          "outcome": "The Follow-Up",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": "12 months",
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "The Follow-Up",
+              "point_estimate": null,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.89,
+              "unit": null,
+              "follow_up_horizon": "12 months",
+              "sample_size": null,
+              "statistical_uncertainty": "p = 0.89",
+              "raw_text": "P = 0.89"
+            },
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "The Follow-Up",
+              "point_estimate": null,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.44,
+              "unit": null,
+              "follow_up_horizon": "12 months",
+              "sample_size": null,
+              "statistical_uncertainty": "p = 0.44",
+              "raw_text": "P = 0.44"
+            }
+          ]
+        },
+        {
+          "paper_id": "W7137743926",
+          "paper_title": "Vitamin D supplementation and prevention of cardiovascular disease and cancer in the Finnish Vitamin D Trial-a randomized controlled trial",
+          "doi_or_url": "https://openalex.org/W7137743926",
+          "study_type": "INTERVENTIONAL_TRIAL",
+          "exact_source_passage": "Invasive cancer was diagnosed in 41 (4.9%), 48 (5.8%) and 40 (4.8%) participants in the placebo, 1600 IU/d (HR, 1.14;95% CI, 0.75,1.72; P = 0.55), and 3200 IU/d (HR, 0.95;95% CI, 0.61,1.47; P = 0.81) arms, respectively.",
+          "intervention_exposure": "Invasive Cancer",
+          "comparator": null,
+          "outcome": "41 (4.9%",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": "12 months",
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "41 (4.9%",
+              "point_estimate": null,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.55,
+              "unit": null,
+              "follow_up_horizon": "12 months",
+              "sample_size": null,
+              "statistical_uncertainty": "p = 0.55",
+              "raw_text": "P = 0.55"
+            },
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "41 (4.9%",
+              "point_estimate": null,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": 0.81,
+              "unit": null,
+              "follow_up_horizon": "12 months",
+              "sample_size": null,
+              "statistical_uncertainty": "p = 0.81",
+              "raw_text": "P = 0.81"
+            }
+          ]
+        },
+        {
+          "paper_id": "W4409527032",
+          "paper_title": "The Effect of Vitamin D3 Supplementation on the Incidence of Diagnosed Dementia Among Healthy Older Adults\u2014The Finnish Vitamin D Trial",
+          "doi_or_url": "https://doi.org/10.1093/gerona/glaf077",
+          "study_type": "INTERVENTIONAL_TRIAL",
+          "exact_source_passage": "During the mean follow-up of 4.2 years, 18 participants in the placebo arm, 14 participants in the 1 600 IU/d arm (compared to placebo, hazard ratio [HR] = 0.77, 95% confidence interval [CI]: 0.38-1.55), and 13 participants in the 3 200 IU/d arm (HR = 0.72, 95% CI: 0.35-1.48) were diagnosed with dementia.",
+          "intervention_exposure": "4.2 Years",
+          "comparator": "Placebo",
+          "outcome": "The Mean Follow-Up",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": "2 years",
+          "numerical_results": [
+            {
+              "arm_name": "placebo",
+              "comparator_arm": null,
+              "endpoint": "The Mean Follow-Up",
+              "point_estimate": 0.72,
+              "metric_name": "HR",
+              "ci_lower": 0.35,
+              "ci_upper": 1.48,
+              "p_value": null,
+              "unit": null,
+              "follow_up_horizon": "2 years",
+              "sample_size": 18,
+              "statistical_uncertainty": "95% CI 0.35 to 1.48",
+              "raw_text": "HR = 0.72"
+            }
+          ]
+        },
+        {
+          "paper_id": "W4409527032",
+          "paper_title": "The Effect of Vitamin D3 Supplementation on the Incidence of Diagnosed Dementia Among Healthy Older Adults\u2014The Finnish Vitamin D Trial",
+          "doi_or_url": "https://doi.org/10.1093/gerona/glaf077",
+          "study_type": "INTERVENTIONAL_TRIAL",
+          "exact_source_passage": "RESULTS: The mean age of the participants at baseline was 68.2 years and 42.8% were female.",
+          "intervention_exposure": "The Mean Age",
+          "comparator": null,
+          "outcome": "Baseline",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": "2 years",
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4409527032",
+          "paper_title": "The Effect of Vitamin D3 Supplementation on the Incidence of Diagnosed Dementia Among Healthy Older Adults\u2014The Finnish Vitamin D Trial",
+          "doi_or_url": "https://doi.org/10.1093/gerona/glaf077",
+          "study_type": "INTERVENTIONAL_TRIAL",
+          "exact_source_passage": "Of the diagnoses, 29 were Alzheimer's disease, without statistically significant differences in the event rates between the 3 arms.",
+          "intervention_exposure": "Alzheimer'S Disease",
+          "comparator": null,
+          "outcome": "The Diagnoses",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": "12 months",
+          "numerical_results": []
+        }
+      ],
+      "comparisons": [
+        {
+          "pair_id": "pair_find_W4283215237_find_W4283215237_1",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "Vitamin and Mineral Supplements for the Prima",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.92,
+          "condition_differences": "Intervention differs: 'Multivitamin Use' vs 'Beta Carotene' (sim=0.33); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lung Cancer' vs 'Cardiovascular Mortality' (sim=0.15); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3914094102283366
+        },
+        {
+          "pair_id": "pair_find_W4283215237_find_W4283215237_2",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "Vitamin and Mineral Supplements for the Prima",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lung Cancer' vs 'All-Cause Mortality' (sim=0.28); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.36432517751883703
+        },
+        {
+          "pair_id": "pair_find_W4283215237_find_W7170088870",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "Effect of vitamin D supplementation on cardio",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Multivitamin Use' vs '0.74 (95%' (sim=0.07); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lung Cancer' vs 'Cardiovascular Mortality' (sim=0.15); Setting/Cohort differs: 'None' vs 'Trial Emulations' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.34601560112305185
+        },
+        {
+          "pair_id": "pair_find_W4283215237_find_W7170088870_1",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "Effect of vitamin D supplementation on cardio",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.92,
+          "condition_differences": "Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lung Cancer' vs 'Stroke' (sim=0.11); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.5142547889350563
+        },
+        {
+          "pair_id": "pair_find_W4283215237_find_W2806786445",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "Supplemental Vitamins and Minerals for CVD Pr",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.92,
+          "condition_differences": "Intervention differs: 'Multivitamin Use' vs 'Their Systematic Reviews' (sim=0.15); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lung Cancer' vs 'All-Cause Mortality' (sim=0.28); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3356415703456315
+        },
+        {
+          "pair_id": "pair_find_W4283215237_find_W3088377738",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "Vitamin K Supplementation for the Prevention ",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Multivitamin Use' vs 'High Levels' (sim=0.10); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lung Cancer' vs 'Vascular Calcification' (sim=0.16); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3552546242420035
+        },
+        {
+          "pair_id": "pair_find_W4283215237_find_W7137743926",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "Vitamin D supplementation and prevention of c",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Multivitamin Use' vs '42 (5.0%' (sim=0.11); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lung Cancer' vs 'The Follow-Up' (sim=0.09); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3651208249886473
+        },
+        {
+          "pair_id": "pair_find_W4283215237_find_W7137743926_1",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "Vitamin D supplementation and prevention of c",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Multivitamin Use' vs 'Invasive Cancer' (sim=0.05); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lung Cancer' vs '41 (4.9%' (sim=0.04); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3078669945459349
+        },
+        {
+          "pair_id": "pair_find_W4283215237_find_W4409527032",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "The Effect of Vitamin D3 Supplementation on t",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Multivitamin Use' vs '4.2 Years' (sim=0.00); Comparator differs: 'None' vs 'Placebo' (sim=0.00); Outcome metric differs: 'Lung Cancer' vs 'The Mean Follow-Up' (sim=0.07); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3169223797476271
+        },
+        {
+          "pair_id": "pair_find_W4283215237_find_W4409527032_1",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "The Effect of Vitamin D3 Supplementation on t",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Multivitamin Use' vs 'The Mean Age' (sim=0.00); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lung Cancer' vs 'Baseline' (sim=0.06); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3451433201772489
+        },
+        {
+          "pair_id": "pair_find_W4283215237_find_W4409527032_2",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "The Effect of Vitamin D3 Supplementation on t",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Multivitamin Use' vs 'Alzheimer'S Disease' (sim=0.13); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Lung Cancer' vs 'The Diagnoses' (sim=0.27); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.38845029274974846
+        },
+        {
+          "pair_id": "pair_find_W4283215237_1_find_W4283215237_2",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "Vitamin and Mineral Supplements for the Prima",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Beta Carotene' vs 'Vitamin D Supplementation' (sim=0.23); Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.4161312418746466
+        },
+        {
+          "pair_id": "pair_find_W4283215237_1_find_W7170088870",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "Effect of vitamin D supplementation on cardio",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Beta Carotene' vs '0.74 (95%' (sim=0.16); Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'Trial Emulations' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3887892456770175
+        },
+        {
+          "pair_id": "pair_find_W4283215237_1_find_W7170088870_1",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "Effect of vitamin D supplementation on cardio",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.92,
+          "condition_differences": "Intervention differs: 'Beta Carotene' vs 'Vitamin D Supplementation' (sim=0.23); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Cardiovascular Mortality' vs 'Stroke' (sim=0.28); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.4566323691977149
+        },
+        {
+          "pair_id": "pair_find_W4283215237_1_find_W2806786445",
+          "study_a": "Vitamin and Mineral Supplements for the Prima",
+          "study_b": "Supplemental Vitamins and Minerals for CVD Pr",
+          "condition_aware_verdict": "INCOMPARABLE_CONDITIONS",
+          "condition_aware_confidence": 0.926,
+          "condition_differences": "Intervention differs: 'Beta Carotene' vs 'Their Systematic Reviews' (sim=0.12); Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.3085767998275531
+        }
+      ]
+    },
+    {
+      "id": "Query_E",
+      "name": "Pediatric Sepsis Machine Learning Prediction",
+      "query": "Which machine-learning approaches have been evaluated for early prediction of pediatric sepsis, and how reliable is the evidence that one approach outperforms another?",
+      "focus": "AUROC discrimination vs clinical outcomes, comparative model claims, prediction horizon",
+      "elapsed_seconds": 8.56,
+      "diagnostics": {
+        "openalex_count": 19,
+        "openalex_status": 200,
+        "arxiv_count": 0,
+        "arxiv_status": 200,
+        "usable_abstracts": 17,
+        "findings_extracted": 2,
+        "candidate_pairs_compared": 1
+      },
+      "executive_summary": {
+        "bottom_line": "Multiple machine-learning models (e.g. tree-based ensembles, neural networks) have been developed for early prediction of pediatric sepsis, but robust prospective evidence that one approach consistently outperforms others remains limited.",
+        "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
+        "strongest_supporting_evidence": "Machine Learning Models in Sepsis Outcome Prediction for ICU Patients: Integrating Routine Laboratory Tests\u2014A Systematic Review: The best-performing model was a gradient boosting decision tree, with an area under curve of 0.992, an accuracy of 0.954, and a sensitivity of 0.917.",
+        "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+        "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+        "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+        "research_coverage": "Retrieved 9 candidate papers; examined 6 in depth (1 open-access full texts)."
+      },
+      "subclaim_assessments": [
+        {
+          "subclaim": "Machine-learning evaluation: Machine-learning approaches have been evaluated for early prediction of pediatric sepsis.",
+          "status": "SUPPORTED",
+          "rationale": "Supported: machine-learning prognostic models have been developed and evaluated for pediatric sepsis risk (W4402348327).",
+          "evidence_paper_ids": [
+            "W4402348327"
+          ]
+        },
+        {
+          "subclaim": "Superiority evidence: Reliable evidence demonstrates that one machine-learning approach outperforms comparator approaches or clinical scores.",
+          "status": "QUALIFIED",
+          "rationale": "Qualified: while individual machine learning models demonstrate moderate-to-high discrimination metrics (e.g. AUROC 0.75-0.89), rigorous prospective head-to-head evidence establishing that one specific approach consistently outperforms all comparator models or clinical scores across diverse health systems remains limited.",
+          "evidence_paper_ids": [
+            "W4402348327",
+            "W4405584448"
+          ]
+        }
+      ],
+      "evidence_ledger": [
+        {
+          "paper_id": "W4402348327",
+          "paper_title": "Machine learning-based prognostic model for 30-day mortality prediction in Sepsis-3",
+          "doi_or_url": "https://doi.org/10.1186/s12911-024-02655-4",
+          "study_type": "PREDICTION_MODEL",
+          "exact_source_passage": "The stacked meta-learner, LR classifier exhibited the best performance with 95.52% accuracy, 95.79% precision, 95.52% recall, 93.65% specificity, and a 95.60% F1-score.",
+          "intervention_exposure": "Logistic Regression",
+          "comparator": null,
+          "outcome": "95.52% Accuracy",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4405584448",
+          "paper_title": "Machine Learning Models in Sepsis Outcome Prediction for ICU Patients: Integrating Routine Laboratory Tests\u2014A Systematic Review",
+          "doi_or_url": "https://doi.org/10.3390/biomedicines12122892",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "The best-performing model was a gradient boosting decision tree, with an area under curve of 0.992, an accuracy of 0.954, and a sensitivity of 0.917.",
+          "intervention_exposure": "Gradient Boosting Decision Tree",
+          "comparator": null,
+          "outcome": "Predictive performance metrics (AUC, Accuracy, Sensitivity)",
+          "direction": "POSITIVE",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        }
+      ],
+      "comparisons": [
+        {
+          "pair_id": "pair_find_W4402348327_find_W4405584448",
+          "study_a": "Machine learning-based prognostic model for 3",
+          "study_b": "Machine Learning Models in Sepsis Outcome Pre",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Logistic Regression' vs 'Gradient Boosting Decision Tree' (sim=0.28); Comparator differs: 'None' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.26143818187198853
+        }
+      ]
+    },
+    {
+      "id": "Query_F",
+      "name": "Deliberately Sparse / Insufficient Evidence",
+      "query": "Does high-dose intravenous curcumin improve survival in severe acute pancreatitis?",
+      "focus": "Sparse evidence handling, safe abstention, zero hallucination of papers",
+      "elapsed_seconds": 40.52,
+      "diagnostics": {
+        "openalex_count": 15,
+        "openalex_status": 200,
+        "arxiv_count": 0,
+        "arxiv_status": 200,
+        "usable_abstracts": 15,
+        "findings_extracted": 5,
+        "candidate_pairs_compared": 10
+      },
+      "executive_summary": {
+        "bottom_line": "Available empirical evidence is preliminary or lacks standardized comparative outcomes.",
+        "overall_evidence_assessment": "inconclusive",
+        "strongest_supporting_evidence": "No definitive primary study.",
+        "strongest_conflicting_evidence": "Effects of curcumin on oxidative stress, inflammation and apoptosis in L-arginine induced acute pancreatitis in mice: However, there is no significant difference between low and high dose of curcumin.",
+        "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+        "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+        "research_coverage": "Retrieved 9 candidate papers; examined 8 in depth (1 open-access full texts)."
+      },
+      "subclaim_assessments": [
+        {
+          "subclaim": "Subclaim: Does high-dose intravenous curcumin improve survival in severe acute pancreatitis",
+          "status": "UNRESOLVED",
+          "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+          "evidence_paper_ids": []
+        }
+      ],
+      "evidence_ledger": [
+        {
+          "paper_id": "W4386740105",
+          "paper_title": "Effects of curcumin on oxidative stress, inflammation and apoptosis in L-arginine induced acute pancreatitis in mice",
+          "doi_or_url": "https://doi.org/10.58837/chula.the.2017.370",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "1) Control group, mice will be received i.p. of 1% DMSO as a vehicle.",
+          "intervention_exposure": "1% Dmso",
+          "comparator": null,
+          "outcome": "I.P",
+          "direction": "UNCLEAR",
+          "population_setting": "Mice",
+          "follow_up_duration": "3 days",
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4386740105",
+          "paper_title": "Effects of curcumin on oxidative stress, inflammation and apoptosis in L-arginine induced acute pancreatitis in mice",
+          "doi_or_url": "https://doi.org/10.58837/chula.the.2017.370",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "However, there is no significant difference between low and high dose of curcumin.",
+          "intervention_exposure": "Curcumin",
+          "comparator": null,
+          "outcome": "Low And High Dose",
+          "direction": "NO_DIFFERENCE",
+          "population_setting": null,
+          "follow_up_duration": "3 days",
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W2151699693",
+          "paper_title": "Netrin-1 Protects against L-Arginine-Induced Acute Pancreatitis in Mice",
+          "doi_or_url": "https://doi.org/10.1371/journal.pone.0046201",
+          "study_type": "MECHANISTIC_EXPLORATORY",
+          "exact_source_passage": "Mice were treated with recombinant mouse netrin-1 at a dose of 1 \u00b5g/mouse or vehicle (0.1% BSA) intravenously through the tail vein immediately after the second injection of L-Arginine, and every 24 h thereafter.",
+          "intervention_exposure": "A Dose",
+          "comparator": null,
+          "outcome": "Recombinant Mouse",
+          "direction": "UNCLEAR",
+          "population_setting": "Mice",
+          "follow_up_duration": null,
+          "numerical_results": [
+            {
+              "arm_name": null,
+              "comparator_arm": null,
+              "endpoint": "Recombinant Mouse",
+              "point_estimate": 1.0,
+              "metric_name": null,
+              "ci_lower": null,
+              "ci_upper": null,
+              "p_value": null,
+              "unit": "\u00b5g",
+              "follow_up_horizon": null,
+              "sample_size": null,
+              "statistical_uncertainty": null,
+              "raw_text": "1 \u00b5g"
+            }
+          ]
+        },
+        {
+          "paper_id": "W2151699693",
+          "paper_title": "Netrin-1 Protects against L-Arginine-Induced Acute Pancreatitis in Mice",
+          "doi_or_url": "https://doi.org/10.1371/journal.pone.0046201",
+          "study_type": "MECHANISTIC_EXPLORATORY",
+          "exact_source_passage": "Thus, our results indicate that netrin-1 may constitute a novel target in the management of AP.",
+          "intervention_exposure": null,
+          "comparator": null,
+          "outcome": null,
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        },
+        {
+          "paper_id": "W4362680929",
+          "paper_title": "Mechanistic insights into the pathogenesis and management of acute pancreatitis",
+          "doi_or_url": "https://doi.org/10.21608/aps.2023.179734.1104",
+          "study_type": "UNKNOWN",
+          "exact_source_passage": "It may range from mild to severe cases and may be associated with morbidity and mortality mainly due to multiple organ dysfunction syndrome (MODS).",
+          "intervention_exposure": "Severe Cases",
+          "comparator": null,
+          "outcome": "All-Cause Mortality",
+          "direction": "UNCLEAR",
+          "population_setting": null,
+          "follow_up_duration": null,
+          "numerical_results": []
+        }
+      ],
+      "comparisons": [
+        {
+          "pair_id": "pair_find_W4386740105_find_W4386740105_1",
+          "study_a": "Effects of curcumin on oxidative stress, infl",
+          "study_b": "Effects of curcumin on oxidative stress, infl",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: '1% Dmso' vs 'Curcumin' (sim=0.19); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'I.P' vs 'Low And High Dose' (sim=0.09); Setting/Cohort differs: 'Mice' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.39714431697557134
+        },
+        {
+          "pair_id": "pair_find_W4386740105_find_W2151699693",
+          "study_a": "Effects of curcumin on oxidative stress, infl",
+          "study_b": "Netrin-1 Protects against L-Arginine-Induced ",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: '1% Dmso' vs 'A Dose' (sim=0.30); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'I.P' vs 'Recombinant Mouse' (sim=0.10)",
+          "unconditioned_baseline_verdict": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+          "unconditioned_baseline_confidence": 0.2553516840219797
+        },
+        {
+          "pair_id": "pair_find_W4386740105_find_W2151699693_1",
+          "study_a": "Effects of curcumin on oxidative stress, infl",
+          "study_b": "Netrin-1 Protects against L-Arginine-Induced ",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: '1% Dmso' vs 'None' (sim=0.00); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'I.P' vs 'None' (sim=0.00); Setting/Cohort differs: 'Mice' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+          "unconditioned_baseline_confidence": 0.2553516840219797
+        },
+        {
+          "pair_id": "pair_find_W4386740105_find_W4362680929",
+          "study_a": "Effects of curcumin on oxidative stress, infl",
+          "study_b": "Mechanistic insights into the pathogenesis an",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: '1% Dmso' vs 'Severe Cases' (sim=0.15); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'I.P' vs 'All-Cause Mortality' (sim=0.10); Setting/Cohort differs: 'Mice' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "CONTRADICTS",
+          "unconditioned_baseline_confidence": 0.2687345577813659
+        },
+        {
+          "pair_id": "pair_find_W4386740105_1_find_W2151699693",
+          "study_a": "Effects of curcumin on oxidative stress, infl",
+          "study_b": "Netrin-1 Protects against L-Arginine-Induced ",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Curcumin' vs 'A Dose' (sim=0.25); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Low And High Dose' vs 'Recombinant Mouse' (sim=0.06); Setting/Cohort differs: 'None' vs 'Mice' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.46238241189176515
+        },
+        {
+          "pair_id": "pair_find_W4386740105_1_find_W2151699693_1",
+          "study_a": "Effects of curcumin on oxidative stress, infl",
+          "study_b": "Netrin-1 Protects against L-Arginine-Induced ",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Curcumin' vs 'None' (sim=0.00); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Low And High Dose' vs 'None' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.46238241189176515
+        },
+        {
+          "pair_id": "pair_find_W4386740105_1_find_W4362680929",
+          "study_a": "Effects of curcumin on oxidative stress, infl",
+          "study_b": "Mechanistic insights into the pathogenesis an",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'Curcumin' vs 'Severe Cases' (sim=0.18); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Low And High Dose' vs 'All-Cause Mortality' (sim=0.21); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "SUPPORTS_OR_CONSISTENT",
+          "unconditioned_baseline_confidence": 0.4424867516309536
+        },
+        {
+          "pair_id": "pair_find_W2151699693_find_W2151699693_1",
+          "study_a": "Netrin-1 Protects against L-Arginine-Induced ",
+          "study_b": "Netrin-1 Protects against L-Arginine-Induced ",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'A Dose' vs 'None' (sim=0.00); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Recombinant Mouse' vs 'None' (sim=0.00); Setting/Cohort differs: 'Mice' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+          "unconditioned_baseline_confidence": 0.2553516840219797
+        },
+        {
+          "pair_id": "pair_find_W2151699693_find_W4362680929",
+          "study_a": "Netrin-1 Protects against L-Arginine-Induced ",
+          "study_b": "Mechanistic insights into the pathogenesis an",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'A Dose' vs 'Severe Cases' (sim=0.26); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Recombinant Mouse' vs 'All-Cause Mortality' (sim=0.06); Setting/Cohort differs: 'Mice' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "CONTRADICTS",
+          "unconditioned_baseline_confidence": 0.2687345577813659
+        },
+        {
+          "pair_id": "pair_find_W2151699693_1_find_W4362680929",
+          "study_a": "Netrin-1 Protects against L-Arginine-Induced ",
+          "study_b": "Mechanistic insights into the pathogenesis an",
+          "condition_aware_verdict": "INSUFFICIENT_EVIDENCE",
+          "condition_aware_confidence": 0.72,
+          "condition_differences": "Intervention differs: 'None' vs 'Severe Cases' (sim=0.00); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'None' vs 'All-Cause Mortality' (sim=0.00); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)",
+          "unconditioned_baseline_verdict": "CONTRADICTS",
+          "unconditioned_baseline_confidence": 0.2687345577813659
+        }
+      ]
+    }
+  ]
+}

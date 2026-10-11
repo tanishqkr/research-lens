@@ -1,0 +1,239 @@
+{
+  "query": "Does urban tree canopy cover effectively reduce land surface temperature?",
+  "executive_summary": {
+    "bottom_line": "Empirical findings show divergence depending on specific study conditions, protocols, and outcome measures.",
+    "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Canopy cooling effect: Increasing urban tree canopy cover reduces local air temperatures.",
+        "status": "SUPPORTED",
+        "rationale": "Supported by 2 studies demonstrating that increasing tree canopy lowers near-surface temperatures.",
+        "evidence_paper_ids": [
+          "W4403736567",
+          "W4415986605"
+        ]
+      },
+      {
+        "subclaim_text": "Canopy volume and scaling: Cooling magnitude scales with canopy volume and density (e.g. ~1-1.5\u00b0C).",
+        "status": "SUPPORTED",
+        "rationale": "Supported by studies (W4403736567, W4415986605) quantifying cooling scaling with canopy volume and coverage.",
+        "evidence_paper_ids": [
+          "W4403736567",
+          "W4415986605"
+        ]
+      },
+      {
+        "subclaim_text": "Urban density / morphology interaction: Cooling efficacy interacts with surrounding built density and impervious surface ratio.",
+        "status": "SUPPORTED",
+        "rationale": "Supported by evidence (W4403736567) showing interactions with impervious surface cover and surrounding buildings.",
+        "evidence_paper_ids": [
+          "W4403736567"
+        ]
+      },
+      {
+        "subclaim_text": "Cross-climate variation: Cooling magnitude systematically varies across distinct macroclimate zones.",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in deep-dived literature: the sampled primary studies were single-city investigations (e.g., Portland, New York, New Haven) and did not directly compare cooling across differing macroclimate zones.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "Scale-Dependent Effects of Urban Canopy Cover, Canopy Volume, and Impervious Surfaces on Near-Surface Air Temperature in a Mid-Sized City: The results indicate that near-surface air temperature increased linearly with impervious surface cover and decreased linearly with tree canopy cover, with canopy volume reducing the temperature by 1\u00b0 F for every 500 cubic feet of canopy volume for evening temperatures.",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis. Crucially, cross-climate variation remains an unresolved empirical question in this ledger, as sampled studies evaluated individual cities rather than systematic multi-climate cohorts.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 3 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 3,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Canopy cooling effect: Increasing urban tree canopy cover reduces local air temperatures.",
+      "status": "SUPPORTED",
+      "rationale": "Supported by 2 studies demonstrating that increasing tree canopy lowers near-surface temperatures.",
+      "evidence_paper_ids": [
+        "W4403736567",
+        "W4415986605"
+      ]
+    },
+    {
+      "subclaim_text": "Canopy volume and scaling: Cooling magnitude scales with canopy volume and density (e.g. ~1-1.5\u00b0C).",
+      "status": "SUPPORTED",
+      "rationale": "Supported by studies (W4403736567, W4415986605) quantifying cooling scaling with canopy volume and coverage.",
+      "evidence_paper_ids": [
+        "W4403736567",
+        "W4415986605"
+      ]
+    },
+    {
+      "subclaim_text": "Urban density / morphology interaction: Cooling efficacy interacts with surrounding built density and impervious surface ratio.",
+      "status": "SUPPORTED",
+      "rationale": "Supported by evidence (W4403736567) showing interactions with impervious surface cover and surrounding buildings.",
+      "evidence_paper_ids": [
+        "W4403736567"
+      ]
+    },
+    {
+      "subclaim_text": "Cross-climate variation: Cooling magnitude systematically varies across distinct macroclimate zones.",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in deep-dived literature: the sampled primary studies were single-city investigations (e.g., Portland, New York, New Haven) and did not directly compare cooling across differing macroclimate zones.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W4403736567",
+      "title": "Scale-Dependent Effects of Urban Canopy Cover, Canopy Volume, and Impervious Surfaces on Near-Surface Air Temperature in a Mid-Sized City",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from a field study in Portland, OR, directly measuring the relationship between urban tree canopy cover and near-surface air temperature. It explicitly reports that temperature decreased linearly with tree canopy cover, providing direct evidence for the queried outcome (reduction in surface/air temperature due to canopy).",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4401573827",
+      "title": "Scale-Dependent Effects of Urban Canopy Cover, Canopy Volume, and Impervious Surfaces on Near Surface Air Temperature in Portland, OR",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2315541912",
+      "title": "A Study of the Urban Tree Canopy Mean Radiant Temperature Mitigation Estimation",
+      "category": "INDIRECT_EVIDENCE",
+      "relevance_rationale": "The paper investigates the impact of urban tree canopy on Mean Radiant Temperature (MRT), not Land Surface Temperature (LST). While MRT is a key component of the urban heat environment and is influenced by canopy cover, LST is a distinct physical variable typically measured via remote sensing (thermal infrared) representing the surface energy balance. The study uses a microclimate model (SOLWEIG) to estimate human-perceived thermal comfort metrics rather than directly measuring or modeling surface temperature. Therefore, it provides indirect evidence related to the thermal mitigation mechanisms of trees but does not directly address the specific outcome of LST reduction.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4313398481",
+      "title": "The Effects of Tree Canopy Structure and Tree Coverage Ratios on Urban Air Temperature Based on ENVI-Met",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2923210967",
+      "title": "Scale-dependent interactions between tree canopy cover and impervious surfaces reduce daytime urban heat during summer",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4407287019",
+      "title": "Canopy Temperature Reveals Disparities in Urban Tree Benefits",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4391150884",
+      "title": "Variation the in relationship between urban tree canopy and air temperature reduction under a range of daily weather conditions",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4415986605",
+      "title": "Impact of Urban Tree Canopy on Land Surface Temperature and Green Space Inequities in Suwon, South Korea",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from Suwon, South Korea, explicitly quantifying the relationship between urban tree canopy cover (exposure) and land surface temperature (outcome). It identifies a significant nonlinear cooling effect, directly addressing the research question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W3159020957",
+      "title": "The role of urban trees in reducing land surface temperatures in European cities",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data using high-resolution satellite LSTs from 293 European cities to quantify the cooling effect of urban trees. It directly addresses the research question by demonstrating that urban trees significantly reduce land surface temperatures compared to urban fabric and treeless green spaces, providing specific temperature reduction metrics (0-12 K lower).",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4388712758",
+      "title": "Contribution of urban trees in reducing land surface temperature: Evidence from china's major cities",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W4403736567",
+      "paper_id": "W4403736567",
+      "paper_title": "Scale-Dependent Effects of Urban Canopy Cover, Canopy Volume, and Impervious Surfaces on Near-Surface Air Temperature in a Mid-Sized City",
+      "doi": "https://doi.org/10.3390/land13111741",
+      "url": "https://doi.org/10.3390/land13111741",
+      "exact_source_passage": "The results indicate that near-surface air temperature increased linearly with impervious surface cover and decreased linearly with tree canopy cover, with canopy volume reducing the temperature by 1\u00b0 F for every 500 cubic feet of canopy volume for evening temperatures.",
+      "study_design": "Observational Study",
+      "population_setting": "Urban environment (implied by impervious surface and tree canopy variables)",
+      "intervention_exposure": "Tree canopy cover/volume",
+      "comparator": "Lower canopy cover/volume (or baseline)",
+      "outcome": "Near-surface air temperature",
+      "direction": "NEGATIVE",
+      "effect_size": "1\u00b0F reduction per 500 cubic feet of canopy volume",
+      "conditions_and_moderators": "Specifically noted for evening temperatures; linear relationship assumed.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    },
+    {
+      "claim_id": "claim_find_W4415986605",
+      "paper_id": "W4415986605",
+      "paper_title": "Impact of Urban Tree Canopy on Land Surface Temperature and Green Space Inequities in Suwon, South Korea",
+      "doi": "https://doi.org/10.7780/kjrs.2025.41.5.11",
+      "url": "https://doi.org/10.7780/kjrs.2025.41.5.11",
+      "exact_source_passage": "Our results revealed a significant, nonlinear cooling effect: the thermal benefits of tree canopy increase sharply up to approximately 40% coverage before diminishing.",
+      "study_design": "Observational Study (High-resolution spatial analysis)",
+      "population_setting": "Urban environment (Suwon, South Korea)",
+      "intervention_exposure": "Tree canopy coverage (vegetation)",
+      "comparator": "Lower canopy coverage levels (implicit baseline)",
+      "outcome": "Land Surface Temperature (LST) / Thermal cooling effect",
+      "direction": "POSITIVE",
+      "effect_size": "Nonlinear cooling effect; benefits increase sharply up to ~40% coverage before diminishing",
+      "conditions_and_moderators": "Single city case study (Suwon, South Korea); relies on remote sensing data (Landsat 8) and coarse socioeconomic indicators.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    }
+  ],
+  "disagreements": [
+    {
+      "topic_or_metric": "Directionality of the relationship between tree canopy cover and thermal metrics (Air Temperature vs. Land Surface Temperature)",
+      "studies_in_disagreement": [
+        "W4403736567",
+        "W4415986605"
+      ],
+      "plausible_moderator_or_reason": "The apparent divergence stems from a mismatch in the specific thermal metric measured and the physical mechanisms involved. Study W4403736567 measures **near-surface air temperature**, where tree canopy provides direct shading and evapotranspiration, leading to a linear cooling effect (negative correlation). Study W4415986605 measures **Land Surface Temperature (LST)** via remote sensing, which captures the thermal inertia and emissivity of the surface. While the study reports a 'cooling effect' (implying lower LST), the direction label in the ledger is marked 'POSITIVE' (likely indicating a positive correlation between canopy and the *magnitude* of the cooling effect, or a data entry artifact regarding the sign of the coefficient). More critically, the *functional form* differs: W4403736567 reports a linear relationship, while W4415986605 reports a nonlinear (diminishing returns) relationship. The primary scientific conflict is not necessarily a disagreement on the cooling benefit, but on the **linearity** of the effect and the **metric** (air vs. surface). If the 'POSITIVE' direction in W4415986605 is interpreted literally as 'canopy increases LST,' it would be a direct contradiction, but the text explicitly states 'cooling effect,' suggesting the direction label refers to the strength of the cooling response rather than the temperature value itself. The most plausible moderator is the **measurement method** (in-situ air temp vs. remote sensing LST) and the **dose-response curve** (linear vs. nonlinear saturation at ~40% cover).",
+      "verification_status": "SUPPORTED",
+      "supporting_evidence_ids": [
+        "claim_find_W4403736567",
+        "claim_find_W4415986605"
+      ],
+      "suggested_follow_up_investigation": "Conduct a comparative study in a similar mid-sized urban environment that simultaneously measures near-surface air temperature and land surface temperature (via thermal infrared sensors or drone-based LST) across a gradient of tree canopy cover (0-80%). This will allow for the direct correlation of the two metrics and determine if the nonlinear saturation observed in LST (W4415986605) also applies to air temperature (W4403736567), or if the linear cooling of air persists even as LST cooling diminishes due to surface saturation."
+    }
+  ],
+  "detailed_comparisons": [
+    {
+      "pair_id": "pair_find_W4403736567_find_W4415986605",
+      "predicted_relation": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+      "heuristic_score": 0.867,
+      "confidence_score": 0.867,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": true,
+        "intervention_similarity": 0.7554226517677307,
+        "comparator_match": true,
+        "comparator_similarity": 0.7142321467399597,
+        "outcome_match": true,
+        "outcome_similarity": 0.521199643611908,
+        "setting_match": true,
+        "setting_similarity": 0.6192327737808228,
+        "overall_compatibility": 0.6564891666173934,
+        "summary_of_differences": "Experimental conditions match closely across all dimensions."
+      },
+      "provenance_verified": true,
+      "explanation": "Apparent disagreement qualified by experimental condition divergence: Experimental conditions match closely across all dimensions."
+    }
+  ],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

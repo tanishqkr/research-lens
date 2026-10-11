@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-10-11T22:12:04.222210",
+  "total_queries": 1,
+  "total_duration_seconds": 71.4,
+  "overall": {
+    "mean_composite_score": 1.0,
+    "retrieval_pass_rate": 1.0,
+    "claim_grounding_rate": 1.0,
+    "relationship_classification_score": 1.0,
+    "abstention_accuracy": 1.0,
+    "summary_consistency_rate": 1.0
+  },
+  "by_category": {
+    "genuine_contradiction": {
+      "count": 1,
+      "avg_composite": 1.0,
+      "retrieval_pass_rate": 1.0,
+      "avg_relationship_score": 1.0,
+      "avg_abstention_score": 1.0
+    }
+  },
+  "evaluations": [
+    {
+      "id": "BM-01",
+      "category": "genuine_contradiction",
+      "query": "Does hydroxychloroquine reduce mortality in hospitalized patients with COVID-19?",
+      "expected_relationship": "CONTRADICTION",
+      "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
+      "retrieved_count": 10,
+      "deep_dive_count": 5,
+      "ledger_count": 5,
+      "subclaim_statuses": [
+        "SUPPORTED"
+      ],
+      "retrieval_pass": true,
+      "claim_grounding_score": 1.0,
+      "relationship_score": 1.0,
+      "abstention_score": 1.0,
+      "summary_consistency_score": 1.0,
+      "composite_score": 1.0,
+      "latency_seconds": 71.4,
+      "error": null
+    }
+  ]
+}

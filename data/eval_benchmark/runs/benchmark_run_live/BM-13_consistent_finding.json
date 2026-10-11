@@ -1,0 +1,176 @@
+{
+  "query": "Does tobacco cigarette smoking increase the risk of developing lung cancer?",
+  "executive_summary": {
+    "bottom_line": "Empirical findings show divergence depending on specific study conditions, protocols, and outcome measures.",
+    "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does tobacco cigarette smoking increase the risk of developing lung cancer",
+        "status": "SUPPORTED",
+        "rationale": "Directly addressed by empirical evidence claims in papers: W2010916313.",
+        "evidence_paper_ids": [
+          "W2010916313"
+        ]
+      }
+    ],
+    "strongest_supporting_evidence": "Modifying risk of developing lung cancer by changing habits of cigarette smoking.: Reducing the number of cigarettes smoked a day or switching from non-filter to filter cigarettes also lowered the risk of developing lung cancer but not to the extent associated with giving up smoking.",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 3 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 3,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does tobacco cigarette smoking increase the risk of developing lung cancer",
+      "status": "SUPPORTED",
+      "rationale": "Directly addressed by empirical evidence claims in papers: W2010916313.",
+      "evidence_paper_ids": [
+        "W2010916313"
+      ]
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W2046020134",
+      "title": "The Effect of Age at Smoking Initiation on Lung Cancer Risk",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2165700761",
+      "title": "Cigarette Smoking and Lung Cancer: Pediatric Roots",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2125969921",
+      "title": "Tobacco and Cancer: Recent Epidemiological Evidence",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3132705981",
+      "title": "Epidemiology of lung cancer",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a review of the epidemiology of lung cancer. It explicitly synthesizes evidence stating that tobacco smoking is the greatest preventable cause of death and accounts for up to 90% of lung cancer cases, directly addressing the causal link between the exposure (tobacco smoking) and the outcome (lung cancer risk).",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2010916313",
+      "title": "Modifying risk of developing lung cancer by changing habits of cigarette smoking.",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from a large case-control study (7181 patients, 11,006 controls) that directly examines the association between cigarette smoking habits (including cessation and reduction) and the risk of developing lung cancer. It provides specific risk estimates comparing smokers, former smokers, and non-smokers, directly addressing the exposure (tobacco cigarette smoking) and outcome (lung cancer) specified in the research question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2121153361",
+      "title": "Cigarette Smoking and Changes in the Histopathology of Lung Cancer",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W205348721",
+      "title": "Tobacco smoking, cancer and social class",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2141084717",
+      "title": "HIV Infection Is Associated with an Increased Risk for Lung Cancer, Independent of Smoking",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3136330176",
+      "title": "Tobacco Smoking and Risk of Second Primary Lung Cancer",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from multiple large cohorts (MEC, PLCO, EPIC) demonstrating a statistically significant association between tobacco smoking metrics (pack-years, intensity) and the risk of developing lung cancer (specifically second primary lung cancer in survivors). This directly addresses the causal link between the exposure (tobacco smoking) and the outcome (lung cancer risk).",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2058787857",
+      "title": "Tobacco smoking and cancer: A meta\u2010analysis",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W2010916313",
+      "paper_id": "W2010916313",
+      "paper_title": "Modifying risk of developing lung cancer by changing habits of cigarette smoking.",
+      "doi": "https://doi.org/10.1136/bmj.288.6435.1953",
+      "url": "https://doi.org/10.1136/bmj.288.6435.1953",
+      "exact_source_passage": "Reducing the number of cigarettes smoked a day or switching from non-filter to filter cigarettes also lowered the risk of developing lung cancer but not to the extent associated with giving up smoking.",
+      "study_design": "Empirical Study",
+      "population_setting": null,
+      "intervention_exposure": "The Number",
+      "comparator": null,
+      "outcome": "Risk Of Developing Lung Cancer But Not To The Extent Associated With Giving Up Smoking",
+      "direction": "NEGATIVE",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    },
+    {
+      "claim_id": "claim_find_W3136330176",
+      "paper_id": "W3136330176",
+      "paper_title": "Tobacco Smoking and Risk of Second Primary Lung Cancer",
+      "doi": "https://doi.org/10.1016/j.jtho.2021.02.024",
+      "url": "https://doi.org/10.1016/j.jtho.2021.02.024",
+      "exact_source_passage": "Smoking pack-years (hazard ratio [HR] = 1.18 per 10 pack-years, p < 0.001) and smoking intensity (HR = 1.30 per 10 cigarettes per day, p < 0.001) were significantly associated with increased SPLC risk.",
+      "study_design": "Observational cohort study (implied by hazard ratios)",
+      "population_setting": "Individuals at risk for small cell lung cancer (implied cohort)",
+      "intervention_exposure": "Smoking (pack-years and intensity)",
+      "comparator": "Lower smoking exposure (baseline)",
+      "outcome": "Risk of small cell lung cancer (SPLC)",
+      "direction": "POSITIVE",
+      "effect_size": "HR = 1.18 per 10 pack-years; HR = 1.30 per 10 cigarettes per day",
+      "conditions_and_moderators": "Association is statistical; causality not explicitly proven in this snippet.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [
+    {
+      "pair_id": "pair_find_W2010916313_find_W3136330176",
+      "predicted_relation": "INCOMPARABLE_CONDITIONS",
+      "heuristic_score": 0.937,
+      "confidence_score": 0.937,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.06610944122076035,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": true,
+        "outcome_similarity": 0.5652648210525513,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.1927177507430315,
+        "summary_of_differences": "Intervention differs: 'The Number' vs 'Smoking (pack-years and intensity)' (sim=0.07); Comparator differs: 'None' vs 'Lower smoking exposure (baseline)' (sim=0.00); Setting/Cohort differs: 'None' vs 'Epidemiological study' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Studies evaluate disparate interventions: 'The Number' vs 'Smoking (pack-years and intensity)' (similarity=0.07)."
+    }
+  ],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

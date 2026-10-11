@@ -1,0 +1,193 @@
+{
+  "query": "Does routine mammography screening reduce breast cancer mortality in women aged 40 to 49?",
+  "executive_summary": {
+    "bottom_line": "Available empirical evidence is preliminary or lacks standardized comparative outcomes.",
+    "overall_evidence_assessment": "inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does routine mammography screening reduce breast cancer mortality in women aged 40 to 49",
+        "status": "SUPPORTED",
+        "rationale": "Directly addressed by empirical evidence claims in papers: W4248013900, W2110153513.",
+        "evidence_paper_ids": [
+          "W4248013900",
+          "W2110153513"
+        ]
+      }
+    ],
+    "strongest_supporting_evidence": "No definitive primary study.",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 2 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 2,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does routine mammography screening reduce breast cancer mortality in women aged 40 to 49",
+      "status": "SUPPORTED",
+      "rationale": "Directly addressed by empirical evidence claims in papers: W4248013900, W2110153513.",
+      "evidence_paper_ids": [
+        "W4248013900",
+        "W2110153513"
+      ]
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W2054696880",
+      "title": "Mammography screening for breast cancer in women under 50 years",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2134269341",
+      "title": "Impact of Screening Mammography on Mortality from Breast Cancer before Age 60 in Women 40 to 49 Years of Age",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2617460267",
+      "title": "Benefits and harms of breast cancer screening with mammography in women aged 40\u201349 years: A systematic review",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2044655636",
+      "title": "Screening for breast cancer and mortality reduction among women 40\ufffd\ufffd\ufffd49 years of age",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4248013900",
+      "title": "Breast\u2010cancer screening with mammography in women aged 40\u201349 years",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a report from a collaborative meeting that synthesizes data from all randomized trials and service databases specifically regarding mammography screening in women aged 40-49. It provides pooled relative mortality figures (e.g., 0.76 for population-based trials) directly addressing the queried outcome (breast cancer mortality) for the specific age group and intervention.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2579520182",
+      "title": "Screening for Breast Cancer: U.S. Preventive Services Task Force Recommendation Statement",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2110153513",
+      "title": "Service screening with mammography in Northern Sweden: effects on breast cancer mortality \u2013 an update",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from a large cohort study in Northern Sweden specifically analyzing the effect of mammography screening on breast cancer mortality. It explicitly reports results for the target age group (40-49 years), showing a relative rate of 0.64 and 0.62 for excess mortality and underlying cause of death, respectively, directly addressing the research question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2154536380",
+      "title": "Mammography in combination with breast ultrasonography versus mammography for breast cancer screening in women at average risk",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2903820812",
+      "title": "Recommendations on screening for breast cancer in women aged 40\u201374 years who are not at increased risk for breast cancer",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2105722841",
+      "title": "Efficacy of MRI and Mammography for Breast-Cancer Screening in Women with a Familial or Genetic Predisposition",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The paper focuses on screening efficacy (sensitivity/specificity) in women with a familial or genetic predisposition (high-risk group), not the general population aged 40-49. Furthermore, it compares MRI and mammography for detection rates rather than evaluating the impact of routine mammography on breast cancer mortality in the specified age group.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W4248013900",
+      "paper_id": "W4248013900",
+      "paper_title": "Breast\u2010cancer screening with mammography in women aged 40\u201349 years",
+      "doi": "https://doi.org/10.1002/(sici)1097-0215(19961211)68:6<693::aid-ijc1>3.3.co;2-p",
+      "url": "https://doi.org/10.1002/(sici)1097-0215(19961211)68:6<693::aid-ijc1>3.3.co;2-p",
+      "exact_source_passage": "Updated results from the Swedish overview of mammographic screening trials indicated relative mortality associated with invitation to screening of 0.77 (95% confidence interval 0.59-1.01).Combining all population-based randomized trials gave the relative-mortality figure of 0.76 (0.62-0.93), and combining all trials gave 0.85 (0.7 I-I .O I).Relative-mortality figures in individual trials could be predicted by the rates of advanced cancers in those trials.Detailed analysis suggested faster tumour progression in the age group 'Names and affiliations of the committee members and the collabo-(and control group in the case of trials), atten B ance rates, rators are listed in the appendix.",
+      "study_design": "Systematic Review",
+      "population_setting": "Trials Gave 0",
+      "intervention_exposure": "Updated Results",
+      "comparator": null,
+      "outcome": "Mortality",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": false,
+      "is_review_synthesis": true
+    },
+    {
+      "claim_id": "claim_find_W2110153513",
+      "paper_id": "W2110153513",
+      "paper_title": "Service screening with mammography in Northern Sweden: effects on breast cancer mortality \u2013 an update",
+      "doi": "https://doi.org/10.1258/096914107781261918",
+      "url": "https://doi.org/10.1258/096914107781261918",
+      "exact_source_passage": "RESULTS: The relative rate (RR) of breast cancer death as excess mortality and UCD for women aged 40-74 years invited to screening, compared with women not yet invited, was 0.70 (95% confidence interval [CI] 0.56-0.87) and 0.74 (95% CI 0.62-0.88), respectively.",
+      "study_design": "Empirical Study",
+      "population_setting": null,
+      "intervention_exposure": "The Relative Rate",
+      "comparator": "Women Not Yet Invited",
+      "outcome": "Mortality",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    }
+  ],
+  "disagreements": [
+    {
+      "topic_or_metric": "Relative mortality reduction (Risk Ratio/Relative Rate) for breast cancer in women aged 40-49",
+      "studies_in_disagreement": [
+        "W4248013900",
+        "W2110153513"
+      ],
+      "plausible_moderator_or_reason": "The primary divergence stems from the study design and control group definition. W4248013900 is a systematic review of randomized controlled trials (RCTs) and observational data, reporting a pooled relative mortality of 0.76-0.85 with wide confidence intervals that often cross 1.0 (indicating statistical uncertainty/non-significance for the specific 40-49 subgroup in some analyses). In contrast, W2110153513 is a single-center service screening study using a 'women not yet invited' control group, which is susceptible to selection bias and lead-time bias, yielding a more precise and statistically significant reduction (RR 0.70-0.74). Additionally, the Swedish overview in W4248013900 notes faster tumor progression in this age group, which may attenuate the benefit of screening compared to older age groups, whereas the service study may reflect local implementation efficiencies or unmeasured confounders.",
+      "verification_status": "SUPPORTED",
+      "supporting_evidence_ids": [
+        "claim_find_W4248013900",
+        "claim_find_W2110153513"
+      ],
+      "suggested_follow_up_investigation": "Conduct a meta-analysis specifically isolating RCT data for the 40-49 age group to distinguish true biological efficacy from service-based observational biases. Investigate the impact of tumor biology (e.g., proliferation rate, hormone receptor status) in this age group to determine if faster progression negates the lead-time benefit of screening. Compare the 'not yet invited' control methodology in service studies against RCT controls to quantify the magnitude of selection bias in this specific age demographic."
+    }
+  ],
+  "detailed_comparisons": [
+    {
+      "pair_id": "pair_find_W4248013900_find_W2110153513",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.848,
+      "confidence_score": 0.848,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.11503569781780243,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": true,
+        "outcome_similarity": 1.0,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.34026249423623084,
+        "summary_of_differences": "Intervention differs: 'Updated Results' vs 'The Relative Rate' (sim=0.12); Comparator differs: 'None' vs 'Women Not Yet Invited' (sim=0.00); Setting/Cohort differs: 'Trials Gave 0' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    }
+  ],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

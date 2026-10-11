@@ -1,0 +1,109 @@
+{
+  "query": "Does transcranial direct current stimulation (tDCS) produce lasting improvements in general fluid intelligence in healthy adults?",
+  "executive_summary": {
+    "bottom_line": "No qualifying empirical literature was identified testing this relationship in the retrieved search corpus.",
+    "overall_evidence_assessment": "inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does transcranial direct current stimulation (tDCS) produce lasting improvements in general fluid intelligence in healthy adults",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "None: no eligible empirical studies evaluated the queried relationship in the retrieved literature.",
+    "strongest_conflicting_evidence": "None: hypothesis remains unaddressed in retrieved empirical literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Confidence is zero within the retrieved corpus because no qualifying empirical trials were identified in retrieved scholarly literature. An empty evidence ledger indicates that no qualifying evidence was found in the retrieved sample, rather than conclusive proof that no broader scientific literature exists.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 0 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 0,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does transcranial direct current stimulation (tDCS) produce lasting improvements in general fluid intelligence in healthy adults",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W2477265027",
+      "title": "Can high definition transcranial direct current stimulation (HD-tDCS) enhance cognitive training and transfer?",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4388222913",
+      "title": "Lasting enhancements in neural efficiency by multi-session transcranial direct current stimulation during working memory training",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2981663169",
+      "title": "Cognitive function in healthy aging -the effects of cognitive training combined with Transcranial Direct Current Stimulation (tDCS)",
+      "category": "INDIRECT_EVIDENCE",
+      "relevance_rationale": "The paper investigates the effects of tDCS combined with cognitive training on cognitive function in healthy aging adults. While it involves tDCS and cognitive outcomes, it does not specifically target 'general fluid intelligence' as the primary outcome, nor does it isolate tDCS from cognitive training (which is a confounding factor for 'lasting improvements' attributed solely to stimulation). Furthermore, the population is 'healthy aging' rather than general 'healthy adults', and the combination with training makes it a distinct intervention protocol rather than a direct test of tDCS alone on fluid intelligence.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2558807374",
+      "title": "Boosting Cognition: Effects of Multiple-Session Transcranial Direct Current Stimulation on Working Memory",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2587401876",
+      "title": "Mechanisms and Effects of Transcranial Direct Current Stimulation",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2211305997",
+      "title": "A technical guide to tDCS, and related non-invasive brain stimulation tools",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2155259383",
+      "title": "Improvement of the Working Memory and Naming by Transcranial Direct Current Stimulation",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The research question specifically asks about improvements in 'general fluid intelligence' (typically measured by Raven's Progressive Matrices or similar non-verbal reasoning tests). This paper investigates 'working memory' and 'naming' (verbal/visuospatial attention). While working memory is a component of fluid intelligence, the paper does not measure general fluid intelligence as an outcome. Therefore, it does not directly address the specific outcome queried.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4288714744",
+      "title": "Multitarget high-definition transcranial direct current stimulation improves response inhibition more than single-target high-definition transcranial direct current stimulation in healthy participants",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2615027150",
+      "title": "Semantic Feature Training in Combination with Transcranial Direct Current Stimulation (tDCS) for Progressive Anomia",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4386092312",
+      "title": "Comparing Transcranial Direct Current Stimulation (tDCS) with Other Non-Invasive Brain Stimulation (NIBS) in the Treatment of Alzheimer\u2019s Disease: A Literature Review",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The paper focuses on the treatment of Alzheimer's Disease (AD) in patients, whereas the research question specifically asks about general fluid intelligence in healthy adults. The population (AD patients vs. healthy adults) and the primary outcome (clinical cognitive decline in dementia vs. general fluid intelligence) are distinct, making this paper irrelevant to the specific query.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [],
+  "disagreements": [],
+  "detailed_comparisons": [],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

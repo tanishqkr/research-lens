@@ -1,0 +1,134 @@
+{
+  "query": "Does low-dose aspirin reduce all-cause mortality in primary cardiovascular prevention?",
+  "executive_summary": {
+    "bottom_line": "Available empirical evidence is preliminary or lacks standardized comparative outcomes.",
+    "overall_evidence_assessment": "inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does low-dose aspirin reduce all-cause mortality in primary cardiovascular prevention",
+        "status": "SUPPORTED",
+        "rationale": "Directly addressed by empirical evidence claims in papers: W2338694900.",
+        "evidence_paper_ids": [
+          "W2338694900"
+        ]
+      }
+    ],
+    "strongest_supporting_evidence": "No definitive primary study.",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 3 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 3,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does low-dose aspirin reduce all-cause mortality in primary cardiovascular prevention",
+      "status": "SUPPORTED",
+      "rationale": "Directly addressed by empirical evidence claims in papers: W2338694900.",
+      "evidence_paper_ids": [
+        "W2338694900"
+      ]
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W4205813010",
+      "title": "Aspirin for Primary and Secondary Prevention of Cardiovascular Disease: Time to Stop?",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2114389657",
+      "title": "Aspirin Is Associated With Reduced Cardiovascular and All-Cause Mortality in Type 2 Diabetes in a Primary Prevention Setting",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2338694900",
+      "title": "Aspirin for primary prevention of cardiovascular and all\u2010cause mortality events in diabetes: updated meta\u2010analysis of randomized controlled trials",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a meta-analysis of randomized controlled trials evaluating aspirin for primary prevention of cardiovascular disease and all-cause mortality. While it specifically focuses on the population of people with diabetes, it directly addresses the core components of the research question: the intervention (aspirin), the setting (primary prevention), and the outcome (all-cause mortality). It provides synthesized evidence on whether aspirin reduces all-cause mortality in a specific primary prevention subgroup, making it highly relevant for understanding the broader question, although the specific 'low-dose' aspect is not explicitly isolated in the title/abstract summary provided, the overall effect on mortality is reported.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2910670583",
+      "title": "Aspirin for primary prevention of cardiovascular disease in diabetes",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4224925677",
+      "title": "Aspirin Use to Prevent Cardiovascular Disease",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2024798652",
+      "title": "Aspirin for prevention of cancer and cardiovascular disease",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4399387039",
+      "title": "Low-dose aspirin for the prevention of atherosclerotic cardiovascular disease",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a narrative review that explicitly aims to revisit the role of aspirin in the prevention of atherothrombosis across the cardiovascular risk continuum, including primary prevention. It discusses clinical efficacy and safety, which directly addresses the components of the research question (low-dose aspirin, primary prevention, cardiovascular outcomes/mortality). While it is a review rather than a primary empirical study, it synthesizes the relevant evidence on the target intervention and context.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2105881737",
+      "title": "Primary Prevention of Cardiovascular Events With Low-Dose Aspirin and Vitamin E in Type 2 Diabetic Patients",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2102397849",
+      "title": "Aspirin for primary prevention of cardiovascular events in people with diabetes: meta-analysis of randomised controlled trials",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a meta-analysis of randomized controlled trials that directly evaluates the effect of low-dose aspirin on all-cause mortality in a primary prevention population (people with diabetes and no pre-existing cardiovascular disease). This directly addresses the specific exposure (low-dose aspirin), outcome (all-cause mortality), and context (primary cardiovascular prevention) specified in the research question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2997824821",
+      "title": "All-cause mortality following low-dose aspirin treatment for patients with high cardiovascular risk in remote Australian Aboriginal communities: an observational study",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W2338694900",
+      "paper_id": "W2338694900",
+      "paper_title": "Aspirin for primary prevention of cardiovascular and all\u2010cause mortality events in diabetes: updated meta\u2010analysis of randomized controlled trials",
+      "doi": "https://doi.org/10.1111/dme.13133",
+      "url": "https://doi.org/10.1111/dme.13133",
+      "exact_source_passage": "There was a significant reduction in risk of major adverse cardiovascular events: relative risk of 0.90 (95% CI 0.81-0.99) in groups taking aspirin compared with placebo or no treatment.",
+      "study_design": "Systematic Review",
+      "population_setting": null,
+      "intervention_exposure": "A Significant Reduction",
+      "comparator": "Placebo Or No Treatment",
+      "outcome": "Risk Of Major Adverse Cardiovascular Events",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": false,
+      "is_review_synthesis": true
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

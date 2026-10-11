@@ -1,0 +1,123 @@
+{
+  "query": "Does dietary sodium reduction reduce all-cause mortality in normotensive adults?",
+  "executive_summary": {
+    "bottom_line": "The reviewed empirical literature reports positive associations or improvements under the tested intervention conditions (however, formal causal demonstration remains unresolved in the sampled evidence ledger).",
+    "overall_evidence_assessment": "remains inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does dietary sodium reduction reduce all-cause mortality in normotensive adults",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: while retrieved observational studies may demonstrate strong statistical association or risk ratios, formal establishment of causality requires authoritative causal synthesis or explicit mechanistic/epidemiological criteria not directly verified in the ledger passages.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "Sodium and Potassium Intake and Mortality Among US Adults: After multivariable adjustment, higher sodium intake was associated with increased all-cause mortality (hazard ratio [HR], 1.20; 95% confidence interval [CI], 1.03-1.41 per 1000 mg/d), whereas higher potassium intake was associated with lower mortality risk (HR, 0.80; 95% CI, 0.67-0.94 per 1000 mg/d).",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+    "research_coverage": "Retrieved 9 candidate papers; examined 1 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 9,
+  "papers_triaged": 9,
+  "papers_deep_dived": 1,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does dietary sodium reduction reduce all-cause mortality in normotensive adults",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: while retrieved observational studies may demonstrate strong statistical association or risk ratios, formal establishment of causality requires authoritative causal synthesis or explicit mechanistic/epidemiological criteria not directly verified in the ledger passages.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W2163852466",
+      "title": "Dietary sodium and cardiovascular and renal disease risk factors: dark horse or phantom entry?",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3023081556",
+      "title": "Reduced dietary salt for the prevention of cardiovascular disease",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2137131631",
+      "title": "Systematic review of long term effects of advice to reduce dietary salt in adults",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2120418712",
+      "title": "Long term effects of dietary sodium reduction on cardiovascular disease outcomes: observational follow-up of the trials of hypertension prevention (TOHP)",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2169859718",
+      "title": "Sodium and Potassium Intake and Mortality Among US Adults",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper reports original empirical data from a large prospective cohort (NHANES III) examining the association between sodium intake and all-cause mortality. Although the study population includes both hypertensive and normotensive adults, the abstract explicitly states that the findings 'did not differ significantly by... hypertension status.' This implies that the association observed in the general population is consistent across the normotensive subgroup, providing direct empirical evidence relevant to the specific question of whether sodium intake levels are associated with mortality in normotensive adults.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W1999355575",
+      "title": "Sodium chloride raises blood pressure in normotensive subjects. The study of sodium and blood pressure.",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2957151762",
+      "title": "Systematic Review: Reducing Dietary Sodium Decreases Stroke but Not All Cause Mortality or Cardiovascular Disease",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2972097376",
+      "title": "Dietary reference values for sodium",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a review by EFSA deriving dietary reference values for sodium. While it reviews evidence on sodium and cardiovascular disease (CVD) risk, it does not specifically address the outcome of 'all-cause mortality' nor does it isolate the population of 'normotensive adults'. It provides general population guidelines rather than specific empirical data or a targeted synthesis for the specific research question asked.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3007294623",
+      "title": "Effect of dose and duration of reduction in dietary sodium on blood pressure levels: systematic review and meta-analysis of randomised trials",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "The paper investigates the effect of dietary sodium reduction on blood pressure levels, not all-cause mortality. While it mentions non-hypertensive individuals, the primary outcome is blood pressure change, which does not directly address the queried outcome of mortality.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W2169859718",
+      "paper_id": "W2169859718",
+      "paper_title": "Sodium and Potassium Intake and Mortality Among US Adults",
+      "doi": "https://doi.org/10.1001/archinternmed.2011.257",
+      "url": "https://doi.org/10.1001/archinternmed.2011.257",
+      "exact_source_passage": "After multivariable adjustment, higher sodium intake was associated with increased all-cause mortality (hazard ratio [HR], 1.20; 95% confidence interval [CI], 1.03-1.41 per 1000 mg/d), whereas higher potassium intake was associated with lower mortality risk (HR, 0.80; 95% CI, 0.67-0.94 per 1000 mg/d).",
+      "study_design": "Empirical Study",
+      "population_setting": null,
+      "intervention_exposure": "Higher Sodium Intake",
+      "comparator": null,
+      "outcome": "Mortality",
+      "direction": "POSITIVE",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

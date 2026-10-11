@@ -1,0 +1,130 @@
+{
+  "query": "Does dietary ingestion of microplastics cause clinical cardiovascular events in humans?",
+  "executive_summary": {
+    "bottom_line": "The available empirical studies demonstrate consistent reductions or negative impacts.",
+    "overall_evidence_assessment": "broadly supports an inverse or reducing relationship",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does dietary ingestion of microplastics cause clinical cardiovascular events in humans",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: while retrieved observational studies may demonstrate strong statistical association or risk ratios, formal establishment of causality requires authoritative causal synthesis or explicit mechanistic/epidemiological criteria not directly verified in the ledger passages.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "Microplastics and Nanoplastics in Atheromas and Cardiovascular Events: Patients in whom MNPs were detected within the atheroma were at higher risk for a primary end-point event than those in whom these substances were not detected (hazard ratio, 4.53; 95% confidence interval, 2.00 to 10.27; P<0.001).",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 3 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 3,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does dietary ingestion of microplastics cause clinical cardiovascular events in humans",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: while retrieved observational studies may demonstrate strong statistical association or risk ratios, formal establishment of causality requires authoritative causal synthesis or explicit mechanistic/epidemiological criteria not directly verified in the ledger passages.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W7163216162",
+      "title": "MICROPLASTICS AND NANOPLASTICS IN ATHEROMATOUS PLAQUES: PATHOPHYSIOLOGICAL MECHANISMS OF ENDOTHELIAL INJURY AND ATHEROGENESIS ASSOCIATED WITH MAJOR ADVERSE CARDIOVASCULAR EVENTS: A SCOPING REVIEW",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a scoping review that directly addresses the link between microplastics (exposure) and Major Adverse Cardiovascular Events (outcome) in humans by synthesizing literature on their presence in atheromatous plaques and the associated pathophysiological mechanisms. It directly evaluates the target question by mapping the evidence connecting the exposure to the clinical outcome.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4405274188",
+      "title": "Microplastics and nanoplastics: emerging threats to cardiovascular health \u2013 a comprehensive review",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a comprehensive review that directly addresses the link between microplastic exposure (including ingestion) and cardiovascular health outcomes, specifically mentioning major adverse cardiovascular events (MACE) and detection in arterial tissues. It synthesizes existing evidence on the toxicological implications for the cardiovascular system, making it highly relevant to the research question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W7133358665",
+      "title": "Emerging links between cardiovascular disease and microplastics exposure \u2013 a narrative review",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4414063400",
+      "title": "Microplastics and nanoplastics: tiny threats for cardiovascular diseases?",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4403306046",
+      "title": "Microplastics and nanoplastics in cardiovascular disease\u2014a narrative review with worrying links",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4396750712",
+      "title": "Microplastics and Nanoplastics in Atheromas",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4392520497",
+      "title": "Microplastics and Nanoplastics in Atheromas and Cardiovascular Events",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from a prospective observational study in humans. It directly investigates the presence of microplastics in carotid plaques and correlates this exposure with the primary endpoint of clinical cardiovascular events (myocardial infarction, stroke, or death). Although it does not explicitly prove 'dietary ingestion' as the sole source (as it measures plaque burden), it provides direct human evidence linking microplastic presence to the queried outcome, making it highly relevant.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W7153817515",
+      "title": "Microplastics and Nanoplastics in Cardiovascular Disease: An Emerging Cardiovascular Risk Factor",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4414419689",
+      "title": "MICROPLASTICS. A NEW RISK FACTOR FOR ATHEROSCLEROTIC CARDIOVASCULAR DISEASE",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W7154613030",
+      "title": "Microplastics and cardiovascular toxicity: Mitigating risks through mushrooms",
+      "category": "INDIRECT_EVIDENCE",
+      "relevance_rationale": "The paper discusses the mechanisms of microplastic-induced cardiovascular toxicity (e.g., ROS generation, endothelial dysfunction, atherosclerosis) and proposes mushrooms as a mitigating strategy. However, it does not report original empirical data on clinical cardiovascular events in humans resulting from dietary ingestion. It focuses on molecular mechanisms and potential therapeutic interventions rather than establishing a causal link between dietary exposure and clinical outcomes in a human population.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W4392520497",
+      "paper_id": "W4392520497",
+      "paper_title": "Microplastics and Nanoplastics in Atheromas and Cardiovascular Events",
+      "doi": "https://doi.org/10.1056/nejmoa2309822",
+      "url": "https://doi.org/10.1056/nejmoa2309822",
+      "exact_source_passage": "Patients in whom MNPs were detected within the atheroma were at higher risk for a primary end-point event than those in whom these substances were not detected (hazard ratio, 4.53; 95% confidence interval, 2.00 to 10.27; P<0.001).",
+      "study_design": "Cohort",
+      "population_setting": "Patients with atheroma",
+      "intervention_exposure": "Detection of microplastics (MNPs) within atheroma",
+      "comparator": "Absence of microplastics (MNPs) within atheroma",
+      "outcome": "Primary end-point event",
+      "direction": "NEGATIVE",
+      "effect_size": "Hazard ratio 4.53 (95% CI: 2.00 to 10.27)",
+      "conditions_and_moderators": "Observational association; does not prove causality.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

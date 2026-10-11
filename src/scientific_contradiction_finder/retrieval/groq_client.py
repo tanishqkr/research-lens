@@ -4,6 +4,7 @@ import asyncio
 import json
 import logging
 import os
+import re
 from typing import Any, Dict, List, Optional
 
 import httpx
@@ -81,10 +82,14 @@ class StructuredFindingInterpretation(BaseModel):
     )
     study_design: Optional[str] = Field(
         None,
-        description="Study design (RCT, observational, simulation, benchmark), null if unstated",
+        description="Study design (e.g. RCT, Observational Cohort, Prediction Model / Diagnostic, Systematic Review), null if unstated",
     )
     limitations_or_qualifiers: Optional[str] = Field(
         None, description="Reported threshold, duration, dose, or qualification, null if unstated"
+    )
+    prediction_model_details: Optional[Dict[str, Any]] = Field(
+        None,
+        description="Optional dict containing model_method, input_features, target_condition, prediction_horizon, comparator_score, metrics_and_values for prediction studies",
     )
     confidence: Optional[float] = Field(
         default=0.8, description="Extraction confidence between 0.0 and 1.0"
@@ -172,7 +177,11 @@ class GroqClient:
                         )
                         return structured
                     elif res.status_code == 429:
-                        break  # Rate limited, fallback immediately
+                        retry_after = res.headers.get("retry-after")
+                        logger.warning(
+                            f"Groq query structuring hit 429 (retry-after: {retry_after}); falling back immediately."
+                        )
+                        break
                 except Exception as e:
                     logger.warning(f"Groq query structuring attempt {attempt + 1} failed: {e}")
 
@@ -204,16 +213,38 @@ class GroqClient:
 
         system_prompt = (
             "You are an empirical evidence auditor for scientific literature. Analyze the supplied passage.\n"
-            "Determine if it reports an actual EMPIRICAL FINDING (an observation, measured result, effect, or quantitative/qualitative finding from primary trials or systematic review synthesis).\n"
+            "Determine if it reports an actual EMPIRICAL FINDING (an observation, measured result, effect, or quantitative/qualitative finding from primary trials, diagnostic/prediction evaluations, or systematic review synthesis).\n"
             "Reject generic background statements ('chronic sleep restriction is common'), methodology descriptions ('participants were administered the interview'),\n"
             "review intentions ('this paper aims to'), unverified speculation, clinical recommendations, or generic promise statements ('demonstrated great promise').\n"
             "Rules:\n"
             "1. evidence_quote MUST be an EXACT, VERBATIM substring of the supplied passage.\n"
             "2. If not an empirical finding or synthesis result, set is_empirical_finding=false, set rejection_reason, and leave slots null.\n"
-            "3. Never substitute generic phrases such as 'A Result', 'The Action', 'The Researcher', 'The Day', 'Our Findings', or 'The Effect' for scientific variables.\n"
-            "4. direction must be one of: 'POSITIVE' (intervention increases/benefits outcome), 'NEGATIVE' (intervention decreases/worsens outcome or causes impairment), 'NO_DIFFERENCE' (no significant effect), 'MIXED' (opposing effects across measures), or 'UNCLEAR'.\n"
-            "5. study_design: State explicitly whether this is a primary trial (e.g., 'RCT', 'Cohort') or a synthesis ('Systematic Review', 'Meta-Analysis').\n"
-            "6. Return strict JSON with keys: is_empirical_finding, evidence_quote, finding_summary, direction, intervention, comparator, outcome, population, setting, effect_estimate, study_design, limitations_or_qualifiers, confidence (float 0.0-1.0), rejection_reason."
+            "3. Do NOT force intervention, comparator, or outcome into fields if not present. Use null with a reason rather than filling arbitrary text.\n"
+            "   NEVER use generic placeholders like 'Algorithm', '6553 Eligible Children', '8 Times That Of Children', 'The Prediction', 'A Result', 'The Action', 'The Researcher', 'The Day', 'Our Findings', or 'The Effect'.\n"
+            "4. STUDY TYPE DIFFERENTIATION:\n"
+            "   - If this is a PREDICTION MODEL / MACHINE LEARNING STUDY (e.g. predicting sepsis, mortality, organ failure):\n"
+            "     * study_design: 'Prediction Model / Machine Learning'\n"
+            "     * intervention: The specific model/algorithm name (e.g., 'XGBoost', 'Random Forest', 'Deep Learning Model', 'Clinical Prediction Score')\n"
+            "     * comparator: Comparator score/model if evaluated head-to-head (e.g., 'SIRS', 'SOFA', 'PELOD'), or null if single model\n"
+            "     * outcome: The target prediction endpoint (e.g., 'Early Sepsis Onset', 'In-hospital Mortality', 'Severe Sepsis Progression')\n"
+            "     * prediction_model_details: {\n"
+            "         'model_method': 'Model name/architecture',\n"
+            "         'input_features': ['vitals', 'lab tests', etc.],\n"
+            "         'target_condition': 'Target predicted condition',\n"
+            "         'prediction_horizon': 'Time window (e.g. 4-6h prior to onset, 24h, 48h) or null',\n"
+            "         'comparator_score': 'Baseline score or null',\n"
+            "         'metrics_and_values': {'AUROC': '0.88', 'Sensitivity': '82%', etc.},\n"
+            "         'validation_design': 'External cohort / internal CV / temporal validation',\n"
+            "         'population_setting': 'Target cohort (e.g. PICU pediatric patients)',\n"
+            "         'limitations': 'Reported model limitations'\n"
+            "       }\n"
+            "   - If this is an INTERVENTIONAL / CLINICAL TRIAL or EPIDEMIOLOGICAL STUDY:\n"
+            "     * intervention: The therapy, drug, lifestyle change, or risk factor\n"
+            "     * comparator: Placebo, standard of care, or control\n"
+            "     * outcome: The clinical endpoint or biomarker measured\n"
+            "     * prediction_model_details: null\n"
+            "5. direction must be one of: 'POSITIVE' (intervention increases/benefits outcome or model achieves high diagnostic accuracy), 'NEGATIVE' (decreases/worsens outcome or inferior), 'NO_DIFFERENCE' (no significant difference/equivalent), 'MIXED' (opposing effects across measures), or 'UNCLEAR'.\n"
+            "6. Return strict JSON with keys: is_empirical_finding, evidence_quote, finding_summary, direction, intervention, comparator, outcome, population, setting, effect_estimate, study_design, limitations_or_qualifiers, prediction_model_details, confidence (float 0.0-1.0), rejection_reason."
         )
 
         payload = {
@@ -248,49 +279,134 @@ class GroqClient:
                                 )
                         self.cache.set(cache_key, "groq", "interpret_passage", parsed.model_dump())
                         return parsed
+                    elif res.status_code == 429:
+                        retry_after_hdr = res.headers.get("retry-after")
+                        try:
+                            retry_after = float(retry_after_hdr) if retry_after_hdr else None
+                        except (ValueError, TypeError):
+                            retry_after = None
+                        if retry_after is not None and retry_after > 5.0:
+                            logger.warning(
+                                f"Groq rate limit retry-after ({retry_after:.1f}s) exceeds budget (5.0s max); aborting retry and falling back."
+                            )
+                            break
+                        actual_sleep = min(
+                            retry_after if retry_after is not None else (1.5 * (attempt + 1)), 5.0
+                        )
+                        logger.warning(
+                            f"Groq passage interpretation hit 429; backing off for {actual_sleep:.1f}s (attempt {attempt + 1})"
+                        )
+                        await asyncio.sleep(actual_sleep)
                 except Exception as e:
                     logger.warning(f"Groq passage interpretation attempt {attempt + 1} failed: {e}")
+                    if attempt < self.max_retries - 1:
+                        await asyncio.sleep(1.0 * (attempt + 1))
 
         return None
 
-    async def triage_paper(self, paper_title: str, abstract: str, query: str) -> Dict[str, Any]:
-        """Triage a candidate paper into DIRECT_EMPIRICAL, INDIRECT_EMPIRICAL, REVIEW_SYNTHESIS, BACKGROUND_THEORY, or WEAK_OR_IRRELEVANT."""
-        if not self.is_available:
-            # Fallback heuristic
+    def heuristic_triage(self, paper_title: str, abstract: str, query: str) -> Dict[str, Any]:
+        """Deterministic heuristic triage when LLM is unavailable or rate-limited.
+        Labels results clearly as heuristic rather than LLM-verified.
+        """
+        title_lower = (paper_title or "").lower()
+        abs_lower = (abstract or "").lower()
+        combined = f"{title_lower} {abs_lower}"
+
+        q_terms = [
+            w for w in re.findall(r"\b[a-zA-Z]{3,}\b", query.lower())
+            if w not in ("what", "which", "how", "why", "can", "could", "use", "using", "with", "from", "for", "the", "and")
+        ]
+
+        # Check for core concept matches
+        matched_q = [w for w in q_terms if w in combined]
+        ratio = len(matched_q) / max(1, len(q_terms))
+
+        is_review = any(r in combined for r in ["systematic review", "meta-analysis", "literature review", "scoping review"])
+        has_empirical_signal = any(
+            w in abs_lower
+            for w in ["result", "results", "found", "showed", "demonstrated", "auroc", "accuracy", "sensitivity", "cohort", "patients", "trial"]
+        )
+
+        # Check domain specific exclusions
+        # Sepsis query exclusion: if query is about sepsis, exclude if study is solely about adult cancer, plant biology, or unrelated organ
+        if "sepsis" in query.lower() and "sepsis" not in combined and "septic" not in combined:
             return {
-                "category": "DIRECT_EMPIRICAL"
-                if any(
-                    w in abstract.lower()
-                    for w in ["result", "show", "found", "trial", "experiment"]
-                )
-                else "INDIRECT_EMPIRICAL",
-                "relevance_rationale": "Categorized via local heuristic keyword filter.",
-                "selected_for_deep_dive": True,
+                "category": "IRRELEVANT",
+                "relevance_rationale": "Heuristic fallback: Paper does not mention sepsis or septic shock in title or abstract.",
+                "selected_for_deep_dive": False,
+                "is_heuristic_fallback": True,
             }
 
-        cache_key = self.cache.compute_key(
-            "groq", "triage_paper", {"title": paper_title, "query": query}
-        )
-        cached = self.cache.get(cache_key)
-        if cached:
-            return cached
+        if ratio >= 0.40 or ("sepsis" in combined and any(k in combined for k in ["pediatric", "child", "children", "nicu", "picu", "infant", "neonatal"])):
+            if is_review:
+                cat = "REVIEW_SYNTHESIS"
+            elif any(k in combined for k in ["predict", "prediction", "machine learning", "model", "algorithm", "risk score"]):
+                cat = "DIRECT_EMPIRICAL"
+            else:
+                cat = "INDIRECT_EVIDENCE"
+            return {
+                "category": cat,
+                "relevance_rationale": f"Heuristic fallback: Concept overlap ({len(matched_q)}/{len(q_terms)} query terms). Preserved for empirical deep-dive.",
+                "selected_for_deep_dive": True,
+                "is_heuristic_fallback": True,
+            }
+        elif ratio >= 0.20:
+            return {
+                "category": "UNCERTAIN",
+                "relevance_rationale": f"Heuristic fallback: Marginal concept overlap ({len(matched_q)}/{len(q_terms)} terms). Kept as UNCERTAIN.",
+                "selected_for_deep_dive": has_empirical_signal,
+                "is_heuristic_fallback": True,
+            }
+        else:
+            return {
+                "category": "IRRELEVANT",
+                "relevance_rationale": f"Heuristic fallback: Off-target content with low concept overlap ({len(matched_q)}/{len(q_terms)} terms).",
+                "selected_for_deep_dive": False,
+                "is_heuristic_fallback": True,
+            }
+
+    async def triage_papers_batch(
+        self, papers: List[Dict[str, str]], query: str
+    ) -> List[Dict[str, Any]]:
+        """Triage a list of candidate papers in a single structured batch request to minimize API calls and rate limits."""
+        if not self.is_available or not papers:
+            return [self.heuristic_triage(p.get("title", ""), p.get("abstract", ""), query) for p in papers]
+
+        # Check cache for papers first
+        results: List[Optional[Dict[str, Any]]] = [None] * len(papers)
+        uncached_indices = []
+        for idx, p in enumerate(papers):
+            ckey = self.cache.compute_key("groq", "triage_paper_v2", {"title": p.get("title", ""), "query": query})
+            cached = self.cache.get(ckey)
+            if cached:
+                results[idx] = cached
+            else:
+                uncached_indices.append(idx)
+
+        if not uncached_indices:
+            return [r for r in results if r is not None]
+
+        # Build batch prompt for uncached candidates
+        batch_items = [
+            {"id": str(i), "title": papers[i].get("title", ""), "abstract": papers[i].get("abstract", "")[:1000]}
+            for i in uncached_indices
+        ]
 
         prompt = (
-            f"Question: {query}\n"
-            f"Paper Title: {paper_title}\n"
-            f"Abstract: {abstract[:1500]}\n\n"
-            "Assess this candidate paper for the specific research question.\n"
-            "Classify category into exactly one of:\n"
-            "- 'DIRECT_COMPARISON': Directly compares the specific interventions/conditions requested in the question.\n"
-            "- 'DIRECT_EMPIRICAL': Reports original empirical data directly on the target intervention and outcome.\n"
-            "- 'INDIRECT_EVIDENCE': Investigates related variables, single-arm trials, or distinct mechanisms.\n"
-            "- 'REVIEW_SYNTHESIS': Meta-analysis, systematic review, or literature synthesis directly evaluating the target question.\n"
-            "- 'BACKGROUND': Theoretical framing or contextual background.\n"
-            "- 'IRRELEVANT': Studies an unrelated topic, different species, or incidental keyword match.\n"
+            f"Research Question: {query}\n\n"
+            f"Candidate Papers to Triage:\n{json.dumps(batch_items, indent=2)}\n\n"
+            "Assess each candidate paper for the specific research question.\n"
+            "For each paper (by id), classify category into exactly one of:\n"
+            "- 'DIRECT_COMPARISON': Directly compares the specific interventions/models requested.\n"
+            "- 'DIRECT_EMPIRICAL': Reports original empirical data or prediction model directly addressing target condition and outcome.\n"
+            "- 'INDIRECT_EVIDENCE': Investigates related variables, single-arm trials, adult cohorts for pediatric queries, or related biomarker mechanisms.\n"
+            "- 'REVIEW_SYNTHESIS': Meta-analysis, systematic review, or scoping review synthesizing the queried question.\n"
+            "- 'BACKGROUND': Pure theoretical framing or clinical commentary without empirical data.\n"
+            "- 'IRRELEVANT': Unrelated disease, different species, or incidental keyword match.\n"
             "Rules for selected_for_deep_dive:\n"
-            "Set true ONLY if category is 'DIRECT_COMPARISON', 'DIRECT_EMPIRICAL', highly relevant 'INDIRECT_EVIDENCE', or relevant 'REVIEW_SYNTHESIS' that directly synthesizes evidence on the queried question.\n"
-            "If the paper is 'IRRELEVANT' or 'BACKGROUND', set selected_for_deep_dive=false.\n"
-            'Return JSON: {"category": "...", "relevance_rationale": "...", "selected_for_deep_dive": true/false}'
+            "Set true ONLY if category is 'DIRECT_COMPARISON', 'DIRECT_EMPIRICAL', relevant 'INDIRECT_EVIDENCE', or relevant 'REVIEW_SYNTHESIS'.\n"
+            "Set false if 'IRRELEVANT' or 'BACKGROUND'.\n"
+            'Return JSON: {"triage_results": [{"id": "0", "category": "...", "relevance_rationale": "...", "selected_for_deep_dive": true/false}]}'
         )
 
         payload = {
@@ -298,7 +414,7 @@ class GroqClient:
             "messages": [
                 {
                     "role": "system",
-                    "content": "You are a scientific literature triage analyst. Return strict JSON. Strictly reject papers that do not study the queried exposure and outcome.",
+                    "content": "You are a scientific literature triage analyst. Return strict JSON. Strictly evaluate study relevance to the queried research question.",
                 },
                 {"role": "user", "content": prompt},
             ],
@@ -307,27 +423,67 @@ class GroqClient:
         }
         headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
 
-        for attempt in range(self.max_retries):
+        # Retry with bounded exponential backoff and jitter
+        for attempt in range(self.max_retries + 1):
             try:
                 async with httpx.AsyncClient(timeout=self.timeout_seconds) as client:
                     res = await client.post(self.base_url, headers=headers, json=payload)
                     if res.status_code == 200:
                         data = json.loads(res.json()["choices"][0]["message"]["content"])
-                        self.cache.set(cache_key, "groq", "triage_paper", data)
-                        return data
+                        t_list = data.get("triage_results", [])
+                        by_id = {str(item.get("id")): item for item in t_list if isinstance(item, dict)}
+                        for i in uncached_indices:
+                            t_rec = by_id.get(str(i))
+                            if t_rec:
+                                t_clean = {
+                                    "category": t_rec.get("category", "INDIRECT_EVIDENCE"),
+                                    "relevance_rationale": t_rec.get("relevance_rationale", "Screened via batch LLM triage."),
+                                    "selected_for_deep_dive": bool(t_rec.get("selected_for_deep_dive", False)),
+                                    "is_heuristic_fallback": False,
+                                }
+                                ckey = self.cache.compute_key("groq", "triage_paper_v2", {"title": papers[i].get("title", ""), "query": query})
+                                self.cache.set(ckey, "groq", "triage_paper_v2", t_clean)
+                                results[i] = t_clean
+                            else:
+                                results[i] = self.heuristic_triage(papers[i].get("title", ""), papers[i].get("abstract", ""), query)
+                        return [r for r in results if r is not None]
                     elif res.status_code == 429:
-                        await asyncio.sleep(1.0 * (attempt + 1))
+                        retry_after_hdr = res.headers.get("retry-after")
+                        try:
+                            retry_after = float(retry_after_hdr) if retry_after_hdr else None
+                        except (ValueError, TypeError):
+                            retry_after = None
+                        if retry_after is not None and retry_after > 5.0:
+                            logger.warning(
+                                f"Groq rate limit retry-after ({retry_after:.1f}s) exceeds budget (5.0s max); aborting retry and falling back."
+                            )
+                            break
+                        actual_sleep = min(
+                            retry_after
+                            if retry_after is not None
+                            else (1.5 * (attempt + 1) + (0.2 * attempt)),
+                            5.0,
+                        )
+                        logger.warning(
+                            f"Groq batch triage hit 429; backing off for {actual_sleep:.1f}s (attempt {attempt + 1})"
+                        )
+                        await asyncio.sleep(actual_sleep)
             except Exception as e:
-                logger.warning(f"Groq triage attempt {attempt + 1} failed: {e}")
-                if attempt < self.max_retries - 1:
-                    await asyncio.sleep(0.5 * (attempt + 1))
+                logger.warning(f"Groq batch triage attempt {attempt + 1} failed: {e}")
+                if attempt < self.max_retries:
+                    await asyncio.sleep(1.0 * (attempt + 1))
 
-        # Safe fail-closed fallback: never classify as DIRECT_EMPIRICAL on failure
-        return {
-            "category": "IRRELEVANT",
-            "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
-            "selected_for_deep_dive": False,
-        }
+        # On total failure/rate limit exhaustion, use heuristic triage instead of marking IRRELEVANT
+        logger.info("Batch LLM triage unavailable after retries; falling back to deterministic heuristic triage.")
+        for i in uncached_indices:
+            results[i] = self.heuristic_triage(papers[i].get("title", ""), papers[i].get("abstract", ""), query)
+
+        return [r for r in results if r is not None]
+
+    async def triage_paper(self, paper_title: str, abstract: str, query: str) -> Dict[str, Any]:
+        """Triage a single candidate paper, using batch method under the hood for consistency."""
+        res_list = await self.triage_papers_batch([{"title": paper_title, "abstract": abstract}], query)
+        return res_list[0] if res_list else self.heuristic_triage(paper_title, abstract, query)
 
     async def analyze_disagreements(self, query: str, claims_summary: str) -> List[Dict[str, Any]]:
         """Reasons across empirical claims to identify genuine disagreements, moderators, and explanations."""
@@ -403,13 +559,18 @@ class GroqClient:
             f"Coverage: {coverage_stats}\n\n"
             "Synthesize a rigorous, evidence-grounded executive summary.\n"
             "Rules:\n"
-            "1. bottom_line: A direct, unambiguous scientific answer in 1-2 sentences. Never lead with 'INSUFFICIENT_EVIDENCE'.\n"
-            "   IMPORTANT: Do NOT claim that an effect varies with conditions (e.g. climate or city density) unless direct multi-setting trials in the ledger explicitly verified it. If the ledger studies are single-city, explicitly qualify that cross-climate variation is not directly established.\n"
+            "1. bottom_line: A direct, unambiguous scientific answer in 1-2 sentences. Never lead with 'INSUFFICIENT_EVIDENCE' or a vague truism like 'findings show divergence depending on conditions'.\n"
+            "   State the central substantive scientific conclusion directly while strictly separating established background knowledge from retrieved evidence:\n"
+            "   - Separation of established consensus vs retrieved evidence: For topics where broad consensus exists (e.g. HPV causing cervical cancer, smoking increasing lung cancer risk), you may acknowledge the established scientific baseline, but you MUST explicitly distinguish that broader consensus from what the retrieved ledger independently proves. Never fabricate citations, and never present general model training knowledge as if it were a finding extracted from the ledger.\n"
+            "   - Observational association vs causation: A high odds ratio or relative risk from observational studies (e.g. case-control or cohort studies) demonstrates strong statistical association or risk factor status, but DOES NOT by itself prove causality. Do NOT assert that the retrieved evidence independently establishes causation unless authoritative causal syntheses or explicit causal demonstrations are present in the ledger.\n"
+            "   - Comparative evidence coverage: Clearly distinguish between 'no qualifying head-to-head trials retrieved in the current sample' versus 'retrieved head-to-head trials whose results are inconclusive'. An absence of comparative studies in the retrieved ledger does NOT prove that no literature exists in science, nor does it imply that the interventions are equivalent. Do NOT claim that interventions are 'equivalent' unless direct head-to-head trials under matched conditions in the ledger explicitly evaluated and demonstrated equivalence.\n"
+            "   - Population fidelity: NEVER generalize findings from narrow clinical subpopulations (such as second primary lung cancer in prior cancer patients) to the broader general population unless directly supported.\n"
+            "   - Condition variation: Do NOT claim that an effect varies with conditions (e.g. climate or city density) unless direct multi-setting trials in the ledger explicitly verified it. If the ledger studies are single-city, explicitly qualify that cross-climate variation is not directly established.\n"
             "2. overall_evidence_assessment: State clearly whether evidence 'broadly supports', 'broadly challenges', 'shows mixed results', 'suggests context-dependent effects', or 'remains inconclusive'.\n"
             "3. strongest_supporting_evidence: Summarize the most definitive supporting paper(s) and what they measured.\n"
             "4. strongest_conflicting_evidence: Summarize studies that genuinely challenge or qualify the leading interpretation (or note if evidence is uniformly consistent).\n"
             "5. why_studies_disagree: Explain scientific causes of divergence (metrics, baseline, dose, duration, setting).\n"
-            "6. confidence_and_limitations: State evidence robustness honestly without claiming uncalibrated probabilities. Explicitly list any unverified subclaims (e.g., cross-climate variation or partial vs total sleep comparisons).\n"
+            "6. confidence_and_limitations: State evidence robustness honestly without claiming uncalibrated probabilities. Explicitly list any unverified subclaims (e.g., cross-climate variation, formal causal frameworks, or partial vs total sleep comparisons).\n"
             "7. research_coverage: Summarize coverage counts (retrieved vs examined, abstract vs full-text).\n"
             "Return JSON matching keys: bottom_line, overall_evidence_assessment, strongest_supporting_evidence, strongest_conflicting_evidence, why_studies_disagree, confidence_and_limitations, research_coverage."
         )
@@ -437,7 +598,23 @@ class GroqClient:
                         self.cache.set(cache_key, "groq", "exec_summary", data)
                         return data
                     elif res.status_code == 429:
-                        await asyncio.sleep(1.0 * (attempt + 1))
+                        retry_after_hdr = res.headers.get("retry-after")
+                        try:
+                            retry_after = float(retry_after_hdr) if retry_after_hdr else None
+                        except (ValueError, TypeError):
+                            retry_after = None
+                        if retry_after is not None and retry_after > 5.0:
+                            logger.warning(
+                                f"Groq rate limit retry-after ({retry_after:.1f}s) exceeds budget (5.0s max); aborting retry and falling back."
+                            )
+                            break
+                        actual_sleep = min(
+                            retry_after if retry_after is not None else (1.0 * (attempt + 1)), 5.0
+                        )
+                        logger.warning(
+                            f"Groq executive summary hit 429; backing off for {actual_sleep:.1f}s (attempt {attempt + 1})"
+                        )
+                        await asyncio.sleep(actual_sleep)
             except Exception as e:
                 logger.warning(f"Groq executive summary synthesis attempt {attempt + 1} failed: {e}")
                 if attempt < self.max_retries - 1:

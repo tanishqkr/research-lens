@@ -1,0 +1,178 @@
+{
+  "query": "Does statin therapy increase the risk of cataract development?",
+  "executive_summary": {
+    "bottom_line": "The available empirical studies demonstrate consistent reductions or negative impacts.",
+    "overall_evidence_assessment": "broadly supports an inverse or reducing relationship",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does statin therapy increase the risk of cataract development",
+        "status": "SUPPORTED",
+        "rationale": "Directly addressed by empirical evidence claims in papers: W2801534920, W2603933990.",
+        "evidence_paper_ids": [
+          "W2801534920",
+          "W2603933990"
+        ]
+      }
+    ],
+    "strongest_supporting_evidence": "Adverse effects of statin therapy: perception vs. the evidence \u2013 focus on glucose homeostasis, cognitive, renal and hepatic function, haemorrhagic stroke and cataract: Randomized controlled trials (RCTs) and genetic studies show that statin therapy is associated with a modest increase in the risk of new-onset diabetes mellitus (about one per thousand patient-years), generally defined by laboratory findings (glycated haemoglobin \u22656.5); this risk is significantly higher in the metabolic syndrome or prediabetes.",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 3 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 3,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does statin therapy increase the risk of cataract development",
+      "status": "SUPPORTED",
+      "rationale": "Directly addressed by empirical evidence claims in papers: W2801534920, W2603933990.",
+      "evidence_paper_ids": [
+        "W2801534920",
+        "W2603933990"
+      ]
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W1986691554",
+      "title": "Response to Letter on \u201cStatins Use and Risk of Cataracts",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2996858920",
+      "title": "Statins and the risk of cataract",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper explicitly states that it presents systematic reviews and meta-analyses regarding the association between statin intake and cataract risk, directly addressing the queried exposure and outcome.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2088410052",
+      "title": "Association of Statin Use With Cataracts",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2801534920",
+      "title": "Adverse effects of statin therapy: perception vs. the evidence \u2013 focus on glucose homeostasis, cognitive, renal and hepatic function, haemorrhagic stroke and cataract",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a literature review (covering 2000-2017) that explicitly appraises evidence regarding the association between statin therapy and cataract development. It directly addresses the research question by synthesizing data from RCTs and genetic studies to conclude that statin treatment is not associated with the development of cataract.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W3187298256",
+      "title": "Cataract Surgery in Elderly Subjects with Heterozygous Familial Hypercholesterolemia in Prolonged Treatment with Statins",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2603933990",
+      "title": "Statin Use and the Risk of Cataracts: A Systematic Review and Meta\u2010Analysis",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a systematic review and meta-analysis that directly evaluates the association between statin use and the risk of cataracts, which is the exact research question posed. It synthesizes data from multiple study designs (cohort, case-control, RCTs) to provide a comprehensive answer.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4391449750",
+      "title": "Potential Benefits and Risks Associated with the Use of Statins",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3105329198",
+      "title": "Shared Decisions: A Qualitative Study on Clinician and Patient Perspectives on Statin Therapy and Statin\u2010Associated Side Effects",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2267561229",
+      "title": "Overcoming Challenges With Statin Therapy",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2579626496",
+      "title": "Comprehensive efforts to increase adherence to statin therapy",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W2801534920",
+      "paper_id": "W2801534920",
+      "paper_title": "Adverse effects of statin therapy: perception vs. the evidence \u2013 focus on glucose homeostasis, cognitive, renal and hepatic function, haemorrhagic stroke and cataract",
+      "doi": "https://doi.org/10.1093/eurheartj/ehy182",
+      "url": "https://doi.org/10.1093/eurheartj/ehy182",
+      "exact_source_passage": "Randomized controlled trials (RCTs) and genetic studies show that statin therapy is associated with a modest increase in the risk of new-onset diabetes mellitus (about one per thousand patient-years), generally defined by laboratory findings (glycated haemoglobin \u22656.5); this risk is significantly higher in the metabolic syndrome or prediabetes.",
+      "study_design": "Systematic Review",
+      "population_setting": "Patients receiving statin therapy, specifically noting higher risk in those with metabolic syndrome or prediabetes",
+      "intervention_exposure": "Statin therapy",
+      "comparator": "Implied control/placebo (standard for RCTs)",
+      "outcome": "New-onset diabetes mellitus",
+      "direction": "NEGATIVE",
+      "effect_size": "About one per thousand patient-years",
+      "conditions_and_moderators": "The finding is a synthesis of RCTs and genetic studies; the risk is described as 'modest' but 'significantly higher' in specific subgroups.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": false,
+      "is_review_synthesis": true
+    },
+    {
+      "claim_id": "claim_find_W2603933990",
+      "paper_id": "W2603933990",
+      "paper_title": "Statin Use and the Risk of Cataracts: A Systematic Review and Meta\u2010Analysis",
+      "doi": "https://doi.org/10.1161/jaha.116.004180",
+      "url": "https://doi.org/10.1161/jaha.116.004180",
+      "exact_source_passage": "Weighted averages were reported as relative risk values with 95% CI s.",
+      "study_design": "Systematic Review",
+      "population_setting": null,
+      "intervention_exposure": "Weighted Averages",
+      "comparator": null,
+      "outcome": "Relative Risk Values",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": false,
+      "is_review_synthesis": true
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [
+    {
+      "pair_id": "pair_find_W2801534920_find_W2603933990",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.92,
+      "confidence_score": 0.92,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.06353595852851868,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.0,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.022237585484981535,
+        "summary_of_differences": "Intervention differs: 'Statin therapy' vs 'Weighted Averages' (sim=0.06); Comparator differs: 'Implied control/placebo (standard for RCTs)' vs 'None' (sim=0.00); Outcome metric differs: 'New-onset diabetes mellitus' vs 'Relative Risk Values' (sim=0.00); Setting/Cohort differs: 'Clinical trials and genetic studies' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    }
+  ],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

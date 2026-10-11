@@ -1,0 +1,323 @@
+{
+  "query": "Does dietary sodium restriction lower blood pressure in hypertensive individuals?",
+  "executive_summary": {
+    "bottom_line": "The available empirical studies demonstrate consistent reductions or negative impacts.",
+    "overall_evidence_assessment": "broadly supports an inverse or reducing relationship",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: Does dietary sodium restriction lower blood pressure in hypertensive individuals",
+        "status": "SUPPORTED",
+        "rationale": "Directly addressed by empirical evidence claims in papers: W2286228939, W1973663762.",
+        "evidence_paper_ids": [
+          "W2286228939",
+          "W1973663762"
+        ]
+      }
+    ],
+    "strongest_supporting_evidence": "Definitions and characteristics of sodium sensitivity and blood pressure resistance.: Factors related to the change in mean arterial blood pressure after sodium and volume depletion included baseline pressure (r = -0.54, p less than 0.001) and age (r = -0.16, p = 0.002 in the normotensive group; r = -0.28, p less than 0.001 in the hypertensive group).",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 5 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 5,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: Does dietary sodium restriction lower blood pressure in hypertensive individuals",
+      "status": "SUPPORTED",
+      "rationale": "Directly addressed by empirical evidence claims in papers: W2286228939, W1973663762.",
+      "evidence_paper_ids": [
+        "W2286228939",
+        "W1973663762"
+      ]
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W1974588561",
+      "title": "Dietary Sodium Restriction as Adjunctive Treatment of Hypertension",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from a study of 114 hypertensive patients, directly measuring the effect of dietary sodium restriction on blood pressure. It reports significant falls in blood pressure associated with the intervention, directly addressing the research question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2148076762",
+      "title": "Definitions and characteristics of sodium sensitivity and blood pressure resistance.",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data from a study involving 198 subjects with essential hypertension. It explicitly measures blood pressure changes following sodium and volume depletion (induced by a low sodium diet and furosemide) and identifies a subset of hypertensive individuals who are 'sodium-sensitive' (showing a significant drop in blood pressure). This directly provides evidence on whether dietary sodium restriction lowers blood pressure in hypertensive individuals, although it highlights heterogeneity in response.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W1978229420",
+      "title": "Effect of Reduced Dietary Sodium on Blood Pressure",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a systematic review and meta-analysis of 56 randomized controlled trials specifically investigating the effect of dietary sodium restriction on blood pressure in both hypertensive and normotensive individuals. It directly addresses the research question by synthesizing empirical data on the target intervention (sodium restriction) and outcome (blood pressure reduction).",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2166834409",
+      "title": "Blood pressure response to dietary sodium restriction in normotensive adults.",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2286228939",
+      "title": "Insulin sensitivity is associated with blood pressure response to sodium in older hypertensives",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The study is a randomized crossover trial involving hypertensive individuals that directly measures the effect of dietary sodium restriction (low vs. high sodium diets) on blood pressure (specifically Mean Arterial Blood Pressure). Although the primary focus of the abstract is on insulin sensitivity, the study design and data collection explicitly include the target outcome (blood pressure response to sodium), providing direct empirical evidence on whether sodium restriction lowers blood pressure in this population.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4229065022",
+      "title": "MO093: Dietary Sodium Restriction Reduces Nocturnal Blood Pressure in Treatment Resistant Hypertensive Patients",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2123446777",
+      "title": "Effects of Dietary Fish and Weight Reduction on Ambulatory Blood Pressure in Overweight Hypertensives",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2040581237",
+      "title": "Blood pressure, sodium intake, and sodium related hormones in the Yanomamo Indians, a \"no-salt\" culture.",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W1973663762",
+      "title": "Moderate dietary sodium restriction added to angiotensin converting enzyme inhibition compared with dual blockade in lowering proteinuria and blood pressure: randomised controlled trial",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper is a randomized controlled trial that directly measures the effect of dietary sodium restriction (low sodium diet vs. regular sodium diet) on blood pressure (a secondary outcome). Although the population is patients with non-diabetic nephropathy (who are likely hypertensive or at risk, and the study focuses on proteinuria), it provides original empirical data on the specific intervention (sodium restriction) and outcome (blood pressure) requested in the question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2145950841",
+      "title": "Dietary Sodium and Blood Pressure",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W2148076762",
+      "paper_id": "W2148076762",
+      "paper_title": "Definitions and characteristics of sodium sensitivity and blood pressure resistance.",
+      "doi": "https://doi.org/10.1161/01.hyp.8.6_pt_2.ii127",
+      "url": "https://doi.org/10.1161/01.hyp.8.6_pt_2.ii127",
+      "exact_source_passage": "Factors related to the change in mean arterial blood pressure after sodium and volume depletion included baseline pressure (r = -0.54, p less than 0.001) and age (r = -0.16, p = 0.002 in the normotensive group; r = -0.28, p less than 0.001 in the hypertensive group).",
+      "study_design": "Primary trial (Observational/Cross-sectional analysis within an interventional context)",
+      "population_setting": "Normotensive and hypertensive participants",
+      "intervention_exposure": "Sodium and volume depletion",
+      "comparator": "Baseline state (pre-depletion)",
+      "outcome": "Change in mean arterial blood pressure",
+      "direction": "NEGATIVE",
+      "effect_size": "r = -0.54 (baseline pressure); r = -0.16 (age, normotensive); r = -0.28 (age, hypertensive)",
+      "conditions_and_moderators": "Correlational analysis; specific study design (e.g., RCT vs. cohort) not explicitly stated in the snippet but implies a controlled physiological challenge.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    },
+    {
+      "claim_id": "claim_find_W1978229420",
+      "paper_id": "W1978229420",
+      "paper_title": "Effect of Reduced Dietary Sodium on Blood Pressure",
+      "doi": "https://doi.org/10.1001/jama.1996.03530440070039",
+      "url": "https://doi.org/10.1001/jama.1996.03530440070039",
+      "exact_source_passage": "DATA SYNTHESIS: - The 56 trials that met our inclusion criteria showed significant heterogeneity.",
+      "study_design": "Systematic Review",
+      "population_setting": null,
+      "intervention_exposure": "The 56 Trials",
+      "comparator": null,
+      "outcome": "Our Inclusion Criteria",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": false,
+      "is_review_synthesis": true
+    },
+    {
+      "claim_id": "claim_find_W2286228939",
+      "paper_id": "W2286228939",
+      "paper_title": "Insulin sensitivity is associated with blood pressure response to sodium in older hypertensives",
+      "doi": "https://doi.org/10.1152/ajpendo.1998.274.3.e403",
+      "url": "https://doi.org/10.1152/ajpendo.1998.274.3.e403",
+      "exact_source_passage": "An analysis of variance indicated a significant (P = 0.0002) group effect, with SS individuals having lower fasting plasma insulins on the low- (13 +/- 2 vs.",
+      "study_design": "Empirical Study",
+      "population_setting": null,
+      "intervention_exposure": "An Analysis",
+      "comparator": null,
+      "outcome": "Variance",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    },
+    {
+      "claim_id": "claim_find_W1973663762",
+      "paper_id": "W1973663762",
+      "paper_title": "Moderate dietary sodium restriction added to angiotensin converting enzyme inhibition compared with dual blockade in lowering proteinuria and blood pressure: randomised controlled trial",
+      "doi": "https://doi.org/10.1136/bmj.d4366",
+      "url": "https://doi.org/10.1136/bmj.d4366",
+      "exact_source_passage": "RESULTS: Mean urinary sodium excretion, a measure of dietary sodium intake, was 106 (SE 5) mmol Na(+)/day during a low sodium diet and 184 (6) mmol Na(+)/day during a regular sodium diet (P<0.001).",
+      "study_design": "Empirical Study",
+      "population_setting": null,
+      "intervention_exposure": "Mean Urinary Sodium Excretion",
+      "comparator": null,
+      "outcome": "Dietary Sodium Intake",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true,
+      "is_review_synthesis": false
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [
+    {
+      "pair_id": "pair_find_W2148076762_find_W1978229420",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.925,
+      "confidence_score": 0.925,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.0,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.0,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.0,
+        "summary_of_differences": "Intervention differs: 'Sodium and volume depletion' vs 'The 56 Trials' (sim=0.00); Comparator differs: 'Baseline state (pre-depletion)' vs 'None' (sim=0.00); Outcome metric differs: 'Change in mean arterial blood pressure' vs 'Our Inclusion Criteria' (sim=0.00); Setting/Cohort differs: 'Clinical/Physiological study' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W2148076762_find_W2286228939",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.915,
+      "confidence_score": 0.915,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.08810360729694366,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.2146700918674469,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.09523729011416435,
+        "summary_of_differences": "Intervention differs: 'Sodium and volume depletion' vs 'An Analysis' (sim=0.09); Comparator differs: 'Baseline state (pre-depletion)' vs 'None' (sim=0.00); Outcome metric differs: 'Change in mean arterial blood pressure' vs 'Variance' (sim=0.21); Setting/Cohort differs: 'Clinical/Physiological study' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W2148076762_find_W1973663762",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.879,
+      "confidence_score": 0.879,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": true,
+        "intervention_similarity": 0.5940585136413574,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.13378682732582092,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.24805652797222136,
+        "summary_of_differences": "Comparator differs: 'Baseline state (pre-depletion)' vs 'None' (sim=0.00); Outcome metric differs: 'Change in mean arterial blood pressure' vs 'Dietary Sodium Intake' (sim=0.13); Setting/Cohort differs: 'Clinical/Physiological study' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W1978229420_find_W2286228939",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.905,
+      "confidence_score": 0.905,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.19026413559913635,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.0754631906747818,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.08923140466213227,
+        "summary_of_differences": "Intervention differs: 'The 56 Trials' vs 'An Analysis' (sim=0.19); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Our Inclusion Criteria' vs 'Variance' (sim=0.08); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W1978229420_find_W1973663762",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.923,
+      "confidence_score": 0.923,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.0,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.030511442571878433,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.00915343277156353,
+        "summary_of_differences": "Intervention differs: 'The 56 Trials' vs 'Mean Urinary Sodium Excretion' (sim=0.00); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Our Inclusion Criteria' vs 'Dietary Sodium Intake' (sim=0.03); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W2286228939_find_W1973663762",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.927,
+      "confidence_score": 0.927,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.04068063572049141,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.09709371626377106,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.043366337381303306,
+        "summary_of_differences": "Intervention differs: 'An Analysis' vs 'Mean Urinary Sodium Excretion' (sim=0.04); Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Variance' vs 'Dietary Sodium Intake' (sim=0.10); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    }
+  ],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

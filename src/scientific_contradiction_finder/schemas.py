@@ -54,6 +54,37 @@ class EvidenceSpan(BaseModel):
         """Verify that the evidence span is an exact substring of the source text."""
         return self.text.strip() in source_text
 
+class StudyDesignType(str, Enum):
+    INTERVENTIONAL_TRIAL = "INTERVENTIONAL_TRIAL"
+    OBSERVATIONAL_STUDY = "OBSERVATIONAL_STUDY"
+    PREDICTION_MODEL = "PREDICTION_MODEL"
+    SYSTEMATIC_REVIEW_META_ANALYSIS = "SYSTEMATIC_REVIEW_META_ANALYSIS"
+    MECHANISTIC_EXPLORATORY = "MECHANISTIC_EXPLORATORY"
+    UNKNOWN = "UNKNOWN"
+
+
+class ProvenanceSection(str, Enum):
+    RESULTS = "RESULTS"
+    CONCLUSION = "CONCLUSION"
+    METHODS = "METHODS"
+    BACKGROUND = "BACKGROUND"
+
+
+class NumericalResult(BaseModel):
+    arm_name: str | None = Field(default=None, description="Intervention arm or group name")
+    comparator_arm: str | None = Field(default=None, description="Comparator or control arm name")
+    endpoint: str | None = Field(default=None, description="Associated clinical outcome or metric endpoint")
+    point_estimate: float | None = None
+    metric_name: str | None = None
+    ci_lower: float | None = None
+    ci_upper: float | None = None
+    p_value: float | None = None
+    unit: str | None = None
+    follow_up_horizon: str | None = Field(default=None, description="Associated follow-up duration (e.g. '6 months')")
+    sample_size: int | None = Field(default=None, description="Associated cohort or arm sample size")
+    statistical_uncertainty: str | None = Field(default=None, description="Formulated uncertainty string (e.g. '95% CI 1.12 to 1.88, p=0.002')")
+    raw_text: str | None = None
+
 
 class ConditionSlots(BaseModel):
     intervention: str | None = Field(
@@ -76,8 +107,23 @@ class ConditionSlots(BaseModel):
     effect_size: str | None = Field(
         default=None, description="Explicit quantitative or statistical effect reported"
     )
+    follow_up_duration: str | None = Field(
+        default=None, description="Reported duration of follow-up (e.g. '6 months', '12 months')"
+    )
+    sample_size: int | None = Field(
+        default=None, description="Reported cohort sample size or trial participants count"
+    )
+    numerical_results: list[NumericalResult] = Field(
+        default_factory=list, description="Structured numerical measurements extracted verbatim"
+    )
     study_design: str | None = Field(
         default=None, description="Study design (e.g. RCT, observational, simulation, benchmark)"
+    )
+    study_type: StudyDesignType = Field(
+        default=StudyDesignType.UNKNOWN, description="Classified scientific study design type"
+    )
+    provenance_section: ProvenanceSection = Field(
+        default=ProvenanceSection.RESULTS, description="Abstract or full text section"
     )
     limitations_or_qualifiers: str | None = Field(
         default=None, description="Stated qualifiers, thresholds, or condition limits"
@@ -169,6 +215,38 @@ class EvaluationResult(BaseModel):
     metadata: dict[str, Any] = Field(default_factory=dict)
 
 
+class QueryIntent(str, Enum):
+    RESEARCH_OVERVIEW = "RESEARCH_OVERVIEW"  # Method/technology discovery, landscape overview
+    CONTRADICTION_ANALYSIS = "CONTRADICTION_ANALYSIS"  # Dispute, conflict, debate, or whether X causes/improves Y
+    DIRECT_COMPARISON = "DIRECT_COMPARISON"  # Head-to-head evaluation (A vs B)
+    CLAIM_VERIFICATION = "CLAIM_VERIFICATION"  # Checking specific factual or numerical claim
+
+
+class PipelineExecutionState(str, Enum):
+    INITIALIZED = "INITIALIZED"
+    RETRIEVED = "RETRIEVED"
+    TRIAGED = "TRIAGED"
+    DEEP_DIVED = "DEEP_DIVED"
+    EXTRACTED = "EXTRACTED"
+    COMPARED = "COMPARED"
+    SYNTHESIZED = "SYNTHESIZED"
+    COMPLETED = "COMPLETED"
+    COMPLETED_WITH_LIMITATIONS = "COMPLETED_WITH_LIMITATIONS"
+    FAILED = "FAILED"
+
+
+class PredictionModelDetails(BaseModel):
+    model_method: str | None = Field(default=None, description="Prediction model, architecture, or algorithm name")
+    input_features: list[str] = Field(default_factory=list, description="Input variables or biomarker features")
+    target_condition: str | None = Field(default=None, description="Target condition or disease to predict")
+    prediction_horizon: str | None = Field(default=None, description="Time window of prediction (e.g. 4-6 hours prior to onset)")
+    comparator_score: str | None = Field(default=None, description="Comparator clinical score (e.g. SIRS, SOFA, pSOFA, PELOD)")
+    metrics_and_values: dict[str, str] = Field(default_factory=dict, description="Evaluation metrics (AUROC, Sensitivity, Specificity, AUPRC)")
+    validation_design: str | None = Field(default=None, description="Validation type (e.g. internal cross-validation, temporal, external cohort)")
+    population_setting: str | None = Field(default=None, description="Cohort description, setting (e.g. PICU, ED), sample size")
+    limitations: str | None = Field(default=None, description="Reported model limitations or dataset bias")
+
+
 class PaperTriageClassification(str, Enum):
     DIRECT_COMPARISON = "DIRECT_COMPARISON"
     DIRECT_EMPIRICAL = "DIRECT_EMPIRICAL"
@@ -179,6 +257,8 @@ class PaperTriageClassification(str, Enum):
     BACKGROUND = "BACKGROUND"
     IRRELEVANT = "IRRELEVANT"
     WEAK_OR_IRRELEVANT = "WEAK_OR_IRRELEVANT"
+    TRIAGE_UNAVAILABLE = "TRIAGE_UNAVAILABLE"
+    UNCERTAIN = "UNCERTAIN"
 
 
 class PaperTriageRecord(BaseModel):
@@ -187,6 +267,7 @@ class PaperTriageRecord(BaseModel):
     category: PaperTriageClassification
     relevance_rationale: str
     selected_for_deep_dive: bool = False
+    is_heuristic_fallback: bool = False
 
 
 class SupportedEvidenceClaim(BaseModel):
@@ -197,14 +278,20 @@ class SupportedEvidenceClaim(BaseModel):
     url: str | None = None
     exact_source_passage: str
     study_design: str | None = None
+    study_type: StudyDesignType = StudyDesignType.UNKNOWN
+    provenance_section: ProvenanceSection = ProvenanceSection.RESULTS
     population_setting: str | None = None
     intervention_exposure: str | None = None
     comparator: str | None = None
     outcome: str | None = None
     direction: DirectionLabel = DirectionLabel.UNCLEAR
     effect_size: str | None = None
+    follow_up_duration: str | None = None
+    sample_size: int | None = None
+    numerical_results: list[NumericalResult] = Field(default_factory=list)
     conditions_and_moderators: str | None = None
     limitations: str | None = None
+    prediction_model_details: PredictionModelDetails | None = None
     full_text_used: bool = False
     is_direct: bool = True
     is_review_synthesis: bool = False
@@ -281,11 +368,18 @@ class ExecutiveSummary(BaseModel):
 
 class ResearchReport(BaseModel):
     query: str
+    run_id: str | None = None
+    query_intent: QueryIntent = QueryIntent.CONTRADICTION_ANALYSIS
+    execution_state: PipelineExecutionState = PipelineExecutionState.COMPLETED
     executive_summary: ExecutiveSummary
     candidate_papers_retrieved: int
     papers_triaged: int
+    papers_abstract_screened: int = 0
     papers_deep_dived: int
     full_texts_accessible: int
+    findings_extracted: int = 0
+    comparisons_evaluated: int = 0
+    retrieval_diagnostics: dict[str, Any] = Field(default_factory=dict)
     subclaim_assessments: list[SubclaimAssessment] = Field(default_factory=list)
     triage_records: list[PaperTriageRecord] = Field(default_factory=list)
     evidence_ledger: list[SupportedEvidenceClaim] = Field(default_factory=list)
