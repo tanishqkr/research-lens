@@ -251,6 +251,23 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
                 unsafe_allow_html=True,
             )
 
+            # Subclaim Assessment Matrix
+            subclaims_to_show = es.subclaim_assessments or report.subclaim_assessments
+            if subclaims_to_show:
+                st.markdown("#### 🎯 Independent Subclaim Evidence Assessments")
+                for sc in subclaims_to_show:
+                    sc_color = (
+                        "green"
+                        if sc.status.value == "SUPPORTED"
+                        else ("orange" if sc.status.value == "QUALIFIED" else "red")
+                    )
+                    sc_badge = f"<span style='background-color:{sc_color}; color:white; padding:2px 8px; border-radius:4px; font-size:0.8em; font-weight:bold;'>{sc.status.value}</span>"
+                    st.markdown(
+                        f"- **{sc.subclaim_text}** — {sc_badge}<br>&nbsp;&nbsp;_{sc.rationale}_",
+                        unsafe_allow_html=True,
+                    )
+                st.write("")
+
             c_sum1, c_sum2 = st.columns(2)
             with c_sum1:
                 st.markdown("#### 🟢 Strongest Supporting Evidence")
@@ -264,12 +281,27 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
             ):
                 st.markdown(es.why_studies_disagree)
                 if report.disagreements:
-                    st.markdown("##### 📌 Specific Disagreement Cases")
+                    st.markdown("##### 📌 Specific Disagreement Cases & Verification")
                     for d in report.disagreements:
+                        v_color = (
+                            "green"
+                            if d.verification_status.value == "SUPPORTED"
+                            else (
+                                "orange"
+                                if d.verification_status.value == "PLAUSIBLE_UNVERIFIED"
+                                else "gray"
+                            )
+                        )
+                        v_badge = f"<span style='color:{v_color}; font-weight:bold;'>[{d.verification_status.value}]</span>"
                         st.markdown(
-                            f"- **{d.topic_or_metric}:** {', '.join(d.studies_in_disagreement)}"
+                            f"- **{d.topic_or_metric}:** {', '.join(d.studies_in_disagreement)} {v_badge}",
+                            unsafe_allow_html=True,
                         )
                         st.caption(f"Reason: {d.plausible_moderator_or_reason}")
+                        if d.supporting_evidence_ids:
+                            st.caption(
+                                f"Ledger Evidence IDs: `{', '.join(d.supporting_evidence_ids)}`"
+                            )
                         if d.suggested_follow_up_investigation:
                             st.caption(f"Follow-up: _{d.suggested_follow_up_investigation}_")
 

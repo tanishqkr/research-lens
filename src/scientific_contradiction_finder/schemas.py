@@ -205,10 +205,46 @@ class SupportedEvidenceClaim(BaseModel):
     is_direct: bool = True
 
 
+class SubclaimStatus(str, Enum):
+    SUPPORTED = "SUPPORTED"
+    QUALIFIED = "QUALIFIED"
+    UNRESOLVED = "UNRESOLVED"
+
+
+class ExplanationVerificationStatus(str, Enum):
+    SUPPORTED = "SUPPORTED"
+    PLAUSIBLE_UNVERIFIED = "PLAUSIBLE_UNVERIFIED"
+    UNRESOLVED = "UNRESOLVED"
+
+
+class SubclaimAssessment(BaseModel):
+    subclaim_text: str = Field(
+        ..., description="Specific subclaim decomposed from the original query"
+    )
+    status: SubclaimStatus = Field(
+        ..., description="Evidence status: SUPPORTED, QUALIFIED, or UNRESOLVED"
+    )
+    rationale: str = Field(
+        ..., description="Grounded explanation strictly referencing verified evidence"
+    )
+    evidence_paper_ids: list[str] = Field(
+        default_factory=list,
+        description="IDs of papers in the ledger supporting/qualifying this subclaim",
+    )
+
+
 class DisagreementExplanation(BaseModel):
     topic_or_metric: str
     studies_in_disagreement: list[str]
     plausible_moderator_or_reason: str
+    verification_status: ExplanationVerificationStatus = Field(
+        default=ExplanationVerificationStatus.PLAUSIBLE_UNVERIFIED,
+        description="Whether this explanation is empirically SUPPORTED by cited trials, PLAUSIBLE_UNVERIFIED hypothesis, or UNRESOLVED.",
+    )
+    supporting_evidence_ids: list[str] = Field(
+        default_factory=list,
+        description="Evidence claim IDs directly demonstrating this moderating factor",
+    )
     suggested_follow_up_investigation: str | None = None
 
 
@@ -217,6 +253,9 @@ class ExecutiveSummary(BaseModel):
     overall_evidence_assessment: str = Field(
         ...,
         description="broadly supports, broadly challenges, mixed results, context-dependent, or inconclusive",
+    )
+    subclaim_assessments: list[SubclaimAssessment] = Field(
+        default_factory=list, description="Independent evaluations for each decomposed subclaim"
     )
     strongest_supporting_evidence: str = Field(
         ..., description="Most informative supporting study/group and findings"
@@ -242,6 +281,7 @@ class ResearchReport(BaseModel):
     papers_triaged: int
     papers_deep_dived: int
     full_texts_accessible: int
+    subclaim_assessments: list[SubclaimAssessment] = Field(default_factory=list)
     triage_records: list[PaperTriageRecord] = Field(default_factory=list)
     evidence_ledger: list[SupportedEvidenceClaim] = Field(default_factory=list)
     disagreements: list[DisagreementExplanation] = Field(default_factory=list)

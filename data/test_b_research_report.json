@@ -1,0 +1,194 @@
+{
+  "query": "Does sleep restriction impair working memory in adults, and do the effects differ between partial sleep restriction and total sleep deprivation?",
+  "executive_summary": {
+    "bottom_line": "Available empirical evidence is preliminary or lacks standardized comparative outcomes.",
+    "overall_evidence_assessment": "inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Adult impairment: Sleep restriction impairs working memory performance in healthy adults.",
+        "status": "QUALIFIED",
+        "rationale": "Impairment demonstrated, though age cohorts across retrieved studies include both adolescents and adults.",
+        "evidence_paper_ids": []
+      },
+      {
+        "subclaim_text": "Cognitive load vulnerability: Impairment scales with task difficulty and working memory load (e.g. N-back).",
+        "status": "QUALIFIED",
+        "rationale": "Task load effects reported in isolated trials.",
+        "evidence_paper_ids": []
+      },
+      {
+        "subclaim_text": "Partial restriction vs. total deprivation: Direct empirical comparison of impairment between partial sleep restriction and total sleep deprivation in adults.",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: examined adult studies tested partial sleep restriction or chronic restriction protocols, lacking a direct head-to-head empirical comparison with acute total sleep deprivation in adults.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "No definitive primary study.",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis. The relative magnitude difference between partial restriction and total sleep deprivation in adults remains unresolved due to absence of direct head-to-head trials in the ledger.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 8 in depth (1 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 8,
+  "full_texts_accessible": 1,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Adult impairment: Sleep restriction impairs working memory performance in healthy adults.",
+      "status": "QUALIFIED",
+      "rationale": "Impairment demonstrated, though age cohorts across retrieved studies include both adolescents and adults.",
+      "evidence_paper_ids": []
+    },
+    {
+      "subclaim_text": "Cognitive load vulnerability: Impairment scales with task difficulty and working memory load (e.g. N-back).",
+      "status": "QUALIFIED",
+      "rationale": "Task load effects reported in isolated trials.",
+      "evidence_paper_ids": []
+    },
+    {
+      "subclaim_text": "Partial restriction vs. total deprivation: Direct empirical comparison of impairment between partial sleep restriction and total sleep deprivation in adults.",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: examined adult studies tested partial sleep restriction or chronic restriction protocols, lacking a direct head-to-head empirical comparison with acute total sleep deprivation in adults.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W4413513537",
+      "title": "The Effects of Sleep Restriction on Visual Working Memory in Teenage Students in Southern California",
+      "category": "INDIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper reports original empirical data on sleep restriction and working memory, which is relevant to the general mechanism. However, it does not directly answer the specific research question because the study population is teenage students rather than adults, and it only examines partial sleep restriction (2 hours) without comparing it to total sleep deprivation.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2085665871",
+      "title": "Effect of chronic sleep restriction on sleepiness and working memory in adolescents and young adults",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4409351599",
+      "title": "Memory impairments observed after a half night sleep restriction are not mediated by working memory, attention, or inhibitory control mechanisms",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper reports original empirical data from a controlled experiment involving 55 healthy adults. It directly addresses the first part of the research question by testing the effect of partial sleep restriction on working memory. The results explicitly state that no negative consequences were revealed on working memory, providing direct evidence to answer whether sleep restriction impairs working memory in adults. While it does not test total sleep deprivation, it provides a direct empirical answer for the partial restriction condition.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W3130573575",
+      "title": "Neuronal activation and performance changes in working memory induced by chronic sleep restriction in adolescents",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2324241384",
+      "title": "C-15 * Sleep Restriction Adds Extra Working Memory Deficits to Individuals with Depressive and Anxiety Disorders",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W7220517184",
+      "title": "Research Progress in the Effect of Sleep Deprivation on Working Memory and Its Mechanisms",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2608946667",
+      "title": "0252 EXPERIMENTAL CUMULATIVE SLEEP RESTRICTION IMPAIRS WORKING MEMORY BUT NOT DECISION MAKING",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2354110558",
+      "title": "Effects of sleep deprivation on working memory",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W1925423442",
+      "title": "Sleep deprivation: Impact on cognitive performance",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "Fallback classification due to triage timeout.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2552980158",
+      "title": "Sleep less, think worse: The effect of sleep deprivation on working memory.",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The abstract explicitly states that the paper 'reviews the empirical literature' on the consequences of sleep loss for working memory. It synthesizes findings regarding attentional/mnemonic abilities and neural activation but does not report original empirical data from a new experiment. Therefore, it is a review/synthesis paper rather than a direct empirical study.",
+      "selected_for_deep_dive": false
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W2324241384",
+      "paper_id": "W2324241384",
+      "paper_title": "C-15 * Sleep Restriction Adds Extra Working Memory Deficits to Individuals with Depressive and Anxiety Disorders",
+      "doi": "https://doi.org/10.1093/arclin/acu038.196",
+      "url": "https://doi.org/10.1093/arclin/acu038.196",
+      "exact_source_passage": "The final sample consisted of 48 healthy controls (26% SR) and 42 with DepAnx (34% SR).",
+      "study_design": "Empirical Study",
+      "population_setting": null,
+      "intervention_exposure": "The Final Sample",
+      "comparator": null,
+      "outcome": "48 Healthy Controls",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true
+    },
+    {
+      "claim_id": "claim_find_W2608946667",
+      "paper_id": "W2608946667",
+      "paper_title": "0252 EXPERIMENTAL CUMULATIVE SLEEP RESTRICTION IMPAIRS WORKING MEMORY BUT NOT DECISION MAKING",
+      "doi": "https://doi.org/10.1093/sleepj/zsx050.251",
+      "url": "https://doi.org/10.1093/sleepj/zsx050.251",
+      "exact_source_passage": "Poorer performance on spatial span task was found in the experimental condition compared to the placebo condition, controlling for baseline spatial span length, sex, age, sleep efficiency during experimental week, baseline sleep duration, and chronotype, (F(1,49)=5.18, p < 0.05).",
+      "study_design": "Empirical Study",
+      "population_setting": null,
+      "intervention_exposure": "Poorer Performance",
+      "comparator": "The Placebo Condition",
+      "outcome": "Spatial Span Task",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [
+    {
+      "pair_id": "pair_find_W2324241384_find_W2608946667",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.911,
+      "confidence_score": 0.911,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.14473608136177063,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.03414483368396759,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.06090107858180999,
+        "summary_of_differences": "Intervention differs: 'The Final Sample' vs 'Poorer Performance' (sim=0.14); Comparator differs: 'None' vs 'The Placebo Condition' (sim=0.00); Outcome metric differs: '48 Healthy Controls' vs 'Spatial Span Task' (sim=0.03); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    }
+  ],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

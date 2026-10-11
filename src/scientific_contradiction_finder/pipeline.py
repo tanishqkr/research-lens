@@ -8,6 +8,12 @@ from scientific_contradiction_finder.extraction.condition_tagger import Conditio
 from scientific_contradiction_finder.extraction.finding_extractor import FindingExtractor
 from scientific_contradiction_finder.reasoning.classifier import ConditionAwareRelationClassifier
 from scientific_contradiction_finder.reasoning.compatibility import ConditionCompatibilityEvaluator
+from scientific_contradiction_finder.reasoning.summary_validator import (
+    assess_subclaims,
+    decompose_query_into_subclaims,
+    enforce_summary_consistency,
+    verify_disagreement_explanations,
+)
 from scientific_contradiction_finder.retrieval.arxiv_client import ArxivClient
 from scientific_contradiction_finder.retrieval.bm25_retriever import BM25Retriever
 from scientific_contradiction_finder.retrieval.deduplicator import DocumentDeduplicator
@@ -374,8 +380,14 @@ class ContradictionFinderPipeline:
         disagreements: List[DisagreementExplanation] = [
             DisagreementExplanation(**d) for d in disagreements_raw if isinstance(d, dict)
         ]
+        # Verify and ground disagreement explanations against evidence ledger
+        disagreements = verify_disagreement_explanations(disagreements, evidence_ledger)
 
-        # Stage H: Executive Summary Synthesis
+        # Stage H: Subclaim Decomposition & Independent Evidence Audit
+        subclaim_texts = decompose_query_into_subclaims(query)
+        subclaim_assessments = assess_subclaims(subclaim_texts, evidence_ledger)
+
+        # Stage I: Executive Summary Synthesis
         cov_stats = {
             "retrieved_total": len(candidates),
             "examined_in_depth": len(deep_dive_papers),
@@ -383,7 +395,7 @@ class ContradictionFinderPipeline:
             "full_texts_accessible": full_text_count,
         }
         disag_summary_text = "\n".join(
-            f"- Topic: {d.topic_or_metric}; Studies: {', '.join(d.studies_in_disagreement)}; Reason: {d.plausible_moderator_or_reason}"
+            f"- Topic: {d.topic_or_metric}; Studies: {', '.join(d.studies_in_disagreement)}; Status: {d.verification_status.value}; Reason: {d.plausible_moderator_or_reason}"
             for d in disagreements
         )
         exec_raw = await self.groq_client.synthesize_executive_summary(
@@ -447,6 +459,11 @@ class ContradictionFinderPipeline:
                 research_coverage=f"Retrieved {len(candidates)} candidate papers; examined {len(deep_dive_papers)} in depth ({full_text_count} open-access full texts).",
             )
 
+        # Enforce consistency between evidence ledger, subclaim assessments, and executive summary
+        exec_summary = enforce_summary_consistency(
+            exec_summary, subclaim_assessments, evidence_ledger
+        )
+
         return ResearchReport(
             query=query,
             executive_summary=exec_summary,
@@ -454,6 +471,7 @@ class ContradictionFinderPipeline:
             papers_triaged=len(triage_records),
             papers_deep_dived=len(deep_dive_papers),
             full_texts_accessible=full_text_count,
+            subclaim_assessments=subclaim_assessments,
             triage_records=triage_records,
             evidence_ledger=evidence_ledger,
             disagreements=disagreements,

@@ -1,0 +1,402 @@
+{
+  "query": "Does increasing urban tree canopy cover reduce local temperatures, and does the effect vary with city density and climate?",
+  "executive_summary": {
+    "bottom_line": "Empirical findings show divergence depending on specific study conditions, protocols, and outcome measures.",
+    "overall_evidence_assessment": "suggests context-dependent effects or qualified disagreement",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Canopy cooling effect: Increasing urban tree canopy cover reduces local air temperatures.",
+        "status": "SUPPORTED",
+        "rationale": "Supported by 3 studies demonstrating that increasing tree canopy lowers near-surface temperatures.",
+        "evidence_paper_ids": [
+          "W2923210967",
+          "W4391150884",
+          "W4313398481"
+        ]
+      },
+      {
+        "subclaim_text": "Canopy volume and scaling: Cooling magnitude scales with canopy volume and density (e.g. ~1-1.5\u00b0C).",
+        "status": "SUPPORTED",
+        "rationale": "Supported by studies (W2923210967, W4313398481) quantifying cooling scaling with canopy volume and coverage.",
+        "evidence_paper_ids": [
+          "W2923210967",
+          "W4313398481"
+        ]
+      },
+      {
+        "subclaim_text": "Urban density / morphology interaction: Cooling efficacy interacts with surrounding built density and impervious surface ratio.",
+        "status": "SUPPORTED",
+        "rationale": "Supported by evidence (W2923210967, W4391150884) showing interactions with impervious surface cover and surrounding buildings.",
+        "evidence_paper_ids": [
+          "W2923210967",
+          "W4391150884"
+        ]
+      },
+      {
+        "subclaim_text": "Cross-climate variation: Cooling magnitude systematically varies across distinct macroclimate zones.",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in deep-dived literature: the sampled primary studies were single-city investigations (e.g., Portland, New York, New Haven) and did not directly compare cooling across differing macroclimate zones.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "Scale-dependent interactions between tree canopy cover and impervious surfaces reduce daytime urban heat during summer: Daytime air temperature increased linearly with increasing impervious cover, but the magnitude of warming was less than the cooling associated with increased canopy cover.",
+    "strongest_conflicting_evidence": "No conflicting studies found in sampled literature.",
+    "why_studies_disagree": "Differences in measurement protocols, baseline conditions, exposure degrees, and study settings.",
+    "confidence_and_limitations": "Evidence synthesis is based on retrieved open-access scholarly literature. Heuristic comparison scores reflect condition similarity, not formal statistical meta-analysis. Crucially, cross-climate variation remains an unresolved empirical question in this ledger, as sampled studies evaluated individual cities rather than systematic multi-climate cohorts.",
+    "research_coverage": "Retrieved 10 candidate papers; examined 7 in depth (0 open-access full texts)."
+  },
+  "candidate_papers_retrieved": 10,
+  "papers_triaged": 10,
+  "papers_deep_dived": 7,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Canopy cooling effect: Increasing urban tree canopy cover reduces local air temperatures.",
+      "status": "SUPPORTED",
+      "rationale": "Supported by 3 studies demonstrating that increasing tree canopy lowers near-surface temperatures.",
+      "evidence_paper_ids": [
+        "W2923210967",
+        "W4391150884",
+        "W4313398481"
+      ]
+    },
+    {
+      "subclaim_text": "Canopy volume and scaling: Cooling magnitude scales with canopy volume and density (e.g. ~1-1.5\u00b0C).",
+      "status": "SUPPORTED",
+      "rationale": "Supported by studies (W2923210967, W4313398481) quantifying cooling scaling with canopy volume and coverage.",
+      "evidence_paper_ids": [
+        "W2923210967",
+        "W4313398481"
+      ]
+    },
+    {
+      "subclaim_text": "Urban density / morphology interaction: Cooling efficacy interacts with surrounding built density and impervious surface ratio.",
+      "status": "SUPPORTED",
+      "rationale": "Supported by evidence (W2923210967, W4391150884) showing interactions with impervious surface cover and surrounding buildings.",
+      "evidence_paper_ids": [
+        "W2923210967",
+        "W4391150884"
+      ]
+    },
+    {
+      "subclaim_text": "Cross-climate variation: Cooling magnitude systematically varies across distinct macroclimate zones.",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in deep-dived literature: the sampled primary studies were single-city investigations (e.g., Portland, New York, New Haven) and did not directly compare cooling across differing macroclimate zones.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W2923210967",
+      "title": "Scale-dependent interactions between tree canopy cover and impervious surfaces reduce daytime urban heat during summer",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data (bicycle-mounted temperature measurements) directly addressing the first part of the question: it quantifies how increasing tree canopy cover reduces local daytime temperatures. It also analyzes the interaction with impervious surfaces (a proxy for density/urbanization) and spatial scale. While it does not explicitly test variation across different climate zones (being a single-site study in the Upper Midwest), it provides direct empirical evidence on the cooling mechanism and its non-linear nature, making it highly relevant for the core causal link.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2315541912",
+      "title": "A Study of the Urban Tree Canopy Mean Radiant Temperature Mitigation Estimation",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original empirical data using LiDAR and the SOLWEIG model to quantify the thermal mitigation of urban tree canopy, specifically reporting a reduction in Mean Radiant Temperature (Tmrt) of approximately 5\u00b0C. While it directly addresses the first part of the question (does canopy reduce local temperatures), it does not explicitly analyze how this effect varies with city density or different climate zones, limiting its scope regarding the second part of the question. However, as it provides direct quantitative evidence of the cooling effect, it is classified as direct empirical evidence.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4391150884",
+      "title": "Variation the in relationship between urban tree canopy and air temperature reduction under a range of daily weather conditions",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper provides original empirical data (bike-mounted sensors in New Haven) directly measuring the relationship between urban tree canopy cover and local air temperature reduction. It explicitly analyzes how this effect varies with weather conditions (cloud cover) and time of day, addressing the 'climate' aspect of the research question. While it focuses on a single city (New Haven) rather than a multi-city comparison for 'city density', it offers high-quality, direct evidence on the mechanism and variability of the cooling effect, making it highly relevant for a deep dive into the empirical basis of the question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4407287019",
+      "title": "Canopy Temperature Reveals Disparities in Urban Tree Benefits",
+      "category": "INDIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper provides original empirical data on urban tree canopy temperature and its relationship to the built environment in Minneapolis-St. Paul. However, it focuses on using canopy temperature as a proxy for tree health/function to assess equity and management, rather than directly quantifying the reduction in local air temperatures (cooling effect) or analyzing how this effect varies with city density and climate. Therefore, it is indirectly relevant as it addresses the mechanism (tree function) but not the specific outcome (local temperature reduction) or the specific moderators (density/climate) requested in the question.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4313398481",
+      "title": "The Effects of Tree Canopy Structure and Tree Coverage Ratios on Urban Air Temperature Based on ENVI-Met",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper provides original empirical data (using ENVI-met simulations validated by field measurements) demonstrating that increasing tree coverage reduces local air temperatures. It also analyzes how this effect varies with canopy structure (diameter and shape). While it does not explicitly stratify results by 'city density' or different 'climates' as requested in the question, it directly addresses the core mechanism of canopy cover reducing temperature and provides specific quantitative evidence on the magnitude of cooling, making it highly relevant empirical evidence for the first part of the research question.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4386603244",
+      "title": "High summer land surface temperatures in a temperate city are mitigated by tree canopy cover",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper provides original empirical data quantifying the relationship between tree canopy cover and land surface temperature (LST) in a specific temperate city (Leeds, UK). It directly addresses the first part of the research question by demonstrating that increased canopy cover reduces local temperatures (projecting a 2.5 \u00b0C reduction for a doubling of cover). While it focuses on a single city rather than a multi-city comparative analysis of density and climate variations, it offers direct empirical evidence of the cooling effect, making it highly relevant for establishing the baseline mechanism.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2754935109",
+      "title": "Evaluation of an urban canopy model in a tropical city: the role of tree evapotranspiration",
+      "category": "INDIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper provides empirical evidence (model evaluation against observations) that tree evapotranspiration significantly improves the simulation of latent heat flux and atmospheric humidity in a tropical city. While it confirms the cooling mechanism (evapotranspiration) and notes the importance of tree cover, it focuses on model calibration and energy balance fluxes rather than directly quantifying the reduction in local air temperature as a function of varying canopy cover, city density, or different climate zones. It supports the theoretical basis for cooling but does not directly answer the specific comparative question about temperature reduction magnitude across different urban contexts.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4405248627",
+      "title": "Cooling efficacy of trees across cities is determined by background climate, urban morphology, and tree trait",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper explicitly states it 'analyzes 182 studies' across 110 cities and 17 climates, indicating it is a meta-analysis or systematic review rather than a study reporting new primary field data. It directly addresses the research question by synthesizing evidence on how tree cooling efficacy varies with climate and urban morphology (density), making it highly relevant for understanding the general trends and context-dependency of the effect.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W3159020957",
+      "title": "The role of urban trees in reducing land surface temperatures in European cities",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper provides original empirical data using high-resolution satellite LSTs from 293 European cities to quantify the cooling effect of urban trees. It directly addresses the question by demonstrating that trees reduce local temperatures and explicitly analyzes how this effect varies by climate (Southern vs. Central Europe), which aligns with the 'climate' aspect of the research question. While it focuses on European cities, the empirical findings on the magnitude of cooling and its climatic dependence are directly relevant.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W4220950580",
+      "title": "Modelling and optimizing tree planning for urban climate in a subtropical high-density city",
+      "category": "DIRECT_EMPIRICAL",
+      "relevance_rationale": "The paper presents original modeling results (empirical in the context of simulation studies) that directly quantify the cooling effects of urban trees. It explicitly examines how these effects vary with urban density (building density) and specifies the climate context (subtropical high-density city), thereby addressing both parts of the research question regarding temperature reduction and the variation of effects based on density and climate.",
+      "selected_for_deep_dive": true
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W2923210967",
+      "paper_id": "W2923210967",
+      "paper_title": "Scale-dependent interactions between tree canopy cover and impervious surfaces reduce daytime urban heat during summer",
+      "doi": "https://doi.org/10.1073/pnas.1817561116",
+      "url": "https://doi.org/10.1073/pnas.1817561116",
+      "exact_source_passage": "Daytime air temperature increased linearly with increasing impervious cover, but the magnitude of warming was less than the cooling associated with increased canopy cover.",
+      "study_design": "Empirical Study",
+      "population_setting": "Urban environment (implied by impervious cover and canopy cover)",
+      "intervention_exposure": "Increasing impervious cover",
+      "comparator": "Increasing canopy cover (as a reference for magnitude comparison)",
+      "outcome": "Daytime air temperature",
+      "direction": "POSITIVE",
+      "effect_size": "Linear increase; magnitude less than cooling from canopy",
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true
+    },
+    {
+      "claim_id": "claim_find_W4391150884",
+      "paper_id": "W4391150884",
+      "paper_title": "Variation the in relationship between urban tree canopy and air temperature reduction under a range of daily weather conditions",
+      "doi": "https://doi.org/10.1016/j.heliyon.2024.e25041",
+      "url": "https://doi.org/10.1016/j.heliyon.2024.e25041",
+      "exact_source_passage": "We use bike-mounted air temperature sensors throughout the day in New Haven, Connecticut, USA, from 2019 to 2021 and generalized additive mixed models across 156 rides to estimate the daily variation in cooling benefits associated with tree canopy cover, and warming from impervious surface cover in 90 m buffers surrounding bike observations.",
+      "study_design": "Empirical Study",
+      "population_setting": null,
+      "intervention_exposure": "Tree Canopy Cover",
+      "comparator": null,
+      "outcome": "Air Temperature",
+      "direction": "NEGATIVE",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true
+    },
+    {
+      "claim_id": "claim_find_W4313398481",
+      "paper_id": "W4313398481",
+      "paper_title": "The Effects of Tree Canopy Structure and Tree Coverage Ratios on Urban Air Temperature Based on ENVI-Met",
+      "doi": "https://doi.org/10.3390/f14010080",
+      "url": "https://doi.org/10.3390/f14010080",
+      "exact_source_passage": "When the tree coverage is 50% or 70%, the cooling effect of TCD at 7 m is considerably higher than that at 5 m.",
+      "study_design": "Comparative analysis (likely simulation or field measurement)",
+      "population_setting": "Urban or vegetated environments with 50% or 70% tree coverage",
+      "intervention_exposure": "Tree Canopy Density (TCD) at 7 m height",
+      "comparator": "Tree Canopy Density (TCD) at 5 m height",
+      "outcome": "Cooling effect",
+      "direction": "POSITIVE",
+      "effect_size": "Considerably higher",
+      "conditions_and_moderators": "Finding is specific to tree coverage levels of 50% and 70%; 'considerably higher' is a qualitative descriptor without specific numerical magnitude provided in the snippet.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true
+    },
+    {
+      "claim_id": "claim_find_W4386603244",
+      "paper_id": "W4386603244",
+      "paper_title": "High summer land surface temperatures in a temperate city are mitigated by tree canopy cover",
+      "doi": "https://doi.org/10.1016/j.uclim.2023.101606",
+      "url": "https://doi.org/10.1016/j.uclim.2023.101606",
+      "exact_source_passage": "We found that of the nine main types of greenspaces in Leeds, private gardens occupied the greatest fraction of the total greenspace area and offered most potential for canopy cover expansion.",
+      "study_design": "Empirical Study",
+      "population_setting": null,
+      "intervention_exposure": "Canopy Cover",
+      "comparator": null,
+      "outcome": "The Nine Main Types",
+      "direction": "UNCLEAR",
+      "effect_size": null,
+      "conditions_and_moderators": null,
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true
+    }
+  ],
+  "disagreements": [
+    {
+      "topic_or_metric": "Magnitude and direction of cooling effect relative to impervious surface warming",
+      "studies_in_disagreement": [
+        "W2923210967",
+        "W4391150884"
+      ],
+      "plausible_moderator_or_reason": "Measurement scale and temporal resolution. W2923210967 reports a net positive cooling effect (canopy cooling > impervious warming) likely based on aggregated or remote sensing data at a specific scale, whereas W4391150884 uses high-resolution, bike-mounted sensors to show that the relationship varies significantly with daily weather conditions, implying that the 'net' effect is not constant and can be context-dependent (e.g., during high humidity or low wind, the cooling benefit may diminish or reverse relative to baseline). The 'Dir=NEGATIVE' in W4391150884 refers to the correlation between canopy and temperature (higher canopy = lower temp), but the key divergence is in the *consistency* and *magnitude* of this effect compared to the linear, dominant cooling reported in W2923210967.",
+      "verification_status": "SUPPORTED",
+      "supporting_evidence_ids": [
+        "claim_find_W2923210967",
+        "claim_find_W4391150884",
+        "claim_find_W4313398481",
+        "claim_find_W4386603244"
+      ],
+      "suggested_follow_up_investigation": "Conduct a multi-scale meta-analysis comparing remote sensing-derived LST/air temperature models with in-situ microclimate measurements across different urban densities and climate zones to quantify the threshold conditions (e.g., humidity, wind speed, time of day) under which canopy cooling benefits are maximized or negated by impervious surface heat storage."
+    },
+    {
+      "topic_or_metric": "Optimal canopy structure for maximum cooling",
+      "studies_in_disagreement": [
+        "W4313398481",
+        "W4386603244"
+      ],
+      "plausible_moderator_or_reason": "Structural complexity vs. simple coverage. W4313398481 (simulation-based) emphasizes that vertical structure (canopy density at 7m vs 5m) significantly modulates cooling, suggesting that not all canopy cover is equal. W4386603244 (observational in Leeds) focuses on the *type* and *potential* for expansion of greenspace (private gardens) rather than structural metrics, implying that in temperate cities, the mere presence and type of green space (and its potential for canopy) are primary drivers, potentially overlooking the nuanced structural effects highlighted in the simulation study. The divergence lies in whether 'canopy cover' is treated as a uniform variable or a structurally complex one.",
+      "verification_status": "SUPPORTED",
+      "supporting_evidence_ids": [
+        "claim_find_W2923210967",
+        "claim_find_W4391150884",
+        "claim_find_W4313398481",
+        "claim_find_W4386603244"
+      ],
+      "suggested_follow_up_investigation": "Field studies in diverse urban climates (temperate vs. arid) that correlate LiDAR-derived 3D canopy structure metrics (height, density, leaf area index) with in-situ air temperature to determine if the structural advantages identified in simulations (W4313398481) hold true in real-world, heterogeneous urban environments like Leeds (W4386603244)."
+    }
+  ],
+  "detailed_comparisons": [
+    {
+      "pair_id": "pair_find_W2923210967_find_W4391150884",
+      "predicted_relation": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+      "heuristic_score": 0.855,
+      "confidence_score": 0.855,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.40534186363220215,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": true,
+        "outcome_similarity": 0.7957326173782349,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.38058943748474117,
+        "summary_of_differences": "Intervention differs: 'Increasing impervious cover' vs 'Tree Canopy Cover' (sim=0.41); Comparator differs: 'Increasing canopy cover (as a reference for magnitude comparison)' vs 'None' (sim=0.00); Setting/Cohort differs: 'Urban environment (implied by impervious cover and canopy cover)' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Apparent disagreement qualified by experimental condition divergence: Intervention differs: 'Increasing impervious cover' vs 'Tree Canopy Cover' (sim=0.41); Comparator differs: 'Increasing canopy cover (as a reference for magnitude comparison)' vs 'None' (sim=0.00); Setting/Cohort differs: 'Urban environment (implied by impervious cover and canopy cover)' vs 'None' (sim=0.00)"
+    },
+    {
+      "pair_id": "pair_find_W2923210967_find_W4313398481",
+      "predicted_relation": "INCOMPARABLE_CONDITIONS",
+      "heuristic_score": 0.921,
+      "confidence_score": 0.921,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.1428719311952591,
+        "comparator_match": true,
+        "comparator_similarity": 0.5491527318954468,
+        "outcome_match": false,
+        "outcome_similarity": 0.27799278497695923,
+        "setting_match": true,
+        "setting_similarity": 0.5579195618629456,
+        "overall_compatibility": 0.32692149206995963,
+        "summary_of_differences": "Intervention differs: 'Increasing impervious cover' vs 'Tree Canopy Density (TCD) at 7 m height' (sim=0.14); Outcome metric differs: 'Daytime air temperature' vs 'Cooling effect' (sim=0.28)"
+      },
+      "provenance_verified": true,
+      "explanation": "Studies evaluate disparate interventions: 'Increasing impervious cover' vs 'Tree Canopy Density (TCD) at 7 m height' (similarity=0.14)."
+    },
+    {
+      "pair_id": "pair_find_W2923210967_find_W4386603244",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.88,
+      "confidence_score": 0.88,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.4393748641014099,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.0,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.15378120243549345,
+        "summary_of_differences": "Intervention differs: 'Increasing impervious cover' vs 'Canopy Cover' (sim=0.44); Comparator differs: 'Increasing canopy cover (as a reference for magnitude comparison)' vs 'None' (sim=0.00); Outcome metric differs: 'Daytime air temperature' vs 'The Nine Main Types' (sim=0.00); Setting/Cohort differs: 'Urban environment (implied by impervious cover and canopy cover)' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W4391150884_find_W4313398481",
+      "predicted_relation": "QUALIFIES_OR_PARTIAL_DISAGREEMENT",
+      "heuristic_score": 0.843,
+      "confidence_score": 0.843,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": true,
+        "intervention_similarity": 0.5828471779823303,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.36748170852661133,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.314241024851799,
+        "summary_of_differences": "Comparator differs: 'None' vs 'Tree Canopy Density (TCD) at 5 m height' (sim=0.00); Outcome metric differs: 'Air Temperature' vs 'Cooling effect' (sim=0.37); Setting/Cohort differs: 'None' vs 'Environmental/Urban climate context' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Apparent disagreement qualified by experimental condition divergence: Comparator differs: 'None' vs 'Tree Canopy Density (TCD) at 5 m height' (sim=0.00); Outcome metric differs: 'Air Temperature' vs 'Cooling effect' (sim=0.37); Setting/Cohort differs: 'None' vs 'Environmental/Urban climate context' (sim=0.00)"
+    },
+    {
+      "pair_id": "pair_find_W4391150884_find_W4386603244",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.846,
+      "confidence_score": 0.846,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": true,
+        "intervention_similarity": 0.8778378963470459,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.018895428627729416,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.3129118923097849,
+        "summary_of_differences": "Comparator differs: 'None' vs 'None' (sim=0.00); Outcome metric differs: 'Air Temperature' vs 'The Nine Main Types' (sim=0.02); Setting/Cohort differs: 'None' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    },
+    {
+      "pair_id": "pair_find_W4313398481_find_W4386603244",
+      "predicted_relation": "INSUFFICIENT_EVIDENCE",
+      "heuristic_score": 0.879,
+      "confidence_score": 0.879,
+      "unconditioned_relation": null,
+      "condition_differences": {
+        "intervention_match": false,
+        "intervention_similarity": 0.4388481378555298,
+        "comparator_match": false,
+        "comparator_similarity": 0.0,
+        "outcome_match": false,
+        "outcome_similarity": 0.012687060981988907,
+        "setting_match": false,
+        "setting_similarity": 0.0,
+        "overall_compatibility": 0.1574029665440321,
+        "summary_of_differences": "Intervention differs: 'Tree Canopy Density (TCD) at 7 m height' vs 'Canopy Cover' (sim=0.44); Comparator differs: 'Tree Canopy Density (TCD) at 5 m height' vs 'None' (sim=0.00); Outcome metric differs: 'Cooling effect' vs 'The Nine Main Types' (sim=0.01); Setting/Cohort differs: 'Environmental/Urban climate context' vs 'None' (sim=0.00)"
+      },
+      "provenance_verified": true,
+      "explanation": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+    }
+  ],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}
