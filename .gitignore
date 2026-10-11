@@ -49,6 +49,7 @@ data/processed/
 data/cache/
 data/benchmarks/
 data/*.sqlite
+*.sqlite
 data/*.db
 *.sqlite3
 *.db

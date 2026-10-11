@@ -44,10 +44,13 @@ class PipelineEvaluator:
             f1_score(y_true, y_pred, labels=self.labels, average="macro", zero_division=0)
         )
 
-        precision, recall, f1, _ = precision_recall_fscore_support(
+        precision, recall, f1, support = precision_recall_fscore_support(
             y_true, y_pred, labels=self.labels, zero_division=0
         )
         per_class = {label: float(f) for label, f in zip(self.labels, f1)}
+        per_class_prec = {label: float(p) for label, p in zip(self.labels, precision)}
+        per_class_rec = {label: float(r) for label, r in zip(self.labels, recall)}
+        per_class_supp = {label: int(s) for label, s in zip(self.labels, support)}
 
         cm = confusion_matrix(y_true, y_pred, labels=self.labels)
         cm_dict = {
@@ -68,35 +71,31 @@ class PipelineEvaluator:
             macro_f1=macro_f1,
             per_class_f1=per_class,
             confusion_matrix=cm_dict,
+            metadata={
+                "per_class_precision": per_class_prec,
+                "per_class_recall": per_class_rec,
+                "per_class_support": per_class_supp,
+            },
         )
 
     def run_ablation_study(self, test_pairs: list[FindingPair]) -> dict[str, Any]:
-        """Ablation study comparing Condition-Aware full model against ablated variants."""
+        """Ablation study comparing Condition-Aware full model against genuine feature-disabled variants."""
         clf = ConditionAwareRelationClassifier()
         full_preds = clf.classify_all(test_pairs)
         full_result = self.evaluate_predictions(
             test_pairs, full_preds, dataset_name="Full Condition-Aware"
         )
 
-        # Ablation 1: Ignore Setting Divergence (Force setting_match = True)
-        preds_no_setting = []
-        for p in test_pairs:
-            pred = clf.classify_pair(p)
-            # If it was qualified because of setting, it becomes contradiction
-            if pred.predicted_relation == RelationLabel.QUALIFIES_OR_PARTIAL_DISAGREEMENT:
-                pred.predicted_relation = RelationLabel.CONTRADICTS
-            preds_no_setting.append(pred)
+        # Genuine Ablation 1: Disable Setting Gating
+        clf_no_setting = ConditionAwareRelationClassifier(enable_setting_gating=False)
+        preds_no_setting = clf_no_setting.classify_all(test_pairs)
         no_setting_res = self.evaluate_predictions(
             test_pairs, preds_no_setting, dataset_name="Ablation: No Setting"
         )
 
-        # Ablation 2: Ignore Incomparability (Force incomparable pairs into contradiction/neutral)
-        preds_no_incomp = []
-        for p in test_pairs:
-            pred = clf.classify_pair(p)
-            if pred.predicted_relation == RelationLabel.INCOMPARABLE_CONDITIONS:
-                pred.predicted_relation = RelationLabel.CONTRADICTS
-            preds_no_incomp.append(pred)
+        # Genuine Ablation 2: Disable Incomparability Check
+        clf_no_incomp = ConditionAwareRelationClassifier(enable_incomparability_check=False)
+        preds_no_incomp = clf_no_incomp.classify_all(test_pairs)
         no_incomp_res = self.evaluate_predictions(
             test_pairs, preds_no_incomp, dataset_name="Ablation: No Incomparable Check"
         )

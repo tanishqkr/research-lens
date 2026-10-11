@@ -335,6 +335,10 @@ CANONICAL_COMPARATORS = {
     "former drinkers": "Former Drinkers",
     "continuous calorie restriction": "Continuous Calorie Restriction",
     "continuous energy restriction": "Continuous Calorie Restriction",
+    "conventional insulin therapy": "Conventional Glucose Control",
+    "conventional glucose control": "Conventional Glucose Control",
+    "conventional glucose targets": "Conventional Glucose Control",
+    "conventional glycemic control": "Conventional Glucose Control",
 }
 
 CANONICAL_OUTCOMES = {
@@ -345,6 +349,21 @@ CANONICAL_OUTCOMES = {
     "body mass index": "Weight Loss",
     "all-cause mortality": "All-Cause Mortality",
     "mortality": "All-Cause Mortality",
+    "in-hospital mortality": "All-Cause Mortality",
+    "in-hospital all-cause mortality": "All-Cause Mortality",
+    "90-day mortality": "All-Cause Mortality",
+    "90-day all-cause mortality": "All-Cause Mortality",
+    "28-day mortality": "All-Cause Mortality",
+    "28-day all-cause mortality": "All-Cause Mortality",
+    "30-day mortality": "All-Cause Mortality",
+    "30-day all-cause mortality": "All-Cause Mortality",
+    "24-month mortality": "All-Cause Mortality",
+    "cataract": "Incident Cataract",
+    "cataracts": "Incident Cataract",
+    "cataract surgery": "Incident Cataract",
+    "cataract extraction": "Incident Cataract",
+    "incident cataract diagnosis": "Incident Cataract",
+    "incident cataract extraction surgery": "Incident Cataract",
     "cardiovascular mortality": "Cardiovascular Mortality",
     "cardiovascular events": "Cardiovascular Events",
     "cardiovascular disease": "Cardiovascular Disease",
@@ -448,6 +467,8 @@ def extract_numerical_results(
     text: str,
     default_endpoint: Optional[str] = None,
     default_duration: Optional[str] = None,
+    intervention_hint: Optional[str] = None,
+    comparator_hint: Optional[str] = None,
 ) -> list[NumericalResult]:
     """Extracts structured point estimates, confidence intervals, p-values, and units verbatim,
     associating each numerical estimate with the correct arm, comparator, endpoint, horizon,
@@ -484,41 +505,145 @@ def extract_numerical_results(
     # 3. Detect trial arms
     arm_pattern = (
         r"\b(low[\s-]carbohydrate(?:\s+diets?)?|low[\s-]carb(?:\s+diets?)?|low[\s-]fat(?:\s+diets?)?|"
-        r"ketogenic(?:\s+diets?)?|lcd(?:s)?|lfd(?:s)?|vlcd(?:s)?|kd|intermittent\s+fasting|"
+        r"ketogenic(?:\s+diets?)?|vlcds?|lcds?|lfds?|kd|intermittent\s+fasting|"
         r"continuous\s+calorie\s+restriction|continuous\s+energy\s+restriction|time[\s-]restricted\s+feeding|"
-        r"moderate\s+alcohol(?:\s+consumption)?|standard\s+care|usual\s+care|control(?:\s+group)?|"
-        r"intervention(?:\s+group)?|placebo(?:\s+group)?|arm\s+[a-zA-Z0-9]+|group\s+[a-zA-Z0-9]+)\b"
+        r"moderate\s+alcohol(?:\s+consumption)?|standard\s+(?:of\s+)?care|usual\s+care|control(?:\s+group)?|"
+        r"intervention(?:\s+group|\s+arm)?|placebo(?:\s+group)?|arm\s+[a-zA-Z0-9]+|group\s+[a-zA-Z0-9]+|"
+        r"controls|placebos|sham|active\s+control|reference\s+group|usual\s+care\s+group|"
+        r"empagliflozin|dapagliflozin|semaglutide|metformin|atorvastatin|simvastatin|statin|statins|"
+        r"budesonide|fluticasone|formoterol|terbutaline|aspirin|albumin|normal\s+saline|saline|"
+        r"ivermectin|curcumin|enoxaparin|lmwh|heparin|drug\s+[a-zA-Z0-9]+)\b"
     )
-    all_arms = list(re.finditer(arm_pattern, text_norm, re.IGNORECASE))
+    all_arms_raw = list(re.finditer(arm_pattern, text_norm, re.IGNORECASE))
+    if intervention_hint and len(intervention_hint.strip()) >= 3:
+        all_arms_raw.extend(list(re.finditer(rf"\b{re.escape(intervention_hint.strip())}\b", text_norm, re.IGNORECASE)))
+    if comparator_hint and len(comparator_hint.strip()) >= 3:
+        all_arms_raw.extend(list(re.finditer(rf"\b{re.escape(comparator_hint.strip())}\b", text_norm, re.IGNORECASE)))
 
-    # Comparative split markers
-    comp_split = re.search(
-        r"\b(compared with|compared to|versus|vs\.?|relative to)\b",
-        text_norm,
-        re.IGNORECASE,
+    seen_arm_spans = set()
+    all_arms = []
+    for a in sorted(all_arms_raw, key=lambda m: m.start()):
+        span = (a.start(), a.end())
+        if span not in seen_arm_spans:
+            seen_arm_spans.add(span)
+            all_arms.append(a)
+
+    # Comparative markers and subgroup markers
+    comp_markers = list(
+        re.finditer(
+            r"\b(compared with|compared to|as compared with|as compared to|versus|vs\.?|relative to|superior to|inferior to|favoring|favored over|advantage over|benefit over|than)\b",
+            text_norm,
+            re.IGNORECASE,
+        )
+    )
+    subgroup_markers = list(
+        re.finditer(
+            r"\b(?:especially in the subgroup that used|in the subgroup that used|in the subgroup of|subgroup:?)\b",
+            text_norm,
+            re.IGNORECASE,
+        )
     )
 
-    # 4. Detect Ratio estimates (OR, RR, HR)
-    ratio_matches = list(
-        re.finditer(r"\b(OR|RR|HR)\s*[:=]?\s*([0-9]+(?:\.[0-9]+)?)\b", text_norm, re.IGNORECASE)
+    # 4. Detect Ratio estimates (OR, RR, HR, hazard ratio, odds ratio, relative risk, risk ratio)
+    ratio_pattern = (
+        r"\b(OR|RR|HR|hazard\s+ratio|odds\s+ratio|relative\s+risk|risk\s+ratio)"
+        r"[\s:=,]+([0-9]+(?:\.[0-9]+)?)\b"
     )
+    ratio_matches = list(re.finditer(ratio_pattern, text_norm, re.IGNORECASE))
 
-    # 5. Detect Unit point estimates (skipping any inside CI spans)
+    # 5. Detect Difference estimates (WMD, MD, SMD, RD, difference, mean difference)
+    diff_pattern = (
+        r"\b(WMD|MD|SMD|RD|weighted\s+mean\s+difference|mean\s+difference|standardized\s+mean\s+difference|risk\s+difference)"
+        r"[\s:=,]+([+-]?[0-9]+(?:\.[0-9]+)?)\b"
+    )
+    diff_matches = list(re.finditer(diff_pattern, text_norm, re.IGNORECASE))
+
+    # 6. Detect Unit point estimates (skipping any inside CI spans)
     unit_pattern = (
         r"(?:^|[\s\(>~=])([+-]?[0-9]+(?:\.[0-9]+)?)\s*"
-        r"(kg|g|mg|mcg|μg|ug|%|percent|percentage points|mmhg|ml|l|lbs|mmol/l|mg/dl|kcal/d|kcal|kg/m2)\b"
+        r"(?:(kg|g|mg|mcg|μg|ug|percent|percentage points|mmhg|ml|l|lbs|mmol/l|mg/dl|kcal/d|kcal|kg/m2)\b|(%))"
     )
     unit_matches = list(re.finditer(unit_pattern, text_norm, re.IGNORECASE))
 
     estimates: list[tuple[str, Optional[str], float, Optional[str], int, int, str]] = []
     for m in ratio_matches:
-        estimates.append(("RATIO", m.group(1).upper(), float(m.group(2)), None, m.start(), m.end(), m.group(0)))
+        start_val = m.start(2)
+        end_val = m.end(2)
+        if any(c_start <= start_val and end_val <= c_end for c_start, c_end in ci_spans):
+            continue
+        m_name = m.group(1).upper()
+        if "HAZARD" in m_name:
+            metric = "HR"
+        elif "ODDS" in m_name:
+            metric = "OR"
+        elif "RISK" in m_name or "RELATIVE" in m_name:
+            metric = "RR"
+        else:
+            metric = m_name
+        estimates.append(("RATIO", metric, float(m.group(2)), None, m.start(), m.end(), m.group(0)))
+
+    for m in diff_matches:
+        start_val = m.start(2)
+        end_val = m.end(2)
+        if any(c_start <= start_val and end_val <= c_end for c_start, c_end in ci_spans):
+            continue
+        m_name = m.group(1).upper()
+        if "STANDARDIZED" in m_name or m_name == "SMD":
+            metric = "SMD"
+        elif "WEIGHTED" in m_name or m_name == "WMD":
+            metric = "WMD"
+        elif "RISK" in m_name or m_name == "RD":
+            metric = "RD"
+        elif "MEAN" in m_name or m_name == "MD":
+            metric = "MD"
+        else:
+            metric = "DIFFERENCE"
+        val = float(m.group(2))
+        if not any(abs(e[4] - m.start()) <= 20 and e[2] == val for e in estimates):
+            estimates.append(("DIFF", metric, val, None, m.start(), m.end(), m.group(0)))
+
     for m in unit_matches:
-        start, end = m.span()
+        start = m.start(1)
+        end = m.end()
         # Skip if within any CI span
         if any(c_start <= start and end <= c_end for c_start, c_end in ci_spans):
             continue
-        estimates.append(("UNIT", None, float(m.group(1)), m.group(2).lower(), start, end, m.group(0).strip()))
+        # Skip if part of a CI declaration like 95% CI
+        if re.search(r"^\s*(?:CI|confidence\s+interval)\b", text_norm[end:], re.IGNORECASE):
+            continue
+        val = float(m.group(1))
+        # Check if preceded by metric like WMD = , MD = , SMD = , RR = , OR = , HR =
+        metric_before = re.search(
+            r"\b(WMD|MD|SMD|RR|OR|HR|weighted\s+mean\s+difference|mean\s+difference|standardized\s+mean\s+difference)\s*[:=,]\s*$",
+            text_norm[:start],
+            re.IGNORECASE,
+        )
+        u_metric = None
+        if metric_before:
+            mb = metric_before.group(1).upper()
+            if "STANDARDIZED" in mb or mb == "SMD":
+                u_metric = "SMD"
+            elif "WEIGHTED" in mb or mb == "WMD":
+                u_metric = "WMD"
+            elif "MEAN" in mb or mb == "MD":
+                u_metric = "MD"
+            else:
+                u_metric = mb
+        u_unit = (m.group(2) or m.group(3)).lower()
+        existing = next((e for e in estimates if abs(e[4] - start) <= 30 and e[2] == val), None)
+        if existing:
+            idx = estimates.index(existing)
+            estimates[idx] = (
+                "UNIT",
+                u_metric or existing[1],
+                val,
+                u_unit,
+                existing[4],
+                max(existing[5], end),
+                text_norm[existing[4] : max(existing[5], end)].strip(),
+            )
+        else:
+            estimates.append(("UNIT", u_metric, val, u_unit, start, end, m.group(0).strip()))
 
     estimates.sort(key=lambda x: x[4])
 
@@ -585,33 +710,151 @@ def extract_numerical_results(
         # 4. Arm attribution
         curr_arm = None
         comp_arm = None
+
         if all_arms:
-            preceding = [a for a in all_arms if a.end() <= start]
-            following = [a for a in all_arms if a.start() >= end]
-            prec_dist = (start - preceding[-1].end()) if preceding else 9999
-            foll_dist = (following[0].start() - end) if following else 9999
+            # 4.1 Check if this estimate is in a subgroup clause
+            subgroup_clause = None
+            for sg_m in subgroup_markers:
+                if sg_m.end() <= start and (start - sg_m.end()) <= 60:
+                    subgroup_clause = sg_m
+                    break
 
-            if foll_dist <= 30 and foll_dist < prec_dist:
-                curr_arm = following[0].group(0).strip()
-            elif preceding:
-                curr_arm = preceding[-1].group(0).strip()
-            elif following:
-                curr_arm = following[0].group(0).strip()
+            if subgroup_clause:
+                sg_arm = next(
+                    (a for a in all_arms if subgroup_clause.start() <= a.start() < start),
+                    None,
+                )
+                if sg_arm:
+                    curr_arm = sg_arm.group(0).strip()
+                    # Find reference comparator in the overarching comparison
+                    comp_candidate = next(
+                        (
+                            a
+                            for a in all_arms
+                            if a != sg_arm
+                            and any(
+                                cm.end() <= a.start() and (a.start() - cm.end()) <= 35
+                                for cm in comp_markers
+                            )
+                        ),
+                        None,
+                    )
+                    if comp_candidate:
+                        comp_arm = comp_candidate.group(0).strip()
+                    else:
+                        other_arms = [
+                            a.group(0).strip()
+                            for a in all_arms
+                            if a.group(0).strip().lower() != curr_arm.lower()
+                        ]
+                        if other_arms:
+                            comp_arm = other_arms[0]
 
-            other_arms = [
-                a.group(0).strip()
-                for a in all_arms
-                if a.group(0).strip().lower() != (curr_arm or "").lower()
-            ]
-            if other_arms:
-                comp_arm = other_arms[0]
-        elif comp_split:
-            if start > comp_split.start():
-                curr_arm = "Comparator Arm"
-                comp_arm = "Intervention Arm"
-            else:
-                curr_arm = "Intervention Arm"
-                comp_arm = "Comparator Arm"
+            # 4.2 Comparative structure check
+            if curr_arm is None and comp_markers:
+                comparator_arm_matches = []
+                for cm in comp_markers:
+                    following_arms = [
+                        a for a in all_arms if cm.end() <= a.start() and (a.start() - cm.end()) <= 35
+                    ]
+                    if following_arms:
+                        closest_arm = min(following_arms, key=lambda a: a.start() - cm.end())
+                        comparator_arm_matches.append((cm, closest_arm))
+
+                comparator_arms_set = {a for _, a in comparator_arm_matches}
+                primary_arms = [a for a in all_arms if a not in comparator_arms_set]
+
+                # Pattern A: Fronted comparative ("Compared with LFDs, LCDs achieved...")
+                fronted_comp = next((cm for cm in comp_markers if cm.start() <= 5), None)
+                if fronted_comp and primary_arms:
+                    fronted_comp_arm = next(
+                        (a for cm, a in comparator_arm_matches if cm == fronted_comp), None
+                    )
+                    primary_arm = primary_arms[0]
+                    if (
+                        fronted_comp_arm
+                        and fronted_comp.start() <= start < primary_arm.start()
+                        and (start - fronted_comp_arm.end()) <= 20
+                    ):
+                        curr_arm = fronted_comp_arm.group(0).strip()
+                        comp_arm = primary_arm.group(0).strip()
+                    else:
+                        curr_arm = primary_arm.group(0).strip()
+                        if fronted_comp_arm:
+                            comp_arm = fronted_comp_arm.group(0).strip()
+
+                # Pattern B: Middle comparative marker ("... than LFDs (WMD = -2.99 kg...)")
+                elif comparator_arm_matches and primary_arms:
+                    cm, comp_arm_match = comparator_arm_matches[0]
+                    primary_arm_match = primary_arms[0]
+
+                    is_diff_after_comp = (
+                        comp_arm_match.end() <= start
+                        and (start - comp_arm_match.end()) <= 35
+                        and (
+                            metric in ("WMD", "MD", "SMD", "RD", "DIFFERENCE", "MEAN DIFFERENCE")
+                            or any(
+                                w in text_norm[comp_arm_match.end() : start].lower()
+                                for w in ["wmd", "md", "smd", "difference"]
+                            )
+                            or not any(est[4] < cm.start() for est in estimates)
+                        )
+                    )
+
+                    is_parallel_comp_val = (
+                        cm.end() <= start < comp_arm_match.start()
+                        or (
+                            comp_arm_match.end() <= start
+                            and any(est[4] < cm.start() for est in estimates)
+                            and not is_diff_after_comp
+                        )
+                    )
+
+                    if is_diff_after_comp:
+                        curr_arm = primary_arm_match.group(0).strip()
+                        comp_arm = comp_arm_match.group(0).strip()
+                    elif is_parallel_comp_val:
+                        curr_arm = comp_arm_match.group(0).strip()
+                        comp_arm = primary_arm_match.group(0).strip()
+                    elif start < cm.start():
+                        curr_arm = primary_arm_match.group(0).strip()
+                        comp_arm = comp_arm_match.group(0).strip()
+
+                elif comparator_arm_matches and not primary_arms:
+                    # Comparator arm identified, but primary intervention arm is unresolved
+                    _, comp_arm_match = comparator_arm_matches[0]
+                    comp_arm = comp_arm_match.group(0).strip()
+                    curr_arm = None
+
+            # 4.3 Proximity fallback (only when no comparative markers are present)
+            if curr_arm is None and not comp_markers:
+                preceding = [a for a in all_arms if a.end() <= start]
+                following = [a for a in all_arms if a.start() >= end]
+                prec_dist = (start - preceding[-1].end()) if preceding else 9999
+                foll_dist = (following[0].start() - end) if following else 9999
+
+                if foll_dist <= 30 and foll_dist < prec_dist:
+                    curr_arm = following[0].group(0).strip()
+                elif preceding:
+                    curr_arm = preceding[-1].group(0).strip()
+                elif following and foll_dist <= 50:
+                    curr_arm = following[0].group(0).strip()
+
+                if curr_arm:
+                    other_arms = [
+                        a.group(0).strip()
+                        for a in all_arms
+                        if a.group(0).strip().lower() != curr_arm.lower()
+                    ]
+                    if other_arms:
+                        comp_arm = other_arms[0]
+
+        # Verify extracted numerical result against source text
+        assert (
+            raw in text_norm
+            or str(abs(pe)) in text_norm
+            or f"{pe:g}" in text_norm
+        ), f"Extracted numerical result {pe} not found in source text!"
 
         # Local sample size & horizon
         clause_start = estimates[i - 1][5] if i > 0 else 0
@@ -984,7 +1227,11 @@ class ConditionTagger:
             extract_sample_size(abstract_text) if abstract_text else None
         )
         num_results = extract_numerical_results(
-            sentence_text, default_endpoint=outcome, default_duration=follow_up
+            sentence_text,
+            default_endpoint=outcome,
+            default_duration=follow_up,
+            intervention_hint=intervention,
+            comparator_hint=comparator,
         )
         study_t, s_design = infer_study_type(combined_text)
         prov_sec = infer_provenance_section(sentence_text, abstract_text)

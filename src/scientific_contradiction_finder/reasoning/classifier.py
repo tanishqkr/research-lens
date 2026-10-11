@@ -117,6 +117,19 @@ def get_endpoint_domain(outcome_str: str | None, claim_str: str | None = None) -
         k in text for k in ["respiratory tract infection", "infection incidence", "infection risk"]
     ):
         return "INFECTION"
+    if any(
+        k in text
+        for k in [
+            "cataract",
+            "cataracts",
+            "cataract extraction",
+            "cataract surgery",
+            "glaucoma",
+            "macular degeneration",
+            "ophthalmic",
+        ]
+    ):
+        return "OPHTHALMOLOGY"
 
     if any(
         k in text
@@ -159,9 +172,13 @@ class ConditionAwareRelationClassifier:
         self,
         compat_evaluator: ConditionCompatibilityEvaluator | None = None,
         confidence_abstention_threshold: float = 0.45,
+        enable_setting_gating: bool = True,
+        enable_incomparability_check: bool = True,
     ):
         self.compat_evaluator = compat_evaluator or ConditionCompatibilityEvaluator()
         self.abstention_threshold = confidence_abstention_threshold
+        self.enable_setting_gating = enable_setting_gating
+        self.enable_incomparability_check = enable_incomparability_check
 
     def classify_pair(self, pair: FindingPair) -> Prediction:
         fa = pair.finding_a
@@ -195,71 +212,90 @@ class ConditionAwareRelationClassifier:
         cat_a = get_endpoint_domain(fa.conditions.outcome_metric, fa.finding_claim)
         cat_b = get_endpoint_domain(fb.conditions.outcome_metric, fb.finding_claim)
 
-        if cat_a and cat_b and cat_a != cat_b:
-            incomp_conf = 0.92
-            return Prediction(
-                pair_id=pair.pair_id,
-                predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
-                heuristic_score=round(min(0.20, float(diff.overall_compatibility)), 3),
-                confidence_score=incomp_conf,
-                condition_differences=diff,
-                provenance_verified=True,
-                explanation=f"Studies evaluate disjoint target conditions and disparate outcome endpoints: '{fa.conditions.outcome_metric}' ({cat_a}) vs '{fb.conditions.outcome_metric}' ({cat_b}). Findings across distinct clinical endpoints cannot be directly compared as conflicting or supporting.",
-            )
+        if self.enable_incomparability_check:
+            if cat_a and cat_b and cat_a != cat_b:
+                incomp_conf = 0.92
+                return Prediction(
+                    pair_id=pair.pair_id,
+                    predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
+                    heuristic_score=round(min(0.20, float(diff.overall_compatibility)), 3),
+                    confidence_score=incomp_conf,
+                    condition_differences=diff,
+                    provenance_verified=True,
+                    explanation=f"Studies evaluate disjoint target conditions and disparate outcome endpoints: '{fa.conditions.outcome_metric}' ({cat_a}) vs '{fb.conditions.outcome_metric}' ({cat_b}). Findings across distinct clinical endpoints cannot be directly compared as conflicting or supporting.",
+                )
 
-        # Check prediction model discrimination vs clinical trial / observational disease outcomes
-        is_pred_a = (fa.conditions.study_type == StudyDesignType.PREDICTION_MODEL) or (cat_a == "PREDICTION_PERFORMANCE")
-        is_pred_b = (fb.conditions.study_type == StudyDesignType.PREDICTION_MODEL) or (cat_b == "PREDICTION_PERFORMANCE")
-        if is_pred_a != is_pred_b and (
-            fa.conditions.study_type in (StudyDesignType.INTERVENTIONAL_TRIAL, StudyDesignType.OBSERVATIONAL_STUDY)
-            or fb.conditions.study_type in (StudyDesignType.INTERVENTIONAL_TRIAL, StudyDesignType.OBSERVATIONAL_STUDY)
-            or cat_a in ("MORTALITY", "SEPSIS", "STROKE", "CARDIOVASCULAR", "DIABETES", "WEIGHT_LOSS", "CANCER")
-            or cat_b in ("MORTALITY", "SEPSIS", "STROKE", "CARDIOVASCULAR", "DIABETES", "WEIGHT_LOSS", "CANCER")
-        ):
-            return Prediction(
-                pair_id=pair.pair_id,
-                predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
-                heuristic_score=round(min(0.20, float(diff.overall_compatibility)), 3),
-                confidence_score=0.92,
-                condition_differences=diff,
-                provenance_verified=True,
-                explanation="Studies evaluate fundamentally incomparable targets: one evaluates prediction model performance/discrimination, while the other evaluates clinical outcomes or interventional efficacy. Predictive discrimination metrics cannot be directly compared against clinical outcome rates.",
-            )
+            # Check prediction model discrimination vs clinical trial / observational disease outcomes
+            is_pred_a = (fa.conditions.study_type == StudyDesignType.PREDICTION_MODEL) or (cat_a == "PREDICTION_PERFORMANCE")
+            is_pred_b = (fb.conditions.study_type == StudyDesignType.PREDICTION_MODEL) or (cat_b == "PREDICTION_PERFORMANCE")
+            if is_pred_a != is_pred_b and (
+                fa.conditions.study_type in (StudyDesignType.INTERVENTIONAL_TRIAL, StudyDesignType.OBSERVATIONAL_STUDY)
+                or fb.conditions.study_type in (StudyDesignType.INTERVENTIONAL_TRIAL, StudyDesignType.OBSERVATIONAL_STUDY)
+                or cat_a in ("MORTALITY", "SEPSIS", "STROKE", "CARDIOVASCULAR", "DIABETES", "WEIGHT_LOSS", "CANCER", "OPHTHALMOLOGY")
+                or cat_b in ("MORTALITY", "SEPSIS", "STROKE", "CARDIOVASCULAR", "DIABETES", "WEIGHT_LOSS", "CANCER", "OPHTHALMOLOGY")
+            ):
+                return Prediction(
+                    pair_id=pair.pair_id,
+                    predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
+                    heuristic_score=round(min(0.20, float(diff.overall_compatibility)), 3),
+                    confidence_score=0.92,
+                    condition_differences=diff,
+                    provenance_verified=True,
+                    explanation="Studies evaluate fundamentally incomparable targets: one evaluates prediction model performance/discrimination, while the other evaluates clinical outcomes or interventional efficacy. Predictive discrimination metrics cannot be directly compared against clinical outcome rates.",
+                )
 
-        # Check for fundamentally incomparable conditions (disparate fields / unrelated interventions)
-        if diff.intervention_similarity < 0.20:
-            incomp_conf = round(float(0.75 + 0.20 * (1.0 - diff.intervention_similarity)), 3)
-            return Prediction(
-                pair_id=pair.pair_id,
-                predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
-                heuristic_score=round(min(0.20, float(diff.overall_compatibility)), 3),
-                confidence_score=incomp_conf,
-                condition_differences=diff,
-                provenance_verified=True,
-                explanation=f"Studies evaluate disparate interventions: '{fa.conditions.intervention}' vs '{fb.conditions.intervention}' (similarity={diff.intervention_similarity:.2f}).",
-            )
+            # Check for fundamentally incomparable conditions (disparate fields / unrelated interventions)
+            if diff.intervention_similarity < 0.20:
+                incomp_conf = round(float(0.75 + 0.20 * (1.0 - diff.intervention_similarity)), 3)
+                return Prediction(
+                    pair_id=pair.pair_id,
+                    predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
+                    heuristic_score=round(min(0.20, float(diff.overall_compatibility)), 3),
+                    confidence_score=incomp_conf,
+                    condition_differences=diff,
+                    provenance_verified=True,
+                    explanation=f"Studies evaluate disparate interventions: '{fa.conditions.intervention}' vs '{fb.conditions.intervention}' (similarity={diff.intervention_similarity:.2f}).",
+                )
 
-        # If both outcomes and settings are completely disjoint (<0.20)
-        if (
-            diff.outcome_similarity < 0.20
-            and diff.setting_similarity < 0.20
-            and not diff.intervention_match
-        ):
-            disjoint_conf = round(
-                float(
-                    0.75 + 0.20 * (1.0 - (diff.outcome_similarity + diff.setting_similarity) / 2.0)
-                ),
-                3,
-            )
-            return Prediction(
-                pair_id=pair.pair_id,
-                predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
-                heuristic_score=round(min(0.20, float(diff.overall_compatibility)), 3),
-                confidence_score=disjoint_conf,
-                condition_differences=diff,
-                provenance_verified=True,
-                explanation=f"Studies evaluate disparate outcomes and settings: {diff.summary_of_differences}",
-            )
+            # If outcomes are completely disjoint (<0.15)
+            if diff.outcome_similarity < 0.15 and not diff.intervention_match:
+                disjoint_conf = round(
+                    float(
+                        0.75 + 0.20 * (1.0 - (diff.outcome_similarity + diff.setting_similarity) / 2.0)
+                    ),
+                    3,
+                )
+                return Prediction(
+                    pair_id=pair.pair_id,
+                    predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
+                    heuristic_score=round(min(0.20, float(diff.overall_compatibility)), 3),
+                    confidence_score=disjoint_conf,
+                    condition_differences=diff,
+                    provenance_verified=True,
+                    explanation=f"Studies evaluate disparate outcomes and settings: {diff.summary_of_differences}",
+                )
+
+            # If both outcomes and settings are completely disjoint (<0.20)
+            if (
+                diff.outcome_similarity < 0.20
+                and diff.setting_similarity < 0.20
+                and not diff.intervention_match
+            ):
+                disjoint_conf = round(
+                    float(
+                        0.75 + 0.20 * (1.0 - (diff.outcome_similarity + diff.setting_similarity) / 2.0)
+                    ),
+                    3,
+                )
+                return Prediction(
+                    pair_id=pair.pair_id,
+                    predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
+                    heuristic_score=round(min(0.20, float(diff.overall_compatibility)), 3),
+                    confidence_score=disjoint_conf,
+                    condition_differences=diff,
+                    provenance_verified=True,
+                    explanation=f"Studies evaluate disparate outcomes and settings: {diff.summary_of_differences}",
+                )
 
         # 3. Assess directional agreement
         is_fa_active = fa.direction in (DirectionLabel.POSITIVE, DirectionLabel.NEGATIVE)
@@ -273,29 +309,86 @@ class ConditionAwareRelationClassifier:
             (fa.direction == DirectionLabel.POSITIVE and fb.direction == DirectionLabel.NEGATIVE)
             or (fa.direction == DirectionLabel.NEGATIVE and fb.direction == DirectionLabel.POSITIVE)
             or (is_fa_active and fb.direction == DirectionLabel.NO_DIFFERENCE)
-            or (fa.direction == DirectionLabel.NO_DIFFERENCE and is_fa_active)
-            or (fa.direction == DirectionLabel.MIXED and is_fa_active)
+            or (fa.direction == DirectionLabel.NO_DIFFERENCE and is_fb_active)
             or (is_fa_active and fb.direction == DirectionLabel.MIXED)
+            or (fa.direction == DirectionLabel.MIXED and is_fb_active)
         )
 
         # Check if endpoints are reduction-oriented (e.g. WEIGHT_LOSS) where both positive (greater loss)
         # and negative (decrease in weight) denote the same beneficial direction
         is_weight_loss = (cat_a == "WEIGHT_LOSS" and cat_b == "WEIGHT_LOSS")
         if is_weight_loss and is_fa_active and is_fb_active:
-            has_gain_a = any(w in fa.finding_claim.lower() for w in ["weight gain", "increased weight", "gained weight"])
-            has_gain_b = any(w in fb.finding_claim.lower() for w in ["weight gain", "increased weight", "gained weight"])
-            if has_gain_a != has_gain_b:
-                directions_conflict = True
+            def _has_weight_gain_or_diminished_loss(claim: str) -> bool:
+                c_lower = claim.lower()
+                return any(
+                    w in c_lower
+                    for w in [
+                        "reduced weight loss",
+                        "less weight loss",
+                        "lower weight loss",
+                        "diminished weight loss",
+                        "weight gain",
+                        "increased weight",
+                        "gained weight",
+                        "increase in body weight",
+                        "increased body weight",
+                    ]
+                )
+
+            def _describes_beneficial_weight_reduction(claim: str) -> bool:
+                if _has_weight_gain_or_diminished_loss(claim):
+                    return False
+                c_lower = claim.lower()
+                return any(
+                    w in c_lower
+                    for w in [
+                        "weight loss",
+                        "reduced weight",
+                        "weight reduction",
+                        "decrease in weight",
+                        "decreased weight",
+                        "decreased body weight",
+                        "reduced body weight",
+                        "body weight reduction",
+                        "decreasing body weight",
+                        "drop in weight",
+                        "change in body weight",
+                        "body weight",
+                    ]
+                )
+
+            has_gain_a = _has_weight_gain_or_diminished_loss(fa.finding_claim)
+            has_gain_b = _has_weight_gain_or_diminished_loss(fb.finding_claim)
+            both_reduce = _describes_beneficial_weight_reduction(fa.finding_claim) and _describes_beneficial_weight_reduction(fb.finding_claim)
+
+            if fa.direction != fb.direction:
+                # Opposite directions (e.g. POSITIVE vs NEGATIVE)
+                # If both actually describe beneficial weight reduction (e.g. +effect vs -delta kg),
+                # they are concordant, not conflicting.
+                if both_reduce:
+                    directions_conflict = False
+                else:
+                    directions_conflict = True
             else:
-                directions_conflict = False
+                # Same direction (e.g. both POSITIVE or both NEGATIVE)
+                # They conflict only if one describes reduction and the other describes gain/diminished loss
+                if (has_gain_a and not has_gain_b) or (has_gain_b and not has_gain_a):
+                    directions_conflict = True
+                else:
+                    directions_conflict = False
 
         mean_ev_conf = (fa.evidence.confidence + fb.evidence.confidence) / 2.0
 
         if directions_conflict:
             # If all conditions match almost identically (strict tolerance) -> Direct contradiction
-            is_strict_setting_match = diff.setting_similarity >= 0.85
-            is_strict_comparator_match = diff.comparator_similarity >= 0.80
-            is_strict_overall = diff.overall_compatibility >= 0.82
+            is_strict_setting_match = (diff.setting_similarity >= 0.85) if self.enable_setting_gating else True
+            is_strict_comparator_match = diff.comparator_similarity >= 0.70
+            is_strict_outcome_match = diff.outcome_similarity >= 0.75
+            is_strict_overall = (
+                (diff.overall_compatibility >= 0.80)
+                if self.enable_setting_gating
+                else (diff.outcome_similarity >= 0.75 and diff.comparator_similarity >= 0.70 and diff.intervention_similarity >= 0.70)
+            )
 
             # Check if study design differs (e.g. Observational Study vs Interventional Trial)
             study_a_type = fa.conditions.study_type
@@ -310,7 +403,7 @@ class ConditionAwareRelationClassifier:
             fb_dur = (fb.conditions.follow_up_duration or "").lower()
             dur_diverges = bool(fa_dur and fb_dur and fa_dur != fb_dur)
 
-            if is_strict_setting_match and is_strict_comparator_match and is_strict_overall:
+            if is_strict_setting_match and is_strict_comparator_match and is_strict_outcome_match and is_strict_overall:
                 if is_obs_vs_trial:
                     pred_label = RelationLabel.QUALIFIES_OR_PARTIAL_DISAGREEMENT
                     explanation = (
