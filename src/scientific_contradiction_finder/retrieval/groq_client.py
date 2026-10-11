@@ -427,14 +427,19 @@ class GroqClient:
         }
         headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
 
-        try:
-            async with httpx.AsyncClient(timeout=self.timeout_seconds) as client:
-                res = await client.post(self.base_url, headers=headers, json=payload)
-                if res.status_code == 200:
-                    data = json.loads(res.json()["choices"][0]["message"]["content"])
-                    self.cache.set(cache_key, "groq", "exec_summary", data)
-                    return data
-        except Exception as e:
-            logger.warning(f"Groq executive summary synthesis failed: {e}")
+        for attempt in range(self.max_retries):
+            try:
+                async with httpx.AsyncClient(timeout=self.timeout_seconds) as client:
+                    res = await client.post(self.base_url, headers=headers, json=payload)
+                    if res.status_code == 200:
+                        data = json.loads(res.json()["choices"][0]["message"]["content"])
+                        self.cache.set(cache_key, "groq", "exec_summary", data)
+                        return data
+                    elif res.status_code == 429:
+                        await asyncio.sleep(1.0 * (attempt + 1))
+            except Exception as e:
+                logger.warning(f"Groq executive summary synthesis attempt {attempt + 1} failed: {e}")
+                if attempt < self.max_retries - 1:
+                    await asyncio.sleep(0.5 * (attempt + 1))
 
         return None

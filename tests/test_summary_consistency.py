@@ -286,7 +286,7 @@ def test_adversarial_empty_ledger_clean_abstention():
     ]
     validated = enforce_summary_consistency(exec_summary, assessments, evidence_ledger=[])
     assert validated.overall_evidence_assessment == "inconclusive"
-    assert "no directly relevant empirical literature" in validated.bottom_line.lower()
+    assert "no qualifying empirical literature" in validated.bottom_line.lower()
     assert "confidence is zero" in validated.confidence_and_limitations.lower()
 
 

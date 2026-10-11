@@ -1,0 +1,120 @@
+{
+  "query": "For adults with insomnia, is cognitive behavioral therapy for insomnia more effective than sleep-hygiene education alone, and do benefits persist at follow-up?",
+  "executive_summary": {
+    "bottom_line": "While retrieved literature provides preliminary or single-arm data, the specific comparative facets and qualifying conditions of the query remain unresolved in the sampled evidence.",
+    "overall_evidence_assessment": "remains inconclusive",
+    "subclaim_assessments": [
+      {
+        "subclaim_text": "Subclaim: For adults with insomnia, is cognitive behavioral therapy for insomnia more effective than sleep-hygiene education alone",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+        "evidence_paper_ids": []
+      },
+      {
+        "subclaim_text": "Subclaim: benefits persist at follow-up",
+        "status": "UNRESOLVED",
+        "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+        "evidence_paper_ids": []
+      }
+    ],
+    "strongest_supporting_evidence": "A randomized clinical trial in postmenopausal women demonstrated that CBTI outperforms sleep restriction therapy (SRT) in improving sleep maintenance, indicating superior efficacy over less intensive behavioral interventions.",
+    "strongest_conflicting_evidence": "No conflicting evidence was identified in the provided ledger; the single available finding is uniformly consistent with the hypothesis that CBTI is superior to less intensive interventions.",
+    "why_studies_disagree": "No substantive disagreement was identified among the available evidence. The lack of divergence may be due to the limited number of studies examined in depth, which prevents the identification of metric, baseline, or setting-related conflicts.",
+    "confidence_and_limitations": "Confidence is limited by the narrow scope of the evidence ledger, which includes only one in-depth finding from a specific population (postmenopausal women). The comparison is against sleep restriction therapy rather than sleep-hygiene education alone, and no full texts were accessible to verify methodological details or long-term follow-up data beyond the abstract-level finding.",
+    "research_coverage": "7 studies were retrieved, but only 1 was examined in depth, yielding 1 finding in the ledger. No full texts were accessible for detailed analysis."
+  },
+  "candidate_papers_retrieved": 7,
+  "papers_triaged": 7,
+  "papers_deep_dived": 2,
+  "full_texts_accessible": 0,
+  "subclaim_assessments": [
+    {
+      "subclaim_text": "Subclaim: For adults with insomnia, is cognitive behavioral therapy for insomnia more effective than sleep-hygiene education alone",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+      "evidence_paper_ids": []
+    },
+    {
+      "subclaim_text": "Subclaim: benefits persist at follow-up",
+      "status": "UNRESOLVED",
+      "rationale": "Unresolved in sampled evidence ledger: no directly relevant empirical findings in the ledger sufficiently address this specific facet.",
+      "evidence_paper_ids": []
+    }
+  ],
+  "triage_records": [
+    {
+      "paper_id": "W2903328307",
+      "title": "Treating chronic insomnia in postmenopausal women: a randomized clinical trial comparing cognitive-behavioral therapy for insomnia, sleep restriction therapy, and sleep hygiene education",
+      "category": "DIRECT_COMPARISON",
+      "relevance_rationale": "The paper is a randomized controlled trial that directly compares Cognitive Behavioral Therapy for Insomnia (CBTI) against Sleep Hygiene Education (SHE) in adults (postmenopausal women) with chronic insomnia. It reports outcomes at both post-treatment and 6-month follow-up, directly addressing the question of relative effectiveness and persistence of benefits.",
+      "selected_for_deep_dive": true
+    },
+    {
+      "paper_id": "W2523614561",
+      "title": "Insomnia Patients With Objective Short Sleep Duration Have a Blunted Response to Cognitive Behavioral Therapy for Insomnia",
+      "category": "INDIRECT_EVIDENCE",
+      "relevance_rationale": "The paper investigates the efficacy of CBT-I in a specific subgroup (insomnia with short sleep duration) and reports follow-up data at 6 months. However, it does not directly compare CBT-I to sleep-hygiene education alone, which is the specific comparison requested in the research question. It provides indirect evidence regarding the persistence of benefits (follow-up data) and the differential response to the intervention, but lacks the head-to-head comparison with the control condition specified.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4206478409",
+      "title": "Moderators of Cognitive Behavioral Treatment for Insomnia on Depression and Anxiety Outcomes",
+      "category": "REVIEW_SYNTHESIS",
+      "relevance_rationale": "The paper is a review of randomized controlled trials focusing on CBT-I for insomnia in patients with comorbid psychiatric disorders (MDD, GAD, PTSD). It does not directly compare CBT-I to sleep-hygiene education alone, nor does it primarily focus on the persistence of benefits at follow-up for the general insomnia population. Therefore, it does not directly answer the specific research question.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4389074585",
+      "title": "The European Insomnia Guideline: An update on the diagnosis and treatment of insomnia 2023",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W2499427487",
+      "title": "Cognitive Behavioral Therapy for Insomnia in Breast Cancer Survivors: A Review of the Literature",
+      "category": "IRRELEVANT",
+      "relevance_rationale": "Automated triage unavailable; defaulting to irrelevant to prevent unverified ingestion.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W1215988363",
+      "title": "“Stepped Care”: A Health Technology Solution for Delivering Cognitive Behavioral Therapy as a First Line Insomnia Treatment",
+      "category": "BACKGROUND",
+      "relevance_rationale": "The paper is a conceptual proposal for a service delivery model ('stepped care') to improve the accessibility of CBT-I. It does not present original empirical data comparing CBT-I to sleep-hygiene education, nor does it report clinical outcomes or follow-up data. It serves as theoretical/contextual background regarding the implementation of CBT-I.",
+      "selected_for_deep_dive": false
+    },
+    {
+      "paper_id": "W4396871734",
+      "title": "Preventing postpartum insomnia: findings from a three-arm randomized-controlled trial of cognitive behavioral therapy for insomnia, a responsive bassinet, and sleep hygiene",
+      "category": "DIRECT_COMPARISON",
+      "relevance_rationale": "The paper is a randomized controlled trial that directly compares Cognitive Behavioral Therapy for Insomnia (CBT-I) against a sleep hygiene control group. It reports on the effectiveness of CBT-I in reducing insomnia severity (ISI scores) and includes follow-up assessments at 2, 6, and 12 months postpartum, addressing both the comparative effectiveness and the persistence of benefits requested in the question.",
+      "selected_for_deep_dive": true
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "claim_id": "claim_find_W2903328307",
+      "paper_id": "W2903328307",
+      "paper_title": "Treating chronic insomnia in postmenopausal women: a randomized clinical trial comparing cognitive-behavioral therapy for insomnia, sleep restriction therapy, and sleep hygiene education",
+      "doi": "https://doi.org/10.1093/sleep/zsy217",
+      "url": "https://doi.org/10.1093/sleep/zsy217",
+      "exact_source_passage": "CBTI outperforms SRT in improving sleep maintenance",
+      "study_design": "Comparative study (implied)",
+      "population_setting": "Individuals with insomnia (implied by context of CBTI/SRT)",
+      "intervention_exposure": "CBTI",
+      "comparator": "SRT",
+      "outcome": "Sleep maintenance",
+      "direction": "POSITIVE",
+      "effect_size": null,
+      "conditions_and_moderators": "The statement notes that overall response is similar, with the advantage of CBTI limited to sleep maintenance.",
+      "limitations": null,
+      "full_text_used": false,
+      "is_direct": true
+    }
+  ],
+  "disagreements": [],
+  "detailed_comparisons": [],
+  "investigation_rounds": 1,
+  "stopped_reason": "Completed full staged evidence synthesis across accessible open literature."
+}

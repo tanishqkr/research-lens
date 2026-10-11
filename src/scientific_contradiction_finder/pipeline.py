@@ -416,10 +416,10 @@ class ContradictionFinderPipeline:
 
             if len(evidence_ledger) == 0:
                 overall = "inconclusive"
-                bl = "No directly relevant empirical literature was identified testing this relationship."
+                bl = "No qualifying empirical literature was identified testing this relationship in the retrieved search corpus."
             elif pos_count > 0 and neg_count == 0:
                 overall = "broadly supports"
-                bl = f"The reviewed empirical evidence indicates consistent positive effects for {query.strip('?')}."
+                bl = "The reviewed empirical literature reports positive associations or improvements under the tested intervention conditions."
             elif neg_count > 0 and pos_count == 0:
                 overall = "broadly supports an inverse or reducing relationship"
                 bl = "The available empirical studies demonstrate consistent reductions or negative impacts."

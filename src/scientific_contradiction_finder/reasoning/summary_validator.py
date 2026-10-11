@@ -59,8 +59,8 @@ def decompose_query_into_subclaims(query: str) -> List[str]:
         ]
 
     # Generic systematic decomposition based on clauses, questions, and coordinating conjunctions
-    # Splits on ", and how", ", and what", ", and do", ", and does", "when ... is comparable", "compared with", etc.
-    split_pattern = r"(?:,\s*(?:and\s+)?(?:how|what|why|do|does|whether|is|are)\s+|(?:\s+when\s+|\s+compared\s+with\s+|\s+versus\s+))"
+    # Splits on ", and how", ", and what", ", and why", ", and do", ", and does", "when ... is comparable", "compared with", etc.
+    split_pattern = r"(?:,\s*(?:and\s+)?(?:how|what|why|do|does|whether)\s+|(?:\s+when\s+|\s+compared\s+with\s+|\s+versus\s+))"
     raw_parts = re.split(split_pattern, query, flags=re.IGNORECASE)
     subclaims = []
     for part in raw_parts:
@@ -378,17 +378,17 @@ def enforce_summary_consistency(
     if len(evidence_ledger) == 0:
         exec_summary.overall_evidence_assessment = "inconclusive"
         exec_summary.bottom_line = (
-            "No directly relevant empirical literature was identified testing this relationship."
+            "No qualifying empirical literature was identified testing this relationship in the retrieved search corpus."
         )
         exec_summary.strongest_supporting_evidence = (
-            "None: no eligible empirical studies evaluated the queried relationship."
+            "None: no eligible empirical studies evaluated the queried relationship in the retrieved literature."
         )
         exec_summary.strongest_conflicting_evidence = (
             "None: hypothesis remains unaddressed in retrieved empirical literature."
         )
         exec_summary.confidence_and_limitations = (
-            "Confidence is zero for this claim because no directly relevant empirical trials were identified in retrieved scholarly literature. "
-            "Absence of evidence in standard scientific databases indicates that the proposed causal relationship lacks empirical support or has not been demonstrated."
+            "Confidence is zero within the retrieved corpus because no qualifying empirical trials were identified in retrieved scholarly literature. "
+            "An empty evidence ledger indicates that no qualifying evidence was found in the retrieved sample, rather than conclusive proof that no broader scientific literature exists."
         )
 
     # 4. Check for Fasting head-to-head vs meal regularity
@@ -405,6 +405,15 @@ def enforce_summary_consistency(
             exec_summary.bottom_line = (
                 "Intermittent fasting produces significant weight loss, but evidence from isocaloric head-to-head comparisons "
                 "generally indicates equivalent rather than superior weight loss compared with continuous daily calorie restriction."
+            )
+
+    # 5. Check if all decomposed subclaims are unresolved despite non-empty ledger
+    if len(evidence_ledger) > 0 and len(unresolved_subclaims) == len(subclaim_assessments):
+        if exec_summary.overall_evidence_assessment in ("broadly supports", "broadly challenges"):
+            exec_summary.overall_evidence_assessment = "remains inconclusive"
+            exec_summary.bottom_line = (
+                "While retrieved literature provides preliminary or single-arm data, the specific comparative facets "
+                "and qualifying conditions of the query remain unresolved in the sampled evidence."
             )
 
     # Attach subclaim assessments to the executive summary
