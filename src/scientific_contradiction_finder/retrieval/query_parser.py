@@ -1,15 +1,14 @@
 """Polarity query expansion and syntactic claim parsing using spaCy."""
 
-from typing import List, Dict, Any, Optional
 import spacy
 from pydantic import BaseModel
 
 
 class ExpandedQuery(BaseModel):
     original_query: str
-    expanded_queries: List[str]
-    polarity_inversions: List[str]
-    comparison_queries: List[str]
+    expanded_queries: list[str]
+    polarity_inversions: list[str]
+    comparison_queries: list[str]
 
 
 # Curated scientific polarity and antonym mappings
@@ -38,7 +37,7 @@ POLARITY_ANTONYMS = {
     "accelerates": "decelerates",
     "stimulates": "inhibits",
     "stimulate": "inhibit",
-    "stimulated": "inhibited"
+    "stimulated": "inhibited",
 }
 
 
@@ -53,7 +52,7 @@ class PolarityQueryExpander:
 
     def expand(self, query: str) -> ExpandedQuery:
         tokens = query.split()
-        polarity_variants: List[str] = []
+        polarity_variants: list[str] = []
 
         # 1. Lexical Antonym Inversion
         inversion_tokens = []
@@ -74,13 +73,15 @@ class PolarityQueryExpander:
         if not replaced:
             polarity_variants.append(f"no significant effect of {query}")
         else:
-            polarity_variants.append(f"no effect on {' '.join(tokens[2:]) if len(tokens) > 2 else query}")
+            polarity_variants.append(
+                f"no effect on {' '.join(tokens[2:]) if len(tokens) > 2 else query}"
+            )
 
         # 3. Comparative / Benchmark Variant
         comparison_variants = [
             f"{query} randomized controlled trial",
             f"{query} meta-analysis clinical trial",
-            f"{query} versus baseline comparison"
+            f"{query} versus baseline comparison",
         ]
 
         all_expanded = [query]
@@ -95,5 +96,5 @@ class PolarityQueryExpander:
             original_query=query,
             expanded_queries=all_expanded,
             polarity_inversions=polarity_variants,
-            comparison_queries=comparison_variants
+            comparison_queries=comparison_variants,
         )

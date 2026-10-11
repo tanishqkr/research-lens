@@ -1,15 +1,13 @@
-import pytest
-from pydantic import ValidationError
 from scientific_contradiction_finder.schemas import (
-    RelationLabel,
-    DirectionLabel,
-    Paper,
-    EvidenceSpan,
-    ConditionSlots,
-    Finding,
     ConditionDifference,
+    ConditionSlots,
+    DirectionLabel,
+    EvidenceSpan,
+    Finding,
     FindingPair,
-    Prediction
+    Paper,
+    Prediction,
+    RelationLabel,
 )
 
 
@@ -20,7 +18,7 @@ def test_paper_schema_valid():
         abstract="In this double-blind trial, metformin significantly reduced HbA1c levels compared to placebo.",
         doi="10.1001/jama.2021.001",
         year=2021,
-        source_provider="openalex"
+        source_provider="openalex",
     )
     assert paper.paper_id == "W123456"
     assert "metformin" in paper.abstract
@@ -31,7 +29,9 @@ def test_evidence_span_verification():
     span = EvidenceSpan(text="Metformin reduced HbA1c by 1.2%", start_char=0, end_char=31)
     assert span.verify_against_source(source_text) is True
 
-    fake_span = EvidenceSpan(text="Metformin showed no effect on glucose levels", start_char=0, end_char=44)
+    fake_span = EvidenceSpan(
+        text="Metformin showed no effect on glucose levels", start_char=0, end_char=44
+    )
     assert fake_span.verify_against_source(source_text) is False
 
 
@@ -51,7 +51,7 @@ def test_finding_pair_and_prediction():
         intervention="Metformin",
         comparator="Placebo",
         outcome_metric="HbA1c",
-        dataset_setting="Type 2 Diabetes Cohort"
+        dataset_setting="Type 2 Diabetes Cohort",
     )
     fa = Finding(
         finding_id="f1",
@@ -60,15 +60,17 @@ def test_finding_pair_and_prediction():
         evidence=span_a,
         finding_claim="Metformin reduces HbA1c compared to placebo in T2D.",
         direction=DirectionLabel.POSITIVE,
-        conditions=cond_a
+        conditions=cond_a,
     )
 
-    span_b = EvidenceSpan(text="Metformin did not alter HbA1c significantly", start_char=0, end_char=43)
+    span_b = EvidenceSpan(
+        text="Metformin did not alter HbA1c significantly", start_char=0, end_char=43
+    )
     cond_b = ConditionSlots(
         intervention="Metformin",
         comparator="Placebo",
         outcome_metric="HbA1c",
-        dataset_setting="Prediabetic Cohort"
+        dataset_setting="Prediabetic Cohort",
     )
     fb = Finding(
         finding_id="f2",
@@ -77,7 +79,7 @@ def test_finding_pair_and_prediction():
         evidence=span_b,
         finding_claim="Metformin does not significantly alter HbA1c in prediabetes.",
         direction=DirectionLabel.NO_DIFFERENCE,
-        conditions=cond_b
+        conditions=cond_b,
     )
 
     pair = FindingPair(
@@ -85,7 +87,7 @@ def test_finding_pair_and_prediction():
         finding_a=fa,
         finding_b=fb,
         ground_truth_relation=RelationLabel.QUALIFIES_OR_PARTIAL_DISAGREEMENT,
-        domain="clinical_medicine"
+        domain="clinical_medicine",
     )
     assert pair.ground_truth_relation == RelationLabel.QUALIFIES_OR_PARTIAL_DISAGREEMENT
 
@@ -99,7 +101,7 @@ def test_finding_pair_and_prediction():
         setting_match=False,
         setting_similarity=0.45,
         overall_compatibility=0.72,
-        summary_of_differences="Divergent patient cohorts: T2D vs Prediabetes"
+        summary_of_differences="Divergent patient cohorts: T2D vs Prediabetes",
     )
 
     pred = Prediction(
@@ -108,7 +110,7 @@ def test_finding_pair_and_prediction():
         confidence_score=0.88,
         condition_differences=diff,
         provenance_verified=True,
-        explanation="Study A observed efficacy in T2D while Study B tested prediabetic individuals."
+        explanation="Study A observed efficacy in T2D while Study B tested prediabetic individuals.",
     )
     assert pred.predicted_relation == RelationLabel.QUALIFIES_OR_PARTIAL_DISAGREEMENT
     assert pred.provenance_verified is True

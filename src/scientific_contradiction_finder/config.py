@@ -2,10 +2,10 @@
 
 import os
 from pathlib import Path
-from typing import Optional
+
 import yaml
-from pydantic import BaseModel, Field
 from dotenv import load_dotenv
+from pydantic import BaseModel, Field
 
 # Load local environment variables from .env if present
 load_dotenv()
@@ -29,8 +29,8 @@ class StorageSettings(BaseModel):
 
 
 class RetrievalSettings(BaseModel):
-    openalex_api_key: Optional[str] = os.getenv("OPENALEX_API_KEY")
-    openalex_mailto: Optional[str] = os.getenv("CONTACT_EMAIL") or os.getenv("OPENALEX_MAILTO")
+    openalex_api_key: str | None = os.getenv("OPENALEX_API_KEY")
+    openalex_mailto: str | None = os.getenv("CONTACT_EMAIL") or os.getenv("OPENALEX_MAILTO")
     max_results_per_provider: int = int(os.getenv("SCF_MAX_RESULTS_PER_PROVIDER", 25))
     request_timeout_seconds: int = int(os.getenv("SCF_REQUEST_TIMEOUT_SECONDS", 15))
     max_retries: int = 3
@@ -68,7 +68,7 @@ class Config(BaseModel):
     reasoning: ReasoningSettings = Field(default_factory=ReasoningSettings)
 
     @classmethod
-    def load(cls, config_path: Optional[Path] = None) -> "Config":
+    def load(cls, config_path: Path | None = None) -> "Config":
         if config_path is None:
             config_path = PROJECT_ROOT / "configs" / "default.yaml"
         if config_path.exists():

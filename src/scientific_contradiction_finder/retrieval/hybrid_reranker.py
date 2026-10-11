@@ -1,6 +1,5 @@
 """Reciprocal Rank Fusion (RRF) combining lexical BM25 and dense bi-encoder results."""
 
-from typing import List, Tuple, Dict
 from scientific_contradiction_finder.schemas import Paper
 
 
@@ -11,13 +10,11 @@ class ReciprocalRankFusion:
         self.k = k
 
     def fuse(
-        self,
-        ranked_lists: List[List[Tuple[Paper, float]]],
-        top_n: int = 20
-    ) -> List[Tuple[Paper, float]]:
+        self, ranked_lists: list[list[tuple[Paper, float]]], top_n: int = 20
+    ) -> list[tuple[Paper, float]]:
         """Fuses scored paper lists using RRF score = sum(1 / (k + rank))."""
-        rrf_scores: Dict[str, float] = {}
-        paper_lookup: Dict[str, Paper] = {}
+        rrf_scores: dict[str, float] = {}
+        paper_lookup: dict[str, Paper] = {}
 
         for ranked_list in ranked_lists:
             for rank, (paper, _) in enumerate(ranked_list, start=1):

@@ -2,28 +2,27 @@
 
 import json
 from pathlib import Path
-from typing import List, Optional, Tuple, Dict, Any
+
 from scientific_contradiction_finder.schemas import (
-    FindingPair,
-    Finding,
-    EvidenceSpan,
     ConditionSlots,
-    RelationLabel,
     DirectionLabel,
-    Paper
+    EvidenceSpan,
+    Finding,
+    FindingPair,
+    RelationLabel,
 )
 
 
 class BenchmarkLoader:
     """Loads and standardizes scientific contradiction and claim verification benchmarks."""
 
-    def __init__(self, data_dir: Optional[Path] = None):
+    def __init__(self, data_dir: Path | None = None):
         if data_dir is None:
             self.data_dir = Path(__file__).resolve().parent.parent.parent.parent / "data"
         else:
             self.data_dir = Path(data_dir)
 
-    def load_cas_con150(self) -> List[FindingPair]:
+    def load_cas_con150(self) -> list[FindingPair]:
         """Loads the CAS-Con150 gold standard benchmark."""
         file_path = self.data_dir / "annotations" / "cas_con150.json"
         if not file_path.exists():
@@ -32,7 +31,7 @@ class BenchmarkLoader:
         with open(file_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
-        pairs: List[FindingPair] = []
+        pairs: list[FindingPair] = []
         for item in data:
             fa_raw = item["finding_a"]
             fb_raw = item["finding_b"]
@@ -74,19 +73,19 @@ class BenchmarkLoader:
         return pairs
 
     def get_train_test_split(
-        self, pairs: List[FindingPair], test_ratio: float = 0.3, random_seed: int = 42
-    ) -> Tuple[List[FindingPair], List[FindingPair]]:
+        self, pairs: list[FindingPair], test_ratio: float = 0.3, random_seed: int = 42
+    ) -> tuple[list[FindingPair], list[FindingPair]]:
         """Splits pairs deterministically while preserving stratified label distributions."""
         import random
         from collections import defaultdict
 
         rng = random.Random(random_seed)
-        by_label: Dict[str, List[FindingPair]] = defaultdict(list)
+        by_label: dict[str, list[FindingPair]] = defaultdict(list)
         for p in pairs:
             by_label[p.ground_truth_relation.value].append(p)
 
-        train_pairs: List[FindingPair] = []
-        test_pairs: List[FindingPair] = []
+        train_pairs: list[FindingPair] = []
+        test_pairs: list[FindingPair] = []
 
         for label, group in by_label.items():
             shuffled = list(group)

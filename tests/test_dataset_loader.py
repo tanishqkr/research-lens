@@ -1,5 +1,3 @@
-import pytest
-from pathlib import Path
 from scientific_contradiction_finder.ingestion.dataset_loader import BenchmarkLoader
 from scientific_contradiction_finder.schemas import RelationLabel
 

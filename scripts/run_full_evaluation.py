@@ -2,10 +2,11 @@
 
 import json
 from pathlib import Path
+
+from scientific_contradiction_finder.evaluation.evaluator import PipelineEvaluator
 from scientific_contradiction_finder.ingestion.dataset_loader import BenchmarkLoader
 from scientific_contradiction_finder.reasoning.baseline import LexicalUnconditionedBaseline
 from scientific_contradiction_finder.reasoning.classifier import ConditionAwareRelationClassifier
-from scientific_contradiction_finder.evaluation.evaluator import PipelineEvaluator
 
 
 def main():
@@ -19,12 +20,16 @@ def main():
     baseline = LexicalUnconditionedBaseline()
     baseline.fit(train_pairs)
     baseline_preds = baseline.predict(test_pairs)
-    baseline_result = evaluator.evaluate_predictions(test_pairs, baseline_preds, dataset_name="Unconditioned TF-IDF Baseline")
+    baseline_result = evaluator.evaluate_predictions(
+        test_pairs, baseline_preds, dataset_name="Unconditioned TF-IDF Baseline"
+    )
 
     # 2. Full Condition-Aware Model
     condition_clf = ConditionAwareRelationClassifier()
     ca_preds = condition_clf.classify_all(test_pairs)
-    ca_result = evaluator.evaluate_predictions(test_pairs, ca_preds, dataset_name="Condition-Aware Pipeline (Proposed)")
+    ca_result = evaluator.evaluate_predictions(
+        test_pairs, ca_preds, dataset_name="Condition-Aware Pipeline (Proposed)"
+    )
 
     # 3. Ablations
     ablations = evaluator.run_ablation_study(test_pairs)
@@ -35,7 +40,7 @@ def main():
         "n_test": len(test_pairs),
         "unconditioned_baseline": baseline_result.model_dump(),
         "condition_aware_model": ca_result.model_dump(),
-        "ablations": ablations
+        "ablations": ablations,
     }
 
     out_file = Path("data/evaluation_summary.json")
@@ -45,10 +50,16 @@ def main():
 
     print("\n================ EVALUATION SUMMARY ================")
     print(f"Total Test Pairs: {len(test_pairs)}")
-    print(f"Unconditioned Baseline Accuracy: {baseline_result.accuracy:.4f} | Macro-F1: {baseline_result.macro_f1:.4f}")
-    print(f"Condition-Aware Model  Accuracy: {ca_result.accuracy:.4f} | Macro-F1: {ca_result.macro_f1:.4f}")
+    print(
+        f"Unconditioned Baseline Accuracy: {baseline_result.accuracy:.4f} | Macro-F1: {baseline_result.macro_f1:.4f}"
+    )
+    print(
+        f"Condition-Aware Model  Accuracy: {ca_result.accuracy:.4f} | Macro-F1: {ca_result.macro_f1:.4f}"
+    )
     print(f"Ablation (No Setting)  Macro-F1: {ablations['no_setting_ablation']['macro_f1']:.4f}")
-    print(f"Ablation (No Incomp)   Macro-F1: {ablations['no_incomparable_ablation']['macro_f1']:.4f}")
+    print(
+        f"Ablation (No Incomp)   Macro-F1: {ablations['no_incomparable_ablation']['macro_f1']:.4f}"
+    )
     print("====================================================\n")
 
 

@@ -1,7 +1,6 @@
-import pytest
+from scientific_contradiction_finder.evaluation.evaluator import PipelineEvaluator
 from scientific_contradiction_finder.ingestion.dataset_loader import BenchmarkLoader
 from scientific_contradiction_finder.reasoning.classifier import ConditionAwareRelationClassifier
-from scientific_contradiction_finder.evaluation.evaluator import PipelineEvaluator
 
 
 def test_full_condition_aware_evaluation():

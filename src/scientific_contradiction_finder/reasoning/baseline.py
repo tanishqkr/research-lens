@@ -1,16 +1,15 @@
 """Simple TF-IDF & lexical similarity baselines for scientific relationship classification."""
 
 import numpy as np
-from typing import List, Tuple
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import f1_score, accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, classification_report, f1_score
 
 from scientific_contradiction_finder.schemas import (
+    ConditionDifference,
     FindingPair,
     Prediction,
     RelationLabel,
-    ConditionDifference
 )
 
 
@@ -18,11 +17,13 @@ class LexicalUnconditionedBaseline:
     """An unconditioned baseline that compares finding claim text alone using TF-IDF."""
 
     def __init__(self):
-        self.vectorizer = TfidfVectorizer(max_features=500, stop_words="english", ngram_range=(1, 2))
+        self.vectorizer = TfidfVectorizer(
+            max_features=500, stop_words="english", ngram_range=(1, 2)
+        )
         self.clf = LogisticRegression(class_weight="balanced", max_iter=200, random_state=42)
         self.is_fitted = False
 
-    def _extract_pair_features(self, pairs: List[FindingPair], fit: bool = False) -> np.ndarray:
+    def _extract_pair_features(self, pairs: list[FindingPair], fit: bool = False) -> np.ndarray:
         texts_a = [p.finding_a.finding_claim for p in pairs]
         texts_b = [p.finding_b.finding_claim for p in pairs]
 
@@ -44,13 +45,13 @@ class LexicalUnconditionedBaseline:
         features = np.hstack([vecs_a, vecs_b, abs_diff, cos_sim])
         return features
 
-    def fit(self, train_pairs: List[FindingPair]):
+    def fit(self, train_pairs: list[FindingPair]):
         X_train = self._extract_pair_features(train_pairs, fit=True)
         y_train = [p.ground_truth_relation.value for p in train_pairs]
         self.clf.fit(X_train, y_train)
         self.is_fitted = True
 
-    def predict(self, pairs: List[FindingPair]) -> List[Prediction]:
+    def predict(self, pairs: list[FindingPair]) -> list[Prediction]:
         if not self.is_fitted:
             raise RuntimeError("Baseline classifier must be fitted before predict.")
 
@@ -71,7 +72,7 @@ class LexicalUnconditionedBaseline:
                 setting_match=False,
                 setting_similarity=0.5,
                 overall_compatibility=0.5,
-                summary_of_differences="Unconditioned lexical baseline (conditions not parsed)."
+                summary_of_differences="Unconditioned lexical baseline (conditions not parsed).",
             )
             prediction = Prediction(
                 pair_id=pair.pair_id,
@@ -80,12 +81,12 @@ class LexicalUnconditionedBaseline:
                 unconditioned_relation=RelationLabel(pred_label),
                 condition_differences=diff,
                 provenance_verified=True,
-                explanation=f"Predicted by unconditioned TF-IDF baseline with confidence {conf:.2f}."
+                explanation=f"Predicted by unconditioned TF-IDF baseline with confidence {conf:.2f}.",
             )
             results.append(prediction)
         return results
 
-    def evaluate(self, test_pairs: List[FindingPair]) -> dict:
+    def evaluate(self, test_pairs: list[FindingPair]) -> dict:
         predictions = self.predict(test_pairs)
         y_true = [p.ground_truth_relation.value for p in test_pairs]
         y_pred = [p.predicted_relation.value for p in predictions]
@@ -94,8 +95,4 @@ class LexicalUnconditionedBaseline:
         macro_f1 = f1_score(y_true, y_pred, average="macro", zero_division=0)
         report = classification_report(y_true, y_pred, output_dict=True, zero_division=0)
 
-        return {
-            "accuracy": acc,
-            "macro_f1": macro_f1,
-            "classification_report": report
-        }
+        return {"accuracy": acc, "macro_f1": macro_f1, "classification_report": report}

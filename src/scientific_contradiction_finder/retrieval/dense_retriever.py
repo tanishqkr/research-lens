@@ -1,20 +1,25 @@
 """Dense bi-encoder retriever using local sentence-transformers."""
 
-from typing import List, Tuple, Optional
 import numpy as np
 from sentence_transformers import SentenceTransformer
+
 from scientific_contradiction_finder.schemas import Paper
 
 
 class DenseRetriever:
     """Bi-encoder dense semantic retriever."""
 
-    def __init__(self, papers: List[Paper], model_name: str = "sentence-transformers/all-MiniLM-L6-v2", device: str = "cpu"):
+    def __init__(
+        self,
+        papers: list[Paper],
+        model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
+        device: str = "cpu",
+    ):
         self.papers = papers
         self.model_name = model_name
         self.device = device
-        self._model: Optional[SentenceTransformer] = None
-        self.doc_embeddings: Optional[np.ndarray] = None
+        self._model: SentenceTransformer | None = None
+        self.doc_embeddings: np.ndarray | None = None
 
     @property
     def model(self) -> SentenceTransformer:
@@ -27,15 +32,19 @@ class DenseRetriever:
         if not self.papers:
             return
         texts = [f"{p.title}. {p.abstract}" for p in self.papers]
-        self.doc_embeddings = self.model.encode(texts, convert_to_numpy=True, normalize_embeddings=True)
+        self.doc_embeddings = self.model.encode(
+            texts, convert_to_numpy=True, normalize_embeddings=True
+        )
 
-    def retrieve(self, query: str, top_k: int = 20) -> List[Tuple[Paper, float]]:
+    def retrieve(self, query: str, top_k: int = 20) -> list[tuple[Paper, float]]:
         if not self.papers:
             return []
         if self.doc_embeddings is None:
             self.index()
 
-        query_embedding = self.model.encode([query], convert_to_numpy=True, normalize_embeddings=True)[0]
+        query_embedding = self.model.encode(
+            [query], convert_to_numpy=True, normalize_embeddings=True
+        )[0]
         # Cosine similarity since vectors are L2-normalized
         scores = np.dot(self.doc_embeddings, query_embedding)
 

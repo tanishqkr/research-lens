@@ -1,4 +1,3 @@
-import os
 from scientific_contradiction_finder.config import Config, default_config
 
 

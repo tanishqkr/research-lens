@@ -1,8 +1,8 @@
 """Deduplication and canonicalization across OpenAlex, arXiv, and local corpora."""
 
-import re
 import hashlib
-from typing import List
+import re
+
 from scientific_contradiction_finder.schemas import Paper
 
 
@@ -16,7 +16,7 @@ class DocumentDeduplicator:
     """Deduplicates retrieved documents using DOI matching followed by normalized title hashing."""
 
     @staticmethod
-    def deduplicate(papers: List[Paper]) -> List[Paper]:
+    def deduplicate(papers: list[Paper]) -> list[Paper]:
         seen_dois = set()
         seen_titles = set()
         unique_papers = []

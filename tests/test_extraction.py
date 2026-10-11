@@ -1,7 +1,6 @@
-import pytest
-from scientific_contradiction_finder.extraction.sentence_splitter import SentenceSplitter
-from scientific_contradiction_finder.extraction.finding_extractor import FindingExtractor
 from scientific_contradiction_finder.extraction.condition_tagger import ConditionTagger
+from scientific_contradiction_finder.extraction.finding_extractor import FindingExtractor
+from scientific_contradiction_finder.extraction.sentence_splitter import SentenceSplitter
 from scientific_contradiction_finder.schemas import DirectionLabel
 
 
@@ -28,14 +27,25 @@ def test_finding_extractor_provenance():
     # Ensure every extracted span strictly satisfies substring provenance
     for span in spans:
         assert span.verify_against_source(abstract)
-        assert abstract[span.start_char:span.end_char] == span.text
+        assert abstract[span.start_char : span.end_char] == span.text
 
 
 def test_direction_inference():
     extractor = FindingExtractor()
-    assert extractor.infer_direction("RoBERTa significantly outperformed BERT on SQuAD.") == DirectionLabel.POSITIVE
-    assert extractor.infer_direction("Statins reduced major cardiovascular events.") == DirectionLabel.NEGATIVE
-    assert extractor.infer_direction("Hydroxychloroquine showed no significant difference in 28-day mortality.") == DirectionLabel.NO_DIFFERENCE
+    assert (
+        extractor.infer_direction("RoBERTa significantly outperformed BERT on SQuAD.")
+        == DirectionLabel.POSITIVE
+    )
+    assert (
+        extractor.infer_direction("Statins reduced major cardiovascular events.")
+        == DirectionLabel.NEGATIVE
+    )
+    assert (
+        extractor.infer_direction(
+            "Hydroxychloroquine showed no significant difference in 28-day mortality."
+        )
+        == DirectionLabel.NO_DIFFERENCE
+    )
 
 
 def test_condition_tagger():

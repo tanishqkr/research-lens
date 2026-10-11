@@ -3,6 +3,7 @@
 import argparse
 import json
 from pathlib import Path
+
 from scientific_contradiction_finder.ingestion.dataset_loader import BenchmarkLoader
 from scientific_contradiction_finder.reasoning.baseline import LexicalUnconditionedBaseline
 
@@ -33,7 +34,9 @@ def run_evaluation(dataset_name: str = "cas_con150", output_file: str = "data/ev
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Evaluate Scientific Contradiction Finder Pipeline")
+    parser = argparse.ArgumentParser(
+        description="Evaluate Scientific Contradiction Finder Pipeline"
+    )
     parser.add_argument("--dataset", type=str, default="cas_con150")
     parser.add_argument("--output", type=str, default="data/eval_results.json")
     args = parser.parse_args()

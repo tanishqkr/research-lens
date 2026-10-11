@@ -75,3 +75,4 @@ logs/
 *.tmp
 tmp/
 data/eval_results.json
+data/evaluation_summary.json

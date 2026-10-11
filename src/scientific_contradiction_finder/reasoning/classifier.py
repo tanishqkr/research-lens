@@ -1,36 +1,36 @@
 """Condition-aware 5-class relation classifier with abstention gating."""
 
-from typing import List, Optional
+from scientific_contradiction_finder.reasoning.compatibility import ConditionCompatibilityEvaluator
 from scientific_contradiction_finder.schemas import (
+    DirectionLabel,
     FindingPair,
     Prediction,
     RelationLabel,
-    DirectionLabel
 )
-from scientific_contradiction_finder.reasoning.compatibility import ConditionCompatibilityEvaluator
 
 
 class ConditionAwareRelationClassifier:
     """Predicts relationship across finding pairs by explicitly incorporating condition divergence.
-    
+
     Decision Architecture:
     1. Check for Insufficient Evidence / Unknown conditions -> INSUFFICIENT_EVIDENCE
     2. Evaluate condition compatibility:
-       - If Intervention or Outcome are fundamentally incompatible (<0.35) -> INCOMPARABLE_CONDITIONS
+       - If Intervention similarity < 0.20 and Intervention not substring -> INCOMPARABLE_CONDITIONS
     3. Evaluate reported directional outcomes:
-       - If conditions match closely (>=0.70):
-         - Concordant directions -> SUPPORTS_OR_CONSISTENT
-         - Opposing directions -> CONTRADICTS
-       - If conditions diverge partially (e.g. comparator or setting differs, but intervention/outcome related):
-         - Opposing directions -> QUALIFIES_OR_PARTIAL_DISAGREEMENT
-         - Concordant directions -> SUPPORTS_OR_CONSISTENT
+       - If directions are concordant:
+         - SUPPORTS_OR_CONSISTENT
+       - If directions conflict (e.g. POSITIVE vs NEGATIVE, or ACTIVE vs NO_DIFFERENCE):
+         - If all conditions match very tightly (setting similarity >= 0.90 & comparator >= 0.85 & overall >= 0.85):
+           -> CONTRADICTS
+         - If conditions diverge (differing settings, metrics, dosages, or baselines):
+           -> QUALIFIES_OR_PARTIAL_DISAGREEMENT
     4. Abstention gate for low confidence.
     """
 
     def __init__(
         self,
-        compat_evaluator: Optional[ConditionCompatibilityEvaluator] = None,
-        confidence_abstention_threshold: float = 0.45
+        compat_evaluator: ConditionCompatibilityEvaluator | None = None,
+        confidence_abstention_threshold: float = 0.45,
     ):
         self.compat_evaluator = compat_evaluator or ConditionCompatibilityEvaluator()
         self.abstention_threshold = confidence_abstention_threshold
@@ -41,67 +41,94 @@ class ConditionAwareRelationClassifier:
 
         # 1. Check for insufficient evidence or unknown conditions
         if (
-            fa.conditions.is_unknown or
-            fb.conditions.is_unknown or
-            fa.direction == DirectionLabel.UNCLEAR or
-            fb.direction == DirectionLabel.UNCLEAR or
-            fa.evidence.confidence < 0.6 or
-            fb.evidence.confidence < 0.6
+            fa.conditions.is_unknown
+            or fb.conditions.is_unknown
+            or fa.direction == DirectionLabel.UNCLEAR
+            or fb.direction == DirectionLabel.UNCLEAR
+            or fa.evidence.confidence < 0.6
+            or fb.evidence.confidence < 0.6
         ):
             diff = self.compat_evaluator.evaluate_difference(fa.conditions, fb.conditions)
             return Prediction(
                 pair_id=pair.pair_id,
                 predicted_relation=RelationLabel.INSUFFICIENT_EVIDENCE,
-                confidence_score=0.85,
+                confidence_score=0.88,
                 condition_differences=diff,
                 provenance_verified=True,
-                explanation="Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+                explanation="Findings lack sufficient empirical evidence or condition clarity to form a valid comparison.",
             )
 
         # 2. Evaluate condition difference
         diff = self.compat_evaluator.evaluate_difference(fa.conditions, fb.conditions)
 
-        # Check for incomparable conditions
-        if not diff.intervention_match or diff.outcome_similarity < 0.35:
+        # Check for fundamentally incomparable conditions (disparate fields / unrelated interventions)
+        # Note: In ML and biomedicine, some acronyms like LMWH/Enoxaparin or BERT/DistilBERT are related
+        if diff.intervention_similarity < 0.15:
             return Prediction(
                 pair_id=pair.pair_id,
                 predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
-                confidence_score=0.90,
+                confidence_score=0.92,
                 condition_differences=diff,
                 provenance_verified=True,
-                explanation=f"Studies evaluate disparate interventions or outcomes: {diff.summary_of_differences}"
+                explanation=f"Studies evaluate disparate interventions: {diff.summary_of_differences}",
+            )
+
+        # If both outcomes and settings are completely disjoint (<0.10)
+        if (
+            diff.outcome_similarity < 0.10
+            and diff.setting_similarity < 0.15
+            and not diff.intervention_match
+        ):
+            return Prediction(
+                pair_id=pair.pair_id,
+                predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
+                confidence_score=0.91,
+                condition_differences=diff,
+                provenance_verified=True,
+                explanation=f"Studies evaluate disparate outcomes and settings: {diff.summary_of_differences}",
             )
 
         # 3. Assess directional agreement
         directions_conflict = (
-            (fa.direction in (DirectionLabel.POSITIVE, DirectionLabel.NEGATIVE) and fb.direction == DirectionLabel.NO_DIFFERENCE) or
-            (fa.direction == DirectionLabel.POSITIVE and fb.direction == DirectionLabel.NEGATIVE) or
-            (fa.direction == DirectionLabel.NEGATIVE and fb.direction == DirectionLabel.POSITIVE) or
-            (fa.direction == DirectionLabel.NO_DIFFERENCE and fb.direction in (DirectionLabel.POSITIVE, DirectionLabel.NEGATIVE))
+            (
+                fa.direction in (DirectionLabel.POSITIVE, DirectionLabel.NEGATIVE)
+                and fb.direction == DirectionLabel.NO_DIFFERENCE
+            )
+            or (fa.direction == DirectionLabel.POSITIVE and fb.direction == DirectionLabel.NEGATIVE)
+            or (fa.direction == DirectionLabel.NEGATIVE and fb.direction == DirectionLabel.POSITIVE)
+            or (
+                fa.direction == DirectionLabel.NO_DIFFERENCE
+                and fb.direction in (DirectionLabel.POSITIVE, DirectionLabel.NEGATIVE)
+            )
         )
 
         if directions_conflict:
-            # If all conditions match closely -> Direct contradiction
-            if diff.setting_match and diff.comparator_match and diff.overall_compatibility >= 0.70:
+            # If all conditions match almost identically (strict tolerance) -> Direct contradiction
+            is_strict_setting_match = diff.setting_similarity >= 0.88
+            is_strict_comparator_match = diff.comparator_similarity >= 0.85
+            is_strict_overall = diff.overall_compatibility >= 0.85
+
+            if is_strict_setting_match and is_strict_comparator_match and is_strict_overall:
                 pred_label = RelationLabel.CONTRADICTS
                 explanation = "Direct empirical contradiction: studies evaluate identical conditions but report opposing directional findings."
-                conf = 0.92
+                conf = 0.94
             else:
-                # Differing setting or comparator explains opposing findings -> Qualified disagreement
+                # Diverging setting, comparator, or metric qualifies the disagreement
                 pred_label = RelationLabel.QUALIFIES_OR_PARTIAL_DISAGREEMENT
-                explanation = f"Apparent disagreement qualified by experimental divergence: {diff.summary_of_differences}"
-                conf = 0.88
+                explanation = f"Apparent disagreement qualified by experimental condition divergence: {diff.summary_of_differences}"
+                conf = 0.90
         else:
             # Directions concordant
             pred_label = RelationLabel.SUPPORTS_OR_CONSISTENT
-            explanation = "Findings report consistent directional outcomes under compatible conditions."
-            conf = 0.90
+            explanation = (
+                "Findings report consistent directional outcomes under compatible conditions."
+            )
+            conf = 0.92
 
         # Provenance verification check
-        provenance_ok = (
-            fa.evidence.verify_against_source(fa.evidence.text) and
-            fb.evidence.verify_against_source(fb.evidence.text)
-        )
+        provenance_ok = fa.evidence.verify_against_source(
+            fa.evidence.text
+        ) and fb.evidence.verify_against_source(fb.evidence.text)
 
         return Prediction(
             pair_id=pair.pair_id,
@@ -109,8 +136,8 @@ class ConditionAwareRelationClassifier:
             confidence_score=conf,
             condition_differences=diff,
             provenance_verified=provenance_ok,
-            explanation=explanation
+            explanation=explanation,
         )
 
-    def classify_all(self, pairs: List[FindingPair]) -> List[Prediction]:
+    def classify_all(self, pairs: list[FindingPair]) -> list[Prediction]:
         return [self.classify_pair(p) for p in pairs]

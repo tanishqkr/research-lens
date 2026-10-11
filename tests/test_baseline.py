@@ -1,4 +1,3 @@
-import pytest
 from scientific_contradiction_finder.ingestion.dataset_loader import BenchmarkLoader
 from scientific_contradiction_finder.reasoning.baseline import LexicalUnconditionedBaseline
 
@@ -15,4 +14,6 @@ def test_lexical_baseline_train_eval():
     assert "accuracy" in eval_results
     assert "macro_f1" in eval_results
     assert eval_results["accuracy"] > 0.0
-    print(f"Baseline accuracy: {eval_results['accuracy']:.4f}, Macro-F1: {eval_results['macro_f1']:.4f}")
+    print(
+        f"Baseline accuracy: {eval_results['accuracy']:.4f}, Macro-F1: {eval_results['macro_f1']:.4f}"
+    )

@@ -1,8 +1,9 @@
+import httpx
 import pytest
 import respx
-import httpx
-from scientific_contradiction_finder.retrieval.openalex_client import OpenAlexClient
+
 from scientific_contradiction_finder.retrieval.cache import SQLiteCache
+from scientific_contradiction_finder.retrieval.openalex_client import OpenAlexClient
 
 
 @pytest.mark.asyncio
@@ -22,11 +23,9 @@ async def test_openalex_client_mock_search(tmp_path):
                     "Metformin": [0],
                     "reduced": [1],
                     "all-cause": [2],
-                    "mortality": [3]
+                    "mortality": [3],
                 },
-                "authorships": [
-                    {"author": {"display_name": "Jane Doe"}}
-                ]
+                "authorships": [{"author": {"display_name": "Jane Doe"}}],
             }
         ]
     }
@@ -51,10 +50,7 @@ async def test_openalex_client_rate_limit_backoff(tmp_path):
 
     # First request returns 429, second returns 200
     route = respx.get("https://api.openalex.org/works")
-    route.side_effect = [
-        httpx.Response(429),
-        httpx.Response(200, json={"results": []})
-    ]
+    route.side_effect = [httpx.Response(429), httpx.Response(200, json={"results": []})]
 
     papers = await client.search_works("test_backoff", limit=5)
     assert papers == []

@@ -1,20 +1,19 @@
 """Sentence boundary detection and character offset tracking."""
 
 import re
-from typing import List, Tuple
 
 
 class SentenceSplitter:
     """Splits abstracts into sentences while tracking exact character offsets in the source text."""
 
     @staticmethod
-    def split_with_offsets(text: str) -> List[Tuple[str, int, int]]:
+    def split_with_offsets(text: str) -> list[tuple[str, int, int]]:
         """Returns list of (sentence_text, start_char, end_char)."""
         if not text:
             return []
 
         # Find potential sentence ending punctuation followed by whitespace and an uppercase letter/number
-        matches = list(re.finditer(r'[.!?]\s+(?=[A-Z0-9])', text))
+        matches = list(re.finditer(r"[.!?]\s+(?=[A-Z0-9])", text))
         splits = []
         start_idx = 0
 

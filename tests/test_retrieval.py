@@ -1,11 +1,10 @@
-import pytest
-from scientific_contradiction_finder.schemas import Paper
-from scientific_contradiction_finder.retrieval.cache import SQLiteCache
-from scientific_contradiction_finder.retrieval.query_parser import PolarityQueryExpander
-from scientific_contradiction_finder.retrieval.openalex_client import decode_openalex_inverted_index, OpenAlexClient
-from scientific_contradiction_finder.retrieval.deduplicator import DocumentDeduplicator
 from scientific_contradiction_finder.retrieval.bm25_retriever import BM25Retriever
+from scientific_contradiction_finder.retrieval.cache import SQLiteCache
+from scientific_contradiction_finder.retrieval.deduplicator import DocumentDeduplicator
 from scientific_contradiction_finder.retrieval.hybrid_reranker import ReciprocalRankFusion
+from scientific_contradiction_finder.retrieval.openalex_client import decode_openalex_inverted_index
+from scientific_contradiction_finder.retrieval.query_parser import PolarityQueryExpander
+from scientific_contradiction_finder.schemas import Paper
 
 
 def test_sqlite_cache_roundtrip(tmp_path):
@@ -36,7 +35,7 @@ def test_decode_openalex_inverted_index():
         "lowers": [1],
         "blood": [2],
         "glucose": [3],
-        "significantly": [4]
+        "significantly": [4],
     }
     decoded = decode_openalex_inverted_index(inv_index)
     assert decoded == "Metformin lowers blood glucose significantly"
@@ -48,7 +47,7 @@ def test_document_deduplication():
         title="Impact of Vitamin D on Immunity",
         abstract="Abstract 1",
         doi="10.1001/jama.001",
-        source_provider="openalex"
+        source_provider="openalex",
     )
     # Duplicate DOI
     p2 = Paper(
@@ -56,7 +55,7 @@ def test_document_deduplication():
         title="Different Title but Same DOI",
         abstract="Abstract 2",
         doi="10.1001/jama.001",
-        source_provider="arxiv"
+        source_provider="arxiv",
     )
     # Duplicate Normalized Title
     p3 = Paper(
@@ -64,14 +63,14 @@ def test_document_deduplication():
         title="impact of vitamin d on immunity!",
         abstract="Abstract 3",
         doi="10.1001/jama.002",
-        source_provider="openalex"
+        source_provider="openalex",
     )
     p4 = Paper(
         paper_id="4",
         title="Completely Unique Study on Ketone Bodies",
         abstract="Abstract 4",
         doi="10.1001/jama.003",
-        source_provider="openalex"
+        source_provider="openalex",
     )
 
     deduped = DocumentDeduplicator.deduplicate([p1, p2, p3, p4])
@@ -85,13 +84,13 @@ def test_bm25_retrieval_and_rrf():
         paper_id="1",
         title="Metformin reduces HbA1c in diabetes",
         abstract="Clinical trial showing glycemic control with oral metformin.",
-        source_provider="openalex"
+        source_provider="openalex",
     )
     p2 = Paper(
         paper_id="2",
         title="Deep Reinforcement Learning in Robotics",
         abstract="Autonomous quadcopter navigation via policy gradients.",
-        source_provider="arxiv"
+        source_provider="arxiv",
     )
 
     bm25 = BM25Retriever([p1, p2])

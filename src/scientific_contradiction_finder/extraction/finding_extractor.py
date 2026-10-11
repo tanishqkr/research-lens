@@ -1,9 +1,12 @@
 """Finding rationale extractor identifying empirical finding sentences from scientific abstracts."""
 
 import re
-from typing import List, Optional
-from scientific_contradiction_finder.schemas import Paper, EvidenceSpan, Finding, DirectionLabel, ConditionSlots
+
 from scientific_contradiction_finder.extraction.sentence_splitter import SentenceSplitter
+from scientific_contradiction_finder.schemas import (
+    DirectionLabel,
+    EvidenceSpan,
+)
 
 # Keywords signaling empirical results, findings, and conclusions
 FINDING_INDICATORS = [
@@ -22,21 +25,34 @@ FINDING_INDICATORS = [
     r"\bno significant difference\b",
     r"\bfailed to\b",
     r"\bled to\b",
-    r"\beachieved\b"
+    r"\beachieved\b",
 ]
 
 # Patterns signaling directionality
 POSITIVE_PATTERNS = [
-    r"\boutperformed\b", r"\bsignificant improvement\b", r"\bincreased\b",
-    r"\bsurpassed\b", r"\benhanced\b", r"\bhigher\b", r"\beffective\b"
+    r"\boutperformed\b",
+    r"\bsignificant improvement\b",
+    r"\bincreased\b",
+    r"\bsurpassed\b",
+    r"\benhanced\b",
+    r"\bhigher\b",
+    r"\beffective\b",
 ]
 NEGATIVE_PATTERNS = [
-    r"\breduced\b", r"\bdecreased\b", r"\blowered\b", r"\bdegraded\b",
-    r"\bdiminished\b", r"\binferior\b"
+    r"\breduced\b",
+    r"\bdecreased\b",
+    r"\blowered\b",
+    r"\bdegraded\b",
+    r"\bdiminished\b",
+    r"\binferior\b",
 ]
 NO_DIFF_PATTERNS = [
-    r"\bno significant difference\b", r"\bfailed to\b", r"\bdid not reduce\b",
-    r"\bno effect\b", r"\bcomparable to\b", r"\bequivalent\b"
+    r"\bno significant difference\b",
+    r"\bfailed to\b",
+    r"\bdid not reduce\b",
+    r"\bno effect\b",
+    r"\bcomparable to\b",
+    r"\bequivalent\b",
 ]
 
 
@@ -47,9 +63,9 @@ class FindingExtractor:
         self.min_length_chars = min_length_chars
         self.finding_regex = re.compile("|".join(FINDING_INDICATORS), re.IGNORECASE)
 
-    def extract_evidence_spans(self, text: str) -> List[EvidenceSpan]:
+    def extract_evidence_spans(self, text: str) -> list[EvidenceSpan]:
         sentences = SentenceSplitter.split_with_offsets(text)
-        candidates: List[EvidenceSpan] = []
+        candidates: list[EvidenceSpan] = []
 
         for idx, (sent, start, end) in enumerate(sentences):
             if len(sent) < self.min_length_chars:
@@ -57,7 +73,7 @@ class FindingExtractor:
 
             # Prioritize sentences with empirical result keywords or late in abstract (Results/Conclusion)
             match = self.finding_regex.search(sent)
-            is_late_sentence = (idx >= max(1, len(sentences) - 3))
+            is_late_sentence = idx >= max(1, len(sentences) - 3)
 
             confidence = 0.5
             if match:
@@ -68,13 +84,15 @@ class FindingExtractor:
             if match or is_late_sentence:
                 # Substring provenance guarantee: sent is verified against text[start:end]
                 assert text[start:end] == sent, "Evidence span character offset mismatch!"
-                candidates.append(EvidenceSpan(
-                    text=sent,
-                    start_char=start,
-                    end_char=end,
-                    sentence_idx=idx,
-                    confidence=min(1.0, confidence)
-                ))
+                candidates.append(
+                    EvidenceSpan(
+                        text=sent,
+                        start_char=start,
+                        end_char=end,
+                        sentence_idx=idx,
+                        confidence=min(1.0, confidence),
+                    )
+                )
 
         candidates.sort(key=lambda s: s.confidence, reverse=True)
         return candidates
