@@ -15,27 +15,30 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# Sidebar settings
+st.sidebar.header("⚙️ Configuration & Modes")
+mode = st.sidebar.radio(
+    "Select Workflow Mode:",
+    ["Live Empirical Search (OpenAlex / arXiv)", "Demo Benchmark Pairs (CAS-Con150)"],
+)
+
+use_groq = st.sidebar.checkbox("Enable Groq Query Structuring (llama/qwen)", value=True)
+use_groq_interp = st.sidebar.checkbox("Enable Groq Candidate Sentence Auditor", value=False)
+
 
 # Initialize pipeline
 @st.cache_resource
-def get_pipeline():
-    return ContradictionFinderPipeline()
+def get_pipeline(use_llm: bool):
+    return ContradictionFinderPipeline(use_groq=use_llm)
 
 
-pipeline = get_pipeline()
+pipeline = get_pipeline(use_groq)
 
 st.title("🔬 Scientific Contradiction Finder")
 st.markdown("""
 **Condition-Aware Discovery & Analysis of Conflicting Scientific Findings**
 Differentiates between direct contradictions, qualified disagreements, and incomparable settings by extracting empirical conditions ($I, C, O, S$).
 """)
-
-# Sidebar
-st.sidebar.header("⚙️ Configuration & Demo Modes")
-mode = st.sidebar.radio(
-    "Select Workflow Mode:",
-    ["Live Empirical Search (OpenAlex / arXiv)", "Demo Benchmark Pairs (CAS-Con150)"],
-)
 
 if mode == "Demo Benchmark Pairs (CAS-Con150)":
     st.subheader("📚 Benchmark Evaluation Explorer")
@@ -120,7 +123,7 @@ if mode == "Demo Benchmark Pairs (CAS-Con150)":
 
         st.markdown(
             f"<h4>Predicted Relationship: <span style='color:{verdict_color};'>{pred.predicted_relation.value}</span> "
-            f"(Confidence: {pred.confidence_score * 100:.1f}%)</h4>",
+            f"(Calibrated Confidence: {pred.confidence_score * 100:.1f}%)</h4>",
             unsafe_allow_html=True,
         )
 
@@ -168,14 +171,14 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
         "Choose an empirical query preset or write your own below:",
         [
             "Custom Query",
-            "Do higher temperatures accelerate lithium-ion battery degradation?",
-            "Does data augmentation improve the generalization of vision transformers?",
-            "Does vitamin D supplementation reduce respiratory infections in adults?",
+            "Do lithium-ion batteries degrade faster when charged at high temperatures compared with moderate temperatures?",
+            "Does image augmentation improve image classification accuracy in vision transformer models compared with training without augmentation?",
+            "Does vitamin D supplementation reduce the risk of acute respiratory infections, and does the effect depend on baseline vitamin D levels?",
         ],
     )
 
     default_val = (
-        "Do higher temperatures accelerate lithium-ion battery degradation?"
+        "Do lithium-ion batteries degrade faster when charged at high temperatures compared with moderate temperatures?"
         if preset == "Custom Query"
         else preset
     )
@@ -188,7 +191,9 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
         with st.spinner(
             "Searching literature across OpenAlex & arXiv, extracting findings, and evaluating conditions..."
         ):
-            res = asyncio.run(pipeline.run(query, limit=10))
+            res = asyncio.run(
+                pipeline.run(query, limit=10, use_groq_interpretation=use_groq_interp)
+            )
 
         # Show pipeline diagnostics
         diag = res.get("diagnostics", {})
@@ -209,6 +214,11 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
         col_d3.metric("Usable Abstracts", f"{diag.get('usable_abstracts', 0)}")
         col_d4.metric("Extracted Findings", f"{res['findings_extracted']}")
 
+        if diag.get("groq_assisted") and diag.get("groq_structured"):
+            st.info(
+                f"💡 **Groq-Assisted Structured Query:** Keywords used: `{diag['groq_structured']['search_keywords']}`"
+            )
+
         if res["papers_found"] > 0:
             st.success(
                 f"Retrieved **{res['papers_found']}** deduplicated papers; extracted **{res['findings_extracted']}** empirical findings."
@@ -225,7 +235,7 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
                     st.markdown(f"**[{f.paper_id}] {f.paper_title}**")
                     st.markdown(f"> _{f.evidence.text}_")
                     st.caption(
-                        f"Direction: `{f.direction.value}` | Intervention: `{f.conditions.intervention}` | Outcome: `{f.conditions.outcome_metric}` | Setting: `{f.conditions.dataset_setting}`"
+                        f"Direction: `{f.direction.value}` | Intervention: `{f.conditions.intervention}` | Comparator: `{f.conditions.comparator}` | Outcome: `{f.conditions.outcome_metric}` | Setting: `{f.conditions.dataset_setting}`"
                     )
                     st.divider()
 
@@ -252,7 +262,7 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
                         )
                         st.markdown(f"_{pair.finding_a.finding_claim}_")
                         st.caption(
-                            f"Direction: `{pair.finding_a.direction.value}` | $I$: {pair.finding_a.conditions.intervention} | $O$: {pair.finding_a.conditions.outcome_metric}"
+                            f"Direction: `{pair.finding_a.direction.value}` | $I$: {pair.finding_a.conditions.intervention} | $C$: {pair.finding_a.conditions.comparator} | $O$: {pair.finding_a.conditions.outcome_metric}"
                         )
                     with c2:
                         st.markdown(
@@ -260,12 +270,12 @@ elif mode == "Live Empirical Search (OpenAlex / arXiv)":
                         )
                         st.markdown(f"_{pair.finding_b.finding_claim}_")
                         st.caption(
-                            f"Direction: `{pair.finding_b.direction.value}` | $I$: {pair.finding_b.conditions.intervention} | $O$: {pair.finding_b.conditions.outcome_metric}"
+                            f"Direction: `{pair.finding_b.direction.value}` | $I$: {pair.finding_b.conditions.intervention} | $C$: {pair.finding_b.conditions.comparator} | $O$: {pair.finding_b.conditions.outcome_metric}"
                         )
 
                     st.markdown(
                         f"**Verdict:** <span style='color:{v_color}; font-weight:bold;'>{pred.predicted_relation.value}</span> "
-                        f"(Confidence: {pred.confidence_score * 100:.1f}%)",
+                        f"(Calibrated Confidence: {pred.confidence_score * 100:.1f}%)",
                         unsafe_allow_html=True,
                     )
                     st.markdown(f"**Explanation:** {pred.explanation}")

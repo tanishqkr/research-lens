@@ -49,10 +49,15 @@ class ConditionAwareRelationClassifier:
             or fb.evidence.confidence < 0.6
         ):
             diff = self.compat_evaluator.evaluate_difference(fa.conditions, fb.conditions)
+            mean_ev_conf = (fa.evidence.confidence + fb.evidence.confidence) / 2.0
+            # Calibrated confidence based on evidence quality and slot completeness
+            calculated_conf = round(
+                float(0.70 + 0.25 * (1.0 - diff.overall_compatibility) * mean_ev_conf), 3
+            )
             return Prediction(
                 pair_id=pair.pair_id,
                 predicted_relation=RelationLabel.INSUFFICIENT_EVIDENCE,
-                confidence_score=0.88,
+                confidence_score=calculated_conf,
                 condition_differences=diff,
                 provenance_verified=True,
                 explanation="Findings lack sufficient empirical evidence or condition clarity to form a valid comparison.",
@@ -62,15 +67,16 @@ class ConditionAwareRelationClassifier:
         diff = self.compat_evaluator.evaluate_difference(fa.conditions, fb.conditions)
 
         # Check for fundamentally incomparable conditions (disparate fields / unrelated interventions)
-        # Note: In ML and biomedicine, some acronyms like LMWH/Enoxaparin or BERT/DistilBERT are related
         if diff.intervention_similarity < 0.15:
+            # Distance from threshold determines confidence
+            incomp_conf = round(float(0.75 + 0.20 * (1.0 - diff.intervention_similarity)), 3)
             return Prediction(
                 pair_id=pair.pair_id,
                 predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
-                confidence_score=0.92,
+                confidence_score=incomp_conf,
                 condition_differences=diff,
                 provenance_verified=True,
-                explanation=f"Studies evaluate disparate interventions: {diff.summary_of_differences}",
+                explanation=f"Studies evaluate disparate interventions (sim={diff.intervention_similarity:.2f}): {diff.summary_of_differences}",
             )
 
         # If both outcomes and settings are completely disjoint (<0.10)
@@ -79,10 +85,16 @@ class ConditionAwareRelationClassifier:
             and diff.setting_similarity < 0.15
             and not diff.intervention_match
         ):
+            disjoint_conf = round(
+                float(
+                    0.75 + 0.20 * (1.0 - (diff.outcome_similarity + diff.setting_similarity) / 2.0)
+                ),
+                3,
+            )
             return Prediction(
                 pair_id=pair.pair_id,
                 predicted_relation=RelationLabel.INCOMPARABLE_CONDITIONS,
-                confidence_score=0.91,
+                confidence_score=disjoint_conf,
                 condition_differences=diff,
                 provenance_verified=True,
                 explanation=f"Studies evaluate disparate outcomes and settings: {diff.summary_of_differences}",
@@ -102,6 +114,8 @@ class ConditionAwareRelationClassifier:
             )
         )
 
+        mean_ev_conf = (fa.evidence.confidence + fb.evidence.confidence) / 2.0
+
         if directions_conflict:
             # If all conditions match almost identically (strict tolerance) -> Direct contradiction
             is_strict_setting_match = diff.setting_similarity >= 0.88
@@ -111,19 +125,25 @@ class ConditionAwareRelationClassifier:
             if is_strict_setting_match and is_strict_comparator_match and is_strict_overall:
                 pred_label = RelationLabel.CONTRADICTS
                 explanation = "Direct empirical contradiction: studies evaluate identical conditions but report opposing directional findings."
-                conf = 0.94
+                conf = round(float(0.75 + 0.20 * diff.overall_compatibility * mean_ev_conf), 3)
             else:
                 # Diverging setting, comparator, or metric qualifies the disagreement
                 pred_label = RelationLabel.QUALIFIES_OR_PARTIAL_DISAGREEMENT
                 explanation = f"Apparent disagreement qualified by experimental condition divergence: {diff.summary_of_differences}"
-                conf = 0.90
+                # Confidence reflects how clearly divergence explains the opposing results
+                conf = round(
+                    float(
+                        0.70 + 0.22 * (1.0 - abs(diff.overall_compatibility - 0.55)) * mean_ev_conf
+                    ),
+                    3,
+                )
         else:
             # Directions concordant
             pred_label = RelationLabel.SUPPORTS_OR_CONSISTENT
             explanation = (
                 "Findings report consistent directional outcomes under compatible conditions."
             )
-            conf = 0.92
+            conf = round(float(0.70 + 0.25 * diff.overall_compatibility * mean_ev_conf), 3)
 
         # Provenance verification check
         provenance_ok = fa.evidence.verify_against_source(

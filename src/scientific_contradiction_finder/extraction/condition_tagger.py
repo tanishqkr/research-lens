@@ -1,42 +1,104 @@
 """Condition slot tagger extracting Intervention (I), Comparator (C), Outcome (O), and Setting (S)."""
 
 import re
+from typing import Optional
 
 import spacy
 
 from scientific_contradiction_finder.schemas import ConditionSlots
 
-# Predefined lexical triggers for biomedical and computational parameters
+# Predefined lexical triggers for comparators, outcomes, and settings
 COMPARATOR_MARKERS = [
     r"\bversus\b",
     r"\bvs\.?\b",
     r"\bcompared with\b",
     r"\bcompared to\b",
     r"\bagainst\b",
+    r"\brelative to\b",
+    r"\bthan\b",
 ]
+
 OUTCOME_MARKERS = [
+    r"\bdegradation rate\b",
+    r"\bcapacity fade\b",
+    r"\bcell thickness\b",
     r"\bmortality\b",
     r"\bhba1c\b",
     r"\bexacerbation\b",
     r"\bf1 score\b",
     r"\baccuracy\b",
+    r"\bgeneralization\b",
     r"\bperplexity\b",
     r"\befficacy\b",
     r"\bspeedup\b",
+    r"\brespiratory (?:tract )?infections?\b",
+    r"\bincidence\b",
+    r"\brisk of (?:[a-zA-Z\s]+)\b",
+    r"\blifetime\b",
+    r"\baging effects?\b",
 ]
+
 SETTING_MARKERS = [
     r"\bpatients with\b",
     r"\bcohort\b",
     r"\bbenchmark\b",
     r"\bdataset\b",
     r"\badults\b",
-    r"\btrials\b",
+    r"\btrials?\b",
     r"\bsetting\b",
+    r"\blithium-ion cells?\b",
+    r"\bvision transformers?\b",
+    r"\bhealthy adults\b",
+    r"\bolder adults\b",
 ]
+
+# Blacklisted strings that should NEVER be extracted as an intervention or outcome
+INVALID_SLOT_TERMS = {
+    "the results",
+    "results",
+    "the experimental results",
+    "our results",
+    "significant increases",
+    "significant decrease",
+    "significant difference",
+    "addition",
+    "findings",
+    "in addition",
+    "furthermore",
+    "it",
+    "we",
+    "study",
+    "follow-up",
+    "in the follow-up",
+    "the 14-week follow-up",
+    "the 14-week follow-up study",
+    "the study",
+    "authors",
+    "this paper",
+    "conclusion",
+    "conclusions",
+}
+
+
+def clean_slot_string(s: str) -> Optional[str]:
+    """Cleans punctuation and determines if string is a valid scientific condition."""
+    if not s:
+        return None
+    cleaned = re.sub(r"^[,\.;:\s\(\)\[\]]+|[,\.;:\s\(\)\[\]]+$", "", s).strip()
+    if len(cleaned) < 3:
+        return None
+    if cleaned.lower() in INVALID_SLOT_TERMS:
+        return None
+    # Filter strings starting with introductory time/study phrases
+    if re.match(
+        r"^(in the|during the|across the)\s+\d+-(?:week|month|year|day)", cleaned, re.IGNORECASE
+    ):
+        return None
+    return cleaned
 
 
 class ConditionTagger:
-    """Extracts 4-tuple experimental conditions: (Intervention, Comparator, Outcome, Setting)."""
+    """Extracts 4-tuple experimental conditions: (Intervention, Comparator, Outcome, Setting) with validation."""
 
     def __init__(self, spacy_model: str = "en_core_web_sm"):
         try:
@@ -45,76 +107,102 @@ class ConditionTagger:
             self.nlp = None
 
     def extract_conditions(
-        self, sentence_text: str, abstract_text: str | None = None
+        self, sentence_text: str, abstract_text: Optional[str] = None
     ) -> ConditionSlots:
-        """Extracts PICO condition slots from finding sentence and optional abstract context."""
+        """Extracts PICO condition slots from finding sentence and abstract context."""
         text_lower = sentence_text.lower()
 
         # 1. Comparator extraction
         comparator = "Standard Baseline / Unspecified"
         for pattern in COMPARATOR_MARKERS:
             match = re.search(
-                f"{pattern}\\s+([a-zA-Z0-9\\s\\-\\(\\)]{{3,35}}?)(?:\\.|,|\\bin\\b|\\bwith\\b|\\bfor\\b|$)",
+                f"{pattern}\\s+([a-zA-Z0-9\\s\\-\\(\\)]{{3,40}}?)(?:\\.|,|\\bin\\b|\\bwith\\b|\\bfor\\b|\\bduring\\b|$)",
                 text_lower,
             )
             if match:
-                extracted_c = match.group(1).strip()
-                if len(extracted_c) > 2:
+                extracted_c = clean_slot_string(match.group(1).strip())
+                if extracted_c:
                     comparator = extracted_c.title()
                 break
 
-        # 2. Intervention extraction (typically the grammatical subject or noun chunk before verb)
-        intervention = "Unspecified Intervention"
-        if self.nlp:
-            doc = self.nlp(sentence_text)
-            # Find subject noun phrase
-            for chunk in doc.noun_chunks:
-                # Ignore generic meta nouns
-                if chunk.root.dep_ in ("nsubj", "nsubjpass") and chunk.text.lower() not in (
-                    "we",
-                    "results",
-                    "study",
-                    "trials",
-                    "data",
-                ):
-                    intervention = chunk.text.strip()
-                    break
-        if intervention == "Unspecified Intervention":
-            # Fallback regex for first substantial phrase
-            first_words = " ".join(sentence_text.split()[:4]).rstrip(",.:;")
-            intervention = first_words
-
-        # 3. Outcome extraction
-        outcome = "Primary Empirical Outcome"
+        # 2. Outcome extraction
+        outcome = None
         for marker in OUTCOME_MARKERS:
-            if re.search(marker, text_lower):
-                outcome = marker.replace("\\b", "").title()
-                break
-        if outcome == "Primary Empirical Outcome" and self.nlp:
-            # Look for direct object or prepositional object
+            m = re.search(marker, text_lower)
+            if m:
+                outcome = clean_slot_string(m.group(0))
+                if outcome:
+                    outcome = outcome.title()
+                    break
+
+        if not outcome and self.nlp:
             doc = self.nlp(sentence_text)
             for chunk in doc.noun_chunks:
                 if chunk.root.dep_ in ("dobj", "pobj") and len(chunk.text.split()) <= 4:
-                    outcome = chunk.text.strip().title()
-                    break
+                    cleaned = clean_slot_string(chunk.text)
+                    if cleaned:
+                        outcome = cleaned.title()
+                        break
+        if not outcome:
+            outcome = "Primary Empirical Outcome"
+
+        # 3. Intervention extraction
+        intervention = None
+        # Check specific domain patterns (e.g. "charging at high temperatures", "baseline 25(OH)D levels", "data augmentation")
+        domain_interventions = [
+            r"\b(?:high|elevated|ambient|low)\s+temperatures?(?:\s+charging)?\b",
+            r"\bdata augmentation(?:\s+techniques?)?\b",
+            r"\bvitamin d(?:3)?(?:\s+supplementation)?\b",
+            r"\bbaseline 25\(oh\)d levels?(?:\s+below\s+\d+\s+nmol/l)?\b",
+            r"\b(?:higher|lower)\s+charging(?:\s*-\s*discharging)?\s+rates?\b",
+            r"\blithium plating\b",
+            r"\bcell thickness increase\b",
+        ]
+        for ip in domain_interventions:
+            im = re.search(ip, text_lower)
+            if im:
+                intervention = clean_slot_string(im.group(0).title())
+                break
+
+        if not intervention and self.nlp:
+            doc = self.nlp(sentence_text)
+            for chunk in doc.noun_chunks:
+                if chunk.root.dep_ in ("nsubj", "nsubjpass"):
+                    cleaned = clean_slot_string(chunk.text)
+                    if cleaned:
+                        intervention = cleaned.title()
+                        break
+
+        if not intervention:
+            # Fallback: scan for first valid noun chunk not in invalid terms
+            if self.nlp:
+                doc = self.nlp(sentence_text)
+                for chunk in doc.noun_chunks:
+                    cleaned = clean_slot_string(chunk.text)
+                    if cleaned and cleaned.title() != outcome:
+                        intervention = cleaned.title()
+                        break
+
+        if not intervention:
+            intervention = "Unspecified Scientific Intervention"
 
         # 4. Setting extraction
         setting = "General Scientific Setting"
         for pattern in SETTING_MARKERS:
             match = re.search(
-                f"{pattern}\\s+([a-zA-Z0-9\\s\\-\\(\\)]{{3,35}}?)(?:\\.|,|\\band\\b|$)", text_lower
+                f"{pattern}\\s*([a-zA-Z0-9\\s\\-\\(\\)]{{0,35}}?)(?:\\.|,|\\band\\b|$)", text_lower
             )
             if match:
-                cleaned_p = pattern.replace(r"\b", "").title()
-                setting = f"{cleaned_p} {match.group(1).strip().title()}"
+                cleaned_p = clean_slot_string(match.group(0))
+                if cleaned_p:
+                    setting = cleaned_p.title()
                 break
 
-        # Check if conditions are essentially unknown/sparse
         is_unknown = (
-            intervention == "Unspecified Intervention"
+            intervention == "Unspecified Scientific Intervention"
             and comparator == "Standard Baseline / Unspecified"
         )
-        confidence = 0.5 if is_unknown else 0.85
+        confidence = 0.50 if is_unknown else 0.85
 
         return ConditionSlots(
             intervention=intervention,

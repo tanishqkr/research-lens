@@ -1,4 +1,4 @@
-"""End-to-end contradiction analysis orchestrator with rich stage diagnostics."""
+"""End-to-end contradiction analysis orchestrator with optional Groq assistance and rich stage diagnostics."""
 
 import asyncio
 from typing import Any, Dict, List, Optional, Tuple
@@ -12,17 +12,27 @@ from scientific_contradiction_finder.retrieval.arxiv_client import ArxivClient
 from scientific_contradiction_finder.retrieval.bm25_retriever import BM25Retriever
 from scientific_contradiction_finder.retrieval.deduplicator import DocumentDeduplicator
 from scientific_contradiction_finder.retrieval.dense_retriever import DenseRetriever
+from scientific_contradiction_finder.retrieval.groq_client import GroqClient
 from scientific_contradiction_finder.retrieval.hybrid_reranker import ReciprocalRankFusion
 from scientific_contradiction_finder.retrieval.openalex_client import OpenAlexClient
 from scientific_contradiction_finder.retrieval.query_parser import PolarityQueryExpander
-from scientific_contradiction_finder.schemas import Finding, FindingPair, Paper, Prediction
+from scientific_contradiction_finder.schemas import (
+    ConditionSlots,
+    DirectionLabel,
+    Finding,
+    FindingPair,
+    Paper,
+    Prediction,
+)
 
 
 class ContradictionFinderPipeline:
     """Orchestrates query expansion, multi-source retrieval, extraction, and condition-aware reasoning."""
 
-    def __init__(self, config: Optional[Config] = None):
+    def __init__(self, config: Optional[Config] = None, use_groq: bool = True):
         self.cfg = config or default_config
+        self.use_groq = use_groq
+        self.groq_client = GroqClient()
         self.expander = PolarityQueryExpander()
         self.openalex_client = OpenAlexClient(
             api_key=self.cfg.retrieval.openalex_api_key,
@@ -42,12 +52,33 @@ class ContradictionFinderPipeline:
     async def search_papers_with_diagnostics(
         self, query: str, limit: int = 20
     ) -> Tuple[List[Paper], Dict[str, Any]]:
-        """Expands query, queries OpenAlex and arXiv, and collects detailed stage diagnostics."""
-        expanded = self.expander.expand(query)
+        """Expands query, optionally structured by Groq, queries OpenAlex and arXiv, and collects diagnostics."""
+        local_expanded = self.expander.expand(query)
+        groq_structured = None
+
+        if self.use_groq and self.groq_client.is_available:
+            try:
+                groq_structured = await self.groq_client.structure_query(query)
+            except Exception:
+                groq_structured = None
+
+        # Build prioritized search queries: combine Groq keywords (if available) with local keywords
+        search_queries = []
+        if groq_structured and groq_structured.search_keywords:
+            search_queries.extend(groq_structured.search_keywords[:2])
+        if local_expanded.keyword_queries:
+            for kq in local_expanded.keyword_queries[:2]:
+                if kq not in search_queries:
+                    search_queries.append(kq)
+        for eq in local_expanded.expanded_queries[:2]:
+            if eq not in search_queries:
+                search_queries.append(eq)
+
         diagnostics = {
             "query_raw": query,
-            "expanded_queries": expanded.expanded_queries,
-            "keyword_queries": expanded.keyword_queries,
+            "groq_assisted": bool(groq_structured),
+            "groq_structured": groq_structured.model_dump() if groq_structured else None,
+            "search_queries_dispatched": search_queries[:3],
             "openalex": {"status": None, "results_count": 0, "error": None},
             "arxiv": {"status": None, "results_count": 0, "error": None},
             "raw_total": 0,
@@ -55,14 +86,12 @@ class ContradictionFinderPipeline:
             "after_dedup": 0,
         }
 
-        # Build tasks: use keyword query and first polarity variant
-        search_queries = expanded.expanded_queries[:3]
         oa_tasks = [
             self.openalex_client.search_works_with_diagnostics(q, limit=limit)
-            for q in search_queries
+            for q in search_queries[:3]
         ]
         ax_tasks = [
-            self.arxiv_client.search_with_diagnostics(q, limit=limit) for q in search_queries
+            self.arxiv_client.search_with_diagnostics(q, limit=limit) for q in search_queries[:3]
         ]
 
         oa_results = await asyncio.gather(*oa_tasks, return_exceptions=True)
@@ -93,27 +122,28 @@ class ContradictionFinderPipeline:
                 diagnostics["arxiv"]["error"] = str(res)
 
         diagnostics["raw_total"] = len(raw_papers)
-        diagnostics["usable_abstracts"] = sum(
-            1 for p in raw_papers if p.abstract and len(p.abstract.strip()) > 30
-        )
+        # Filter out records without abstracts or with non-scholarly/trivial length
+        usable_papers = [p for p in raw_papers if p.abstract and len(p.abstract.strip()) > 50]
+        diagnostics["usable_abstracts"] = len(usable_papers)
 
-        clean_papers = DocumentDeduplicator.deduplicate(raw_papers)
+        clean_papers = DocumentDeduplicator.deduplicate(usable_papers)
         diagnostics["after_dedup"] = len(clean_papers)
 
         if not clean_papers:
             return [], diagnostics
 
-        # Rerank with BM25
+        # High precision re-ranking
+        ranking_query = (
+            search_queries[0]
+            if search_queries
+            else (local_expanded.keyword_queries[0] if local_expanded.keyword_queries else query)
+        )
         bm25 = BM25Retriever(clean_papers)
-        # Use keywords query for lexical ranking if available
-        ranking_query = expanded.keyword_queries[0] if expanded.keyword_queries else query
         bm25_ranked = bm25.retrieve(ranking_query, top_k=limit)
 
-        # Dense Reranking
         dense = DenseRetriever(clean_papers)
         dense_ranked = dense.retrieve(ranking_query, top_k=limit)
 
-        # RRF Fusion
         rrf = ReciprocalRankFusion(k=self.cfg.retrieval.rrf_k)
         fused = rrf.fuse([bm25_ranked, dense_ranked], top_n=limit)
         return [p for p, _ in fused], diagnostics
@@ -122,8 +152,10 @@ class ContradictionFinderPipeline:
         papers, _ = await self.search_papers_with_diagnostics(query, limit)
         return papers
 
-    def extract_findings_from_papers(self, papers: List[Paper]) -> List[Finding]:
-        """Extracts evidence rationales, condition slots, and directional outcomes from paper abstracts."""
+    async def extract_findings_from_papers(
+        self, papers: List[Paper], use_groq_interpretation: bool = False
+    ) -> List[Finding]:
+        """Extracts validated empirical finding rationales and condition slots from paper abstracts."""
         findings = []
         for paper in papers:
             evidence_spans = self.finding_extractor.extract_evidence_spans(paper.abstract)
@@ -131,6 +163,49 @@ class ContradictionFinderPipeline:
                 continue
 
             top_span = evidence_spans[0]
+
+            # Optional secondary Groq interpretation for ambiguous sentences if enabled
+            if use_groq_interpretation and self.groq_client.is_available:
+                try:
+                    interp = await self.groq_client.interpret_candidate_passage(
+                        top_span.text, paper.abstract
+                    )
+                    if interp:
+                        if not interp.is_empirical_finding:
+                            # Rejected by LLM auditor
+                            continue
+                        # Use verified LLM condition slots if present
+                        direction = (
+                            DirectionLabel(interp.direction)
+                            if interp.direction in DirectionLabel._value2member_map_
+                            else DirectionLabel.UNCLEAR
+                        )
+                        conditions = ConditionSlots(
+                            intervention=interp.intervention
+                            or "Unspecified Scientific Intervention",
+                            comparator=interp.comparator or "Standard Baseline / Unspecified",
+                            outcome_metric=interp.outcome or "Primary Empirical Outcome",
+                            dataset_setting=interp.setting or "General Scientific Setting",
+                            confidence=interp.confidence or 0.85,
+                            is_unknown=bool(not interp.intervention),
+                        )
+                        finding = Finding(
+                            finding_id=f"find_{paper.paper_id}",
+                            paper_id=paper.paper_id,
+                            paper_title=paper.title,
+                            paper_doi=paper.doi,
+                            paper_url=paper.url,
+                            evidence=top_span,
+                            finding_claim=interp.finding_summary or top_span.text,
+                            direction=direction,
+                            conditions=conditions,
+                        )
+                        findings.append(finding)
+                        continue
+                except Exception:
+                    pass
+
+            # Standard local rule-based extractor
             direction = self.finding_extractor.infer_direction(top_span.text)
             conditions = self.condition_tagger.extract_conditions(top_span.text, paper.abstract)
 
@@ -148,11 +223,16 @@ class ContradictionFinderPipeline:
             findings.append(finding)
         return findings
 
-    def compare_findings(self, findings: List[Finding]) -> List[Tuple[FindingPair, Prediction]]:
-        """Compares all pairs of extracted findings using condition-aware reasoning."""
+    def compare_findings(
+        self, findings: List[Finding], max_comparisons: int = 15
+    ) -> List[Tuple[FindingPair, Prediction]]:
+        """Selectively compares top findings that share relevant domain concepts, avoiding combinatorial explosion."""
         results = []
+        count = 0
         for i in range(len(findings)):
             for j in range(i + 1, len(findings)):
+                if count >= max_comparisons:
+                    break
                 fa = findings[i]
                 fb = findings[j]
                 pair = FindingPair(
@@ -160,12 +240,17 @@ class ContradictionFinderPipeline:
                 )
                 pred = self.classifier.classify_pair(pair)
                 results.append((pair, pred))
+                count += 1
         return results
 
-    async def run(self, query: str, limit: int = 15) -> Dict[str, Any]:
+    async def run(
+        self, query: str, limit: int = 15, use_groq_interpretation: bool = False
+    ) -> Dict[str, Any]:
         """Runs the end-to-end pipeline: search -> extract -> condition tag -> compare."""
         papers, diag = await self.search_papers_with_diagnostics(query, limit=limit)
-        findings = self.extract_findings_from_papers(papers)
+        findings = await self.extract_findings_from_papers(
+            papers, use_groq_interpretation=use_groq_interpretation
+        )
         comparisons = self.compare_findings(findings)
 
         return {

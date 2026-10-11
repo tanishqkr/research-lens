@@ -1,4 +1,4 @@
-"""Finding rationale extractor identifying empirical finding sentences from scientific abstracts."""
+"""Finding rationale extractor identifying true empirical finding sentences from scientific abstracts."""
 
 import re
 from typing import List
@@ -6,38 +6,69 @@ from typing import List
 from scientific_contradiction_finder.extraction.sentence_splitter import SentenceSplitter
 from scientific_contradiction_finder.schemas import DirectionLabel, EvidenceSpan
 
-# Keywords signaling empirical results, findings, and conclusions
-FINDING_INDICATORS = [
-    r"\bdemonstrated\b",
-    r"\bshowed\b",
-    r"\bshows\b",
-    r"\breduced\b",
-    r"\breduces\b",
-    r"\bincreased\b",
-    r"\bincreases\b",
-    r"\bimproved\b",
-    r"\bimproves\b",
-    r"\bfound that\b",
-    r"\bconclude\b",
-    r"\bassociated with\b",
-    r"\bsignificantly\b",
+# Keywords signaling observational or experimental measurements, statistical comparisons, and empirical findings
+EMPIRICAL_MEASUREMENT_PATTERNS = [
+    r"\bdemonstrated significant\b",
+    r"\bshowed significant\b",
+    r"\bshows significant\b",
+    r"\breduced the risk\b",
+    r"\breduced the incidence\b",
+    r"\breduced by\s+\d+",
+    r"\bincreased by\s+\d+",
+    r"\baccelerated by\s+\d+",
+    r"\bdegraded by\s+\d+",
+    r"\bstatistically significant\b",
+    r"\bp\s*[<=]\s*0\.\d+",
+    r"\b95%\s*ci\b",
+    r"\brisk ratio\b",
+    r"\bhazard ratio\b",
+    r"\bodds ratio\b",
+    r"\brelative risk\b",
+    r"\brr\s*=\s*\d+",
+    r"\bhr\s*=\s*\d+",
+    r"\bor\s*=\s*\d+",
     r"\boutperformed\b",
     r"\boutperforms\b",
     r"\bsurpassed\b",
-    r"\bresulted in\b",
-    r"\bresults in\b",
+    r"\baccuracy of\s+\d+",
+    r"\bf1 (?:score|points)\b",
+    r"\bperplexity of\s+\d+",
+    r"\bfound that\b",
+    r"\bresults (?:indicate|show|demonstrate|revealed) that\b",
+    r"\bthe experimental results\b",
+    r"\bcapacity fade\b",
+    r"\bcell degradation\b",
+    r"\bthickness increased\b",
+    r"\bcycling at\b",
+    r"\bfailure occurred\b",
     r"\bno significant difference\b",
-    r"\bfailed to\b",
-    r"\bled to\b",
-    r"\bleads to\b",
-    r"\beachieved\b",
-    r"\beachieves\b",
-    r"\baccelerated\b",
-    r"\baccelerates\b",
-    r"\bdecreased\b",
-    r"\bdecreases\b",
-    r"\bdiminished\b",
-    r"\bdiminishes\b",
+    r"\bfailed to reduce\b",
+    r"\bdid not reduce\b",
+    r"\bhad no effect\b",
+    r"\b(?:were |was )?associated with\b",
+    r"\b(?:increased|reduced|higher|lower) risk\b",
+    r"\b\d+%\s*(?:increased|reduced|higher|lower|decrease|reduction)?\b",
+]
+
+# Patterns representing non-empirical statements, background promises, objectives, or metadata
+NON_EMPIRICAL_REJECTION_PATTERNS = [
+    r"\bdemonstrated great promise\b",
+    r"\bhave shown great promise\b",
+    r"\bpromising approach\b",
+    r"\bin this paper(?:,| we)\b",
+    r"\bin this study(?:,| we)\b",
+    r"\bwe propose\b",
+    r"\bwe introduce\b",
+    r"\bwe investigate\b",
+    r"\bwe examine\b",
+    r"\bto determine whether\b",
+    r"\bthe aim of this\b",
+    r"\bthe objective of\b",
+    r"\bfurther research is needed\b",
+    r"\bconflict of interest\b",
+    r"\bauthors declare\b",
+    r"\bfunding:\b",
+    r"\backnowledgments\b",
 ]
 
 # Patterns signaling directionality
@@ -82,23 +113,17 @@ NO_DIFF_PATTERNS = [
     r"\bno effect\b",
     r"\bcomparable to\b",
     r"\bequivalent\b",
-]
-
-# Metadata section headers to filter out if isolated
-DISCARD_PATTERNS = [
-    r"^the authors declare",
-    r"^conflict of interest",
-    r"^funding:",
-    r"^acknowledgments",
+    r"\blittle to no difference\b",
 ]
 
 
 class FindingExtractor:
-    """Extracts candidate finding rationale sentences and classifies their directional effect."""
+    """Extracts candidate finding rationale sentences and classifies their directional effect with empirical filtering."""
 
-    def __init__(self, min_length_chars: int = 25):
+    def __init__(self, min_length_chars: int = 30):
         self.min_length_chars = min_length_chars
-        self.finding_regex = re.compile("|".join(FINDING_INDICATORS), re.IGNORECASE)
+        self.empirical_regex = re.compile("|".join(EMPIRICAL_MEASUREMENT_PATTERNS), re.IGNORECASE)
+        self.rejection_regex = re.compile("|".join(NON_EMPIRICAL_REJECTION_PATTERNS), re.IGNORECASE)
 
     def extract_evidence_spans(self, text: str) -> List[EvidenceSpan]:
         sentences = SentenceSplitter.split_with_offsets(text)
@@ -108,33 +133,44 @@ class FindingExtractor:
             if len(sent) < self.min_length_chars:
                 continue
 
-            sent_lower = sent.lower().strip()
-            # Filter meta declarations (conflicts of interest, funding)
-            if any(re.search(p, sent_lower) for p in DISCARD_PATTERNS):
+            sent_clean = sent.strip()
+
+            # 1. Reject explicit non-empirical or promise phrases
+            if self.rejection_regex.search(sent_clean):
+                # Only salvage if it also has concrete statistics (e.g., p < 0.05 or % numbers)
+                if not re.search(
+                    r"\b(?:\d+%(?:\s+ci)?|p\s*[<=]\s*0\.\d+|risk ratio)\b",
+                    sent_clean,
+                    re.IGNORECASE,
+                ):
+                    continue
+
+            # 2. Require empirical measurement, result indicator, or conclusion location
+            is_empirical = bool(self.empirical_regex.search(sent_clean))
+            is_late_sentence = idx >= max(1, len(sentences) - 2)
+
+            if not is_empirical and not is_late_sentence:
                 continue
 
-            # Prioritize sentences with empirical result keywords or late in abstract (Results/Conclusion)
-            match = self.finding_regex.search(sent)
-            is_late_sentence = idx >= max(1, len(sentences) - 3)
-
-            confidence = 0.5
-            if match:
+            # Compute empirical confidence
+            confidence = 0.50
+            if is_empirical:
                 confidence += 0.35
-            if is_late_sentence:
-                confidence += 0.15
+            if re.search(
+                r"\b(?:\d+%(?:\s+ci)?|p\s*[<=]\s*0\.\d+|rr\s*=|ci\b)\b", sent_clean, re.IGNORECASE
+            ):
+                confidence += 0.10
 
-            if match or is_late_sentence:
-                # Substring provenance guarantee: sent is verified against text[start:end]
-                assert text[start:end] == sent, "Evidence span character offset mismatch!"
-                candidates.append(
-                    EvidenceSpan(
-                        text=sent,
-                        start_char=start,
-                        end_char=end,
-                        sentence_idx=idx,
-                        confidence=min(1.0, confidence),
-                    )
+            assert text[start:end] == sent, "Evidence span character offset mismatch!"
+            candidates.append(
+                EvidenceSpan(
+                    text=sent_clean,
+                    start_char=start,
+                    end_char=end,
+                    sentence_idx=idx,
+                    confidence=min(1.0, confidence),
                 )
+            )
 
         candidates.sort(key=lambda s: s.confidence, reverse=True)
         return candidates

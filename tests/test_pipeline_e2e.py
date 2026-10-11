@@ -1,8 +1,11 @@
+import pytest
+
 from scientific_contradiction_finder.pipeline import ContradictionFinderPipeline
 from scientific_contradiction_finder.schemas import Paper
 
 
-def test_pipeline_extract_and_compare():
+@pytest.mark.asyncio
+async def test_pipeline_extract_and_compare():
     pipeline = ContradictionFinderPipeline()
 
     p1 = Paper(
@@ -18,7 +21,7 @@ def test_pipeline_extract_and_compare():
         source_provider="openalex",
     )
 
-    findings = pipeline.extract_findings_from_papers([p1, p2])
+    findings = await pipeline.extract_findings_from_papers([p1, p2])
     assert len(findings) == 2
     assert findings[0].evidence.verify_against_source(p1.abstract)
     assert findings[1].evidence.verify_against_source(p2.abstract)

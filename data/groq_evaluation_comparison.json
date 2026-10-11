@@ -1,0 +1,239 @@
+[
+  {
+    "label": "Query 1 (Battery degradation)",
+    "query": "Do lithium-ion batteries degrade faster when charged at high temperatures compared with moderate temperatures?",
+    "local": {
+      "openalex_count": 20,
+      "arxiv_count": 0,
+      "usable_abstracts": 20,
+      "findings_extracted": 10,
+      "pairs_count": 15,
+      "sample_papers": [
+        "On the Relations between Lithium-Ion Battery Reaction Entropy, Surface Temperatures and Degradation",
+        "Effects of Fast Charging at Low Temperature on a High Energy Li-Ion Battery"
+      ],
+      "sample_findings": [
+        {
+          "claim": "Many studies look at cell degradation in terms of capacity losses and the mechanisms causing them.",
+          "I": "Many Studies",
+          "O": "Cell Degradation"
+        },
+        {
+          "claim": "These results clearly put in evidence that repeated fast charging can cause significant degradations",
+          "I": "These Results",
+          "O": "Evidence"
+        }
+      ],
+      "sample_verdicts": [
+        {
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "conf": 0.785,
+          "expl": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+        },
+        {
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "conf": 0.787,
+          "expl": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+        }
+      ]
+    },
+    "groq": {
+      "openalex_count": 24,
+      "arxiv_count": 20,
+      "usable_abstracts": 44,
+      "findings_extracted": 10,
+      "pairs_count": 15,
+      "groq_keywords": [
+        "lithium-ion battery degradation",
+        "high temperature charging",
+        "thermal cycling degradation"
+      ],
+      "sample_papers": [
+        "Modeling of Lithium-Ion Battery Degradation for Cell Life Assessment",
+        "A Hierarchical Model for Lithium-Ion Battery Degradation Prediction"
+      ],
+      "sample_findings": [
+        {
+          "claim": "A cycle-counting method is incorporated to identify stress cycles from irregular operations, allowin",
+          "I": "A Cycle-Counting Method",
+          "O": "Stress Cycles"
+        },
+        {
+          "claim": "We use a real case study to demonstrate the effectiveness and promising features of the proposed fra",
+          "I": "The Effectiveness",
+          "O": "A Real Case Study"
+        }
+      ],
+      "sample_verdicts": [
+        {
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "conf": 0.772,
+          "expl": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+        },
+        {
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "conf": 0.781,
+          "expl": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+        }
+      ]
+    }
+  },
+  {
+    "label": "Query 2 (Vision transformers)",
+    "query": "Does image augmentation improve image classification accuracy in vision transformer models compared with training without augmentation?",
+    "local": {
+      "openalex_count": 18,
+      "arxiv_count": 3,
+      "usable_abstracts": 21,
+      "findings_extracted": 10,
+      "pairs_count": 15,
+      "sample_papers": [
+        "Enhancing Vision Transformer Performance with Rotation Based Augmentation for Classifying Images of Colon Cancer Pathology",
+        "Benchmarking Vision Transformers for Satellite Image Classification based on Data Augmentation Techniques"
+      ],
+      "sample_findings": [
+        {
+          "claim": "Results: According to study results, rotation-based augmentation enhances ViT performance, achieving",
+          "I": "Rotation-Based Augmentation",
+          "O": "Accuracy"
+        },
+        {
+          "claim": "Our findings demonstrate that Mixup and WGP-GAN augmentations significantly enhance model performanc",
+          "I": "Our Findings",
+          "O": "Accuracy"
+        }
+      ],
+      "sample_verdicts": [
+        {
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "conf": 0.774,
+          "expl": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+        },
+        {
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "conf": 0.745,
+          "expl": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+        }
+      ]
+    },
+    "groq": {
+      "openalex_count": 24,
+      "arxiv_count": 23,
+      "usable_abstracts": 47,
+      "findings_extracted": 10,
+      "pairs_count": 15,
+      "groq_keywords": [
+        "vision transformer image augmentation",
+        "image classification accuracy augmentation",
+        "ViT data augmentation impact"
+      ],
+      "sample_papers": [
+        "Data Augmentation Vision Transformer for Fine-grained Image Classification",
+        "TokenMix: Rethinking Image Mixing for Data Augmentation in Vision Transformers"
+      ],
+      "sample_findings": [
+        {
+          "claim": "Experimental results show that the accuracy of this method on the two general datasets, CUB-200-2011",
+          "I": "Experimental Results",
+          "O": "Accuracy"
+        },
+        {
+          "claim": "Notably, we improve DeiT-T/S/B with +1% ImageNet top-1 accuracy.",
+          "I": "Deit-T/S/B",
+          "O": "Accuracy"
+        }
+      ],
+      "sample_verdicts": [
+        {
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "conf": 0.802,
+          "expl": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+        },
+        {
+          "verdict": "INCOMPARABLE_CONDITIONS",
+          "conf": 0.941,
+          "expl": "Studies evaluate disparate interventions (sim=0.05): Intervention differs: 'Experimental Results' vs 'Rotation-Based Augmentation' (sim=0.05); Comparator differs: 'The Existing Mainstream Methods' vs 'Standard Baseline / Unspecified' (sim=0.18)"
+        }
+      ]
+    }
+  },
+  {
+    "label": "Query 3 (Vitamin D & respiratory)",
+    "query": "Does vitamin D supplementation reduce the risk of acute respiratory infections, and does the effect depend on baseline vitamin D levels?",
+    "local": {
+      "openalex_count": 19,
+      "arxiv_count": 0,
+      "usable_abstracts": 19,
+      "findings_extracted": 10,
+      "pairs_count": 15,
+      "sample_papers": [
+        "Vitamin D Supplementation And The Risk Of Acute Respiratory Tract Infections In Children",
+        "Effects of Vitamin D Supplementation and Baseline Vitamin D Status on Acute Respiratory Infections and Cathelicidin: A Randomized Controlled Trial"
+      ],
+      "sample_findings": [
+        {
+          "claim": "Baseline serum 25(OH)D concentrations were comparable among Vit D and control groups(mean difference",
+          "I": "Baseline Serum 25(Oh)D Concentrations",
+          "O": "Vit D"
+        },
+        {
+          "claim": "In the 14-week follow-up study, insufficient serum 25(OH)D at baseline was also associated with incr",
+          "I": "Baseline",
+          "O": "Risk Of Ari"
+        }
+      ],
+      "sample_verdicts": [
+        {
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "conf": 0.827,
+          "expl": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+        },
+        {
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "conf": 0.829,
+          "expl": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+        }
+      ]
+    },
+    "groq": {
+      "openalex_count": 28,
+      "arxiv_count": 15,
+      "usable_abstracts": 43,
+      "findings_extracted": 10,
+      "pairs_count": 15,
+      "groq_keywords": [
+        "vitamin D supplementation",
+        "acute respiratory infections",
+        "baseline vitamin D levels"
+      ],
+      "sample_papers": [
+        "Vitamin D Supplementation for Depressive Symptoms",
+        "Vitamin D Supplementation in Chronic Kidney Disease"
+      ],
+      "sample_findings": [
+        {
+          "claim": "RESULTS: Vitamin D supplementation had no overall effect on depressive symptoms (standardized mean d",
+          "I": "Vitamin D Supplementation",
+          "O": "No Overall Effect"
+        },
+        {
+          "claim": "There was a significant improvement in 25-hydroxyvitamin D (MD 24.1 ng/ml, 95% CI 19.6 to 28.6) and ",
+          "I": "A Significant Improvement",
+          "O": "25-Hydroxyvitamin D"
+        }
+      ],
+      "sample_verdicts": [
+        {
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "conf": 0.835,
+          "expl": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+        },
+        {
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "conf": 0.761,
+          "expl": "Findings lack sufficient empirical evidence or condition clarity to form a valid comparison."
+        }
+      ]
+    }
+  }
+]
