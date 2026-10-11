@@ -1,0 +1,37 @@
+app:
+  name: "Scientific Contradiction Finder"
+  version: "0.1.0"
+  log_level: "INFO"
+  offline_mode: false
+
+storage:
+  data_dir: "./data"
+  cache_dir: "./data/cache"
+  sqlite_path: "./data/scf.sqlite"
+  cache_enabled: true
+  cache_ttl_days: 7
+
+retrieval:
+  max_results_per_provider: 25
+  request_timeout_seconds: 15
+  max_retries: 3
+  openalex_base_url: "https://api.openalex.org"
+  arxiv_base_url: "http://export.arxiv.org/api/query"
+  bm25_top_k: 25
+  dense_top_k: 25
+  rrf_top_k: 20
+  rrf_k: 60
+
+models:
+  dense_retrieval_model: "sentence-transformers/all-MiniLM-L6-v2"
+  nli_model: "cross-encoder/nli-deberta-v3-small"
+  device: "cpu"
+
+extraction:
+  top_evidence_sentences: 3
+  min_evidence_length_chars: 20
+
+reasoning:
+  similarity_threshold_compatible: 0.70
+  similarity_threshold_incomparable: 0.35
+  confidence_abstention_threshold: 0.40
