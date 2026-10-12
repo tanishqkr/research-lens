@@ -207,3 +207,55 @@ def test_comparator_arm_safeguard_never_assigned_as_primary():
     assert r.point_estimate == 0.75
     assert r.comparator_arm == "control group"
     assert r.arm_name is None, f"Expected None for missing intervention arm, got {r.arm_name}"
+
+
+def test_ambiguous_multi_arm_sentences_unresolved():
+    """Ambiguous multi-arm sentences with 3+ arms and no explicit pairwise mapping
+    must return unresolved (None) arm assignments rather than guessing based on proximity.
+    """
+    # Case 1: List of 3 arms without comparative marker
+    sent1 = "Across arm A, arm B, and arm C, the pooled mean change was -1.5 kg (95% CI: -2.0 to -1.0, P=0.01)."
+    res1 = extract_numerical_results(sent1)
+    assert len(res1) >= 1
+    r1 = res1[0]
+    assert r1.point_estimate == -1.5
+    assert r1.arm_name is None, f"Expected None, got {r1.arm_name}"
+    assert r1.comparator_arm is None, f"Expected None, got {r1.comparator_arm}"
+
+    # Case 2: Multi-arm trial phrase ('3-arm trial') with 3 candidate drugs
+    sent2 = "In a 3-arm trial of drug A, drug B, and drug C, the overall mean difference was -1.2 kg (95% CI: -1.8 to -0.6)."
+    res2 = extract_numerical_results(sent2)
+    assert len(res2) >= 1
+    r2 = res2[0]
+    assert r2.point_estimate == -1.2
+    assert r2.arm_name is None, f"Expected None, got {r2.arm_name}"
+    assert r2.comparator_arm is None, f"Expected None, got {r2.comparator_arm}"
+
+
+def test_passive_inferior_to_comparative_phrasing():
+    """Passive comparison: 'Treatment A was inferior to treatment B...' attributes to A (intervention) vs B (comparator)."""
+    sent = "Treatment A was inferior to treatment B (hazard ratio = 1.45; 95% CI: 1.10 to 1.90)."
+    results = extract_numerical_results(sent)
+    assert len(results) >= 1
+    r = results[0]
+    assert r.point_estimate == 1.45
+    assert r.metric_name == "HR"
+    assert r.arm_name == "Treatment A"
+    assert r.comparator_arm == "treatment B"
+    assert r.ci_lower == 1.10
+    assert r.ci_upper == 1.90
+
+
+def test_fronted_treatment_arm_attribution():
+    """Fronted comparison: 'Compared with treatment A, treatment B achieved...' attributes to B vs A."""
+    sent = "Compared with treatment A, treatment B achieved a reduction in body weight of 2.5 kg (95% CI: 1.2 to 3.8)."
+    results = extract_numerical_results(sent)
+    assert len(results) >= 1
+    r = results[0]
+    assert r.point_estimate == 2.5
+    assert r.arm_name == "treatment B"
+    assert r.comparator_arm == "treatment A"
+    assert r.ci_lower == 1.2
+    assert r.ci_upper == 3.8
+
+

@@ -508,7 +508,8 @@ def extract_numerical_results(
         r"ketogenic(?:\s+diets?)?|vlcds?|lcds?|lfds?|kd|intermittent\s+fasting|"
         r"continuous\s+calorie\s+restriction|continuous\s+energy\s+restriction|time[\s-]restricted\s+feeding|"
         r"moderate\s+alcohol(?:\s+consumption)?|standard\s+(?:of\s+)?care|usual\s+care|control(?:\s+group)?|"
-        r"intervention(?:\s+group|\s+arm)?|placebo(?:\s+group)?|arm\s+[a-zA-Z0-9]+|group\s+[a-zA-Z0-9]+|"
+        r"intervention(?:\s+group|\s+arm)?|placebo(?:\s+group)?|arm\s+(?!(?:trial|study|design|analysis|evaluation|cohort|protocol)s?\b)[a-zA-Z0-9]+|group\s+(?!(?:study|design|analysis|evaluation|protocol)s?\b)[a-zA-Z0-9]+|"
+        r"treatment\s+(?!(?:with|by|of|for|in|on|at|trial|study|design|analysis|evaluation|cohort|protocol|effect|effects|group|arm|regimen)s?\b)[a-zA-Z0-9]+|"
         r"controls|placebos|sham|active\s+control|reference\s+group|usual\s+care\s+group|"
         r"empagliflozin|dapagliflozin|semaglutide|metformin|atorvastatin|simvastatin|statin|statins|"
         r"budesonide|fluticasone|formoterol|terbutaline|aspirin|albumin|normal\s+saline|saline|"
@@ -785,69 +786,89 @@ def extract_numerical_results(
 
                 # Pattern B: Middle comparative marker ("... than LFDs (WMD = -2.99 kg...)")
                 elif comparator_arm_matches and primary_arms:
-                    cm, comp_arm_match = comparator_arm_matches[0]
-                    primary_arm_match = primary_arms[0]
+                    cand_primary_arms = [
+                        a for a in primary_arms if a.start() < end or (a.start() - end) <= 35
+                    ]
+                    if not cand_primary_arms:
+                        cand_primary_arms = primary_arms
 
-                    is_diff_after_comp = (
-                        comp_arm_match.end() <= start
-                        and (start - comp_arm_match.end()) <= 35
-                        and (
-                            metric in ("WMD", "MD", "SMD", "RD", "DIFFERENCE", "MEAN DIFFERENCE")
-                            or any(
-                                w in text_norm[comp_arm_match.end() : start].lower()
-                                for w in ["wmd", "md", "smd", "difference"]
-                            )
-                            or not any(est[4] < cm.start() for est in estimates)
-                        )
-                    )
+                    if len(cand_primary_arms) == 1 and len(comparator_arm_matches) == 1:
+                        cm, comp_arm_match = comparator_arm_matches[0]
+                        primary_arm_match = cand_primary_arms[0]
 
-                    is_parallel_comp_val = (
-                        cm.end() <= start < comp_arm_match.start()
-                        or (
+                        is_diff_after_comp = (
                             comp_arm_match.end() <= start
-                            and any(est[4] < cm.start() for est in estimates)
-                            and not is_diff_after_comp
+                            and (start - comp_arm_match.end()) <= 35
+                            and (
+                                metric in ("WMD", "MD", "SMD", "RD", "DIFFERENCE", "MEAN DIFFERENCE")
+                                or any(
+                                    w in text_norm[comp_arm_match.end() : start].lower()
+                                    for w in ["wmd", "md", "smd", "difference"]
+                                )
+                                or not any(est[4] < cm.start() for est in estimates)
+                            )
                         )
-                    )
 
-                    if is_diff_after_comp:
-                        curr_arm = primary_arm_match.group(0).strip()
-                        comp_arm = comp_arm_match.group(0).strip()
-                    elif is_parallel_comp_val:
-                        curr_arm = comp_arm_match.group(0).strip()
-                        comp_arm = primary_arm_match.group(0).strip()
-                    elif start < cm.start():
-                        curr_arm = primary_arm_match.group(0).strip()
-                        comp_arm = comp_arm_match.group(0).strip()
+                        is_parallel_comp_val = (
+                            cm.end() <= start < comp_arm_match.start()
+                            or (
+                                comp_arm_match.end() <= start
+                                and any(est[4] < cm.start() for est in estimates)
+                                and not is_diff_after_comp
+                            )
+                        )
+
+                        if is_diff_after_comp:
+                            curr_arm = primary_arm_match.group(0).strip()
+                            comp_arm = comp_arm_match.group(0).strip()
+                        elif is_parallel_comp_val:
+                            curr_arm = comp_arm_match.group(0).strip()
+                            comp_arm = primary_arm_match.group(0).strip()
+                        elif start < cm.start():
+                            curr_arm = primary_arm_match.group(0).strip()
+                            comp_arm = comp_arm_match.group(0).strip()
+                    elif len(cand_primary_arms) > 1:
+                        # Ambiguous: multiple primary candidate arms for a single estimate
+                        curr_arm = None
+                        comp_arm = None
 
                 elif comparator_arm_matches and not primary_arms:
                     # Comparator arm identified, but primary intervention arm is unresolved
-                    _, comp_arm_match = comparator_arm_matches[0]
-                    comp_arm = comp_arm_match.group(0).strip()
+                    if len(comparator_arm_matches) == 1:
+                        _, comp_arm_match = comparator_arm_matches[0]
+                        comp_arm = comp_arm_match.group(0).strip()
+                    else:
+                        comp_arm = None
                     curr_arm = None
 
             # 4.3 Proximity fallback (only when no comparative markers are present)
             if curr_arm is None and not comp_markers:
-                preceding = [a for a in all_arms if a.end() <= start]
-                following = [a for a in all_arms if a.start() >= end]
-                prec_dist = (start - preceding[-1].end()) if preceding else 9999
-                foll_dist = (following[0].start() - end) if following else 9999
+                unique_arms = list(dict.fromkeys(a.group(0).strip() for a in all_arms))
+                if len(unique_arms) <= 2:
+                    preceding = [a for a in all_arms if a.end() <= start]
+                    following = [a for a in all_arms if a.start() >= end]
+                    prec_dist = (start - preceding[-1].end()) if preceding else 9999
+                    foll_dist = (following[0].start() - end) if following else 9999
 
-                if foll_dist <= 30 and foll_dist < prec_dist:
-                    curr_arm = following[0].group(0).strip()
-                elif preceding:
-                    curr_arm = preceding[-1].group(0).strip()
-                elif following and foll_dist <= 50:
-                    curr_arm = following[0].group(0).strip()
+                    if foll_dist <= 30 and foll_dist < prec_dist:
+                        curr_arm = following[0].group(0).strip()
+                    elif preceding:
+                        curr_arm = preceding[-1].group(0).strip()
+                    elif following and foll_dist <= 50:
+                        curr_arm = following[0].group(0).strip()
 
-                if curr_arm:
-                    other_arms = [
-                        a.group(0).strip()
-                        for a in all_arms
-                        if a.group(0).strip().lower() != curr_arm.lower()
-                    ]
-                    if other_arms:
-                        comp_arm = other_arms[0]
+                    if curr_arm:
+                        other_arms = [
+                            a
+                            for a in unique_arms
+                            if a.lower() != curr_arm.lower()
+                        ]
+                        if len(other_arms) == 1:
+                            comp_arm = other_arms[0]
+                else:
+                    # Multi-arm trial with 3+ arms and no comparative marker -> ambiguous attribution
+                    curr_arm = None
+                    comp_arm = None
 
         # Verify extracted numerical result against source text
         assert (
