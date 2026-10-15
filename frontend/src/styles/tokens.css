@@ -1,0 +1,129 @@
+/**
+ * Centralized Scientific Research Workbench Design Tokens
+ * 
+ * Strict single source of truth for color palettes, surface layering,
+ * evidence status semantics, typography, elevation, and focus rings.
+ * Palette: Warm Charcoal base + Muted Olive / Sage accents + Soft Parchment text.
+ */
+
+:root {
+  /* =========================================================================
+   * LIGHT THEME (Parchment & Editorial Scholar)
+   * Warm ivory/parchment foundation, pure paper card surfaces, deep charcoal ink
+   * ========================================================================= */
+
+  /* Surface layers & backgrounds */
+  --background: #faf8f5;          /* Warm paper/parchment foundation */
+  --surface-base: #ffffff;        /* Crisp scholarly card surface */
+  --surface-subtle: #f4f1ea;      /* Elevated container / code blocks */
+  --surface-hover: #ece7de;       /* Hover state */
+  --surface-active: #e2dcd1;      /* Pressed / active state */
+
+  /* Typography / Ink */
+  --foreground: #1c1917;          /* Primary deep ink text (stone-900) */
+  --foreground-muted: #57534e;    /* Secondary metadata text (stone-600) */
+  --foreground-subtle: #78716c;   /* Tertiary captions, footnotes (stone-500) */
+
+  /* Borders & Dividers */
+  --border-subtle: #f0ece3;       /* Hairline interior dividers */
+  --border-default: #e5dfd5;      /* Standard card and panel borders */
+  --border-strong: #cac2b5;       /* Active inputs, prominent borders */
+
+  /* Desaturated Organic Muted Olive / Sage Scientific Accents */
+  --accent-primary: #3d5245;      /* Muted olive/sage base for buttons/badges */
+  --accent-primary-hover: #2f4036;/* Active state / button hover */
+  --accent-surface: #edf3ee;      /* Subtle olive/sage tint surface */
+  --accent-border: #9cb5a3;       /* Desaturated olive border */
+  --accent-text: #2f4537;         /* Readable sage text */
+
+  /* Condition & Evidence Status Semantics (Light theme accessible contrasts) */
+  /* SUPPORTS / CONSISTENT (Scholarly Forest Green) */
+  --evidence-supports-bg: #ecfdf5;
+  --evidence-supports-border: #a7f3d0;
+  --evidence-supports-text: #065f46;
+
+  /* CONTRADICTS (Clear Brick / Terracotta) */
+  --evidence-contradicts-bg: #fef2f2;
+  --evidence-contradicts-border: #fecaca;
+  --evidence-contradicts-text: #991b1b;
+
+  /* QUALIFIES / PARTIAL DISAGREEMENT (Warm Amber / Ochre) */
+  --evidence-qualifies-bg: #fffbeb;
+  --evidence-qualifies-border: #fde68a;
+  --evidence-qualifies-text: #92400e;
+
+  /* INCOMPARABLE CONDITIONS (Refined Slate Blue) */
+  --evidence-incomparable-bg: #eff6ff;
+  --evidence-incomparable-border: #bfdbfe;
+  --evidence-incomparable-text: #1e40af;
+
+  /* INSUFFICIENT EVIDENCE / UNRESOLVED (Neutral Stone) */
+  --evidence-insufficient-bg: #f5f5f4;
+  --evidence-insufficient-border: #e7e5e4;
+  --evidence-insufficient-text: #57534e;
+
+  /* Interactive Focus & Shadows */
+  --ring-focus: rgba(61, 82, 69, 0.3);
+  --shadow-card: 0 1px 3px rgba(28, 25, 23, 0.06), 0 1px 2px rgba(28, 25, 23, 0.04);
+  --shadow-card-hover: 0 6px 18px rgba(28, 25, 23, 0.1), 0 2px 4px rgba(28, 25, 23, 0.06);
+  --shadow-popover: 0 12px 28px rgba(28, 25, 23, 0.15);
+
+  /* Shared geometry */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+}
+
+.dark {
+  /* Surface layers & backgrounds - Deep warm charcoal foundation */
+  --background: #121214;          /* Deep warm charcoal/near-black base */
+  --surface-base: #18181b;        /* Layer 1 workbench card */
+  --surface-subtle: #212124;      /* Layer 2 elevated container / code block */
+  --surface-hover: #29292e;       /* Hover state */
+  --surface-active: #323338;      /* Pressed / active state */
+
+  /* Typography / Ink - Soft parchment / cream contrast */
+  --foreground: #e7e5e4;          /* Soft parchment / cream text */
+  --foreground-muted: #a8a29e;    /* Secondary metadata text */
+  --foreground-subtle: #78716c;   /* Tertiary captions, footnotes */
+
+  /* Borders & Dividers */
+  --border-subtle: #25262a;       /* Subtle dividers */
+  --border-default: #313338;      /* Distinguishable borders */
+  --border-strong: #45474f;       /* Active inputs, focused containers */
+
+  /* Desaturated Organic Muted Olive / Sage Scientific Accents */
+  --accent-primary: #526659;      /* Muted olive/sage base */
+  --accent-primary-hover: #637a6b;/* Active state / button hover */
+  --accent-surface: #1b231f;      /* Olive tint surface */
+  --accent-border: #4d5c53;       /* Muted olive border */
+  --accent-text: #849b8a;         /* Soft sage text */
+
+  /* Condition & Evidence Status Semantics */
+  --evidence-supports-bg: #14221a;
+  --evidence-supports-border: #284d36;
+  --evidence-supports-text: #6ee7b7;
+
+  --evidence-contradicts-bg: #261616;
+  --evidence-contradicts-border: #562828;
+  --evidence-contradicts-text: #f87171;
+
+  --evidence-qualifies-bg: #261f13;
+  --evidence-qualifies-border: #564219;
+  --evidence-qualifies-text: #fbbf24;
+
+  --evidence-incomparable-bg: #151e29;
+  --evidence-incomparable-border: #273e57;
+  --evidence-incomparable-text: #60a5fa;
+
+  --evidence-insufficient-bg: #1d1e22;
+  --evidence-insufficient-border: #363942;
+  --evidence-insufficient-text: #a8a29e;
+
+  /* Interactive Focus & Shadows */
+  --ring-focus: rgba(132, 155, 138, 0.4);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 6px 18px rgba(0, 0, 0, 0.55);
+  --shadow-popover: 0 12px 28px rgba(0, 0, 0, 0.65);
+}

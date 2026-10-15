@@ -33,7 +33,7 @@ EMPIRICAL_MEASUREMENT_PATTERNS = [
     r"\brelative risk\b",
     r"\brr\s*=\s*\d+",
     r"\bhr\s*=\s*\d+",
-    r"\bor\s*=\s*\d+",
+    r"\bodds ratio\s*=\s*\d+",
     r"\boutperformed\b",
     r"\boutperforms\b",
     r"\bsurpassed\b",
@@ -105,6 +105,8 @@ NON_EMPIRICAL_REJECTION_PATTERNS = [
     r"\bis a major public health\b",
     r"\bremains a leading cause\b",
     r"\bis an important risk factor\b",
+    r"\bwere (?:enrolled|randomized|randomly assigned)\b",
+    r"\bwere assigned to\b",
 ]
 
 # Patterns signaling directionality
@@ -175,12 +177,18 @@ NO_DIFF_PATTERNS = [
 ]
 
 
+UPPERCASE_EMPIRICAL_MEASUREMENT_PATTERNS = [
+    r"\bOR\s*=\s*\d+",
+]
+
+
 class FindingExtractor:
     """Extracts candidate finding rationale sentences and classifies their directional effect with empirical filtering."""
 
     def __init__(self, min_length_chars: int = 30):
         self.min_length_chars = min_length_chars
         self.empirical_regex = re.compile("|".join(EMPIRICAL_MEASUREMENT_PATTERNS), re.IGNORECASE)
+        self.uppercase_empirical_regex = re.compile("|".join(UPPERCASE_EMPIRICAL_MEASUREMENT_PATTERNS))
         self.rejection_regex = re.compile("|".join(NON_EMPIRICAL_REJECTION_PATTERNS), re.IGNORECASE)
 
     def extract_evidence_spans(self, text: str) -> List[EvidenceSpan]:
@@ -198,7 +206,10 @@ class FindingExtractor:
                 continue
 
             # 2. Require empirical measurement or finding indicator
-            is_empirical = bool(self.empirical_regex.search(sent_clean))
+            is_empirical = bool(
+                self.empirical_regex.search(sent_clean)
+                or self.uppercase_empirical_regex.search(sent_clean)
+            )
             if not is_empirical:
                 continue
 
@@ -208,7 +219,7 @@ class FindingExtractor:
                 confidence += 0.35
             if re.search(
                 r"\b(?:\d+%(?:\s+ci)?|p\s*[<=]\s*0\.\d+|rr\s*=|ci\b)\b", sent_clean, re.IGNORECASE
-            ):
+            ) or self.uppercase_empirical_regex.search(sent_clean):
                 confidence += 0.10
 
             assert text[start:end] == sent, "Evidence span character offset mismatch!"
@@ -291,6 +302,25 @@ class FindingExtractor:
             text_lower,
         ):
             return DirectionLabel.NEGATIVE
+
+        # Relative risk / hazard ratio / odds ratio numerical direction
+        # Note: Do not match lowercase conjunction "or" in text_lower; require explicit "odds ratio"
+        # or uppercase "\bOR\s*=\s*" in the original unlowercased string.
+        rr_m = re.search(
+            r"\b(?:relative risk|risk ratio|hazard ratio|odds ratio|rr|hr)\s*(?:was|=|\:)\s*(\d+(?:\.\d+)?)\b",
+            text_lower,
+        ) or re.search(
+            r"\bOR\s*(?:was|=|\:)\s*(\d+(?:\.\d+)?)\b",
+            text,
+        )
+        if rr_m:
+            ratio_val = float(rr_m.group(1))
+            if ratio_val > 1.05:
+                return DirectionLabel.POSITIVE
+            elif ratio_val < 0.95:
+                return DirectionLabel.NEGATIVE
+            else:
+                return DirectionLabel.NO_DIFFERENCE
 
         for p in POSITIVE_PATTERNS:
             if re.search(p, text_lower):

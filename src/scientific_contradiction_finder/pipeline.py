@@ -588,7 +588,11 @@ class ContradictionFinderPipeline:
             disagreements=disagreements,
             detailed_comparisons=[p for _, p in comparisons],
             investigation_rounds=1,
-            stopped_reason="Completed full staged evidence synthesis across accessible open literature.",
+            stopped_reason=(
+                "Completed staged abstract-level evidence synthesis across accessible open literature (0 open-access full texts accessible; findings reflect abstract-reported results)."
+                if full_text_count == 0
+                else "Completed full staged evidence synthesis across accessible open literature."
+            ),
         )
 
     async def run(

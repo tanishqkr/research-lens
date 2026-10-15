@@ -45,7 +45,7 @@ OUTCOME_MARKERS = [
     r"\bbmi\b",
     r"\bbody mass index\b",
     r"\bstroke\b",
-    r"\bcardiovascular (?:disease|events?)\b",
+    r"\bcardiovascular (?:disease|events?|outcomes?)\b",
     r"\bcoronary heart disease\b",
     r"\btype 2 diabetes\b",
     r"\bdiabetes\b",
@@ -69,7 +69,6 @@ OUTCOME_MARKERS = [
     r"\befficacy\b",
     r"\bspeedup\b",
     r"\brespiratory (?:tract )?infections?\b",
-    r"\bincidence\b",
     r"\brisk of (?:[a-zA-Z\s]+)\b",
     r"\blifetime\b",
     r"\baging effects?\b",
@@ -95,6 +94,13 @@ SETTING_MARKERS = [
 
 # Blacklisted strings that should NEVER be extracted as an intervention or outcome
 INVALID_SLOT_TERMS = {
+    "information",
+    "the information",
+    "literature",
+    "the literature",
+    "most studies",
+    "incidence",
+    "the incidence",
     "the results",
     "results",
     "the experimental results",
@@ -367,6 +373,8 @@ CANONICAL_OUTCOMES = {
     "cardiovascular mortality": "Cardiovascular Mortality",
     "cardiovascular events": "Cardiovascular Events",
     "cardiovascular disease": "Cardiovascular Disease",
+    "cardiovascular outcome": "Cardiovascular Outcome",
+    "cardiovascular outcomes": "Cardiovascular Outcome",
     "cvd": "Cardiovascular Disease",
     "coronary heart disease": "Coronary Heart Disease",
     "stroke": "Stroke",
@@ -393,10 +401,26 @@ def clean_slot_string(s: str) -> Optional[str]:
     if not s:
         return None
     cleaned = re.sub(r"^[,\.;:\s\(\)\[\]]+|[,\.;:\s\(\)\[\]]+$", "", s).strip()
+    # Strip unbalanced trailing opening parenthesis (e.g. 'Abstainers (p' -> 'Abstainers')
+    if "(" in cleaned and ")" not in cleaned:
+        cleaned = re.sub(r"\s*\([^)]*$", "", cleaned).strip()
     if len(cleaned) < 3:
         return None
     c_lower = cleaned.lower()
-    if c_lower in INVALID_SLOT_TERMS:
+    c_core = re.sub(r"^(?:the|our|this|a|an)\s+", "", c_lower)
+    if c_lower in INVALID_SLOT_TERMS or c_core in INVALID_SLOT_TERMS:
+        return None
+    # Reject strings containing meta-research words like 'information', 'literature', 'most studies'
+    if re.search(r"\b(?:information|literature|most studies)\b", c_lower):
+        return None
+    if re.search(r"^(?:the\s+)?incidence\b", c_lower):
+        return None
+    # Reject standalone superlatives / comparative indicators (e.g. 'the lowest', 'lowest', 'the highest')
+    if re.match(
+        r"^(?:the\s+)?(?:highest|lowest|greatest|smallest|least|more|less)\s*$",
+        cleaned,
+        re.IGNORECASE,
+    ):
         return None
     # Reject temporal durations (e.g., '6 months', '12 months', '14 weeks', '2 years')
     if re.search(r"^\d+\s*(?:months?|weeks?|years?|days?|hours?)$", cleaned, re.IGNORECASE):
@@ -550,7 +574,11 @@ def extract_numerical_results(
         r"\b(OR|RR|HR|hazard\s+ratio|odds\s+ratio|relative\s+risk|risk\s+ratio)"
         r"[\s:=,]+([0-9]+(?:\.[0-9]+)?)\b"
     )
-    ratio_matches = list(re.finditer(ratio_pattern, text_norm, re.IGNORECASE))
+    raw_ratio_matches = list(re.finditer(ratio_pattern, text_norm, re.IGNORECASE))
+    ratio_matches = [
+        m for m in raw_ratio_matches
+        if not (m.group(1).lower() == "or" and m.group(1) != "OR")
+    ]
 
     # 5. Detect Difference estimates (WMD, MD, SMD, RD, difference, mean difference)
     diff_pattern = (
@@ -619,6 +647,8 @@ def extract_numerical_results(
             text_norm[:start],
             re.IGNORECASE,
         )
+        if metric_before and metric_before.group(1).lower() == "or" and metric_before.group(1) != "OR":
+            metric_before = None
         u_metric = None
         if metric_before:
             mb = metric_before.group(1).upper()

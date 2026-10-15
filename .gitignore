@@ -26,6 +26,7 @@ eggs/
 .eggs/
 lib/
 lib64/
+!frontend/src/lib/
 parts/
 sdist/
 var/
@@ -78,3 +79,11 @@ tmp/
 data/eval_results.json
 data/evaluation_summary.json
 data/runtime_verification_results.json
+
+# Frontend & Node build artifacts
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+.npm/
+

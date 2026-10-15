@@ -48,6 +48,9 @@ This is treated as an empirical hypothesis to be tested and benchmarked, not an 
   - 30 Incomparable Conditions (different interventions or metrics)
   - 20 Insufficient Evidence (unsubstantiated claims or missing experimental details)
 
+> **Post-Implementation Audit Note (2026-10-12):** As documented in `docs/EVALUATION.md`, CAS-Con150 is a synthetic, template-derived benchmark expanded from 29 base claim templates. For primary empirical evaluation, the project relies on the 35-pair Independent Primary Literature Benchmark (`data/annotations/independent_eval_set.json`), while CAS-Con150 is evaluated under leakage-safe claim-family grouping to prevent memorization. Historical scores (93.3% or 100%) on CAS-Con150 reflect synthetic behavior and must not be cited as headline real-world performance.
+
+
 ---
 
 ## 3. Scholarly API Audit
