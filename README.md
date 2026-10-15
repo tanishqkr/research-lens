@@ -31,8 +31,22 @@ flowchart TD
     Slot --> Diff["Condition Difference & Compatibility Engine"]
     Diff --> Clf["5-Class Relation Classifier + Abstention Gate"]
     Clf --> Prov["Substring Provenance Verifier"]
-    Prov --> UI["Streamlit Verification Dashboard"]
+    Prov --> API["FastAPI ASGI Backend Server"]
+    API --> UI["React / Next.js 15 Research Workbench"]
 ```
+
+---
+
+## Research Workbench (React & Next.js)
+
+The application features a production-grade research workbench built with **Next.js 15 (App Router)**, **React 19**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**, engineered for empirical literature analysis:
+
+- **Executive Research Deck**: Bottom-line scientific synthesis, subclaim decomposition matrix, and explicit confidence boundaries.
+- **Evidence Ledger**: Verbatim source quotations with exact character offsets, study design indicators (RCT, Observational, Meta-Analysis), and multi-arm numerical attribution (sample sizes, point estimates, 95% CIs, p-values).
+- **Study Comparison View**: Pairwise compatibility evaluations, condition difference summaries, and calibrated relationship classifications (`SUPPORTS`, `CONTRADICTS`, `QUALIFIES`, `INCOMPARABLE`, `INSUFFICIENT_EVIDENCE`).
+- **Retrieval Diagnostics & Funnel**: Real-time provider status (OpenAlex, arXiv, Groq), literature screening metrics, and paper triage audit records.
+- **CAS-Con150 Benchmark Explorer**: Live inspection and classification of the 150 benchmark finding pairs.
+- **Design System**: Warm Charcoal + Muted Olive/Sage aesthetic, dark/light theme persistence, centralized CSS design tokens, responsive wide layout (`max-w-[1440px]`), and Framer Motion micro-interactions.
 
 ---
 
@@ -119,7 +133,8 @@ npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000) to access the research workbench.
 
-### 2. Launch the Streamlit Verification Dashboard (Alternative)
+### 2. Streamlit Prototype (Alternative / Legacy)
+For quick headless testing or reference, the earlier Streamlit prototype is also available:
 ```bash
 uv run streamlit run src/scientific_contradiction_finder/ui/app.py
 ```
